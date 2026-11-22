@@ -43,6 +43,10 @@ changes and changed publish-time rebases. An unchanged publication recovery
 reuses its local review evidence. Local review does not replace remote feedback
 inspection, and remote review does not replace local review.
 
+Ergonomics cases cover fixing in-scope findings before final preparation,
+recording deferred findings in maintained OpenSpec on the Forgejo path, and
+continuing after a review with no actionable findings.
+
 Remote review cases keep inspection and mutations behind `al delivery review`.
 Initial-publication and review-correction cases reject Codex review requests,
 Codex mentions used to initiate reviews, and changes to Codex review settings.

@@ -976,3 +976,35 @@
         Requires a simplification review before delivery, checks whether the
         existing command can replace the wrapper and setting, preserves the
         supported compatibility path, and records the review outcome.
+
+- description: Resolves ergonomics findings before final delivery preparation
+  vars:
+    request: >-
+      Deliver a substantial change on Forgejo. The ergonomics review found a
+      misleading example in a runbook this task edits and a missing diagnostic
+      owned by another component. Both findings are currently in ignored
+      scratch. Explain the remaining delivery work.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Corrects the runbook within the candidate before final preparation.
+        Records the deferred diagnostic in maintained OpenSpec with sanitized
+        evidence, the owner, a next action, and a verification criterion.
+        Preserves scope and the regular final-candidate PR review. Does not
+        leave the actionable findings only in scratch or block publication
+        solely on the deferred improvement.
+
+- description: Proceeds when an ergonomics review finds nothing actionable
+  vars:
+    request: >-
+      The ergonomics review for a substantial delivery found no actionable
+      friction. Do I need a new OpenSpec artifact or another review before
+      preparing the commit?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Proceeds to final preparation without a separate ergonomics artifact
+        or duplicate ergonomics review for the same evidence. Preserves the
+        existing regular review of the prepared candidate before publication.

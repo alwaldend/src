@@ -59,6 +59,9 @@ before relying on other operations; help inspection is not live API acceptance.
 
 ## Preserve Git and PR ownership
 
+Before preparing the commit, follow the shared
+[ergonomics review step](../SKILL.md#act-on-ergonomics-findings-before-preparation).
+
 The Forgejo fallback requires a completely clean worktree and index before
 `$al-rebase`; it does not preserve dirty files or autostash them.
 Preserve unrelated work by stopping until its owner moves or commits it. Stage
