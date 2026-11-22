@@ -21,3 +21,7 @@ The bundled node passed a local fixture covering relevance and popularity
 ordering, raw and spaced output, deprecation filtering, and the legacy
 three-input invocation. A search over the pinned vocabulary returned five
 spaced results using popularity sorting. The generated App exposes both options.
+
+## 4. Build file generation
+
+- [x] 4.1 Regenerate the node's BUILD file and verify the Gazelle workspace drift check.
