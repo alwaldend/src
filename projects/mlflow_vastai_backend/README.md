@@ -21,7 +21,8 @@ bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- worker serve
 
 The CLI machine passes the parsed command to the application machine. The
 application delegates worker commands to its worker child. Both service entry
-points currently return a nonzero exit status with a stub error.
+points currently return a nonzero exit status with a stub error. The worker
+CLI also routes `submit`, `status`, and `cancel` to the RPC client stub.
 
 Export the composed machines as DOT or build the themed SVG on Linux.
 

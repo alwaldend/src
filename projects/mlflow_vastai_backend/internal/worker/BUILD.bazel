@@ -9,6 +9,9 @@ go_library(
         "worker.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker",
-    visibility = ["//projects/mlflow_vastai_backend/cmd/mlflow-vastai:__pkg__"],
+    visibility = [
+        "//projects/mlflow_vastai_backend/cmd/mlflow-vastai:__pkg__",
+        "//projects/mlflow_vastai_backend/internal/app:__pkg__",
+    ],
     deps = ["//projects/mlflow_vastai_backend/internal/machine"],
 )

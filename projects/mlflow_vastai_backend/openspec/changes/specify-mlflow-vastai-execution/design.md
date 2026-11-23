@@ -43,7 +43,8 @@ The CLI and application invoke their children through bound trigger functions.
 Each child initializes its own invocation state. Named CLI actions read typed
 inputs from that invocation scope. State constant names use a `state` prefix
 to distinguish them from event names. Command actions return errors
-through the invoking transition. Both service entry points return stub errors.
+through the invoking transition. Both service entry points return stub errors. The CLI also routes typed
+submit, status, and cancel commands to the worker RPC client stub.
 The `state-machine graph` route emits one DOT graph of the composed machines
 with dashed call edges and named entry actions. A standalone function composes
 the configured machine definitions and their call relationships at the CLI

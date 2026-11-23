@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/machine"
+	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker"
 )
 
 // CommandKind identifies the event chosen by the CLI.
@@ -22,6 +23,8 @@ const (
 type Command struct {
 	// Kind selects the application event to fire.
 	Kind CommandKind
+	// Worker holds the typed operation for the worker child.
+	Worker worker.Command
 }
 
 const (
@@ -36,14 +39,14 @@ const (
 // App owns application dispatch and invokes its worker child.
 type App struct {
 	// definition dispatches typed application requests.
-	definition *machine.Machine[struct{}]
+	definition *machine.Machine[worker.Command]
 	// triggerWorker starts the worker child.
-	triggerWorker func(context.Context) error
+	triggerWorker func(context.Context, worker.Command) error
 }
 
 // New configures the application machine around its worker child.
-func New(triggerWorker func(context.Context) error) *App {
-	app := &App{definition: machine.New[struct{}](stateReady), triggerWorker: triggerWorker}
+func New(triggerWorker func(context.Context, worker.Command) error) *App {
+	app := &App{definition: machine.New[worker.Command](stateReady), triggerWorker: triggerWorker}
 	definition := app.definition
 	definition.Configure(stateReady).Permit(ServeJobs, stateServer).Permit(RunWorker, StateDispatchWorker)
 	definition.Configure(stateServer).OnEntry(serveJobs)
@@ -54,7 +57,7 @@ func New(triggerWorker func(context.Context) error) *App {
 // Run handles a typed request on the application machine.
 func (app *App) Run(ctx context.Context, command Command) error {
 	state := stateReady
-	if err := app.definition.Fire(ctx, &state, command.Kind, struct{}{}); err != nil {
+	if err := app.definition.Fire(ctx, &state, command.Kind, command.Worker); err != nil {
 		return fmt.Errorf("%s: %w", command.Kind, err)
 	}
 	return nil
@@ -67,7 +70,11 @@ func (app *App) Definition() machine.Definition {
 
 // runWorker invokes the worker machine with the parsed operation.
 func (app *App) runWorker(ctx context.Context, _ ...any) error {
-	if err := app.triggerWorker(ctx); err != nil {
+	command, err := app.definition.Input(ctx)
+	if err != nil {
+		return fmt.Errorf("read worker command: %w", err)
+	}
+	if err := app.triggerWorker(ctx, command); err != nil {
 		return fmt.Errorf("run worker command: %w", err)
 	}
 	return nil

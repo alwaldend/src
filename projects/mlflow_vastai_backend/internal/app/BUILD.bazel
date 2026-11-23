@@ -9,6 +9,10 @@ go_library(
         "doc.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/app",
+    target_compatible_with = ["@platforms//os:linux"],
     visibility = ["//projects/mlflow_vastai_backend/cmd/mlflow-vastai:__pkg__"],
-    deps = ["//projects/mlflow_vastai_backend/internal/machine"],
+    deps = [
+        "//projects/mlflow_vastai_backend/internal/machine",
+        "//projects/mlflow_vastai_backend/internal/worker",
+    ],
 )
