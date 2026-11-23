@@ -1,3 +1,3 @@
-// Package app holds the application entry points for the job server and
-// rental-local worker. The entry points currently return an implementation error.
+// Package app owns application dispatch and invokes the rental-local worker
+// machine for worker commands.
 package app

@@ -37,14 +37,17 @@ fields and uses the job ID as the MLflow run ID. The worker maps these fields
 to MLflow environment variables at launch. The workload logs its own metrics
 and artifacts directly to MLflow.
 
-The Go CLI starts the Stateless machine, which enters argument parsing.
-Cobra handles help and validation in that state. The `server serve` and
-`worker serve` routes queue transitions to their respective service modes.
-Each service state invokes its application entry point through the CLI's
-service interface.
-The entry points currently return an implementation error.
-The `state-machine graph` route emits DOT for the configured machine with its
-original initial state and descriptive entry action names. The project uses
+Cobra command registration passes typed inputs to the CLI machine. The selected
+route fires a transition that dispatches to the application or exports the graph.
+The CLI and application invoke their children through bound trigger functions.
+Each child initializes its own invocation state. Named CLI actions read typed
+inputs from that invocation scope. State constant names use a `state` prefix
+to distinguish them from event names. Command actions return errors
+through the invoking transition. Both service entry points return stub errors.
+The `state-machine graph` route emits one DOT graph of the composed machines
+with dashed call edges and named entry actions. A standalone function composes
+the configured machine definitions and their call relationships at the CLI
+boundary. The project uses
 the reusable `dot_export` and `dot_svg` Bazel rules to render that output with
 the pinned Graphviz build and common diagram theme.
 
