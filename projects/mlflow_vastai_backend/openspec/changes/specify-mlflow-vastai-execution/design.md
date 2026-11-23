@@ -62,7 +62,9 @@ The SSH invocation carries the request and response over stdin and stdout, with
 diagnostics on stderr. The client and service use the same protobuf messages
 for worker operations. The training command's stdout and stderr go to per-job
 files. The worker uses the run ID, tracking URI, and artifact path to fetch
-the snapshot before launch.
+the snapshot before launch. The workload state machine stages the project before exposing a run action.
+The listener commits launch authorization in SQLite, calls the run action,
+and records the observed outcome.
 
 ## State and persistence
 

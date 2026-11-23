@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "workload",
+    srcs = [
+        "artifact.go",
+        "doc.go",
+        "machine.go",
+        "process.go",
+        "workload.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker/internal/workload",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = ["//projects/mlflow_vastai_backend/internal/worker:__pkg__"],
+    deps = [
+        "//projects/mlflow_vastai_backend/api/jobpb",
+        "//projects/mlflow_vastai_backend/internal/machine",
+        "@com_github_spf13_afero//:afero",
+        "@org_golang_x_sys//unix",
+    ],
+)
