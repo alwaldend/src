@@ -68,6 +68,9 @@ and records the observed outcome.
 
 ## State and persistence
 
+The worker SQLite adapter owns the job schema, queries, serialization, and
+transactions. The job machine supplies the transitions applied within them.
+
 The adapter uses the MLflow run ID as the job ID and reuses it across
 submission retries. The server persists that ID and the selected Vast.ai
 instance ID before requesting execution. The worker uses
