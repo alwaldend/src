@@ -3,10 +3,23 @@ local g = import '../internal/graph.libsonnet';
 local n = import '../internal/nodes.libsonnet';
 
 function(models)
-  local settings = { name: 'NoobAI XL 1.1', prefix: 'NoobAI', steps: 30, cfg: 5.5, sampler: 'euler_ancestral', scheduler: 'normal', prompt: 'masterpiece, best quality, newest, highres, watercolor illustration, robot, blue body, red chest plate, reading, open book, park bench, snowy park, clear silhouettes', negative: 'worst quality, low quality, lowres, blurry, signature, username, logo, text, watermark', sequence_context: 'masterpiece, best quality, newest, highres, watercolor illustration, consistent small blue robot with a red chest plate, snowy park, one scene', reference_context: 'masterpiece, best quality, newest, highres, illustration, consistent referenced characters and visual style, one scene' };
+  // Laxhar's NoobAI XL 1.1 model card recommends Euler a, 25–30 steps and CFG 5–6.
+  local quality = 'masterpiece, best quality, newest, absurdres, highres, safe';
+  local settings = {
+    name: 'NoobAI XL 1.1',
+    prefix: 'NoobAI',
+    steps: 30,
+    cfg: 5.5,
+    sampler: 'euler_ancestral',
+    scheduler: 'normal',
+    prompt: quality + ', watercolor illustration, robot, blue body, red chest plate, reading, open book, park bench, snowy park, clear silhouettes',
+    negative: 'nsfw, worst quality, old, early, low quality, lowres, signature, username, logo, bad hands, mutated hands, mammal, anthro, furry, ambiguous form, feral, semi-anthro',
+    sequence_context: quality + ', watercolor illustration, consistent small blue robot with a red chest plate, snowy park, one scene',
+    reference_context: quality + ', illustration, consistent referenced characters and visual style, one scene',
+  };
   local workflows = (import '../internal/sdxl.libsonnet')(models, settings);
   local sequence = {
-    shared_prompt: 'masterpiece, best quality, newest, chibi, robot, blue body, yellow eyes, red chest plate, flat color, lineart, solo',
+    shared_prompt: quality + ', chibi, robot, blue body, yellow eyes, red chest plate, flat color, lineart, solo',
     actions: std.join('\n\n', [
       'medium shot, eye level, snowy park, wooden bench, fir trees, overcast, standing, arms at sides',
       'medium shot, eye level, snowy park, wooden bench, fir trees, overcast, standing, raised right hand, waving',
@@ -17,7 +30,7 @@ function(models)
       'medium shot, eye level, library, wooden desk, bookshelves, warm lighting, sitting, open red book on desk, hands on pages',
     ]),
   };
-  workflows + (import 'sketch_edit.libsonnet')(models) {
+  workflows + (import 'sketch_edit.libsonnet')(models, settings, quality) {
     'image-sequence': {
       version: 0.4,
       config: {},
@@ -43,10 +56,10 @@ function(models)
           1024,
           42,
           'fixed',
-          30,
-          5.5,
-          'euler_ancestral',
-          'normal',
+          settings.steps,
+          settings.cfg,
+          settings.sampler,
+          settings.scheduler,
           1,
           0,
           'sequence',
@@ -131,7 +144,7 @@ function(models)
         n.node(3, 'ImagegenScenePrompts', [
           '1girl, adult woman, solo, long black hair, green eyes',
           'red coat, black skirt, black tights, black boots',
-          'masterpiece, best quality, newest, highres, anime illustration, soft shading, detailed background',
+          quality + ', anime illustration, soft shading, detailed background',
           'snowy park, wooden bench, fir trees, soft daylight\nlibrary, wooden desk, bookshelves, warm lighting',
           'medium shot, standing, arms at sides\nmedium shot, standing, waving, raised right hand\nmedium shot, standing, right hand above shoulder\n---\nmedium shot, sitting at desk, closed book, hands beside book\nmedium shot, sitting at desk, hand on book\nmedium shot, sitting at desk, reading, holding open book',
         ], [0, 470], [620, 680], title='Shared descriptions, scene settings and actions'),
@@ -145,9 +158,9 @@ function(models)
           42,
           'fixed',
           25,
-          5.5,
-          'euler_ancestral',
-          'normal',
+          settings.cfg,
+          settings.sampler,
+          settings.scheduler,
           1,
           0,
           'composer',

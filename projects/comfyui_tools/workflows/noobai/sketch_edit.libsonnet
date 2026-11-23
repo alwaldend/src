@@ -2,7 +2,7 @@
 local g = import '../internal/graph.libsonnet';
 local n = import '../internal/nodes.libsonnet';
 
-function(models)
+function(models, settings, quality)
   local canvasInputs = [
     { name: 'width', type: 'INT', widget: { name: 'width' } },
     { name: 'height', type: 'INT', widget: { name: 'height' } },
@@ -22,11 +22,11 @@ function(models)
       n.node(6, 'ImageScale', ['lanczos', 1024, 1024, 'disabled'], [370, 650], [320, 180], title='Align sketch to output canvas') { inputs+: canvasInputs },
       n.node(7, 'Canny', [0.1, 0.3], [740, 650], [320, 150], title='Extract sketch edges'),
       n.node(8, 'ControlNetLoader', [models.controlnet], [740, 850], [320, 100]),
-      n.node(9, 'CLIPTextEncode', ['masterpiece, best quality, newest, illustration, robot, blue body, red chest plate, standing, raised right hand, waving, snowy park'], [740, 0], [400, 230], title='Describe the complete desired result'),
-      n.node(10, 'CLIPTextEncode', ['worst quality, low quality, lowres, blurry, extra limbs, duplicate, text, watermark'], [740, 270], [400, 180], title='Negative prompt'),
+      n.node(9, 'CLIPTextEncode', [quality + ', illustration, robot, blue body, red chest plate, standing, raised right hand, waving, snowy park'], [740, 0], [400, 230], title='Describe the complete desired result'),
+      n.node(10, 'CLIPTextEncode', [settings.negative + ', extra limbs, duplicate, text, watermark'], [740, 270], [400, 180], title='Negative prompt'),
       n.node(11, 'ControlNetApplyAdvanced', [0.7, 0.0, 0.8], [1190, 300], [320, 240], title='Sketch influence: zero disables guidance'),
       n.node(12, 'VAEEncode', [], [740, 1040], [320, 120], title='Encode source pixels'),
-      n.node(13, 'KSampler', [42, 'fixed', 30, 5.5, 'euler_ancestral', 'normal', 0.65], [1580, 0], [320, 320], title='Source change strength: denoise'),
+      n.node(13, 'KSampler', [42, 'fixed', settings.steps, settings.cfg, settings.sampler, settings.scheduler, 0.65], [1580, 0], [320, 320], title='Source change strength: denoise'),
       n.node(14, 'VAEDecode', [], [1960, 0], [320, 140]),
       n.node(15, 'SaveImage', ['NoobAI-sketch-edit'], [2340, 0], [360, 350]),
     ],

@@ -135,6 +135,23 @@ func TestCLIHTTPS(t *testing.T) {
 	if err != nil || string(image) != "neutral-fixture-image" {
 		t.Fatalf("output transfer: %v", err)
 	}
+	rendered := filepath.Join(directory, "rendered")
+	response := call(true, server.URL, "fixture-password", "render", "--workflow", workflow, "--output-dir", rendered)
+	var result struct {
+		PromptID string   `json:"prompt_id"`
+		Files    []string `json:"files"`
+	}
+	if err := json.Unmarshal([]byte(response), &result); err != nil {
+		t.Fatalf("decode render result: %v\n%s", err, response)
+	}
+	if result.PromptID != "fixture-job" || len(result.Files) != 1 || filepath.Dir(result.Files[0]) != rendered {
+		t.Fatalf("render result did not identify the downloaded file: %+v", result)
+	}
+	image, err = os.ReadFile(result.Files[0])
+	if err != nil || string(image) != "neutral-fixture-image" {
+		t.Fatalf("rendered file transfer: %v", err)
+	}
+	call(false, server.URL, "fixture-password", "render", "--workflow", workflow)
 	mu.Lock()
 	defer mu.Unlock()
 	for _, request := range []string{"GET /system_stats", "POST /prompt", "GET /history/fixture-job", "GET /view"} {

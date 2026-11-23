@@ -3,6 +3,18 @@ title: Danbooru tag search
 description: Local prompt-tag lookup in ComfyUI
 ---
 
+Search from a terminal with the bundled index and no ComfyUI server.
+
+```sh
+bazel run //tools/comfyui:tags -- 'blue hair' --limit 10
+```
+
+The CLI prints comma-separated tags with prompt spaces. Use `--raw-tags` for
+CSV spelling, `--sort popularity` for post-count ordering, or
+`--include-deprecated` to include retired tags.
+
+## ComfyUI App and graph
+
 Build the optional installation bundle and the workflow catalog.
 
 ```sh

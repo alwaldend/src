@@ -141,9 +141,12 @@ func childEnvironment(address string) []string {
 
 // run owns verified transport, the local listener and its foreground CLI child.
 func run(ctx context.Context, binary, endpoint, caFile string, args []string) (resultErr error) {
+	if endpoint == "" {
+		return errors.New("no rental endpoint; set COMFY_HTTPS_URL or refresh the managed rental outputs")
+	}
 	target, err := url.Parse(endpoint)
 	if err != nil || target.Scheme != "https" || target.Host == "" || target.User != nil || target.RawQuery != "" || target.Fragment != "" || (target.Path != "" && target.Path != "/") {
-		return errors.New("no valid root HTTPS rental endpoint; rent and refresh outputs first")
+		return errors.New("expected a root HTTPS rental URL without credentials, a path, a query, or a fragment")
 	}
 	username, password := os.Getenv("IMAGEGEN_WEB_USERNAME"), os.Getenv("IMAGEGEN_WEB_PASSWORD")
 	if username == "" || password == "" || strings.Contains(username, ":") {
@@ -208,7 +211,6 @@ func run(ctx context.Context, binary, endpoint, caFile string, args []string) (r
 	if err != nil {
 		return fmt.Errorf("resolve packaged CLI: %w", err)
 	}
-	child := exec.CommandContext(ctx, cli, args...)
 	workspace := os.Getenv("BUILD_WORKSPACE_DIRECTORY")
 	if workspace == "" {
 		workspace, err = os.Getwd()
@@ -232,7 +234,17 @@ func run(ctx context.Context, binary, endpoint, caFile string, args []string) (r
 			resultErr = errors.Join(resultErr, fmt.Errorf("remove private CLI profile: %w", err))
 		}
 	}()
-	child.Env = append(childEnvironment(address), "COMFY_REPOSITORY_PROFILE="+profile)
+	env := append(childEnvironment(address), "COMFY_REPOSITORY_PROFILE="+profile)
+	if len(args) > 0 && args[0] == "render" {
+		render := renderCommand(cli, profile, env)
+		render.SetArgs(args[1:])
+		if err := render.ExecuteContext(ctx); err != nil {
+			return fmt.Errorf("render workflow: %w", err)
+		}
+		return nil
+	}
+	child := exec.CommandContext(ctx, cli, args...)
+	child.Env = env
 	child.Stdin, child.Stdout, child.Stderr = os.Stdin, os.Stdout, os.Stderr
 	if err := child.Run(); err != nil {
 		return fmt.Errorf("run packaged ComfyUI CLI: %w", err)

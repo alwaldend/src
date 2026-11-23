@@ -43,3 +43,23 @@ authentication, hostname/trust rejection, response redirect handling, workflow
 submission/history/output transfer, child credential removal and cleanup. Check
 that missing login, absent rental URL, cloud/alternate-host flags and browser
 Origin requests fail without disclosing credentials. Preserve a sanitized result artifact.
+
+## Manual rental verification
+
+The sandboxed invocation failed at the configured host Bazel output base.
+The same target with host access reached the CLI. An explicit rental URL
+reached the authenticated ComfyUI API without a Terraform output lookup.
+The target still initialized its configured Vault and backend plugins.
+
+Live NoobAI acceptance produced one text-to-image result, three prompt-sequence
+panels, and one image-to-image result that reused the first image as a reference.
+All five PNGs decoded at 1024 × 1024. The workflow sources kept their original
+checksums. The gallery opened from a local file URL with five relative image
+paths. A separate job status returned a bridge URL. The render result returned
+the prompt ID and local file paths. The prompt sequence followed the requested
+actions with visible character-design drift. The reference edit preserved its
+composition and only weakly reflected the requested change in lighting.
+
+The render command uses the packaged CLI for upload, slot editing, execution,
+and download. Keeping those steps in one invocation removes repeated Bazel and
+Vault startup for a render and keeps the bridge available through download.

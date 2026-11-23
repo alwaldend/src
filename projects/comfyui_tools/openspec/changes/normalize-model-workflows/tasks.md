@@ -78,3 +78,8 @@
 - [x] 14.1 Compose native USO subject, style and combined-reference graphs plus their prompt-sequence variants from the published workflow contracts.
 - [x] 14.2 Compose UMO-UNO single/multiple-identity reference graphs and corresponding sequences, preserving reference order and native guidance.
 - [x] 14.3 Verify generated links, model roles, full catalog packaging and unchanged existing workflow outputs offline; document that GPU and reference-quality acceptance is unperformed.
+
+## NoobAI XL 1.1 defaults
+
+- [x] Use the publisher's prompt prefix and negative defaults across the NoobAI workflows.
+- [x] Keep native NoobAI sampling within the published range and retain the style-reference sampler.

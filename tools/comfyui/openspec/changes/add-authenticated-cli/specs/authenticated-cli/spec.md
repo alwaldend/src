@@ -31,3 +31,16 @@ listener when the CLI exits and propagate command failure.
 
 - **WHEN** authentication or certificate verification cannot be established
 - **THEN** execution SHALL fail without disabling verification or printing credentials
+
+### Requirement: Render and retrieve in one invocation
+
+The authenticated CLI SHALL provide a command that runs a supplied workflow and
+downloads its generated files through the same bridge. For native workflow
+JSON it SHALL accept input overrides and local image references without
+modifying the supplied workflow.
+
+#### Scenario: Render a workflow with a reference image
+
+- **WHEN** the user supplies a native workflow, an image slot and a local image
+- **THEN** the command SHALL upload the image, set the slot for this run, wait
+  for the job, and report the prompt ID and downloaded local file paths

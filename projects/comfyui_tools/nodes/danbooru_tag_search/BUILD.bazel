@@ -1,6 +1,6 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
@@ -9,6 +9,19 @@ py_library(
     name = "danbooru_tag_search",
     srcs = ["__init__.py"],
     visibility = ["//:__subpackages__"],
+)
+
+py_binary(
+    name = "search",
+    srcs = ["cli.py"],
+    args = ["$(rlocationpath //third_party/co_huggingface_deepghs_site_tags:danbooru_tags)"],
+    data = ["//third_party/co_huggingface_deepghs_site_tags:danbooru_tags"],
+    main = "cli.py",
+    visibility = ["//tools/comfyui:__pkg__"],
+    deps = [
+        ":danbooru_tag_search",
+        "@rules_python//python/runfiles",
+    ],
 )
 
 pkg_files(

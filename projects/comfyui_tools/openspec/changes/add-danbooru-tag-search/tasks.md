@@ -25,3 +25,8 @@ spaced results using popularity sorting. The generated App exposes both options.
 ## 4. Build file generation
 
 - [x] 4.1 Regenerate the node's BUILD file and verify the Gazelle workspace drift check.
+
+## 5. Terminal access
+
+- [x] 5.1 Expose the pinned vocabulary and shared ranking as a local CLI.
+- [x] 5.2 Verify prompt spacing, raw output and limits through the packaged CLI.
