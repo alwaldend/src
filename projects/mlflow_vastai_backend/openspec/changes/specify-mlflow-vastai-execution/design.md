@@ -37,18 +37,17 @@ fields and uses the job ID as the MLflow run ID. The worker maps these fields
 to MLflow environment variables at launch. The workload logs its own metrics
 and artifacts directly to MLflow.
 
-Cobra command registration passes typed inputs to the CLI machine. The selected
-route fires a transition that dispatches to the application or exports the graph.
-The CLI and application invoke their children through bound trigger functions.
-Each child initializes its own invocation state. Named CLI actions read typed
-inputs from that invocation scope. State constant names use a `state` prefix
-to distinguish them from event names. Command actions return errors
+Cobra selects a named application method or graph export. The CLI and
+application call their children through component methods. Each component
+owns its machine and keeps its triggers private.
+Each invocation binds its state and typed input to the context. The CLI uses
+one action to run the method selected by Cobra.
+Command actions return errors
 through the invoking transition. Both service entry points return stub errors. The CLI also routes typed
 submit, status, and cancel commands to the worker RPC client stub.
-The `state-machine graph` route emits one DOT graph of the composed machines
-with dashed call edges and named entry actions. A standalone function composes
-the configured machine definitions and their call relationships at the CLI
-boundary. The project uses
+Each component exports its own graph and links to its children. The
+`state-machine graph` route composes those sections into one DOT graph
+with dashed call edges and named entry actions. The project uses
 the reusable `dot_export` and `dot_svg` Bazel rules to render that output with
 the pinned Graphviz build and common diagram theme.
 

@@ -3,7 +3,7 @@
 - [x] 1.1 Define the protobuf services and verify the Python client and Go clients can use the generated contracts.
 - [ ] 1.2 Implement server and worker Stateless machines with SQLite persistence. Verify transition recovery and concurrent requests.
 - [ ] 1.3 Add read-only rental discovery and the SSH worker client. Verify worker selection and confirm that ambiguous submission retries do not start a second workload.
-- [x] 1.4 Compose typed CLI, application, and worker machines with stub service entry points.
+- [x] 1.4 Compose CLI, application, and worker components with private machines, named methods, and stub service entry points.
 - [x] 1.5 Export the composed machines as DOT through `state-machine graph` and render a themed SVG with legible machine titles.
 - [x] 1.6 Embed the generated CLI graph in a dedicated state machines documentation page and verify the built page and asset.
 

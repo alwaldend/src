@@ -9,31 +9,16 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/machine"
 )
 
-// Operation identifies a worker command.
-type Operation string
-
 const (
-	// Serve starts the listener.
-	Serve Operation = "serve"
-	// Submit forwards a SubmitJobRequest.
-	Submit Operation = "submit"
-	// Status forwards a JobReference to query a job.
-	Status Operation = "status"
-	// Cancel forwards a JobReference to cancel a job.
-	Cancel Operation = "cancel"
+	// serveEvent starts the listener.
+	serveEvent machine.Event = "serve"
+	// submitEvent forwards a SubmitJobRequest.
+	submitEvent machine.Event = "submit"
+	// statusEvent forwards a JobReference to query a job.
+	statusEvent machine.Event = "status"
+	// cancelEvent forwards a JobReference to cancel a job.
+	cancelEvent machine.Event = "cancel"
 )
-
-// Command supplies the inputs to a worker invocation.
-type Command struct {
-	// Operation selects the command to run.
-	Operation Operation
-	// Directory overrides the worker's state directory.
-	Directory string
-	// Input supplies worker RPC request bytes.
-	Input io.Reader
-	// Output receives the worker RPC response.
-	Output io.Writer
-}
 
 const (
 	// stateReady is the initial state of a worker invocation.
@@ -44,37 +29,87 @@ const (
 	stateForwardRPC machine.State = "forward-rpc"
 )
 
-// Worker owns the machine for rental-local worker commands.
+// workerRun holds the inputs and state of a worker invocation.
+type workerRun struct {
+	// state is the worker command's current state.
+	state machine.State
+	// operation selects the worker transition.
+	operation machine.Event
+	// directory contains the worker's socket and job records.
+	directory string
+	// input supplies worker RPC request bytes.
+	input io.Reader
+	// output receives the worker RPC response.
+	output io.Writer
+}
+
+// Worker owns rental-local worker operations.
 type Worker struct {
 	// definition dispatches worker commands.
-	definition *machine.Machine[struct{}]
+	definition *machine.Machine[*workerRun]
 }
 
-// New configures the worker machine.
+// New configures the worker state machine.
 func New() *Worker {
-	definition := machine.New[struct{}](stateReady)
+	definition := machine.New[*workerRun](stateReady)
+	worker := &Worker{definition: definition}
 	definition.Configure(stateReady).
-		Permit(machine.Event(Serve), stateServing).
-		Permit(machine.Event(Submit), stateForwardRPC).
-		Permit(machine.Event(Status), stateForwardRPC).
-		Permit(machine.Event(Cancel), stateForwardRPC)
+		Permit(serveEvent, stateServing).
+		Permit(submitEvent, stateForwardRPC).
+		Permit(statusEvent, stateForwardRPC).
+		Permit(cancelEvent, stateForwardRPC)
 	definition.Configure(stateServing).OnEntry(serveWorker)
 	definition.Configure(stateForwardRPC).OnEntry(forwardRPC)
-	return &Worker{definition: definition}
+	return worker
 }
 
-// Run invokes the worker service through its machine.
-func (worker *Worker) Run(ctx context.Context, command Command) error {
-	state := stateReady
-	if err := worker.definition.Fire(ctx, &state, machine.Event(command.Operation), struct{}{}); err != nil {
-		return fmt.Errorf("worker %s: %w", command.Operation, err)
+// Serve starts the rental-local listener.
+func (worker *Worker) Serve(ctx context.Context, directory string) error {
+	if err := worker.run(ctx, workerRun{operation: serveEvent, directory: directory}); err != nil {
+		return fmt.Errorf("serve worker: %w", err)
 	}
 	return nil
 }
 
-// Definition exposes the configured worker states for inspection.
-func (worker *Worker) Definition() machine.Definition {
-	return worker.definition
+// Submit forwards a protobuf job submission to the listener.
+func (worker *Worker) Submit(ctx context.Context, directory string, input io.Reader, output io.Writer) error {
+	if err := worker.run(ctx, workerRun{operation: submitEvent, directory: directory, input: input, output: output}); err != nil {
+		return fmt.Errorf("submit to worker: %w", err)
+	}
+	return nil
+}
+
+// Status queries the listener for the persisted state of a job.
+func (worker *Worker) Status(ctx context.Context, directory string, input io.Reader, output io.Writer) error {
+	if err := worker.run(ctx, workerRun{operation: statusEvent, directory: directory, input: input, output: output}); err != nil {
+		return fmt.Errorf("query worker status: %w", err)
+	}
+	return nil
+}
+
+// Cancel forwards a job cancellation to the listener.
+func (worker *Worker) Cancel(ctx context.Context, directory string, input io.Reader, output io.Writer) error {
+	if err := worker.run(ctx, workerRun{operation: cancelEvent, directory: directory, input: input, output: output}); err != nil {
+		return fmt.Errorf("cancel worker job: %w", err)
+	}
+	return nil
+}
+
+// Graph describes the worker command states.
+func (worker *Worker) Graph() machine.GraphSection {
+	return machine.GraphSection{
+		ID: "worker", Title: "Worker", DOT: worker.definition.ToGraph(),
+	}
+}
+
+// run fires the selected worker transition.
+func (worker *Worker) run(ctx context.Context, current workerRun) error {
+	current.state = stateReady
+	ctx = worker.definition.WithInvocation(ctx, &current.state, &current)
+	if err := worker.definition.FireCtx(ctx, current.operation); err != nil {
+		return fmt.Errorf("run worker event %s: %w", current.operation, err)
+	}
+	return nil
 }
 
 // serveWorker reports the worker service's current implementation status.

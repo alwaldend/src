@@ -5,18 +5,12 @@ import (
 	"fmt"
 	"io"
 
-	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/app"
-	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker"
+	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/machine"
 	"github.com/spf13/cobra"
 )
 
 // executeCommand registers the Cobra routes and invokes the selected handler.
-func executeCommand(
-	ctx context.Context,
-	arguments []string,
-	runService func(context.Context, app.Command) error,
-	exportGraph func(context.Context, io.Writer) error,
-) error {
+func executeCommand(ctx context.Context, arguments []string, cli *cli) error {
 	root := &cobra.Command{
 		Use:           "mlflow-vastai",
 		Short:         "Run MLflow Vast.ai services",
@@ -26,13 +20,11 @@ func executeCommand(
 			DisableDefaultCmd: true,
 		},
 	}
-	serve := func(kind app.CommandKind) func(*cobra.Command, []string) error {
-		return func(command *cobra.Command, _ []string) error {
-			if err := runService(command.Context(), app.Command{Kind: kind}); err != nil {
-				return fmt.Errorf("dispatch %s: %w", command.CommandPath(), err)
-			}
-			return nil
+	route := func(command *cobra.Command, event machine.Event, operation func(context.Context) error) error {
+		if err := cli.selectRoute(command.Context(), event, operation); err != nil {
+			return fmt.Errorf("%s: %w", command.CommandPath(), err)
 		}
+		return nil
 	}
 
 	server := &cobra.Command{Use: "server", Short: "Manage the job server"}
@@ -40,36 +32,46 @@ func executeCommand(
 		Use:   "serve",
 		Short: "Run the job server",
 		Args:  cobra.NoArgs,
-		RunE:  serve(app.ServeJobs),
+		RunE: func(command *cobra.Command, _ []string) error {
+			return route(command, dispatch, cli.application.ServeJobs)
+		},
 	})
 
 	workerCommand := &cobra.Command{Use: "worker", Short: "Run or contact the rental-local worker"}
 	var directory string
 	workerCommand.PersistentFlags().StringVar(&directory, "state-dir", "", "Directory containing the worker socket and state")
-	workerRoute := func(operation worker.Operation, description string) *cobra.Command {
+	workerRoute := func(name, description string, operation func(context.Context, string, io.Reader, io.Writer) error) *cobra.Command {
 		return &cobra.Command{
-			Use:   string(operation),
+			Use:   name,
 			Short: description,
 			Args:  cobra.NoArgs,
 			RunE: func(command *cobra.Command, _ []string) error {
-				request := app.Command{Kind: app.RunWorker, Worker: worker.Command{
-					Operation: operation,
-					Directory: directory,
-					Input:     command.InOrStdin(),
-					Output:    command.OutOrStdout(),
-				}}
-				if err := runService(command.Context(), request); err != nil {
-					return fmt.Errorf("dispatch %s: %w", command.CommandPath(), err)
-				}
-				return nil
+				return route(command, dispatch, func(ctx context.Context) error {
+					if err := operation(ctx, directory, command.InOrStdin(), command.OutOrStdout()); err != nil {
+						return fmt.Errorf("run worker %s: %w", name, err)
+					}
+					return nil
+				})
 			},
 		}
 	}
 	workerCommand.AddCommand(
-		workerRoute(worker.Serve, "Run the rental-local worker"),
-		workerRoute(worker.Submit, "Submit a protobuf job request from stdin"),
-		workerRoute(worker.Status, "Request the durable status of a job"),
-		workerRoute(worker.Cancel, "Request cancellation of a job"),
+		&cobra.Command{
+			Use:   "serve",
+			Short: "Run the rental-local worker",
+			Args:  cobra.NoArgs,
+			RunE: func(command *cobra.Command, _ []string) error {
+				return route(command, dispatch, func(ctx context.Context) error {
+					if err := cli.application.ServeWorker(ctx, directory); err != nil {
+						return fmt.Errorf("serve worker: %w", err)
+					}
+					return nil
+				})
+			},
+		},
+		workerRoute("submit", "Submit a protobuf job request from stdin", cli.application.Submit),
+		workerRoute("status", "Request the durable status of a job", cli.application.Status),
+		workerRoute("cancel", "Request cancellation of a job", cli.application.Cancel),
 	)
 
 	graph := &cobra.Command{Use: "state-machine", Short: "Inspect the application state machines"}
@@ -78,10 +80,12 @@ func executeCommand(
 		Short: "Print the composed application graph as DOT",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			if err := exportGraph(command.Context(), command.OutOrStdout()); err != nil {
-				return fmt.Errorf("export state machine graph: %w", err)
-			}
-			return nil
+			return route(command, showGraph, func(_ context.Context) error {
+				if err := cli.writeGraph(command.OutOrStdout()); err != nil {
+					return fmt.Errorf("export state machine graph: %w", err)
+				}
+				return nil
+			})
 		},
 	})
 
