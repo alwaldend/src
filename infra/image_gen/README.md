@@ -170,23 +170,100 @@ apply. Personal rental creation and release remain manual reviewed operations.
 The separate evals composition automates only its labeled evaluation rentals. An instance being used by the
 operator is outside this disposable-test rule.
 
-The authenticated target obtains the current HTTPS URL from the owning
-Terraform output target and retrieves the login through the component AppRole:
+Use the authenticated target for manual work on an existing rental. By
+default it reads the HTTPS URL from the owning Terraform output target and
+retrieves the web login through the component Vault AppRole.
+
+### First NoobAI render
+
+From the repository root, build the packaged workflows and render the
+included sample. If the rental URL has yet to be recorded in Terraform, set
+`COMFY_HTTPS_URL` to the rental's root HTTPS URL before running `render`.
 
 ```sh
-bazel run //infra/image_gen:comfy -- --json system-stats
-bazel run //infra/image_gen:comfy -- run --workflow /absolute/path/workflow.json --wait
-bazel run //infra/image_gen:comfy -- --json jobs status PROMPT_ID
-bazel run //infra/image_gen:comfy -- download PROMPT_ID -o /absolute/path/outputs
+bazel build //projects/comfyui_tools/workflows:workflows
+workflows="$PWD/bazel-bin/projects/comfyui_tools/workflows/noobai"
+output="$PWD/out/comfyui/images"
+mkdir -p "$output"
+bazel run //infra/image_gen:comfy -- render \
+  --workflow "$workflows/noobai-text-to-image.json" \
+  --output-dir "$output" > "$output/text-to-image.json"
 ```
 
-Use `upload /absolute/path/reference.png` to stage a reference first. The CLI
-accepts API and native UI workflow JSON. Authenticated commands use temporary profiles under ignored `out/comfyui/cli`
-and query server history for later status/download commands. Prompts, uploads
-and outputs stay out of Git. The bridge verifies the pinned official Vast root certificate and the
-endpoint hostname, then adds the Vault login. It closes when the CLI exits and
-does not expose management services. A missing rental URL fails clearly.
-Use `//tools/comfyui:cli` for upstream help or unauthenticated/local use.
+The render downloads the image into `$output` and records the prompt ID and
+file paths in `text-to-image.json`. Native NoobAI workflows default to Euler
+ancestral, CFG 5.5, and 25–30 steps. Text-to-image starts at 1024 × 1024.
+Scene Composer starts at 832 × 1216. Sketch edit follows the source image
+dimensions. Other model-card sizes (width × height) are 768 × 1344,
+896 × 1152, 1152 × 896, 1216 × 832, and 1344 × 768. To render the
+packaged text-to-image workflow in portrait, append
+`--slot 4.width=832 --slot 4.height=1216` to its render command.
+The default prompts use the model card's quality prefix and negative tags.
+[NoobAI XL 1.1 model card](https://huggingface.co/Laxhar/noobai-XL-1.1/blob/814a274af2b8097c0828819d561ec74c7d0c6cea/README.md#recommended-settings)
+
+### Render with a reference
+
+Reuse the first render as a reference. Leave the default prompt in place or
+change it with `--slot '2.text=YOUR PROMPT'`.
+
+```sh
+reference=$(jq -er '.files[0]' "$output/text-to-image.json") &&
+  bazel run //infra/image_gen:comfy -- render \
+    --workflow "$workflows/noobai-image-to-image.json" \
+    --image "8.image=$reference" \
+    --output-dir "$output"
+```
+
+For an exported
+native workflow, supply repeatable `--slot 'NODE_ID.input=value'` options for
+prompt or sampler inputs, or `--image 'NODE_ID.image=/absolute/path.png'` to
+upload a reference and select it in the same command. For example, the
+packaged `noobai-image-to-image` workflow uses `2.text` for its positive
+prompt and `8.image` for its reference. In the packaged
+`noobai-prompt-sequence` workflow, `8.prompts` takes one panel per line.
+Use `workflow slots /absolute/path/workflow.json` to find addresses in other
+native workflows. Text-to-image and prompt-only sequences can omit
+`--image`. The source workflow stays intact.
+
+Search tags locally before composing a prompt. This command uses the pinned
+Danbooru vocabulary and works independently of the rental.
+
+```sh
+bazel run //tools/comfyui:tags -- 'blue hair' --limit 10
+```
+
+### Troubleshooting
+
+If you already have the managed rental's HTTPS URL, set `COMFY_HTTPS_URL`
+in the environment for the authenticated target. Supply the root URL, such as
+`https://192.0.2.10:36378`, with no credentials, path, query, or fragment.
+The override skips the Terraform output lookup. The Bazel target still
+initializes its Vault and Terraform backend plugins, needs the Vault web
+login, and verifies TLS with the pinned Vast CA and endpoint hostname.
+
+Run these commands with write access to the host's configured Bazel output
+base. In a managed sandbox that mounts it read-only, Bazel can fail with
+`Output base directory ... must be readable and writable`. Use the host
+Bazel environment with approved access to that output base. See the
+[al-bazel troubleshooting guidance](../../projects/al/skills/al-bazel/SKILL.md#diagnose-failures).
+
+Use `bazel run //infra/image_gen:comfy -- --json system-stats` to check the
+connection. For a job submitted separately with `run --workflow /absolute/path/workflow.json`,
+use `jobs status PROMPT_ID` when you need progress and
+`download PROMPT_ID -o /absolute/path/outputs` to retrieve its files. URLs in
+job status point at the temporary loopback bridge and expire when that
+invocation exits. Use `//tools/comfyui:cli` for upstream help or
+unauthenticated local use.
+
+### Manual galleries
+
+Download the images into a task directory under ignored `out/`. Put
+`gallery.html` in that directory and reference each downloaded image with a
+path relative to the HTML file, such as `images/sample.png`. Open the gallery
+as a local file. When handing off a gallery requested as a file, link its
+absolute path and keep the HTML and images together. Reserve `html_render`
+for in-conversation previews. The file uses downloaded images and opens
+independently of the bridge or rental.
 
 Reusable nodes and workflow files belong to
 [ComfyUI tools](../../projects/comfyui_tools/README.md). For several panels, open

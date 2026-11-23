@@ -36,6 +36,31 @@ def _matches(
         )
 
 
+def search_tags(
+    vocabulary: pathlib.Path,
+    query: str,
+    limit: int,
+    include_deprecated: bool = False,
+    prompt_spaces: bool = False,
+    sort_by: typing.Literal["relevance", "popularity"] = "relevance",
+) -> list[str]:
+    """Return ranked tags from a local vocabulary for the node and CLI."""
+    if not 1 <= limit <= 100:
+        raise ValueError("Limit must be between 1 and 100.")
+    normalized: str = "_".join(query.casefold().split())
+    if not normalized:
+        return []
+    with vocabulary.open(encoding="utf-8", newline="") as source:
+        matches: list[tuple[bool, bool, int, str]] = heapq.nsmallest(
+            limit,
+            _matches(source, normalized, include_deprecated, sort_by),
+        )
+    return [
+        name.replace("_", " ") if prompt_spaces else name
+        for _, _, _, name in matches
+    ]
+
+
 class _DanbooruTagSearch:
     """Return the highest-ranked matches as comma-separated prompt tags."""
 
@@ -86,31 +111,24 @@ class _DanbooruTagSearch:
         sort_by: typing.Literal["relevance", "popularity"] = "relevance",
     ) -> tuple[str]:
         """Scan the pinned CSV with memory bounded by the result limit."""
-        if not 1 <= limit <= 100:
-            raise ValueError("Limit must be between 1 and 100.")
-        normalized: str = "_".join(query.casefold().split())
-        if not normalized:
-            return ("Enter a tag or part of a tag.",)
-
         vocabulary: pathlib.Path = pathlib.Path(__file__).with_name("tags.csv")
         try:
-            with vocabulary.open(encoding="utf-8", newline="") as source:
-                matches: list[tuple[bool, bool, int, str]] = heapq.nsmallest(
-                    limit,
-                    _matches(source, normalized, include_deprecated, sort_by),
-                )
+            matches: list[str] = search_tags(
+                vocabulary,
+                query,
+                limit,
+                include_deprecated,
+                prompt_spaces,
+                sort_by,
+            )
         except FileNotFoundError as error:
             raise RuntimeError(
                 "Install the Danbooru tag search bundle so tags.csv is next "
                 "to the search node."
             ) from error
-        return (
-            ", ".join(
-                name.replace("_", " ") if prompt_spaces else name
-                for _, _, _, name in matches
-            )
-            or "No matching tags.",
-        )
+        if not query.strip():
+            return ("Enter a tag or part of a tag.",)
+        return (", ".join(matches) or "No matching tags.",)
 
 
 NODE_CLASS_MAPPINGS: dict[str, type[_DanbooruTagSearch]] = {
@@ -126,5 +144,6 @@ NODE_DISPLAY_NAME_MAPPINGS: dict[str, str] = {
 __all__: tuple[str, ...] = (
     "NODE_CLASS_MAPPINGS",
     "NODE_DISPLAY_NAME_MAPPINGS",
+    "search_tags",
 )
 """Expose the ComfyUI extension registration."""

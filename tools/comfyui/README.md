@@ -33,6 +33,12 @@ use prompt IDs for status/download instead of cached state-file paths. Same-user
 operator account's credential boundary. The authenticated bridge requires Linux
 procfs; the raw packaged CLI retains upstream platform support.
 
+Use the authenticated target's `render` command to supply workflow inputs,
+upload optional reference images, and download the generated files in one
+invocation. See the [rental command guide](../../infra/image_gen/README.md#command-line-access).
+The [local tag search](../../projects/comfyui_tools/nodes/danbooru_tag_search/README.md)
+is available as `//tools/comfyui:tags`.
+
 `bazel test //tools/comfyui/cmd/remote:remote_test` exercises the real packaged CLI
 against an isolated HTTPS API, including a workflow/WebSocket run, job status,
 download, credential rejection and TLS hostname rejection. Its sanitized result

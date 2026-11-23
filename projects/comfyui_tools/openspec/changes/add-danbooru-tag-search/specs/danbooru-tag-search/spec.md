@@ -38,3 +38,14 @@ and present a selectable text result with at most the requested number of tags.
 
 - **WHEN** a nonempty query matches no eligible tags
 - **THEN** the result states that there are no matching tags
+
+### Requirement: Terminal tag lookup
+
+The repository SHALL expose the same pinned tag index and ranking through a
+local CLI that works without a ComfyUI server or authentication.
+
+#### Scenario: Prepare tags in a terminal
+
+- **WHEN** a user searches for a tag fragment with a result limit
+- **THEN** the CLI prints at most that many comma-separated tags in prompt form
+- **AND** it supports raw tag spelling, popularity sorting and deprecated tags

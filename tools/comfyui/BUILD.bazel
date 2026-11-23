@@ -9,6 +9,12 @@ load("//tools/rules_systemd/systemd:defs.bzl", "systemd_run")
 package(transitive_visibility = "//tools:transitive_consumers")
 
 alias(
+    name = "tags",
+    actual = "//projects/comfyui_tools/nodes/danbooru_tag_search:search",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
     name = "cli",
     actual = "//tools/comfyui/cli:comfy",
     visibility = ["//:__subpackages__"],
