@@ -35,99 +35,102 @@ type cliRun struct {
 	state machine.State
 	// arguments are the raw command-line arguments for Cobra.
 	arguments []string
-	// command holds the application request selected by Cobra.
-	command app.Command
-	// output receives the state machine graph.
-	output io.Writer
+	// operation runs the route selected by Cobra.
+	operation func(context.Context) error
 }
 
-// cliMachine owns command parsing and starts the application child.
-type cliMachine struct {
+// cli owns command parsing and starts the application child.
+type cli struct {
 	// definition holds the root CLI machine's states.
 	definition *machine.Machine[*cliRun]
-	// triggerApplication starts the application child for the selected command.
-	triggerApplication func(context.Context, app.Command) error
-	// exportGraph generates the composed DOT for the configured CLI machine.
-	exportGraph func(machine.Definition) (string, error)
+	// application runs the selected command.
+	application *app.App
 }
 
-// newMachine configures the CLI state machine around its application child.
-func newMachine(
-	triggerApplication func(context.Context, app.Command) error,
-	exportGraph func(machine.Definition) (string, error),
-) *cliMachine {
-	cli := &cliMachine{
-		definition:         machine.New[*cliRun](stateReady),
-		triggerApplication: triggerApplication,
-		exportGraph:        exportGraph,
+// newCLI configures the CLI state machine around its application child.
+func newCLI(application *app.App) *cli {
+	cli := &cli{
+		definition:  machine.New[*cliRun](stateReady),
+		application: application,
 	}
 	definition := cli.definition
 	definition.Configure(stateReady).Permit(start, stateParsing)
 	definition.Configure(stateParsing).OnEntry(cli.parseCommand).
 		Permit(dispatch, stateDispatching).Permit(showGraph, stateExporting)
-	definition.Configure(stateDispatching).OnEntry(cli.runApplication)
-	definition.Configure(stateExporting).OnEntry(cli.writeGraph)
+	definition.Configure(stateDispatching).OnEntry(cli.runOperation)
+	definition.Configure(stateExporting).OnEntry(cli.runOperation)
 	return cli
 }
 
 // run fires the entry event for a CLI invocation.
-func (cli *cliMachine) run(ctx context.Context, arguments []string) error {
+func (cli *cli) run(ctx context.Context, arguments []string) error {
 	current := &cliRun{state: stateReady, arguments: arguments}
-	if err := cli.definition.Fire(ctx, &current.state, start, current); err != nil {
+	ctx = cli.definition.WithInvocation(ctx, &current.state, current)
+	if err := cli.definition.FireCtx(ctx, start); err != nil {
 		return fmt.Errorf("run CLI: %w", err)
 	}
 	return nil
 }
 
 // parseCommand connects the selected Cobra route to the next CLI transition.
-func (cli *cliMachine) parseCommand(ctx context.Context, _ ...any) error {
+func (cli *cli) parseCommand(ctx context.Context, _ ...any) error {
 	current, err := cli.definition.Input(ctx)
 	if err != nil {
 		return fmt.Errorf("read arguments for parsing: %w", err)
 	}
-	runService := func(ctx context.Context, command app.Command) error {
-		current.command = command
-		if err := cli.definition.Advance(ctx, dispatch); err != nil {
-			return fmt.Errorf("enter dispatch state: %w", err)
-		}
-		return nil
-	}
-	exportGraph := func(ctx context.Context, output io.Writer) error {
-		current.output = output
-		if err := cli.definition.Advance(ctx, showGraph); err != nil {
-			return fmt.Errorf("enter graph export state: %w", err)
-		}
-		return nil
-	}
-	if err := executeCommand(ctx, current.arguments, runService, exportGraph); err != nil {
+	if err := executeCommand(ctx, current.arguments, cli); err != nil {
 		return fmt.Errorf("execute CLI command: %w", err)
 	}
 	return nil
 }
 
-// runApplication runs the selected application command.
-func (cli *cliMachine) runApplication(ctx context.Context, _ ...any) error {
+// selectRoute enters the state that runs the selected operation.
+func (cli *cli) selectRoute(ctx context.Context, event machine.Event, operation func(context.Context) error) error {
 	current, err := cli.definition.Input(ctx)
 	if err != nil {
-		return fmt.Errorf("read the selected application command: %w", err)
+		return fmt.Errorf("read CLI invocation for route selection: %w", err)
 	}
-	if err := cli.triggerApplication(ctx, current.command); err != nil {
-		return fmt.Errorf("run application command: %w", err)
+	current.operation = operation
+	if err := cli.definition.FireCtx(ctx, event); err != nil {
+		return fmt.Errorf("select CLI route %s: %w", event, err)
 	}
 	return nil
 }
 
-// writeGraph emits the CLI and all application children in one DOT graph.
-func (cli *cliMachine) writeGraph(ctx context.Context, _ ...any) error {
+// runOperation calls the method selected by Cobra.
+func (cli *cli) runOperation(ctx context.Context, _ ...any) error {
 	current, err := cli.definition.Input(ctx)
 	if err != nil {
-		return fmt.Errorf("read the graph output stream: %w", err)
+		return fmt.Errorf("read the selected CLI operation: %w", err)
 	}
-	graph, err := cli.exportGraph(cli.definition)
+	if err := current.operation(ctx); err != nil {
+		return fmt.Errorf("run CLI operation: %w", err)
+	}
+	return nil
+}
+
+// graph composes the CLI graph and the application's child graphs.
+func (cli *cli) graph() (string, error) {
+	section := machine.GraphSection{
+		ID: "cli", Title: "CLI", DOT: cli.definition.ToGraph(),
+		Calls: []machine.GraphCall{
+			{From: stateDispatching, Label: "runs application command", Target: cli.application.Graph()},
+		},
+	}
+	dot, err := machine.ComposeGraph(section)
+	if err != nil {
+		return "", fmt.Errorf("compose CLI graph: %w", err)
+	}
+	return dot, nil
+}
+
+// writeGraph emits the CLI and all application children in one DOT graph.
+func (cli *cli) writeGraph(output io.Writer) error {
+	graph, err := cli.graph()
 	if err != nil {
 		return fmt.Errorf("compose state machine graph: %w", err)
 	}
-	if _, err := fmt.Fprint(current.output, graph); err != nil {
+	if _, err := fmt.Fprint(output, graph); err != nil {
 		return fmt.Errorf("write state machine graph: %w", err)
 	}
 	return nil

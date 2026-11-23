@@ -22,22 +22,17 @@ type scope[T any] struct {
 	input T
 }
 
-// Definition exposes the configured state graph for inspection.
-type Definition interface {
-	Graph() string
-}
-
 // Machine binds a Stateless definition to the type of input its actions receive.
 type Machine[T any] struct {
-	// definition holds the configured states and callbacks.
-	definition *stateless.StateMachine
+	// StateMachine configures and runs transitions through the scoped state.
+	*stateless.StateMachine
 }
 
 // New creates a machine whose invocations supply typed state and action inputs.
 func New[T any](initial State) *Machine[T] {
 	machine := &Machine[T]{}
 	// A serving invocation can block while separate job transactions fire.
-	machine.definition = stateless.NewStateMachineWithExternalStorage(func(ctx context.Context) (stateless.State, error) {
+	machine.StateMachine = stateless.NewStateMachineWithExternalStorage(func(ctx context.Context) (stateless.State, error) {
 		if current, ok := ctx.Value(machine).(scope[T]); ok {
 			return *current.state, nil
 		}
@@ -58,31 +53,9 @@ func New[T any](initial State) *Machine[T] {
 	return machine
 }
 
-// Configure registers a state's transitions and callback adapters.
-func (machine *Machine[T]) Configure(state State) *stateless.StateConfiguration {
-	return machine.definition.Configure(state)
-}
-
-// Graph exports the configured definition as DOT.
-func (machine *Machine[T]) Graph() string {
-	return machine.definition.ToGraph()
-}
-
-// Fire starts a transition with the typed input of an invocation or transaction.
-func (machine *Machine[T]) Fire(ctx context.Context, state *State, event Event, input T) error {
-	ctx = context.WithValue(ctx, machine, scope[T]{state: state, input: input})
-	if err := machine.Advance(ctx, event); err != nil {
-		return fmt.Errorf("start scoped transition: %w", err)
-	}
-	return nil
-}
-
-// Advance fires a subsequent event in the current scope.
-func (machine *Machine[T]) Advance(ctx context.Context, event Event) error {
-	if err := machine.definition.FireCtx(ctx, event); err != nil {
-		return fmt.Errorf("fire %s: %w", event, err)
-	}
-	return nil
+// WithInvocation binds the state and typed input used by subsequent transitions.
+func (machine *Machine[T]) WithInvocation(ctx context.Context, state *State, input T) context.Context {
+	return context.WithValue(ctx, machine, scope[T]{state: state, input: input})
 }
 
 // Input returns the typed input of the current invocation.

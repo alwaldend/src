@@ -67,21 +67,23 @@ func New(filesystem afero.Fs) *Runner {
 	return runner
 }
 
-// Definition exposes the workload transitions for inspection.
-func (runner *Runner) Definition() machine.Definition {
-	return runner.definition
+// Graph describes the workload staging and execution transitions.
+func (runner *Runner) Graph() machine.GraphSection {
+	return machine.GraphSection{ID: "workload", Title: "Workload", DOT: runner.definition.ToGraph()}
 }
 
 // Prepare stages the workload and returns its run action after successful preparation.
 func (runner *Runner) Prepare(ctx context.Context, directory, id string, specification *jobpb.Workload) (func(context.Context) (Outcome, error), error) {
 	current := &invocation{state: stateReady, directory: directory, id: id, specification: specification}
-	if err := runner.definition.Fire(ctx, &current.state, prepareProjectCommand, current); err != nil {
+	ctx = runner.definition.WithInvocation(ctx, &current.state, current)
+	if err := runner.definition.FireCtx(ctx, prepareProjectCommand); err != nil {
 		return nil, fmt.Errorf("prepare workload %s: %w", id, err)
 	}
 	return func(ctx context.Context) (Outcome, error) {
 		current.mu.Lock()
 		defer current.mu.Unlock()
-		if err := runner.definition.Fire(ctx, &current.state, runProjectCommand, current); err != nil {
+		ctx = runner.definition.WithInvocation(ctx, &current.state, current)
+		if err := runner.definition.FireCtx(ctx, runProjectCommand); err != nil {
 			return current.outcome, fmt.Errorf("run workload %s: %w", id, err)
 		}
 		return current.outcome, nil
@@ -98,7 +100,7 @@ func (runner *Runner) stageProject(ctx context.Context, _ ...any) error {
 	if err != nil {
 		return fmt.Errorf("stage project: %w", err)
 	}
-	if err := runner.definition.Advance(ctx, preparedProjectCommand); err != nil {
+	if err := runner.definition.FireCtx(ctx, preparedProjectCommand); err != nil {
 		return fmt.Errorf("record prepared project: %w", err)
 	}
 	return nil

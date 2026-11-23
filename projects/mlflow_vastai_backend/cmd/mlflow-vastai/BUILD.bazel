@@ -9,7 +9,6 @@ go_library(
         "cli.go",
         "commands.go",
         "doc.go",
-        "graph.go",
         "main.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/cmd/mlflow-vastai",

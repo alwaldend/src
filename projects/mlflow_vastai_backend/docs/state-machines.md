@@ -8,9 +8,9 @@ description: State transitions and entry actions in the MLflow Vast.ai backend
 [![CLI, application, and worker state machines](assets/state-machine.svg)](assets/state-machine.svg)
 
 The CLI enters `cli-parsing` and uses Cobra to parse the arguments.
-`cli-dispatch` sends the typed command to the application machine.
-`app-worker` invokes the worker child. Dashed arrows show calls between
-the machines.
+`cli-dispatch` calls the selected application method. The application calls
+the worker through its named methods. Each component adds its own states and
+child calls to the graph. Dashed arrows show those calls.
 
 - `server serve` calls the job server entry point.
 - `worker serve` calls the rental-local worker entry point.
