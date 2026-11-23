@@ -42,6 +42,7 @@ def _render(
     family: str = diagram["family"]
     font_name: str = family.split(",", 1)[0]
     font_size: str = diagram["size"].removesuffix("px")
+    heading_size: float = 2 * float(font_size)
     font: str = base64.b64encode(pathlib.Path(font_path).read_bytes()).decode(
         "ascii"
     )
@@ -55,6 +56,10 @@ def _render(
             dot,
             "-Tsvg",
             f"-Gbgcolor={canvas}",
+            f"-Gcolor={ink}",
+            f"-Gfontcolor={ink}",
+            "-Gfontname=Courier Bold",
+            f"-Gfontsize={heading_size:g}",
             "-Gpad=0.2",
             f"-Ncolor={ink}",
             f"-Ecolor={ink}",
@@ -75,6 +80,7 @@ def _render(
 <style>
 @font-face {{ font-family: '{font_name}'; src: url(data:font/ttf;base64,{font}); }}
 text {{ font-family: {family}; }}
+.cluster > text {{ font-weight: bold; }}
 @media (prefers-color-scheme: dark) {{
   [fill="{canvas}"] {{ fill: {colors[dark["canvas"]]}; }}
   [fill="{ink}"] {{ fill: {colors[dark["ink"]]}; }}

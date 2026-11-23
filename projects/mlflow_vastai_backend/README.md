@@ -19,10 +19,11 @@ bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- server serve
 bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- worker serve
 ```
 
-The CLI selects the service mode through a Stateless machine. Both application
-entry points currently return a nonzero exit status with a stub error.
+The CLI machine passes the parsed command to the application machine. The
+application delegates worker commands to its worker child. Both service entry
+points currently return a nonzero exit status with a stub error.
 
-Export the command machine as DOT or build the themed SVG on Linux.
+Export the composed machines as DOT or build the themed SVG on Linux.
 
 ```sh
 bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- state-machine graph

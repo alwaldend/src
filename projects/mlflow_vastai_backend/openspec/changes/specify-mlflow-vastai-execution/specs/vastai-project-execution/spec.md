@@ -51,10 +51,10 @@ short-lived worker client. The MLflow plugin SHALL call the job server by gRPC.
 The job server SHALL invoke the worker client through SSH. The worker client
 SHALL call the worker service by gRPC over a rental-local Unix socket.
 
-The CLI SHALL dispatch `server serve` and `worker serve` through Stateless
-transitions to the corresponding application entry points.
-The CLI SHALL emit the configured command machine as DOT on stdout for
-`state-machine graph`.
+The CLI SHALL be the root Stateless machine and pass a typed command to the
+application child. The application SHALL delegate worker commands to its
+worker child. The CLI SHALL emit the composed machine definitions and their
+handoffs as one DOT graph on stdout for `state-machine graph`.
 Bazel SHALL render the exported graph as an SVG using the common theme's
 palette and embedded diagram font.
 

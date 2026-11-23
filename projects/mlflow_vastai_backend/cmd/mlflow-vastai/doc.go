@@ -1,3 +1,2 @@
-// Package main maps MLflow Vast.ai command invocations to application entry
-// points through a Stateless command machine.
+// Package main owns the CLI machine and dispatches typed application requests.
 package main

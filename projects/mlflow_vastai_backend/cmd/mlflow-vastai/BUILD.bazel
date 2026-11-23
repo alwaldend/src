@@ -6,14 +6,18 @@ package(transitive_visibility = "//projects:transitive_consumers")
 go_library(
     name = "mlflow-vastai_lib",
     srcs = [
+        "cli.go",
+        "commands.go",
         "doc.go",
+        "graph.go",
         "main.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/cmd/mlflow-vastai",
     visibility = ["//visibility:private"],
     deps = [
         "//projects/mlflow_vastai_backend/internal/app",
-        "@com_github_qmuntal_stateless//:stateless",
+        "//projects/mlflow_vastai_backend/internal/machine",
+        "//projects/mlflow_vastai_backend/internal/worker",
         "@com_github_spf13_cobra//:cobra",
     ],
 )
