@@ -21,9 +21,21 @@ provider "vault" {
 }
 provider "random" {}
 
+variable "hardware_profile" {
+  type        = string
+  description = "Rental hardware profile name from config.json. Null uses the configured default."
+  default     = null
+
+  validation {
+    condition     = var.hardware_profile == null ? true : contains(keys(local.configuration.hardware_profiles), var.hardware_profile)
+    error_message = "hardware_profile must be a hardware profile name defined in infra/image_gen/config.json."
+  }
+}
+
 locals {
   configuration = jsondecode(file("${path.module}/../config.json"))
-  hardware      = local.configuration.hardware_profiles[local.configuration.hardware_profile]
+  hardware_name = var.hardware_profile == null ? local.configuration.hardware_profile : var.hardware_profile
+  hardware      = local.configuration.hardware_profiles[local.hardware_name]
 }
 
 resource "random_password" "web" {

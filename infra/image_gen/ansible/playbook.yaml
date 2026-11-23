@@ -4,7 +4,8 @@
   vars:
     imagegen_configuration: "{{ lookup('ansible.builtin.file', 'files/configuration.json') | from_json }}"
     imagegen_runtime: "{{ lookup('ansible.builtin.file', 'files/runtime.json') | from_json }}"
-    imagegen_profile: "{{ imagegen_configuration.model_profiles[imagegen_configuration.model_profile] }}"
+    imagegen_model_profile: "{{ imagegen_configuration.model_profile }}"
+    imagegen_profile: "{{ imagegen_configuration.model_profiles[imagegen_model_profile] }}"
     imagegen_modules: "{{ imagegen_profile.first_party_nodes | map('extract', imagegen_configuration.first_party_nodes) | list }}"
     imagegen_assets_directory: "{{ playbook_dir }}/files"
     imagegen_danbooru_tag_search: "{{ imagegen_profile.danbooru_tag_search | default(false) }}"
@@ -26,7 +27,7 @@
       {{ (imagegen_modules | map(attribute='node_classes') | flatten) +
          (['ImagegenDanbooruTagSearch'] if imagegen_danbooru_tag_search else []) }}
     comfyui_tools_workflows: >-
-      {{ (imagegen_profile.workflows | map('regex_replace', '^', imagegen_assets_directory ~ '/workflows/' ~ imagegen_configuration.model_profile ~ '/') | map('regex_replace', '$', '.json') | list) +
+      {{ (imagegen_profile.workflows | map('regex_replace', '^', imagegen_assets_directory ~ '/workflows/' ~ imagegen_model_profile ~ '/') | map('regex_replace', '$', '.json') | list) +
          ([imagegen_assets_directory ~ '/workflows/danbooru/danbooru-tag-search.json',
            imagegen_assets_directory ~ '/workflows/danbooru/danbooru-tag-search.app.json'] if imagegen_danbooru_tag_search else []) }}
     comfyui_tools_python_requirements: "{{ imagegen_assets_directory ~ '/' ~ imagegen_profile.python_requirements if imagegen_profile.python_requirements is defined else '' }}"

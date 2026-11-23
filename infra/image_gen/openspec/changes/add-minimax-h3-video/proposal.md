@@ -7,6 +7,7 @@ animating keyframes on the 48 GB GPU profile.
 
 - Add public, revision-pinned H3 Base weights to the model registry.
 - Stage prepared text-to-video and first/last-frame workflows.
+- Expose invocation-time profile selectors for provisioning and installation.
 
 ## Capabilities
 

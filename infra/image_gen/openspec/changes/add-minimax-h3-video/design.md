@@ -44,3 +44,23 @@ workflow. All 14 nodes executed and produced a 640×352, 39-frame MP4 at
 24 fps with stereo AAC audio. Both streams decoded on the rental, and the
 downloaded file matched the decoded source by SHA-256. First/last-frame
 verification covered workflow installation and model availability.
+
+## Invocation-time profile selection
+
+Terraform accepts `hardware_profile` from the existing hardware registry.
+Ansible accepts the `imagegen_model_profile` extra variable and uses the
+selected profile for both asset lookup and workflow paths. Each stage uses
+the default in `config.json` when its override is omitted.
+
+### Deployment verification on 2026-11-23
+
+The reviewed apply with `TF_VAR_hardware_profile=48gb` added one rental,
+Vast.ai instance `62131385`, with no changes or destructions. The provider
+reported an RTX PRO 5000 Blackwell with 48,935 MiB of VRAM and a rate of
+USD 0.8263 per hour. A read-only plan rejected an unregistered profile name.
+
+The playbook with `imagegen_model_profile=minimax-h3-video` installed all
+four weights and both workflows with zero failures. The running service
+listed the installed weight files and served workflows that matched the
+packaged files by SHA-256. ComfyUI accepted a first/last-frame job and
+began GPU execution.

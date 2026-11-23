@@ -36,6 +36,10 @@ bazel run //infra/image_gen/ansible:ansible.syntax
 bazel run //infra/image_gen/ansible:ansible
 ```
 
+Pass `-- --extra-vars imagegen_model_profile=minimax-h3-video` to select a
+registered model for one installation. Without this argument the playbook uses
+the model selection in `config.json`.
+
 Pass `-- --skip-tags workflows` to preserve later App/workflow edits. The syntax
 entry point does not authenticate or connect to hosts. Public profiles need no Vault model-token entry. For a gated profile, use
 `bazel run //infra/image_gen/ansible:ansible.huggingface`: the existing AL injector

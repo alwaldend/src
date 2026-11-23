@@ -13,3 +13,10 @@
       the deployment package.
 - [x] 2.2 Provision the rental, install the profile, and verify the installed
       models and workflows through the running service.
+
+## 3. Control-room video deployment
+
+- [x] 3.1 Allow invocation-time hardware and model selection and validate
+      the deployment package.
+- [x] 3.2 Provision the rental with the hardware override, verify the
+      selected bundle, and submit a first/last-frame workflow to the service.
