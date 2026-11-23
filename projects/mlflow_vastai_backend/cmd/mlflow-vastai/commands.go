@@ -6,6 +6,7 @@ import (
 	"io"
 
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/app"
+	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker"
 	"github.com/spf13/cobra"
 )
 
@@ -42,13 +43,34 @@ func executeCommand(
 		RunE:  serve(app.ServeJobs),
 	})
 
-	workerCommand := &cobra.Command{Use: "worker", Short: "Manage the rental-local worker"}
-	workerCommand.AddCommand(&cobra.Command{
-		Use:   "serve",
-		Short: "Run the rental-local worker",
-		Args:  cobra.NoArgs,
-		RunE:  serve(app.RunWorker),
-	})
+	workerCommand := &cobra.Command{Use: "worker", Short: "Run or contact the rental-local worker"}
+	var directory string
+	workerCommand.PersistentFlags().StringVar(&directory, "state-dir", "", "Directory containing the worker socket and state")
+	workerRoute := func(operation worker.Operation, description string) *cobra.Command {
+		return &cobra.Command{
+			Use:   string(operation),
+			Short: description,
+			Args:  cobra.NoArgs,
+			RunE: func(command *cobra.Command, _ []string) error {
+				request := app.Command{Kind: app.RunWorker, Worker: worker.Command{
+					Operation: operation,
+					Directory: directory,
+					Input:     command.InOrStdin(),
+					Output:    command.OutOrStdout(),
+				}}
+				if err := runService(command.Context(), request); err != nil {
+					return fmt.Errorf("dispatch %s: %w", command.CommandPath(), err)
+				}
+				return nil
+			},
+		}
+	}
+	workerCommand.AddCommand(
+		workerRoute(worker.Serve, "Run the rental-local worker"),
+		workerRoute(worker.Submit, "Submit a protobuf job request from stdin"),
+		workerRoute(worker.Status, "Request the durable status of a job"),
+		workerRoute(worker.Cancel, "Request cancellation of a job"),
+	)
 
 	graph := &cobra.Command{Use: "state-machine", Short: "Inspect the application state machines"}
 	graph.AddCommand(&cobra.Command{
