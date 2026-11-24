@@ -33,3 +33,17 @@ py_test(
         "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//mlflow",
     ],
 )
+
+py_test(
+    name = "server_test",
+    size = "medium",
+    srcs = ["server_test.py"],
+    args = ["$(rootpath //projects/mlflow_vastai_backend/cmd/mlflow-vastai)"],
+    data = ["//projects/mlflow_vastai_backend/cmd/mlflow-vastai"],
+    tags = ["requires-network"],
+    target_compatible_with = ["@platforms//os:linux"],
+    deps = [
+        "//projects/mlflow_vastai_backend:plugin",
+        "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//grpcio",
+    ],
+)

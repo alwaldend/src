@@ -9,20 +9,19 @@ languages:
 ---
 
 The Python plugin connects MLflow Projects to a Vast.ai job server using gRPC.
-The Go worker runs jobs on an existing Linux rental. The job server that
-assigns jobs to rentals is pending.
+The Go job server assigns jobs to existing Vast.ai rentals. A worker on each
+rental runs jobs and records their outcomes.
 
 ## Go CLI
 
 ```sh
-bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- server serve
 bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- worker serve
 ```
 
 The CLI machine parses arguments and starts the application child with a typed
 command. The application delegates worker commands to its worker child.
 `worker serve` starts the worker's listener machine, and the listener uses
-the SQLite-backed job machine. `server serve` currently returns a stub error.
+the SQLite-backed job machine. `server serve` starts the job coordinator.
 
 Export the composed application graph as DOT or build the themed SVG on Linux.
 
@@ -35,6 +34,33 @@ The SVG is at `bazel-bin/projects/mlflow_vastai_backend/cmd/mlflow-vastai/state-
 Bazel builds Graphviz from pinned source. The SVG embeds the shared diagram
 font and uses the common theme's light and dark palettes. The
 [state machine page](docs/state-machines.md) embeds the generated graph.
+
+## Job server
+
+```sh
+bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- server serve \
+  --state-dir /path/to/server-state --workers training,12345 \
+  --tracking-uri https://mlflow.example.com --ssh-user root
+```
+
+Inject `VAST_API_KEY` for read-only rental discovery. Set `MLFLOW_TRACKING_TOKEN`
+when the configured tracking endpoint needs bearer authentication. Use a
+tracking endpoint reachable from both the server and the rentals. The server
+accepts workloads using that configured HTTP or HTTPS tracking endpoint.
+
+`--workers` lists allowed instance IDs and exact labels in preference order.
+If the plugin specifies a worker, its selector must match an entry. A label
+must identify a single existing rental. Install `mlflow-vastai` on the
+rental's SSH account PATH and register its SSH host key with the coordinator's
+account. The SSH client uses the rental worker's default state directory.
+
+The gRPC listener binds to `127.0.0.1:50051` by default and accepts only
+loopback addresses. Use the local endpoint from a trusted environment, or
+front it with an authenticated transport for remote access.
+
+The server saves the selected rental before submitting a workload. It retries
+ambiguous submissions on that rental with the original run ID, observes jobs
+after clients disconnect, and publishes confirmed terminal results to MLflow.
 
 ## Rental worker
 
@@ -66,13 +92,15 @@ the original reservations.
 ## Run a project
 
 Give the plugin a JSON backend configuration with `server` set to the gRPC
-address. Set `worker` to request a configured worker selector. Connections use
-TLS by default. Set `insecure` to `true` for a trusted local test service.
+address. Set `worker` to request a configured worker selector. Use TLS through
+an authenticated gateway or connect directly to a trusted local listener as
+shown here.
 
 ```json
 {
-  "server": "jobs.example.com:443",
-  "worker": "training"
+  "server": "127.0.0.1:50051",
+  "worker": "training",
+  "insecure": true
 }
 ```
 
@@ -82,9 +110,9 @@ bazel run //projects/mlflow_vastai_backend:mlflow -- run /path/to/project \
   --backend vastai --backend-config /path/to/backend.json --env-manager local
 ```
 
-Use a tracking endpoint and artifact store reachable from both the submitting
-machine and the rental. MLflow's default local SQLite store is only suitable
-when both sides share the same store and artifact paths.
+Use an HTTP or HTTPS tracking endpoint reachable from the submitting machine,
+coordinator, and rental. The rental also needs access to the run's artifact
+store.
 
 The adapter uploads a compressed project snapshot to the MLflow run at
 `vastai-source/project.tar.gz` before submitting the job. The request carries
@@ -105,6 +133,7 @@ conda, or virtualenv environments.
 ```sh
 bazel test //projects/mlflow_vastai_backend/test/e2e:plugin_test
 bazel test //projects/mlflow_vastai_backend/test/e2e:worker_test
+bazel test //projects/mlflow_vastai_backend/test/e2e:server_test
 bazel build //projects/mlflow_vastai_backend/api/jobpb:jobpb
 ```
 

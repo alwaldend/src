@@ -5,23 +5,29 @@ description: Command dispatch, listener lifecycle, and job transitions in the ML
 
 ## CLI dispatch
 
-[![CLI, application, worker, listener, SQLite, job, and workload machines](assets/state-machine.svg)](assets/state-machine.svg)
+[![CLI, coordinator, and worker state machines](assets/state-machine.svg)](assets/state-machine.svg)
 
 The CLI machine enters `cli-parsing` and uses Cobra to parse the arguments.
 `cli-dispatch` calls the selected application method. The application calls
 the worker through its named methods. Each component adds its own states and
 child calls to the graph. Dashed arrows show those calls.
 
-- `server serve` calls the job server entry point.
+- `server serve` runs the coordinator and its job machine.
 - `worker serve` runs the worker's listener child machine. Its states open the listener
   in `worker-starting`, serve RPCs in `worker-serving`, and release resources
   in `worker-stopping`.
-- `state-machine graph` prints all seven definitions and their calls as one DOT graph.
+- `state-machine graph` prints the machine definitions and their calls as one DOT graph.
 
 `worker submit`, `worker status`, and `worker cancel` enter `forward-rpc`
-and send protobuf requests over the worker's Unix socket. `server serve`
-currently returns a stub error. Bazel regenerates the diagram from the CLI
-when it builds this page.
+and send protobuf requests over the worker's Unix socket. Bazel regenerates
+the diagram from the CLI when it builds this page.
+
+## Coordinator jobs
+
+The coordinator reserves an assignment before contacting the worker. Its
+job machine advances from reserved to active or to a recorded result. The
+server reconciles unresolved assignments and publishes confirmed terminal
+results to MLflow while their tracking runs are active.
 
 ## Worker jobs
 

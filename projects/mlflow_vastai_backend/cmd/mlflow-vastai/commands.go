@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"os"
 
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/machine"
+	jobserver "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/server"
 	"github.com/spf13/cobra"
 )
 
@@ -28,14 +30,27 @@ func executeCommand(ctx context.Context, arguments []string, cli *cli) error {
 	}
 
 	server := &cobra.Command{Use: "server", Short: "Manage the job server"}
-	server.AddCommand(&cobra.Command{
+	var config jobserver.Config
+	serve := &cobra.Command{
 		Use:   "serve",
 		Short: "Run the job server",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {
-			return route(command, dispatch, cli.application.ServeJobs)
+			return route(command, dispatch, func(ctx context.Context) error {
+				if err := cli.application.ServeJobs(ctx, config); err != nil {
+					return fmt.Errorf("serve coordinator: %w", err)
+				}
+				return nil
+			})
 		},
-	})
+	}
+	serve.Flags().StringVar(&config.Listen, "listen", "127.0.0.1:50051", "Local gRPC address")
+	serve.Flags().StringVar(&config.Directory, "state-dir", "", "Private directory for coordinator state")
+	serve.Flags().StringSliceVar(&config.Workers, "workers", nil, "Allowed Vast.ai rental IDs or exact labels")
+	serve.Flags().StringVar(&config.VastEndpoint, "vast-endpoint", "https://console.vast.ai/api/v0", "Vast.ai API endpoint")
+	serve.Flags().StringVar(&config.TrackingURI, "tracking-uri", os.Getenv("MLFLOW_TRACKING_URI"), "MLflow tracking endpoint")
+	serve.Flags().StringVar(&config.SSHUser, "ssh-user", "root", "SSH account on the rentals")
+	server.AddCommand(serve)
 
 	workerCommand := &cobra.Command{Use: "worker", Short: "Run or contact the rental-local worker"}
 	var directory string

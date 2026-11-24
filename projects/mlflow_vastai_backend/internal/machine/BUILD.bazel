@@ -13,6 +13,7 @@ go_library(
     visibility = [
         "//projects/mlflow_vastai_backend/cmd/mlflow-vastai:__pkg__",
         "//projects/mlflow_vastai_backend/internal/app:__pkg__",
+        "//projects/mlflow_vastai_backend/internal/server:__pkg__",
         "//projects/mlflow_vastai_backend/internal/sqlite:__pkg__",
         "//projects/mlflow_vastai_backend/internal/worker:__pkg__",
         "//projects/mlflow_vastai_backend/internal/worker/internal/jobrunner:__pkg__",
