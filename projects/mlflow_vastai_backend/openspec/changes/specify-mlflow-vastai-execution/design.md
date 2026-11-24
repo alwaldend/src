@@ -61,14 +61,17 @@ The SSH invocation carries the request and response over stdin and stdout, with
 diagnostics on stderr. The client and service use the same protobuf messages
 for worker operations. The training command's stdout and stderr go to per-job
 files. The worker uses the run ID, tracking URI, and artifact path to fetch
-the snapshot before launch. The workload state machine stages the project before exposing a run action.
-The listener commits launch authorization in SQLite, calls the run action,
-and records the observed outcome.
+the snapshot through the rental's MLflow CLI before launch.
 
 ## State and persistence
 
-The worker SQLite adapter owns the job schema, queries, serialization, and
-transactions. The job machine supplies the transitions applied within them.
+The project-level `internal/sqlite` package owns the connection state machine.
+The job repository borrows that connection and owns schema, queries, and
+transactions. The listener ensures the schema before opening the job runner.
+The runner applies each transition of its flat state machine inside a
+repository transaction. It starts execution after reserving the run ID and
+checks replayed requests against the stored workload. Workload exits and
+unconfirmed startup results enter through the same result transition.
 
 The adapter uses the MLflow run ID as the job ID and reuses it across
 submission retries. The server persists that ID and the selected Vast.ai

@@ -1,17 +1,13 @@
-package sqlite
+package jobrepository
 
 import (
 	"context"
 	"database/sql"
 	"errors"
 	"fmt"
-	"net/url"
-	"path/filepath"
-	"strings"
 
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/api/jobpb"
 	"google.golang.org/protobuf/proto"
-	_ "modernc.org/sqlite" // Registers the SQLite database/sql driver.
 )
 
 // ErrNotFound indicates that the worker has no record for a job ID.
@@ -29,30 +25,28 @@ type Record struct {
 	ExitCode *int32
 }
 
-// Store manages the worker's SQLite database.
-type Store struct {
-	// db serializes local access to the job table.
+// Repository stores job records using a connection owned by the caller.
+type Repository struct {
+	// db provides the queries and transactions.
 	db *sql.DB
 }
 
-// Open configures SQLite for concurrent processes and initializes its schema.
-func Open(ctx context.Context, directory string) (*Store, error) {
-	dsn := url.URL{Scheme: "file", Path: filepath.Join(directory, "jobs.sqlite3")}
-	dsn.RawQuery = "_pragma=busy_timeout(5000)&_pragma=journal_mode(WAL)&_txlock=immediate"
-	db, err := sql.Open("sqlite", dsn.String())
-	if err != nil {
-		return nil, fmt.Errorf("open worker SQLite: %w", err)
-	}
-	db.SetMaxOpenConns(1)
-	if _, err := db.ExecContext(ctx, `CREATE TABLE IF NOT EXISTS jobs (
+// New borrows the caller's connection.
+func New(db *sql.DB) *Repository {
+	return &Repository{db: db}
+}
+
+// EnsureSchema creates the job table if it is missing.
+func (repository *Repository) EnsureSchema(ctx context.Context) error {
+	if _, err := repository.db.ExecContext(ctx, `CREATE TABLE IF NOT EXISTS jobs (
 		id TEXT PRIMARY KEY,
 		workload BLOB NOT NULL,
 		phase TEXT NOT NULL,
 		exit_code INTEGER
 	)`); err != nil {
-		return nil, errors.Join(fmt.Errorf("initialize worker SQLite: %w", err), db.Close())
+		return fmt.Errorf("initialize job schema: %w", err)
 	}
-	return &Store{db: db}, nil
+	return nil
 }
 
 // rowReader is satisfied by both a database and an open write transaction.
@@ -83,18 +77,18 @@ func readJob(ctx context.Context, reader rowReader, id string) (*Record, error) 
 }
 
 // Get returns a committed SQLite record.
-func (s *Store) Get(ctx context.Context, id string) (*Record, error) {
-	record, err := readJob(ctx, s.db, id)
+func (repository *Repository) Get(ctx context.Context, id string) (*Record, error) {
+	record, err := readJob(ctx, repository.db, id)
 	if err != nil {
 		return nil, fmt.Errorf("read committed job: %w", err)
 	}
 	return record, nil
 }
 
-// Update applies a callback inside a transaction and persists phase changes.
-// The callback receives whether the record existed before the transaction.
-func (s *Store) Update(ctx context.Context, id string, apply func(*Record, bool) error) error {
-	tx, err := s.db.BeginTx(ctx, nil)
+// Update loads a record and commits the changes requested by the callback.
+// The callback indicates whether it modified the record.
+func (repository *Repository) Update(ctx context.Context, id string, apply func(*Record, bool) (bool, error)) error {
+	tx, err := repository.db.BeginTx(ctx, nil)
 	if err != nil {
 		return fmt.Errorf("begin transaction for %s: %w", id, err)
 	}
@@ -106,11 +100,11 @@ func (s *Store) Update(ctx context.Context, id string, apply func(*Record, bool)
 	} else if err != nil {
 		return fmt.Errorf("load transaction record: %w", err)
 	}
-	before := record.Phase
-	if err := apply(record, exists); err != nil {
+	changed, err := apply(record, exists)
+	if err != nil {
 		return fmt.Errorf("apply job update: %w", err)
 	}
-	if record.Phase != before {
+	if changed {
 		encoded, err := proto.Marshal(record.Workload)
 		if err != nil {
 			return fmt.Errorf("encode workload for %s: %w", id, err)
@@ -128,30 +122,9 @@ func (s *Store) Update(ctx context.Context, id string, apply func(*Record, bool)
 	return nil
 }
 
-// Phase reads the phase without decoding the workload.
-func (s *Store) Phase(ctx context.Context, id string) (string, error) {
-	var phase string
-	err := s.db.QueryRowContext(ctx, `SELECT phase FROM jobs WHERE id = ?`, id).Scan(&phase)
-	if errors.Is(err, sql.ErrNoRows) {
-		return "", ErrNotFound
-	}
-	if err != nil {
-		return "", fmt.Errorf("read phase for %s: %w", id, err)
-	}
-	return phase, nil
-}
-
-// IDsInPhases lists job IDs with any of the supplied phases.
-func (s *Store) IDsInPhases(ctx context.Context, phases ...string) (ids []string, err error) {
-	if len(phases) == 0 {
-		return nil, nil
-	}
-	args := make([]any, len(phases))
-	for i, phase := range phases {
-		args[i] = phase
-	}
-	query := `SELECT id FROM jobs WHERE phase IN (` + strings.Repeat("?, ", len(phases)-1) + "?)"
-	rows, err := s.db.QueryContext(ctx, query, args...)
+// IDsInPhase lists job IDs in the supplied phase.
+func (repository *Repository) IDsInPhase(ctx context.Context, phase string) (ids []string, err error) {
+	rows, err := repository.db.QueryContext(ctx, `SELECT id FROM jobs WHERE phase = ?`, phase)
 	if err != nil {
 		return nil, fmt.Errorf("list worker jobs: %w", err)
 	}
@@ -167,12 +140,4 @@ func (s *Store) IDsInPhases(ctx context.Context, phases ...string) (ids []string
 		return nil, fmt.Errorf("iterate active worker jobs: %w", err)
 	}
 	return ids, nil
-}
-
-// Close releases the listener's SQLite connection.
-func (s *Store) Close() error {
-	if err := s.db.Close(); err != nil {
-		return fmt.Errorf("close worker SQLite: %w", err)
-	}
-	return nil
 }

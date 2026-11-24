@@ -13,7 +13,10 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker/internal/workload",
     target_compatible_with = ["@platforms//os:linux"],
-    visibility = ["//projects/mlflow_vastai_backend/internal/worker:__pkg__"],
+    visibility = [
+        "//projects/mlflow_vastai_backend/internal/worker:__pkg__",
+        "//projects/mlflow_vastai_backend/internal/worker/internal/jobrunner:__pkg__",
+    ],
     deps = [
         "//projects/mlflow_vastai_backend/api/jobpb",
         "//projects/mlflow_vastai_backend/internal/machine",
