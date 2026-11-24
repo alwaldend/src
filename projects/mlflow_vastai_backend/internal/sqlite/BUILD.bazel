@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "sqlite",
+    srcs = [
+        "db.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/sqlite",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = [
+        "//projects/mlflow_vastai_backend/internal/worker:__pkg__",
+    ],
+    deps = [
+        "//projects/mlflow_vastai_backend/internal/machine",
+        "@org_modernc_sqlite//:sqlite",
+    ],
+)
