@@ -52,6 +52,7 @@ py_library(
 py_console_script_binary(
     name = "mlflow",
     pkg = "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//mlflow:pkg",
+    visibility = ["//projects/mlflow_vastai_backend/test/e2e:__pkg__"],
     deps = [":plugin"],
 )
 

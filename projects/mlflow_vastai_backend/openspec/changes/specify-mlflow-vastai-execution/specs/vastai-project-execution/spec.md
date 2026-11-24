@@ -51,12 +51,27 @@ short-lived worker client. The MLflow plugin SHALL call the job server by gRPC.
 The job server SHALL invoke the worker client through SSH. The worker client
 SHALL call the worker service by gRPC over a rental-local Unix socket.
 
-The CLI SHALL be the root Stateless machine and pass a typed command to the
-application child. The application SHALL delegate worker commands to its
-worker child. The CLI SHALL emit the composed machine definitions and their
-handoffs as one DOT graph on stdout for `state-machine graph`.
+The CLI SHALL be the root Stateless machine and start the application child with
+a typed command. The application SHALL pass worker commands to its worker child
+as typed requests. The worker SHALL own the listener lifecycle and job
+machines. CLI, application, worker, and listener
+events SHALL use their invocation state, and job events SHALL use the SQLite
+state of the job they address. Actions SHALL receive typed inputs through the
+Stateless callback adapter. The CLI SHALL emit the composed machine definitions
+and their handoffs as one DOT graph for `state-machine graph`.
 Bazel SHALL render the exported graph as an SVG using the common theme's
 palette and embedded diagram font.
+
+#### Scenario: Submit a new workload
+
+- **WHEN** the worker accepts a new job
+- **THEN** it commits the run ID reservation, reports `RUNNING`, and starts preparing the workload
+
+#### Scenario: The worker listener restarts
+
+- **WHEN** the listener starts with a previously accepted job that has no recorded result
+- **THEN** the worker records an unknown outcome and never relaunches that job
+- **AND** it preserves previously recorded terminal results
 
 #### Scenario: SSH caller exits after submission
 
@@ -75,7 +90,7 @@ plugin SHALL delegate domain decisions to these machines.
 #### Scenario: Cancellation competes with job completion
 
 - **WHEN** a cancellation request and a workload exit are observed for the same job
-- **THEN** the worker processes them through the same persisted state machine
+- **THEN** the worker records the observed exit through the persisted state machine, reporting cancellation only when it confirms that cancellation prevented launch or stopped the workload
 - **AND** a committed terminal result is preserved across subsequent requests and restarts
 
 ### Requirement: Persist and reconcile execution state
@@ -108,8 +123,8 @@ for workload outcomes.
 ### Requirement: Report completion and cancellation accurately
 
 The worker SHALL record a terminal result before making it available to the
-server. The adapter SHALL map accepted and executing jobs to `SCHEDULED` and
-`RUNNING`, successful jobs to `FINISHED`, confirmed failures to `FAILED`,
+server. The adapter SHALL map accepted and executing jobs to `RUNNING`,
+successful jobs to `FINISHED`, confirmed failures to `FAILED`,
 and confirmed cancellations to `KILLED`. The adapter SHALL report success from
 `wait()` only for a confirmed successful result.
 

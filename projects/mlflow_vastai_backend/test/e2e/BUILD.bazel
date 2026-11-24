@@ -14,3 +14,22 @@ py_test(
         "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//mlflow",
     ],
 )
+
+py_test(
+    name = "worker_test",
+    size = "medium",
+    srcs = ["worker_test.py"],
+    args = [
+        "$(rootpath //projects/mlflow_vastai_backend/cmd/mlflow-vastai)",
+        "$(rootpath //projects/mlflow_vastai_backend:mlflow)",
+    ],
+    data = [
+        "//projects/mlflow_vastai_backend:mlflow",
+        "//projects/mlflow_vastai_backend/cmd/mlflow-vastai",
+    ],
+    target_compatible_with = ["@platforms//os:linux"],
+    deps = [
+        "//projects/mlflow_vastai_backend:plugin",
+        "@com_alwaldend_src_projects_mlflow_vastai_backend_pip//mlflow",
+    ],
+)
