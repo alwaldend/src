@@ -7,6 +7,9 @@ description: Command dispatch, listener lifecycle, and job transitions in the ML
 
 [![CLI, coordinator, and worker state machines](assets/state-machine.svg)](assets/state-machine.svg)
 
+See the [plugin architecture](../architecture/) for the service boundaries
+and protocols.
+
 The CLI machine enters `cli-parsing` and uses Cobra to parse the arguments.
 `cli-dispatch` calls the selected application method. The application calls
 the worker through its named methods. Each component adds its own states and

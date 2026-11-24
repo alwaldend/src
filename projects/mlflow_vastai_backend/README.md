@@ -12,6 +12,9 @@ The Python plugin connects MLflow Projects to a Vast.ai job server using gRPC.
 The Go job server assigns jobs to existing Vast.ai rentals. A worker on each
 rental runs jobs and records their outcomes.
 
+The [plugin architecture](docs/architecture.md) shows how the submitter,
+coordinator, worker, and MLflow exchange requests and data.
+
 ## Go CLI
 
 ```sh

@@ -1,16 +1,29 @@
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//projects:transitive_consumers")
 
+mermaid_diagram(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture",
+)
+
 docs_filegroup(
     name = "docs",
-    srcs = ["state-machines.md"],
+    srcs = [
+        "architecture.md",
+        "state-machines.md",
+    ],
     visibility = ["//projects/mlflow_vastai_backend:__pkg__"],
     deps = [":assets"],
 )
 
 docs_filegroup(
     name = "assets",
-    srcs = ["//projects/mlflow_vastai_backend/cmd/mlflow-vastai:state_machine_svg"],
+    srcs = [
+        ":architecture_svg",
+        "//projects/mlflow_vastai_backend/cmd/mlflow-vastai:state_machine_svg",
+    ],
     prefix = "content/docs/projects/mlflow_vastai_backend/docs/assets",
 )
