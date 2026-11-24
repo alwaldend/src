@@ -11,6 +11,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/sqlite",
     target_compatible_with = ["@platforms//os:linux"],
     visibility = [
+        "//projects/mlflow_vastai_backend/internal/server:__pkg__",
         "//projects/mlflow_vastai_backend/internal/worker:__pkg__",
     ],
     deps = [

@@ -16,7 +16,8 @@ import (
 func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
-	cli := newCLI(app.New(worker.New(afero.NewOsFs())))
+	filesystem := afero.NewOsFs()
+	cli := newCLI(app.New(worker.New(filesystem), filesystem))
 	if err := cli.run(ctx, os.Args[1:]); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

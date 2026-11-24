@@ -47,7 +47,8 @@ Command actions return errors through the invoking transition. The listener
 opens the socket and database and delegates job operations to the job runner.
 It stops serving requests and closes the job runner before releasing the
 database. The workload state machine stages the project before permitting its
-run transition. The job server entry point returns a stub error.
+run transition. The coordinator serves JobService RPCs on a loopback TCP
+endpoint and owns assignment and background reconciliation.
 Each component exports its own graph and links to its children. The
 `state-machine graph` route composes those sections into one DOT graph
 with dashed call edges and named entry actions. The project uses

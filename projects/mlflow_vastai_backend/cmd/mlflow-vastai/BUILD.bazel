@@ -17,6 +17,7 @@ go_library(
     deps = [
         "//projects/mlflow_vastai_backend/internal/app",
         "//projects/mlflow_vastai_backend/internal/machine",
+        "//projects/mlflow_vastai_backend/internal/server",
         "//projects/mlflow_vastai_backend/internal/worker",
         "@com_github_spf13_afero//:afero",
         "@com_github_spf13_cobra//:cobra",

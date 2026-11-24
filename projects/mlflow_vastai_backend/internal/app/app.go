@@ -2,12 +2,13 @@ package app
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
 
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/machine"
+	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/server"
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker"
+	"github.com/spf13/afero"
 )
 
 const (
@@ -32,21 +33,29 @@ type App struct {
 	definition *machine.Machine[func(context.Context) error]
 	// worker handles rental-local operations.
 	worker *worker.Worker
+	// filesystem supplies coordinator file operations.
+	filesystem afero.Fs
 }
 
 // New configures the application around its worker.
-func New(worker *worker.Worker) *App {
-	app := &App{definition: machine.New[func(context.Context) error](stateReady), worker: worker}
+func New(worker *worker.Worker, filesystem afero.Fs) *App {
+	app := &App{definition: machine.New[func(context.Context) error](stateReady), worker: worker, filesystem: filesystem}
 	definition := app.definition
 	definition.Configure(stateReady).Permit(serveJobsEvent, stateServer).Permit(runWorkerEvent, stateDispatchWorker)
-	definition.Configure(stateServer).OnEntry(serveJobs)
-	definition.Configure(stateDispatchWorker).OnEntry(app.runWorker)
+	definition.Configure(stateServer).OnEntry(app.runCommand)
+	definition.Configure(stateDispatchWorker).OnEntry(app.runCommand)
 	return app
 }
 
 // ServeJobs starts the job server.
-func (app *App) ServeJobs(ctx context.Context) error {
-	if err := app.run(ctx, serveJobsEvent, nil); err != nil {
+func (app *App) ServeJobs(ctx context.Context, config server.Config) error {
+	err := app.run(ctx, serveJobsEvent, func(ctx context.Context) error {
+		if err := server.Serve(ctx, app.filesystem, config); err != nil {
+			return fmt.Errorf("serve job coordinator: %w", err)
+		}
+		return nil
+	})
+	if err != nil {
 		return fmt.Errorf("start job server: %w", err)
 	}
 	return nil
@@ -90,11 +99,12 @@ func (app *App) Cancel(ctx context.Context, directory string, input io.Reader, o
 	return nil
 }
 
-// Graph describes the application and the call to its worker.
+// Graph describes the application and its service calls.
 func (app *App) Graph() machine.GraphSection {
 	return machine.GraphSection{
 		ID: "application", Title: "Application", DOT: app.definition.ToGraph(),
 		Calls: []machine.GraphCall{
+			{From: stateServer, Label: "serves job requests", Target: server.Graph()},
 			{From: stateDispatchWorker, Label: "runs worker command", Target: app.worker.Graph()},
 		},
 	}
@@ -124,19 +134,14 @@ func (app *App) run(ctx context.Context, event machine.Event, operation func(con
 	return nil
 }
 
-// runWorker invokes the named worker operation selected by the application method.
-func (app *App) runWorker(ctx context.Context, _ ...any) error {
+// runCommand invokes the operation captured by the application method.
+func (app *App) runCommand(ctx context.Context, _ ...any) error {
 	operation, err := app.definition.Input(ctx)
 	if err != nil {
-		return fmt.Errorf("read worker invocation: %w", err)
+		return fmt.Errorf("read application operation: %w", err)
 	}
 	if err := operation(ctx); err != nil {
-		return fmt.Errorf("run worker command: %w", err)
+		return fmt.Errorf("run application command: %w", err)
 	}
 	return nil
-}
-
-// serveJobs reports the coordinator's current implementation status.
-func serveJobs(_ context.Context, _ ...any) error {
-	return errors.New("job server is not implemented")
 }

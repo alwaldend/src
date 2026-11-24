@@ -1,0 +1,33 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+package(transitive_visibility = "//projects:transitive_consumers")
+
+go_library(
+    name = "server",
+    srcs = [
+        "doc.go",
+        "jobs.go",
+        "rentals.go",
+        "repository.go",
+        "server.go",
+        "tracking.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/server",
+    target_compatible_with = ["@platforms//os:linux"],
+    visibility = [
+        "//projects/mlflow_vastai_backend/cmd/mlflow-vastai:__pkg__",
+        "//projects/mlflow_vastai_backend/internal/app:__pkg__",
+    ],
+    deps = [
+        "//internal/vastai_sdk/pkg/client",
+        "//projects/mlflow_vastai_backend/api/jobpb",
+        "//projects/mlflow_vastai_backend/internal/machine",
+        "//projects/mlflow_vastai_backend/internal/sqlite",
+        "@com_github_spf13_afero//:afero",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_x_sys//unix",
+    ],
+)
