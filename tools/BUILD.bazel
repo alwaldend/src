@@ -53,6 +53,7 @@ package_group(
         "//projects/dotfiles/bin",
         "//projects/dotfiles/home",
         "//projects/dotfiles/nvim",
+        "//projects/mlflow_vastai_backend/docs",
         "//projects/mlops_2026",
         "//projects/x_article_uploader/test/...",
         "//projects/x_profile_cleaner/test/...",

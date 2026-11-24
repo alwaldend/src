@@ -54,6 +54,7 @@ Each component exports its own graph and links to its children. The
 with dashed call edges and named entry actions. The project uses
 the reusable `dot_export` and `dot_svg` Bazel rules to render that output with
 the pinned Graphviz build and common diagram theme.
+The architecture page shows the runtime service boundaries and data flow.
 
 The Python adapter calls the job server's `SubmitJob`, `GetJob`, and
 `CancelJob` RPCs. Submission,

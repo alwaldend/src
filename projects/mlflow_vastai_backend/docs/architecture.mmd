@@ -1,0 +1,37 @@
+flowchart LR
+    subgraph submission["Submitting environment"]
+        caller("MLflow Projects")
+        plugin["Vast.ai backend plugin"]
+    end
+
+    subgraph server["Coordinator host"]
+        coordinator["Job server"]
+        assignments[("Assignments and results")]
+    end
+
+    subgraph rental["Vast.ai rental"]
+        command["Worker command"]
+        worker["Worker service"]
+        workload["Project workload"]
+        results[("Job state and logs")]
+    end
+
+    mlflow[("MLflow tracking and artifacts")]
+    terraform["Terraform"]
+    vast["Vast.ai API"]
+
+    caller -->|Run project| plugin
+    plugin <-->|gRPC| coordinator
+    coordinator --- assignments
+    coordinator -->|Read rental inventory| vast
+    coordinator <-->|SSH| command
+    command <-->|Unix gRPC| worker
+    worker -->|Launch| workload
+    worker --- results
+
+    plugin -->|Create run and upload snapshot| mlflow
+    worker -->|Fetch snapshot| mlflow
+    workload -->|Log metrics and artifacts| mlflow
+    coordinator -->|Report terminal status| mlflow
+
+    terraform -.->|Manage rentals| vast
