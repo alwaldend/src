@@ -38,3 +38,12 @@ HTTPS, Vault-managed credentials and USD 1/hour ceiling.
 - **WHEN** the reviewed Terraform apply creates the rental
 - **THEN** it requests the existing named 48 GB GPU profile and preserves its
   storage, price and security constraints
+
+### Requirement: Install the Euler Base variant
+
+The MOSS profile SHALL include the Euler Base variant in its Ansible catalog.
+
+#### Scenario: Install the MOSS workflows
+
+- **WHEN** Ansible installs workflows for the MOSS profile
+- **THEN** the Euler Base variant is installed alongside the existing examples

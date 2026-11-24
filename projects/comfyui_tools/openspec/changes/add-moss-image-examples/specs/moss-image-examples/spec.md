@@ -37,3 +37,13 @@ inputs, displays panel progress and saves uniquely grouped ordered filenames.
 - **WHEN** a user queues a sequence example with several nonempty prompt lines
 - **THEN** one native job saves the corresponding ordered panels using the same
   shared inputs and run-specific filename group
+
+### Requirement: Euler Base sampling variant
+
+The workflow catalog SHALL include a separate Base text-to-image workflow with
+50 Euler steps, CFG 3, and the simple scheduler.
+
+#### Scenario: Open the Euler Base variant
+
+- **WHEN** a user opens `moss-image-base-text-to-image-euler-50.json`
+- **THEN** the graph loads the Base checkpoint with the Euler variant's defaults

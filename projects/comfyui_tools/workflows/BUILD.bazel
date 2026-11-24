@@ -65,6 +65,7 @@ jsonnet_to_json(
         "moss-image/moss-image-base-prompt-sequence.json",
         "moss-image/moss-image-base-text-to-image.app.json",
         "moss-image/moss-image-base-text-to-image.json",
+        "moss-image/moss-image-base-text-to-image-euler-50.json",
         "moss-image/moss-image-color-depth-control.json",
         "moss-image/moss-image-color-depth-prompt-sequence.json",
         "moss-image/moss-image-image-edit.json",

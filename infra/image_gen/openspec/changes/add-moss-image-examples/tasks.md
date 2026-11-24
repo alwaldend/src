@@ -15,3 +15,7 @@
       first-boot selection; verify offline startup packaging.
 - [x] 3.2 Save the new examples through the authenticated workflow API and verify
       twelve saved examples without replacing the running rental.
+
+## 4. Euler Base variant
+
+- [x] 4.1 Include the Euler Base variant in the selected MOSS workflow catalog.

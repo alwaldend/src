@@ -155,7 +155,7 @@ node and the repository-pinned vocabulary.
 
 ## MOSS-Image examples
 
-The `moss-image` family supplies six examples and six prompt-sequence variants, adapted from the
+The `moss-image` family supplies native examples and prompt-sequence variants, adapted from the
 [official templates](https://github.com/Comfy-Org/workflow_templates/tree/36ecd0663961c5e1e83f7c0ea521658b33b36bbc/templates)
 as compact native graphs without the optional LLM prompt enhancer. Their model
 files come from the infrastructure profile; generation uses local Qwen3.5 text
@@ -164,6 +164,8 @@ encoding and the small FLUX.2 VAE.
 - `moss-image-text-to-image` and `moss-image-base-text-to-image` use SFT and Base,
   respectively, with 1024-square output, 25 ER-SDE/simple steps, CFG 2.5 and
   layer-22 skip guidance through the first half of sampling.
+- `moss-image-base-text-to-image-euler-50` uses the Base checkpoint with
+  50 Euler/simple steps and CFG 3.
 - `moss-image-layout-guided` and `moss-image-base-layout-guided` add an editable
   native bounding-box canvas. Edit the box description and overall caption;
   canvas size drives the prompt coordinates and output latent dimensions.

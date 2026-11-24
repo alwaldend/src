@@ -249,10 +249,10 @@ public; no model token, extra node pack or Python requirement is configured.
 
 The six single-image examples cover SFT/Base text-to-image, SFT/Base layout guidance,
 image editing and prepared color/depth maps. The Base model is selected only by
-the `moss-image-base-*` examples; the other examples use SFT. Each example has a
-prompt-sequence counterpart with shared negative text, progress and grouped
-ordered filenames. The catalog lists all twelve, and Ansible installs the
-complete selected catalog. See
+the `moss-image-base-*` examples; the other examples use SFT. The six original
+examples have prompt-sequence counterparts with shared negative text, progress
+and grouped ordered filenames. Ansible installs those workflows and the
+50-step Euler Base variant. See
 [workflow instructions](../../../projects/comfyui_tools/README.md#moss-image-examples)
 for inputs and sampling defaults. The existing ComfyUI v0.44.0 runtime provides
 their native nodes. The examples omit optional prompt enhancement and automatic
