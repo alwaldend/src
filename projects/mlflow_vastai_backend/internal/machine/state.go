@@ -66,3 +66,15 @@ func (machine *Machine[T]) Input(ctx context.Context) (T, error) {
 	}
 	return current.input, nil
 }
+
+// RunAction passes the current invocation's typed input to an action.
+func (machine *Machine[T]) RunAction(ctx context.Context, action func(context.Context, T) error) error {
+	input, err := machine.Input(ctx)
+	if err != nil {
+		return fmt.Errorf("read action input: %w", err)
+	}
+	if err := action(ctx, input); err != nil {
+		return fmt.Errorf("run action: %w", err)
+	}
+	return nil
+}

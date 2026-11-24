@@ -5,7 +5,9 @@ package(transitive_visibility = "//projects:transitive_consumers")
 go_library(
     name = "worker",
     srcs = [
+        "client.go",
         "doc.go",
+        "files.go",
         "worker.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/worker",
@@ -13,5 +15,11 @@ go_library(
         "//projects/mlflow_vastai_backend/cmd/mlflow-vastai:__pkg__",
         "//projects/mlflow_vastai_backend/internal/app:__pkg__",
     ],
-    deps = ["//projects/mlflow_vastai_backend/internal/machine"],
+    deps = [
+        "//projects/mlflow_vastai_backend/api/jobpb",
+        "//projects/mlflow_vastai_backend/internal/machine",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
+        "@org_golang_google_protobuf//proto",
+    ],
 )

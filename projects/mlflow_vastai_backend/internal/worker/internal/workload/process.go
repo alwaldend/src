@@ -25,7 +25,18 @@ func waitForCommand(pid int, flags int) (bool, error) {
 	}
 }
 
-// runCommand owns a command group until the command exit has been confirmed.
+// stopProcessGroup signals the group while its leader still reserves the group ID.
+func stopProcessGroup(pid int) (bool, error) {
+	if err := unix.Kill(-pid, unix.SIGKILL); err != nil {
+		if errors.Is(err, unix.ESRCH) {
+			return false, nil
+		}
+		return false, fmt.Errorf("stop process group %d: %w", pid, err)
+	}
+	return true, nil
+}
+
+// runCommand observes the command exit and cleans up the rest of its process group.
 func runCommand(ctx context.Context, command *exec.Cmd) (Outcome, error) {
 	if err := ctx.Err(); err != nil {
 		return Outcome{}, fmt.Errorf("before process start: %w", err)
@@ -52,13 +63,14 @@ func runCommand(ctx context.Context, command *exec.Cmd) (Outcome, error) {
 		if err != nil {
 			signalErr = err
 		} else if !alreadyExited {
-			err := unix.Kill(-pid, unix.SIGKILL)
-			signalled = err == nil
-			if err != nil && !errors.Is(err, unix.ESRCH) {
-				signalErr = fmt.Errorf("stop process group %d: %w", pid, err)
-			}
+			signalled, signalErr = stopProcessGroup(pid)
 		}
 		observeErr = <-exited
+	}
+	if observeErr == nil && !signalled {
+		// The leader has exited, but Wait has yet to release its PID.
+		_, cleanupErr := stopProcessGroup(pid)
+		signalErr = errors.Join(signalErr, cleanupErr)
 	}
 	waitErr := command.Wait()
 	if command.ProcessState != nil {
@@ -70,7 +82,9 @@ func runCommand(ctx context.Context, command *exec.Cmd) (Outcome, error) {
 		status, ok := command.ProcessState.Sys().(syscall.WaitStatus)
 		outcome.Stopped = ok && signalled && status.Signaled() && status.Signal() == unix.SIGKILL
 	}
-	if waitErr != nil {
+	if outcome.Stopped {
+		waitErr = nil
+	} else if waitErr != nil {
 		waitErr = fmt.Errorf("wait for process %d: %w", pid, waitErr)
 	}
 	return outcome, errors.Join(observeErr, signalErr, waitErr)
