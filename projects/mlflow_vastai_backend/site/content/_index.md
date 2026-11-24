@@ -13,8 +13,8 @@ languages:
 ---
 
 The MLflow Vast.ai backend is intended to run MLflow Projects on rented GPUs.
-The project currently provides a dependency scaffold. Rental execution is
-pending.
+The project provides the MLflow adapter and a rental-local worker. The job
+server that assigns jobs to rentals is pending.
 
 See the [project documentation](/docs/projects/mlflow_vastai_backend/) for the
 planned integration and local dependency checks.

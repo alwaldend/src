@@ -43,9 +43,11 @@ owns its machine and keeps its triggers private.
 Each invocation binds its state and typed input to the context. The machine
 adapts typed actions to that input. The CLI uses one action to run the method
 selected by Cobra.
-Command actions return errors through the invoking transition. Both service
-entry points return stub errors. The worker command client forwards submission,
-status, and cancellation requests to a Unix gRPC socket.
+Command actions return errors through the invoking transition. The listener
+opens the socket and database and delegates job operations to the job runner.
+It stops serving requests and closes the job runner before releasing the
+database. The workload state machine stages the project before permitting its
+run transition. The job server entry point returns a stub error.
 Each component exports its own graph and links to its children. The
 `state-machine graph` route composes those sections into one DOT graph
 with dashed call edges and named entry actions. The project uses
@@ -83,9 +85,17 @@ ID with a different workload is an error.
 
 The server and each worker use separate SQLite databases. The server stores
 request and assignment data and the last confirmed worker state. The worker
-records job state, process identity, log locations, and exit results. Each
-service owns writes to its own database. The worker service outlives SSH
-clients. Reconciliation after interruption uses the recorded assignment and
+records job state and exit results. Each service owns writes to its own
+database. The worker service outlives SSH clients. On acceptance the runner
+starts workload preparation and reports `RUNNING`. Cancellation signals the
+active workload, including during preparation. The worker stops remaining
+members of each command group before reaping its leader. A failed or cancelled
+workload removes its staged project and retains its logs and job record.
+During graceful shutdown the runner stops active workloads and gives
+pending result writes a bounded time to finish before closing SQLite. The
+runner retains observed results during write retries. At startup the runner
+marks jobs left running as unknown and keeps their reservations.
+Reconciliation after interruption uses the recorded assignment and
 queries that same worker. If it is unreachable, the server retains the last
 confirmed state and reports the communication failure separately. If a worker
 or its storage is gone and no terminal result was observed, the outcome is
@@ -95,9 +105,11 @@ Use the pinned `github.com/qmuntal/stateless` library for all server and worker
 business decisions. Model request admission, rental eligibility and assignment,
 submission, launch, observation, reconciliation, cancellation, and terminal
 results as triggers, guards, transitions, and actions. Represent durable state
-in SQLite, reconstruct machines from it, and use transactions to serialize
-competing updates. The machine authorizes external effects after durable intent
-is recorded. Reconcile ambiguous effects before retrying them. Input decoding,
+in SQLite and supply each job's current state to the job machine within the
+transaction that serializes its updates. CLI, application, worker, and listener
+invocations have their own state. The callback adapter supplies typed inputs to
+every machine's actions. The job machine authorizes external effects after
+durable intent is recorded. Reconcile ambiguous effects before retrying them. Input decoding,
 gRPC, SSH, filesystem, database, and MLflow adapters implement I/O and protocol
 translation. Inject `afero.Fs` for Go-owned file operations, following the
 Anki as Code pattern.

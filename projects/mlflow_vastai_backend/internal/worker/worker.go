@@ -2,11 +2,11 @@ package worker
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
 
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/machine"
+	"github.com/spf13/afero"
 )
 
 const (
@@ -43,23 +43,25 @@ type workerRun struct {
 	output io.Writer
 }
 
-// Worker owns rental-local worker operations.
+// Worker owns rental-local worker operations and the listener.
 type Worker struct {
 	// definition dispatches worker commands.
 	definition *machine.Machine[*workerRun]
+	// listener owns startup and shutdown of the rental-local service.
+	listener *listenerMachine
 }
 
 // New configures the worker state machine.
-func New() *Worker {
+func New(fs afero.Fs) *Worker {
 	definition := machine.New[*workerRun](stateReady)
-	worker := &Worker{definition: definition}
+	worker := &Worker{definition: definition, listener: newListenerMachine(fs)}
 	callbacks := workerCallbacks{worker: worker}
 	definition.Configure(stateReady).
 		Permit(serveEvent, stateServing).
 		Permit(submitEvent, stateForwardRPC).
 		Permit(statusEvent, stateForwardRPC).
 		Permit(cancelEvent, stateForwardRPC)
-	definition.Configure(stateServing).OnEntry(serveWorker)
+	definition.Configure(stateServing).OnEntry(callbacks.serve)
 	definition.Configure(stateForwardRPC).OnEntry(callbacks.call)
 	return worker
 }
@@ -96,10 +98,13 @@ func (worker *Worker) Cancel(ctx context.Context, directory string, input io.Rea
 	return nil
 }
 
-// Graph describes the worker command states.
+// Graph describes the worker and its listener.
 func (worker *Worker) Graph() machine.GraphSection {
 	return machine.GraphSection{
 		ID: "worker", Title: "Worker", DOT: worker.definition.ToGraph(),
+		Calls: []machine.GraphCall{
+			{From: stateServing, Label: "starts listener", Target: worker.listener.graph()},
+		},
 	}
 }
 
@@ -118,6 +123,14 @@ func (worker *Worker) run(ctx context.Context, current workerRun) error {
 	return nil
 }
 
+// serve runs the listener machine to completion.
+func (worker *Worker) serve(ctx context.Context, current *workerRun) error {
+	if err := worker.listener.run(ctx, current.directory); err != nil {
+		return fmt.Errorf("run worker listener: %w", err)
+	}
+	return nil
+}
+
 // call forwards one command request to the local listener.
 func (worker *Worker) call(ctx context.Context, current *workerRun) error {
 	if err := call(ctx, current.directory, current.operation, current.input, current.output); err != nil {
@@ -132,12 +145,12 @@ type workerCallbacks struct {
 	worker *Worker
 }
 
+// serve starts the listener.
+func (callbacks workerCallbacks) serve(ctx context.Context, _ ...any) error {
+	return callbacks.worker.definition.RunAction(ctx, callbacks.worker.serve)
+}
+
 // call forwards a local worker RPC.
 func (callbacks workerCallbacks) call(ctx context.Context, _ ...any) error {
 	return callbacks.worker.definition.RunAction(ctx, callbacks.worker.call)
-}
-
-// serveWorker reports the worker service's current implementation status.
-func serveWorker(_ context.Context, _ ...any) error {
-	return errors.New("worker service is not implemented")
 }

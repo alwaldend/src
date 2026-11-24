@@ -9,8 +9,8 @@ languages:
 ---
 
 The Python plugin connects MLflow Projects to a Vast.ai job server using gRPC.
-The shared protobuf contract defines both the job server
-and the rental worker service. The Go services are pending.
+The Go worker runs jobs on an existing Linux rental. The job server that
+assigns jobs to rentals is pending.
 
 ## Go CLI
 
@@ -19,14 +19,12 @@ bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- server serve
 bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- worker serve
 ```
 
-The CLI machine passes the parsed command to the application machine. The
-application delegates worker commands to its worker child. Both service entry
-points currently return a nonzero exit status with a stub error. The worker
-CLI forwards `submit`, `status`, and `cancel` requests to a Unix gRPC socket.
-The commands read binary protobuf messages on stdin and write a binary
-`Job` response on stdout.
+The CLI machine parses arguments and starts the application child with a typed
+command. The application delegates worker commands to its worker child.
+`worker serve` starts the worker's listener machine, and the listener uses
+the SQLite-backed job machine. `server serve` currently returns a stub error.
 
-Export the composed machines as DOT or build the themed SVG on Linux.
+Export the composed application graph as DOT or build the themed SVG on Linux.
 
 ```sh
 bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- state-machine graph
@@ -36,7 +34,34 @@ bazel build //projects/mlflow_vastai_backend/cmd/mlflow-vastai:state_machine_svg
 The SVG is at `bazel-bin/projects/mlflow_vastai_backend/cmd/mlflow-vastai/state-machine.svg`.
 Bazel builds Graphviz from pinned source. The SVG embeds the shared diagram
 font and uses the common theme's light and dark palettes. The
-[state machines page](docs/state-machines.md) embeds the generated graph.
+[state machine page](docs/state-machines.md) embeds the generated graph.
+
+## Rental worker
+
+Run `worker serve` as the rental's SSH user with `mlflow` on `PATH` and the
+project's training runtime installed. The worker uses that MLflow CLI and its
+tracking credentials to download the project snapshot. It runs the prepared
+entry point with `MLFLOW_TRACKING_URI`, `MLFLOW_EXPERIMENT_ID`, and
+`MLFLOW_RUN_ID` set.
+
+Use `worker --state-dir /path/to/state serve` to set the state directory.
+The default is `$XDG_STATE_HOME/mlflow-vastai` or
+`$HOME/.local/state/mlflow-vastai`. An existing directory must be private to
+its owner. The listener keeps `worker.sock`, `jobs.sqlite3`, and per-job
+directories under that path. Workload output goes to `stdout.log` and
+`stderr.log`. Artifact download and workload errors are logged by the listener.
+
+`worker submit`, `worker status`, and `worker cancel` use the same state
+directory. They read one binary protobuf from stdin and return a binary `Job`
+on stdout. Submission takes `SubmitJobRequest`. Status and cancellation take
+`JobReference`.
+
+The listener reserves the MLflow run ID in SQLite and immediately starts
+preparing the workload. Status is `RUNNING` from acceptance through execution.
+Cancellation stops the local workload, and the listener records the confirmed
+outcome. Graceful shutdown stops active workloads and records their results.
+After a crash, a new listener reports unfinished jobs as unknown and preserves
+the original reservations.
 
 ## Run a project
 
@@ -79,11 +104,12 @@ conda, or virtualenv environments.
 
 ```sh
 bazel test //projects/mlflow_vastai_backend/test/e2e:plugin_test
+bazel test //projects/mlflow_vastai_backend/test/e2e:worker_test
 bazel build //projects/mlflow_vastai_backend/api/jobpb:jobpb
 ```
 
-The end-to-end test runs an MLflow project against a local gRPC fixture and
-checks tracking results, submission replay, and cancellation. Refresh the
+The plugin test uses a local gRPC fixture. The worker test uses the real CLI,
+Unix gRPC socket, SQLite state, and an MLflow artifact store. Refresh the
 project's Python lock with
 `bazel run //projects/mlflow_vastai_backend:uv_lock.update`.
 
