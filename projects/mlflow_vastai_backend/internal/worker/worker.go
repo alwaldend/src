@@ -53,13 +53,14 @@ type Worker struct {
 func New() *Worker {
 	definition := machine.New[*workerRun](stateReady)
 	worker := &Worker{definition: definition}
+	callbacks := workerCallbacks{worker: worker}
 	definition.Configure(stateReady).
 		Permit(serveEvent, stateServing).
 		Permit(submitEvent, stateForwardRPC).
 		Permit(statusEvent, stateForwardRPC).
 		Permit(cancelEvent, stateForwardRPC)
 	definition.Configure(stateServing).OnEntry(serveWorker)
-	definition.Configure(stateForwardRPC).OnEntry(forwardRPC)
+	definition.Configure(stateForwardRPC).OnEntry(callbacks.call)
 	return worker
 }
 
@@ -104,6 +105,11 @@ func (worker *Worker) Graph() machine.GraphSection {
 
 // run fires the selected worker transition.
 func (worker *Worker) run(ctx context.Context, current workerRun) error {
+	directory, err := workerDirectory(current.directory)
+	if err != nil {
+		return fmt.Errorf("resolve worker directory: %w", err)
+	}
+	current.directory = directory
 	current.state = stateReady
 	ctx = worker.definition.WithInvocation(ctx, &current.state, &current)
 	if err := worker.definition.FireCtx(ctx, current.operation); err != nil {
@@ -112,12 +118,26 @@ func (worker *Worker) run(ctx context.Context, current workerRun) error {
 	return nil
 }
 
+// call forwards one command request to the local listener.
+func (worker *Worker) call(ctx context.Context, current *workerRun) error {
+	if err := call(ctx, current.directory, current.operation, current.input, current.output); err != nil {
+		return fmt.Errorf("forward worker RPC: %w", err)
+	}
+	return nil
+}
+
+// workerCallbacks adapts named Stateless callbacks to typed worker actions.
+type workerCallbacks struct {
+	// worker provides typed worker actions.
+	worker *Worker
+}
+
+// call forwards a local worker RPC.
+func (callbacks workerCallbacks) call(ctx context.Context, _ ...any) error {
+	return callbacks.worker.definition.RunAction(ctx, callbacks.worker.call)
+}
+
 // serveWorker reports the worker service's current implementation status.
 func serveWorker(_ context.Context, _ ...any) error {
 	return errors.New("worker service is not implemented")
-}
-
-// forwardRPC reports the worker RPC client's current implementation status.
-func forwardRPC(_ context.Context, _ ...any) error {
-	return errors.New("worker RPC client is not implemented")
 }

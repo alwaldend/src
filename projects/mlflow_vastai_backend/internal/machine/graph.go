@@ -53,12 +53,13 @@ func appendSection(graph, edges *strings.Builder, section GraphSection) error {
 		return fmt.Errorf("unexpected DOT footer in %s graph", section.ID)
 	}
 	// Give Stateless's synthetic nodes a unique name in each section
-	// and remove Go's method-value suffix from action labels.
+	// and remove Go's method-value suffix from action and guard labels.
 	body = strings.NewReplacer(
 		"\tinit ", "\t"+section.ID+"_init ",
 		"\tlegend ", "\t"+section.ID+"_legend ",
 		`-fm\l`, `\l`,
 		`-fm"`, `"`,
+		`-fm]`, `]`,
 		"🔒 Internal", "Internal transitions",
 		"🚫 Ignored", "Ignored events",
 		"🔄 Reentry", "Reentry transitions",

@@ -26,7 +26,7 @@ func workloadEnvironment(command *exec.Cmd, id string, specification *jobpb.Work
 	)
 }
 
-// prepareProject retrieves the MLflow artifact and expands it into a new directory.
+// prepareProject retrieves and expands the artifact, returning any directory it created.
 func prepareProject(ctx context.Context, filesystem afero.Fs, directory string, id string, specification *jobpb.Workload) (project string, err error) {
 	download := filepath.Join(directory, "download")
 	if err := filesystem.Mkdir(download, 0o700); err != nil {
@@ -61,7 +61,7 @@ func prepareProject(ctx context.Context, filesystem afero.Fs, directory string, 
 		return "", fmt.Errorf("create project directory: %w", err)
 	}
 	if err := extractProject(ctx, filesystem, archive, project); err != nil {
-		return "", fmt.Errorf("expand MLflow project for %s: %w", id, err)
+		return project, fmt.Errorf("expand MLflow project for %s: %w", id, err)
 	}
 	return project, nil
 }

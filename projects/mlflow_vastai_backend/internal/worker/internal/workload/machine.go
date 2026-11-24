@@ -2,8 +2,8 @@ package workload
 
 import (
 	"context"
+	"errors"
 	"fmt"
-	"sync"
 
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/api/jobpb"
 	"git.alwaldend.com/alwaldend/src/projects/mlflow_vastai_backend/internal/machine"
@@ -15,7 +15,7 @@ const (
 	stateReady machine.State = "workload-ready"
 	// statePreparing stages the project and configures its command.
 	statePreparing machine.State = "workload-preparing"
-	// statePrepared awaits authorization from the caller.
+	// statePrepared holds the staged command.
 	statePrepared machine.State = "workload-prepared"
 	// stateRunning starts and observes the prepared command.
 	stateRunning machine.State = "workload-running"
@@ -26,14 +26,12 @@ const (
 	prepareProjectCommand machine.Event = "prepare"
 	// preparedProjectCommand records successful project staging.
 	preparedProjectCommand machine.Event = "prepared"
-	// runProjectCommand runs the prepared command after authorization.
+	// runProjectCommand runs the prepared command.
 	runProjectCommand machine.Event = "run"
 )
 
 // invocation holds one workload's staging inputs and execution result.
 type invocation struct {
-	// mu serializes attempts to run the same prepared command.
-	mu sync.Mutex
 	// state is the current workload state.
 	state machine.State
 	// directory contains the project and its outputs.
@@ -72,22 +70,22 @@ func (runner *Runner) Graph() machine.GraphSection {
 	return machine.GraphSection{ID: "workload", Title: "Workload", DOT: runner.definition.ToGraph()}
 }
 
-// Prepare stages the workload and returns its run action after successful preparation.
-func (runner *Runner) Prepare(ctx context.Context, directory, id string, specification *jobpb.Workload) (func(context.Context) (Outcome, error), error) {
+// Execute stages the workload and runs the prepared command.
+func (runner *Runner) Execute(ctx context.Context, directory, id string, specification *jobpb.Workload) (outcome Outcome, err error) {
 	current := &invocation{state: stateReady, directory: directory, id: id, specification: specification}
+	defer func() {
+		if current.prepared != nil && (err != nil || outcome.ExitCode == nil || *outcome.ExitCode != 0) {
+			err = errors.Join(err, discardProject(runner.filesystem, current.prepared.command.Dir))
+		}
+	}()
 	ctx = runner.definition.WithInvocation(ctx, &current.state, current)
 	if err := runner.definition.FireCtx(ctx, prepareProjectCommand); err != nil {
-		return nil, fmt.Errorf("prepare workload %s: %w", id, err)
+		return Outcome{}, fmt.Errorf("prepare workload: %w", err)
 	}
-	return func(ctx context.Context) (Outcome, error) {
-		current.mu.Lock()
-		defer current.mu.Unlock()
-		ctx = runner.definition.WithInvocation(ctx, &current.state, current)
-		if err := runner.definition.FireCtx(ctx, runProjectCommand); err != nil {
-			return current.outcome, fmt.Errorf("run workload %s: %w", id, err)
-		}
-		return current.outcome, nil
-	}, nil
+	if err := runner.definition.FireCtx(ctx, runProjectCommand); err != nil {
+		return current.outcome, fmt.Errorf("run workload: %w", err)
+	}
+	return current.outcome, nil
 }
 
 // stageProject prepares the command before the run trigger is permitted.

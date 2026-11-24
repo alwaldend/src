@@ -42,12 +42,23 @@ func prepare(ctx context.Context, filesystem afero.Fs, directory, id string, spe
 	}
 	project, err := prepareProject(ctx, filesystem, directory, id, specification)
 	if err != nil {
-		return nil, fmt.Errorf("prepare project: %w", err)
+		return nil, fmt.Errorf("prepare project: %w", errors.Join(err, discardProject(filesystem, project)))
 	}
 	command := exec.Command("/bin/sh", "-c", specification.GetCommand())
 	command.Dir = project
 	command.Env = workloadEnvironment(command, id, specification)
 	return &prepared{filesystem: filesystem, directory: directory, command: command}, nil
+}
+
+// discardProject removes an extracted project while preserving its sibling log files.
+func discardProject(filesystem afero.Fs, project string) error {
+	if project == "" {
+		return nil
+	}
+	if err := filesystem.RemoveAll(project); err != nil {
+		return fmt.Errorf("remove staged project: %w", err)
+	}
+	return nil
 }
 
 // run starts the prepared child command and records its observed outcome.

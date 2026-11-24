@@ -40,11 +40,12 @@ and artifacts directly to MLflow.
 Cobra selects a named application method or graph export. The CLI and
 application call their children through component methods. Each component
 owns its machine and keeps its triggers private.
-Each invocation binds its state and typed input to the context. The CLI uses
-one action to run the method selected by Cobra.
-Command actions return errors
-through the invoking transition. Both service entry points return stub errors. The CLI also routes typed
-submit, status, and cancel commands to the worker RPC client stub.
+Each invocation binds its state and typed input to the context. The machine
+adapts typed actions to that input. The CLI uses one action to run the method
+selected by Cobra.
+Command actions return errors through the invoking transition. Both service
+entry points return stub errors. The worker command client forwards submission,
+status, and cancellation requests to a Unix gRPC socket.
 Each component exports its own graph and links to its children. The
 `state-machine graph` route composes those sections into one DOT graph
 with dashed call edges and named entry actions. The project uses
