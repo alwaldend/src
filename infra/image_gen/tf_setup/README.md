@@ -26,9 +26,10 @@ without inheriting stock template options. The root selects an explicit publishe
 there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
 The component's [config.json](../config.json) owns the image, HTTPS username,
-selected model/hardware profiles and their definitions. Terraform has no root
-input variables or tfvars presets. Read that configuration for the selected
-model and hardware; selections can change between authorized trials.
+default model and hardware profiles and their definitions. Set
+`TF_VAR_hardware_profile` to a profile name from that registry to select rental
+hardware at invocation time. Use the same selection for operations on that rental.
+Ansible selects the model independently.
 Other model profiles remain available
 as `chroma-hd`, `flux2-dev`, `juggernaut`, `hidream-i1-full`, `illustrious`, `flux`,
 `qwen`, `noobai`, `uso` and `umo-uno`. Selecting a profile does not rent until an explicitly authorized apply.
@@ -43,6 +44,7 @@ host user's Vault metadata. Deploy that policy and registration before relying
 on the host key to run Ansible; no private key is copied to the rental.
 
 ```sh
+export TF_VAR_hardware_profile=48gb
 bazel run //infra/image_gen/tf_setup:tf.plan
 bazel run //infra/image_gen/tf_setup:tf.rent
 ```
@@ -226,9 +228,9 @@ not guarantee exact style isolation or character continuity.
 
 ### MiniMax H3 Video
 
-The [configuration](../config.json) selects `minimax-h3-video` for the
-[application playbook](../ansible/README.md). The `48gb` profile supplies
-the RTX PRO 5000 Blackwell and a 100 GB disk.
+Select `minimax-h3-video` with the
+[application playbook's model override](../ansible/README.md).
+The `48gb` hardware profile supplies the RTX PRO 5000 Blackwell and a 100 GB disk.
 The H3 bundle uses about 42.5 GB of disk for the pruned INT8 FL2VA denoiser,
 NVFP4 text encoder, and standard video and audio VAEs. Check free disk and
 system RAM for offloading when installing alongside existing models.
