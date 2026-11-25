@@ -29,4 +29,8 @@ roots. Mocked DNS plans confirmed all 149 resource addresses.
 - [x] 4.1 Remove the retired node's DNS declarations, Terraform configuration, and inventory entries.
 - [x] 4.2 Delete the four Work1 records and verify the public and dc1 DNS answers.
 - [x] 4.3 Transfer the remaining 12 3x-ui DNS bindings and verify a no-change plan.
-- [ ] 4.4 Reconcile the retired node's service state after approval.
+- [x] 4.4 Reconcile the retired node's service state after approval.
+
+On 2026-11-25, a dry run confirmed that state removal matched only the 20
+entries under `module.node_work1`. The approved removal succeeded and
+destroyed no remote resources.

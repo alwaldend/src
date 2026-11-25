@@ -1,7 +1,7 @@
 resource "threexui_xray_observatory" "observatory" {
   observatory {
-    tag                = "obs_ping"
-    subject_selector   = ["out-*"]
+    tag                = "default"
+    subject_selector   = ["out-mullvad-min-"]
     probe_url          = "https://www.google.com/generate_204"
     probe_interval     = "1m"
     enable_concurrency = true

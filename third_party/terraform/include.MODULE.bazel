@@ -11,14 +11,6 @@ register_toolchains("@rules_terraform_cli//:all")
 # One shared version per source; targets select a subset by provider label.
 terraform_providers = use_extension("//tools/rules_terraform:extensions.bzl", "terraform_providers")
 terraform_providers.archive(
-    name = "terraform_provider_batonogov_threexui",
-    integrity = "sha256-MZ6Ob9jwRs9hRD2szLhjoEODy2FJsd+BtFTTF260d2s=",
-    platform = "linux_amd64",
-    source = "registry.terraform.io/batonogov/threexui",
-    urls = ["https://github.com/batonogov/terraform-provider-threexui/releases/download/v3.20.0/terraform-provider-threexui_3.20.0_linux_amd64.zip"],
-    version = "3.20.0",
-)
-terraform_providers.archive(
     name = "terraform_provider_cloudflare_cloudflare",
     integrity = "sha256-zXZwFupzguOE5WD23bMCY37LG1Ps4VyTJgMgEO/+bDM=",
     platform = "linux_amd64",
@@ -141,7 +133,6 @@ terraform_providers.archive(
 )
 use_repo(
     terraform_providers,
-    "terraform_provider_batonogov_threexui",
     "terraform_provider_cloudflare_cloudflare",
     "terraform_provider_gitlabhq_gitlab",
     "terraform_provider_goharbor_harbor",

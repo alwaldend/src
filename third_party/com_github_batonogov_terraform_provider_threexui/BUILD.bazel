@@ -1,0 +1,47 @@
+load("@rules_go//go:def.bzl", "go_cross_binary")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
+load("@rules_pkg//pkg:zip.bzl", "pkg_zip")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/rules_terraform/terraform:providers.bzl", "terraform_provider")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
+
+exports_files([
+    "flat_observatory.patch",
+    "go.mod",
+    "go.sum",
+])
+
+go_cross_binary(
+    name = "provider_binary",
+    platform = "@rules_go//go/toolchain:linux_amd64",
+    sdk_version = "1.26.11",
+    target = "@com_github_batonogov_terraform_provider_threexui//:terraform-provider-threexui",
+)
+
+pkg_files(
+    name = "provider_files",
+    srcs = [":provider_binary"],
+    attributes = pkg_attributes(mode = "0755"),
+    renames = {":provider_binary": "terraform-provider-threexui_v3.34.0"},
+)
+
+pkg_zip(
+    name = "provider_archive",
+    srcs = [":provider_files"],
+)
+
+terraform_provider(
+    name = "provider",
+    src = ":provider_archive",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/batonogov/threexui",
+    version = "3.34.0",
+    visibility = ["//infra/threexui/tf:__pkg__"],
+)
