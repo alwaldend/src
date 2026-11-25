@@ -1,0 +1,53 @@
+load("//projects/al:defs.bzl", "al_config")
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+vault_tf_backend(
+    name = "approle_backend",
+    extends = "//infra/vault:tf_backend_main",
+    labels = {"tf": "approle_src_infra_mlflow"},
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/approles/src_infra_mlflow",
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":approle_backend",
+        "//infra/vault:al",
+    ],
+)
+
+_CONFIG = glob(
+    ["*.tf"],
+    exclude = ["backend.tf"],
+) + [
+    "//infra/mlflow/dns:dnsconfig",
+    "//infra/vault/tf:dns_access",
+    "//projects/tf_modules/vault_approle",
+    "//projects/tf_modules/vault_pki_server",
+    "//projects/tf_modules/vault_ssh_server_role",
+]
+
+al_terraform_package(
+    name = "tf",
+    configs = [":al"],
+    data = _CONFIG + ["backend.tf"],
+    plugin_labels = {
+        "tf": "approle_src_infra_mlflow",
+        "vault_env": "default_default",
+    },
+    providers = ["@terraform_provider_hashicorp_vault//:provider"],
+    test_kwargs = {
+        "data": _CONFIG,
+        "validate": True,
+    },
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/mlflow:__pkg__"],
+)

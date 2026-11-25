@@ -1,0 +1,19 @@
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+infra_terraform_dns(
+    name = "tf",
+    configs = ["//infra/mlflow:dns_al"],
+    dc1 = True,
+    validate = True,
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra/ingress/ansible:__pkg__",
+        "//infra/mlflow:__subpackages__",
+    ],
+)

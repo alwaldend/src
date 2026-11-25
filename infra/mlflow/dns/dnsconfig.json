@@ -1,0 +1,25 @@
+{
+    "records": {
+        "upstream": {
+            "A": {
+                "name": "dc1.mlflow.alwaldend.com",
+                "address": "192.168.10.96"
+            },
+            "dsp": ["global"]
+        },
+        "ingress": {
+            "CNAME": {
+                "name": "mlflow.alwaldend.com",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
+        "local": {
+            "A": {
+                "name": "mlflow.alwaldend.com",
+                "address": "192.168.10.96"
+            },
+            "dsp": ["dc1"]
+        }
+    }
+}
