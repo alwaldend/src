@@ -1,0 +1,24 @@
+[Unit]
+Description=MLflow Vast.ai job coordinator
+Wants=network-online.target
+After=network-online.target mlflow-tracking.service
+{% if mlflow_require_data_mounts %}
+RequiresMountsFor=/var/lib/mlflow-vastai
+AssertPathIsMountPoint=/var/lib/mlflow-vastai
+{% endif %}
+
+[Service]
+User=mlflow-vastai
+StateDirectory=mlflow-vastai
+StateDirectoryMode=0700
+Environment=MLFLOW_TRACKING_TOKEN_FILE=/var/lib/mlflow-vastai/tracking-token
+EnvironmentFile=/etc/mlflow-vastai.env
+ExecStart=/opt/mlflow/current/mlflow-vastai server serve --state-dir /var/lib/mlflow-vastai --listen 127.0.0.1:{{ mlflow_coordinator_port }} --workers ${MLFLOW_VASTAI_WORKERS} --tracking-uri {{ mlflow_tracking_uri }} --ssh-user {{ mlflow_worker_user }}
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

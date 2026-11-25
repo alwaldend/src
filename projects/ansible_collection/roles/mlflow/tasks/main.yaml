@@ -1,0 +1,159 @@
+- name: Verify the coordinator configuration
+  ansible.builtin.assert:
+    that:
+      - mlflow_vast_api_key is match('^[A-Za-z0-9_-]+$')
+      - mlflow_vastai_workers is match('^[^\x27\r\n]+$')
+  no_log: true
+- name: Install the OpenSSH client
+  ansible.builtin.package:
+    name: "{{ mlflow_ssh_client_package }}"
+    state: present
+- name: Create service accounts
+  ansible.builtin.user:
+    name: "{{ item }}"
+    system: true
+    shell: /sbin/nologin
+    home: "/var/lib/{{ item }}"
+    create_home: false
+  loop:
+    - mlflow-tracking
+    - mlflow-vastai
+- name: Create the MLflow runtime directory
+  ansible.builtin.file:
+    path: /opt/mlflow
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+- name: Copy the packaged runtime
+  ansible.builtin.copy:
+    src: "{{ mlflow_runtime_archive }}"
+    dest: /opt/mlflow/runtime.tar.gz
+    owner: root
+    group: root
+    mode: "0644"
+  register: mlflow_archive
+- name: Install the packaged runtime
+  vars:
+    mlflow_release_dir: "/opt/mlflow/{{ mlflow_archive.checksum }}"
+  block:
+    - name: Create the runtime release directory
+      ansible.builtin.file:
+        path: "{{ mlflow_release_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+    - name: Unpack the runtime release
+      ansible.builtin.unarchive:
+        src: /opt/mlflow/runtime.tar.gz
+        dest: "{{ mlflow_release_dir }}"
+        remote_src: true
+        creates: "{{ mlflow_release_dir }}/.installed"
+    - name: Record the completed runtime installation
+      ansible.builtin.copy:
+        content: ""
+        dest: "{{ mlflow_release_dir }}/.installed"
+        force: false
+        owner: root
+        group: root
+        mode: "0644"
+    - name: Activate the runtime release
+      ansible.builtin.file:
+        src: "{{ mlflow_release_dir }}"
+        path: /opt/mlflow/current
+        state: link
+      notify:
+        - Restart MLflow tracking
+        - Restart Vast.ai coordinator
+- name: Create the coordinator SSH directory
+  ansible.builtin.file:
+    path: /var/lib/mlflow-vastai/.ssh
+    state: directory
+    owner: mlflow-vastai
+    group: mlflow-vastai
+    mode: "0700"
+- name: Install the coordinator SSH identity and trusted host keys
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "/var/lib/mlflow-vastai/.ssh/{{ item.name }}"
+    owner: mlflow-vastai
+    group: mlflow-vastai
+    mode: "0600"
+  loop:
+    - {src: "{{ mlflow_worker_ssh_key }}", name: id_ed25519}
+    - {src: "{{ mlflow_worker_known_hosts }}", name: known_hosts}
+  no_log: true
+- name: Install the coordinator tracking token
+  ansible.builtin.copy:
+    src: "{{ mlflow_tracking_token_src }}"
+    dest: /var/lib/mlflow-vastai/tracking-token
+    owner: mlflow-vastai
+    group: mlflow-vastai
+    mode: "0600"
+  no_log: true
+- name: Install the OIDC provider registry
+  ansible.builtin.copy:
+    content: "{{ mlflow_oidc_providers | to_nice_json }}"
+    dest: /etc/mlflow-oidc-providers.json
+    owner: mlflow-tracking
+    group: mlflow-tracking
+    mode: "0400"
+  no_log: true
+  notify: Restart MLflow tracking
+- name: Install the tracking OIDC environment
+  ansible.builtin.template:
+    src: mlflow-tracking.env.j2
+    dest: /etc/mlflow-tracking.env
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+  notify: Restart MLflow tracking
+- name: Install the coordinator environment
+  ansible.builtin.template:
+    src: mlflow-vastai.env.j2
+    dest: /etc/mlflow-vastai.env
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+  notify: Restart Vast.ai coordinator
+- name: Install the tracking unit
+  ansible.builtin.template:
+    src: mlflow-tracking.service.j2
+    dest: /etc/systemd/system/mlflow-tracking.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart MLflow tracking
+- name: Install the coordinator unit
+  ansible.builtin.template:
+    src: mlflow-vastai.service.j2
+    dest: /etc/systemd/system/mlflow-vastai.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart Vast.ai coordinator
+- name: Apply pending service changes
+  ansible.builtin.meta: flush_handlers
+- name: Enable and start MLflow services
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - mlflow-tracking.service
+    - mlflow-vastai.service
+- name: Wait for the tracking service
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ mlflow_tracking_port }}/health"
+  register: mlflow_health
+  until: mlflow_health.status == 200
+  retries: 30
+  delay: 2
+- name: Wait for the coordinator listener
+  ansible.builtin.wait_for:
+    host: 127.0.0.1
+    port: "{{ mlflow_coordinator_port }}"
+    timeout: 30

@@ -1,0 +1,25 @@
+[Unit]
+Description=MLflow tracking and artifact server
+After=network.target
+{% if mlflow_require_data_mounts %}
+RequiresMountsFor=/var/lib/mlflow-tracking /var/lib/mlflow-tracking/artifacts
+AssertPathIsMountPoint=/var/lib/mlflow-tracking
+AssertPathIsMountPoint=/var/lib/mlflow-tracking/artifacts
+{% endif %}
+
+[Service]
+User=mlflow-tracking
+StateDirectory=mlflow-tracking mlflow-tracking/artifacts
+StateDirectoryMode=0700
+WorkingDirectory=/var/lib/mlflow-tracking
+Environment=MLFLOW_ENABLE_TELEMETRY=false
+EnvironmentFile=/etc/mlflow-tracking.env
+ExecStart=/opt/mlflow/current/mlflow server --app-name oidc-auth --host 127.0.0.1 --port {{ mlflow_tracking_port }} --workers 1 --allowed-hosts {{ mlflow_hostname }},127.0.0.1:{{ mlflow_tracking_port }} --backend-store-uri sqlite:////var/lib/mlflow-tracking/tracking.db --serve-artifacts --artifacts-destination /var/lib/mlflow-tracking/artifacts
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target
