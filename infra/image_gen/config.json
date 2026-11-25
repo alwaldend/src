@@ -47,6 +47,7 @@
             "workflows": [
                 "moss-image-text-to-image",
                 "moss-image-base-text-to-image",
+                "moss-image-base-text-to-image-euler-50",
                 "moss-image-layout-guided",
                 "moss-image-base-layout-guided",
                 "moss-image-image-edit",

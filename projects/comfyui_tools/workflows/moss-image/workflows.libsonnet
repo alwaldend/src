@@ -52,6 +52,9 @@ function(models) {
     },
   }),
   'base-text-to-image.app': g.textToImageApp(self['base-text-to-image'], 4, 5, 6, 8, 10),
+  'base-text-to-image-euler-50': g.variant(self['base-text-to-image'], {
+    updates: { '8': { widgets_values: [42, 'fixed', 50, 3, 'euler', 'simple', 1] } },
+  }),
   'layout-guided': g.variant(self['text-to-image'], {
     nodes: [
       n.node(11, 'CreateBoundingBoxes', [1024, 1024, boxes, boxes], [0, 850], [600, 650], title='Example layout: edit the object box'),

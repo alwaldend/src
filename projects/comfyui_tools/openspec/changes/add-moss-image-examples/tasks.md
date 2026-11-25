@@ -15,3 +15,7 @@
       transformation; verify graph generation and existing profile packaging.
 - [x] 3.2 Stage the six additions, compare a saved graph and record live verification
       limits; cancel only the two task jobs when requested by the operator.
+
+## 4. Euler Base variant
+
+- [x] 4.1 Generate the separate 50-step Euler Base workflow from the existing Base graph.
