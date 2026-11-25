@@ -3,6 +3,14 @@ load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
 
+_PLAYBOOK_ARGS = [
+    "--inventory",
+    "inventory.yaml",
+    "--extra-vars",
+    "@files/metrics-vars.json",
+    "playbook_deploy.yaml",
+]
+
 al_ansible_package(
     name = "ansible",
     srcs = [
@@ -11,13 +19,14 @@ al_ansible_package(
         "//infra/mlflow/dns:dnsconfig",
         "//infra/mlflow:storage",
         "//infra/mlflow/runtime",
+        "//infra/victoria_metrics/dns:metrics_vars",
     ] + glob([
         "files/**",
         "group_vars/*.yaml",
         "tasks/*.yaml",
     ]),
     configs = ["//infra/mlflow:al"],
-    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
+    args = {"": _PLAYBOOK_ARGS},
     plugin_labels = {
         "ansible": "1",
         "vault_env": "default_default",
@@ -26,6 +35,7 @@ al_ansible_package(
         "//infra/mlflow/dns:dnsconfig": "files/mlflow-dns.json",
         "//infra/mlflow/runtime": "files/runtime.tar.gz",
         "//infra/mlflow:storage": "files/storage.json",
+        "//infra/victoria_metrics/dns:metrics_vars": "files/metrics-vars.json",
     },
 )
 
@@ -39,4 +49,19 @@ al_binary_run(
         "playbook_deploy.yaml",
     ],
     data = [":ansible_bin"],
+)
+
+al_binary_run(
+    name = "ansible.coordinator",
+    args = ["$(rootpath :ansible_bin)"] + _PLAYBOOK_ARGS + [
+        "--extra-vars",
+        "mlflow_enable_coordinator=true",
+    ],
+    configs = ["//infra/mlflow:al"],
+    data = [":ansible_bin"],
+    plugin_labels = {
+        "ansible": "1",
+        "mlflow_coordinator": "1",
+        "vault_env": "default_default",
+    },
 )

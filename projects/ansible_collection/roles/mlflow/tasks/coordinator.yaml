@@ -1,0 +1,60 @@
+- name: Verify the coordinator configuration
+  ansible.builtin.assert:
+    that:
+      - mlflow_vast_api_key is match('^[A-Za-z0-9_-]+$')
+      - mlflow_vastai_workers is match('^[^\x27\r\n]+$')
+  no_log: true
+- name: Install the OpenSSH client
+  ansible.builtin.package:
+    name: "{{ mlflow_ssh_client_package }}"
+    state: present
+- name: Create the coordinator service account
+  ansible.builtin.user:
+    name: mlflow-vastai
+    system: true
+    shell: /sbin/nologin
+    home: /var/lib/mlflow-vastai
+    create_home: false
+- name: Create the coordinator SSH directory
+  ansible.builtin.file:
+    path: /var/lib/mlflow-vastai/.ssh
+    state: directory
+    owner: mlflow-vastai
+    group: mlflow-vastai
+    mode: "0700"
+- name: Install the coordinator SSH identity and trusted host keys
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "/var/lib/mlflow-vastai/.ssh/{{ item.name }}"
+    owner: mlflow-vastai
+    group: mlflow-vastai
+    mode: "0600"
+  loop:
+    - {src: "{{ mlflow_worker_ssh_key }}", name: id_ed25519}
+    - {src: "{{ mlflow_worker_known_hosts }}", name: known_hosts}
+  no_log: true
+- name: Install the coordinator tracking token
+  ansible.builtin.copy:
+    src: "{{ mlflow_tracking_token_src }}"
+    dest: /var/lib/mlflow-vastai/tracking-token
+    owner: mlflow-vastai
+    group: mlflow-vastai
+    mode: "0600"
+  no_log: true
+- name: Install the coordinator environment
+  ansible.builtin.template:
+    src: mlflow-vastai.env.j2
+    dest: /etc/mlflow-vastai.env
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+  notify: Restart Vast.ai coordinator
+- name: Install the coordinator unit
+  ansible.builtin.template:
+    src: mlflow-vastai.service.j2
+    dest: /etc/systemd/system/mlflow-vastai.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart Vast.ai coordinator

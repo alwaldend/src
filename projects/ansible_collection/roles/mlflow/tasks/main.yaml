@@ -1,23 +1,10 @@
-- name: Verify the coordinator configuration
-  ansible.builtin.assert:
-    that:
-      - mlflow_vast_api_key is match('^[A-Za-z0-9_-]+$')
-      - mlflow_vastai_workers is match('^[^\x27\r\n]+$')
-  no_log: true
-- name: Install the OpenSSH client
-  ansible.builtin.package:
-    name: "{{ mlflow_ssh_client_package }}"
-    state: present
-- name: Create service accounts
+- name: Create the tracking service account
   ansible.builtin.user:
-    name: "{{ item }}"
+    name: mlflow-tracking
     system: true
     shell: /sbin/nologin
-    home: "/var/lib/{{ item }}"
+    home: /var/lib/mlflow-tracking
     create_home: false
-  loop:
-    - mlflow-tracking
-    - mlflow-vastai
 - name: Create the MLflow runtime directory
   ansible.builtin.file:
     path: /opt/mlflow
@@ -66,32 +53,6 @@
       notify:
         - Restart MLflow tracking
         - Restart Vast.ai coordinator
-- name: Create the coordinator SSH directory
-  ansible.builtin.file:
-    path: /var/lib/mlflow-vastai/.ssh
-    state: directory
-    owner: mlflow-vastai
-    group: mlflow-vastai
-    mode: "0700"
-- name: Install the coordinator SSH identity and trusted host keys
-  ansible.builtin.copy:
-    src: "{{ item.src }}"
-    dest: "/var/lib/mlflow-vastai/.ssh/{{ item.name }}"
-    owner: mlflow-vastai
-    group: mlflow-vastai
-    mode: "0600"
-  loop:
-    - {src: "{{ mlflow_worker_ssh_key }}", name: id_ed25519}
-    - {src: "{{ mlflow_worker_known_hosts }}", name: known_hosts}
-  no_log: true
-- name: Install the coordinator tracking token
-  ansible.builtin.copy:
-    src: "{{ mlflow_tracking_token_src }}"
-    dest: /var/lib/mlflow-vastai/tracking-token
-    owner: mlflow-vastai
-    group: mlflow-vastai
-    mode: "0600"
-  no_log: true
 - name: Install the OIDC provider registry
   ansible.builtin.copy:
     content: "{{ mlflow_oidc_providers | to_nice_json }}"
@@ -110,15 +71,6 @@
     mode: "0600"
   no_log: true
   notify: Restart MLflow tracking
-- name: Install the coordinator environment
-  ansible.builtin.template:
-    src: mlflow-vastai.env.j2
-    dest: /etc/mlflow-vastai.env
-    owner: root
-    group: root
-    mode: "0600"
-  no_log: true
-  notify: Restart Vast.ai coordinator
 - name: Install the tracking unit
   ansible.builtin.template:
     src: mlflow-tracking.service.j2
@@ -127,24 +79,16 @@
     group: root
     mode: "0644"
   notify: Restart MLflow tracking
-- name: Install the coordinator unit
-  ansible.builtin.template:
-    src: mlflow-vastai.service.j2
-    dest: /etc/systemd/system/mlflow-vastai.service
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Restart Vast.ai coordinator
+- name: Configure the optional Vast.ai coordinator
+  ansible.builtin.include_tasks: coordinator.yaml
+  when: mlflow_enable_coordinator | bool
 - name: Apply pending service changes
   ansible.builtin.meta: flush_handlers
-- name: Enable and start MLflow services
+- name: Enable and start MLflow tracking
   ansible.builtin.systemd_service:
-    name: "{{ item }}"
+    name: mlflow-tracking.service
     enabled: true
     state: started
-  loop:
-    - mlflow-tracking.service
-    - mlflow-vastai.service
 - name: Wait for the tracking service
   ansible.builtin.uri:
     url: "http://127.0.0.1:{{ mlflow_tracking_port }}/health"
@@ -152,7 +96,14 @@
   until: mlflow_health.status == 200
   retries: 30
   delay: 2
+- name: Enable and start the Vast.ai coordinator
+  when: mlflow_enable_coordinator | bool
+  ansible.builtin.systemd_service:
+    name: mlflow-vastai.service
+    enabled: true
+    state: started
 - name: Wait for the coordinator listener
+  when: mlflow_enable_coordinator | bool
   ansible.builtin.wait_for:
     host: 127.0.0.1
     port: "{{ mlflow_coordinator_port }}"

@@ -4,6 +4,7 @@
     daemon_reload: true
     state: restarted
 - name: Restart Vast.ai coordinator
+  when: mlflow_enable_coordinator | bool
   ansible.builtin.systemd_service:
     name: mlflow-vastai.service
     daemon_reload: true

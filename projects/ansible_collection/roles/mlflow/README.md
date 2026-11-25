@@ -25,3 +25,7 @@ When the caller provides dedicated volumes, set `mlflow_require_data_mounts`
 to `true` and mount them before invoking the role. Tracking then requires
 mounts at `/var/lib/mlflow-tracking` and `/var/lib/mlflow-tracking/artifacts`.
 The coordinator requires a mount at `/var/lib/mlflow-vastai`.
+
+Set `mlflow_enable_coordinator` to `false` to install tracking independently.
+Provide only the browser OIDC registry entries in this mode. The role skips
+coordinator setup and leaves any previously installed coordinator untouched.
