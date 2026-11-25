@@ -27,7 +27,7 @@ al_terraform_package(
         "vault_env": "default_default",
     },
     providers = [
-        "@terraform_provider_batonogov_threexui//:provider",
+        "//third_party/com_github_batonogov_terraform_provider_threexui:provider",
         "@terraform_provider_hashicorp_vault//:provider",
     ],
     tests_use_al = True,

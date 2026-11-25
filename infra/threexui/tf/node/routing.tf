@@ -1,5 +1,8 @@
 resource "threexui_xray_routing" "config" {
-  depends_on      = [threexui_xray_balancers.config]
+  depends_on = [
+    threexui_xray_balancers.config,
+    threexui_xray_observatory.observatory,
+  ]
   domain_strategy = "AsIs"
   domain_matcher  = "hybrid"
 
@@ -34,10 +37,10 @@ resource "threexui_xray_routing" "config" {
     }
   }
 
-  # rule {
-  #   inbound_tag  = [threexui_inbound.mullvad_min_lb.tag]
-  #   balancer_tag = "out-mullvad-min-lb"
-  # }
+  rule {
+    inbound_tag  = [threexui_inbound.mullvad_min_lb.tag]
+    balancer_tag = "out-mullvad-min-lb"
+  }
 
   # rule {
   #   port = 53

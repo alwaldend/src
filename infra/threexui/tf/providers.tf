@@ -2,7 +2,7 @@ terraform {
   required_providers {
     threexui = {
       source  = "batonogov/threexui"
-      version = "3.20.0"
+      version = "3.34.0"
     }
     vault = {
       source  = "hashicorp/vault"

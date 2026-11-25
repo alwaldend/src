@@ -1,0 +1,23 @@
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.download(version = "1.26.11")
+
+threexui_go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
+threexui_go_deps.from_file(go_mod = "//third_party/com_github_batonogov_terraform_provider_threexui:go.mod")
+
+# Use the upstream generated protobuf sources with the isolated Go runtime dependencies.
+threexui_go_deps.gazelle_default_attributes(
+    directives = ["gazelle:proto disable_global"],
+)
+threexui_go_deps.module(
+    path = "github.com/batonogov/terraform-provider-threexui",
+    version = "v3.34.0",
+)
+threexui_go_deps.archive_override(
+    patch_strip = 1,
+    patches = ["//third_party/com_github_batonogov_terraform_provider_threexui:flat_observatory.patch"],
+    path = "github.com/batonogov/terraform-provider-threexui",
+    sha256 = "733dd873472a8aa9b42f6021b554d4d06034458cdace3b14565b4b64aa7b4477",
+    strip_prefix = "terraform-provider-threexui-3.34.0",
+    urls = ["https://github.com/batonogov/terraform-provider-threexui/archive/refs/tags/v3.34.0.tar.gz"],
+)
+use_repo(threexui_go_deps, "com_github_batonogov_terraform_provider_threexui")

@@ -10,6 +10,9 @@ provider labels through the public
 selected per provider source; the rule module's resolution boundary can support
 an explicit override policy later.
 
+The [3x-ui provider](../com_github_batonogov_terraform_provider_threexui/README.md)
+supplies its mirror ZIP from a patched source build.
+
 The pins were verified against the publishers' release checksums listed by the
 [Terraform registry protocol](https://developer.hashicorp.com/terraform/internals/provider-registry-protocol).
 Provider downloads use Bazel's verified downloader. Terraform installs only
