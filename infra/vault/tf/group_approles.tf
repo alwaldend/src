@@ -24,6 +24,7 @@ resource "vault_identity_group" "approles" {
     module.src_infra_ingress_approle.entity_id,
     module.src_infra_openhands.entity_id,
     data.vault_identity_entity.standalone_approles["src_infra_grafana"].entity_id,
+    data.vault_identity_entity.standalone_approles["src_infra_mlflow"].entity_id,
     data.vault_identity_entity.standalone_approles["src_infra_opencanary"].entity_id,
     data.vault_identity_entity.standalone_approles["src_infra_victoria_metrics"].entity_id,
     module.src_infra_xcp_ng_approle.entity_id,

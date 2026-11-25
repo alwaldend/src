@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the infrastructure for the MLflow tracking service and
+  the Vast.ai job coordinator. The plugin and worker belong to
+  projects/mlflow_vastai_backend. Specifications describe checked-in state.

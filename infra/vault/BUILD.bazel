@@ -11,6 +11,7 @@ package_group(
     name = "approle_state_projects",
     packages = [
         "//infra/grafana/approle",
+        "//infra/mlflow/approle",
         "//infra/vault/approles/...",
         "//infra/victoria_metrics/approle",
         "//infra/victoria_metrics/tf_setup/web_auth",
