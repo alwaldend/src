@@ -15,14 +15,14 @@
     },
     {
         "name": "coordinator",
-        "device": "/dev/xvdd",
+        "device": "/dev/xvde",
         "size_gib": 5,
         "mount": "/var/lib/mlflow-vastai",
         "unit": "mlflow-vastai"
     },
     {
         "name": "traefik",
-        "device": "/dev/xvde",
+        "device": "/dev/xvdf",
         "size_gib": 2,
         "mount": "/opt/traefik",
         "unit": "traefik"

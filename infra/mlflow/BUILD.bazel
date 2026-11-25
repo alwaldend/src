@@ -60,6 +60,33 @@ al_inject(
             "value": "{{ index .Last.Files 0 }}",
             "deps": ["oidc_session_key"],
         },
+    },
+    res_file = {
+        "oidc_client_secret": {
+            "value": "{{ .Last.Data.client_secret }}",
+            "deps": ["oidc_client"],
+        },
+        "oidc_session_key": {
+            "value": "{{ .Last.Data.session_key }}",
+            "deps": ["oidc"],
+        },
+    },
+    res_kv = {
+        "oidc": {
+            "mount": "secrets",
+            "path": _SECRET_PATH + "/oidc",
+        },
+    },
+    res_op = {"oidc_client": {
+        "method": "read",
+        "path": "identity/oidc/client/src_infra_mlflow_provider",
+    }},
+)
+
+al_inject(
+    name = "coordinator_credentials",
+    labels = {"mlflow_coordinator": "1"},
+    res_env = {
         "MLFLOW_WORKLOAD_ISSUER": {
             "value": "{{ .Last.Data.issuer }}",
             "deps": ["workload"],
@@ -84,10 +111,6 @@ al_inject(
             "value": "{{ index .Last.Files 0 }}",
             "deps": ["ssh_private_key"],
         },
-        "MLFLOW_VASTAI_WORKERS": {
-            "value": "{{ .Last.Data.workers }}",
-            "deps": ["coordinator"],
-        },
         "VAST_API_KEY": {
             "value": "{{ .Last.Data.api_key }}",
             "deps": ["coordinator"],
@@ -102,14 +125,6 @@ al_inject(
             "value": "{{ .Last.Data.ssh_private_key }}",
             "deps": ["coordinator"],
         },
-        "oidc_client_secret": {
-            "value": "{{ .Last.Data.client_secret }}",
-            "deps": ["oidc_client"],
-        },
-        "oidc_session_key": {
-            "value": "{{ .Last.Data.session_key }}",
-            "deps": ["oidc"],
-        },
         "tracking_token": {
             "value": "{{ .Last.Data.token }}",
             "deps": ["workload"],
@@ -120,19 +135,11 @@ al_inject(
             "mount": "secrets",
             "path": _SECRET_PATH + "/coordinator",
         },
-        "oidc": {
-            "mount": "secrets",
-            "path": _SECRET_PATH + "/oidc",
-        },
         "workload": {
             "mount": "secrets",
             "path": _SECRET_PATH + "/workload",
         },
     },
-    res_op = {"oidc_client": {
-        "method": "read",
-        "path": "identity/oidc/client/src_infra_mlflow_provider",
-    }},
 )
 
 al_config(
@@ -140,6 +147,7 @@ al_config(
     configs = [
         ":ansible_keys",
         ":auth",
+        ":coordinator_credentials",
         ":credentials",
         ":tf_backend",
         ":xo_login",

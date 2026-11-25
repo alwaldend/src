@@ -5,6 +5,7 @@ mlflow_tracking_uri: "{{ undef() }}"
 mlflow_hostname: "{{ mlflow_tracking_uri | urlsplit('hostname') }}"
 mlflow_tracking_port: 5000
 mlflow_coordinator_port: 50051
+mlflow_enable_coordinator: true
 # Require separate mounts at the tracking, artifacts, and coordinator state paths.
 mlflow_require_data_mounts: false
 # Override the package name for distributions that package OpenSSH differently.
