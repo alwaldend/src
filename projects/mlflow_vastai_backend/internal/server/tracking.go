@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"time"
 
@@ -21,14 +22,17 @@ type tracking struct {
 	endpoint string
 	// token authenticates tracking requests when configured.
 	token string
+	// tokenFile supplies a bearer token that can be rotated without restarting.
+	tokenFile string
 	// client bounds HTTP calls and refuses redirects.
 	client *http.Client
 }
 
 // newTracking scopes MLflow requests to the coordinator's configured endpoint.
-func newTracking(endpoint *url.URL, token string) tracking {
+func newTracking(endpoint *url.URL, token, tokenFile string) tracking {
 	return tracking{
 		endpoint: strings.TrimRight(endpoint.String(), "/"), token: token,
+		tokenFile: tokenFile,
 		client: &http.Client{Timeout: 8 * time.Second, CheckRedirect: func(_ *http.Request, _ []*http.Request) error {
 			return http.ErrUseLastResponse
 		}},
@@ -85,8 +89,19 @@ func (tracking tracking) request(ctx context.Context, method, route string, payl
 	if payload != nil {
 		request.Header.Set("Content-Type", "application/json")
 	}
-	if tracking.token != "" {
-		request.Header.Set("Authorization", "Bearer "+tracking.token)
+	token := tracking.token
+	if tracking.tokenFile != "" {
+		contents, err := os.ReadFile(tracking.tokenFile)
+		if err != nil {
+			return fmt.Errorf("read tracking token file: %w", err)
+		}
+		token = strings.TrimSpace(string(contents))
+		if token == "" {
+			return errors.New("tracking token file is empty")
+		}
+	}
+	if token != "" {
+		request.Header.Set("Authorization", "Bearer "+token)
 	}
 	response, err := tracking.client.Do(request)
 	if err != nil {

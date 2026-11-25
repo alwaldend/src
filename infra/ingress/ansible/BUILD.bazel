@@ -28,6 +28,7 @@ al_ansible_package(
     srcs = [
         "inventory.yaml",
         "//infra/grafana/dns:dnsconfig",
+        "//infra/mlflow/dns:dnsconfig",
     ] + glob([
         "group_vars/**/*.yaml",
         "files/**",
@@ -39,5 +40,8 @@ al_ansible_package(
         "vault_env": "default_default",
         "ansible": "",
     },
-    renames = {"//infra/grafana/dns:dnsconfig": "files/grafana-dns.json"},
+    renames = {
+        "//infra/grafana/dns:dnsconfig": "files/grafana-dns.json",
+        "//infra/mlflow/dns:dnsconfig": "files/mlflow-dns.json",
+    },
 )

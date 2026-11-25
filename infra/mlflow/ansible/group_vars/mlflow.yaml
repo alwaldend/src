@@ -1,0 +1,64 @@
+ansible_host: "{{ mlflow_hostname }}"
+ansible_user: ansible
+ssh_vault_role: src_infra_mlflow_ssh
+ssh_valid_principals:
+  - "{{ mlflow_hostname }}"
+
+mlflow_dns_record: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/mlflow-dns.json') | from_json).records.local.A }}
+mlflow_hostname: "{{ mlflow_dns_record.name }}"
+mlflow_guest_address: "{{ mlflow_dns_record.address }}"
+mlflow_runtime_archive: "{{ inventory_dir }}/files/runtime.tar.gz"
+mlflow_require_data_mounts: true
+mlflow_tracking_port: 5000
+mlflow_coordinator_port: 50051
+mlflow_tracking_uri: "https://{{ mlflow_hostname }}"
+mlflow_worker_user: root
+
+mlflow_tracking_token_src: "{{ lookup('ansible.builtin.env', 'MLFLOW_TRACKING_TOKEN_FILE', default=undef()) }}"
+mlflow_oidc_session_key_src: "{{ lookup('ansible.builtin.env', 'MLFLOW_OIDC_SESSION_KEY_FILE', default=undef()) }}"
+mlflow_oidc_client_secret_src: "{{ lookup('ansible.builtin.env', 'MLFLOW_OIDC_CLIENT_SECRET_FILE', default=undef()) }}"
+mlflow_oidc_client_id: "{{ lookup('ansible.builtin.env', 'MLFLOW_OIDC_CLIENT_ID', default=undef()) }}"
+mlflow_oidc_issuer: https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_mlflow_provider
+mlflow_oidc_groups: [global_admins]
+mlflow_oidc_admin_groups: [global_admins]
+mlflow_oidc_providers:
+  - id: default
+    type: oidc
+    display_name: Vault
+    discovery_url: "{{ mlflow_oidc_issuer }}/.well-known/openid-configuration"
+    issuer: "{{ mlflow_oidc_issuer }}"
+    audience: "{{ mlflow_oidc_client_id }}"
+    client_id: "{{ mlflow_oidc_client_id }}"
+  - id: workloads
+    type: oidc
+    interactive: false
+    provisioning: none
+    admin_source: none
+    discovery_url: "{{ lookup('ansible.builtin.env', 'MLFLOW_WORKLOAD_DISCOVERY_URL', default=undef()) }}"
+    issuer: "{{ lookup('ansible.builtin.env', 'MLFLOW_WORKLOAD_ISSUER', default=undef()) }}"
+    audience: "{{ lookup('ansible.builtin.env', 'MLFLOW_WORKLOAD_AUDIENCE', default=undef()) }}"
+mlflow_vast_api_key: "{{ lookup('ansible.builtin.env', 'VAST_API_KEY', default=undef()) }}"
+mlflow_vastai_workers: "{{ lookup('ansible.builtin.env', 'MLFLOW_VASTAI_WORKERS', default=undef()) }}"
+mlflow_worker_ssh_key: "{{ lookup('ansible.builtin.env', 'MLFLOW_VASTAI_SSH_KEY_FILE', default=undef()) }}"
+mlflow_worker_known_hosts: "{{ lookup('ansible.builtin.env', 'MLFLOW_VASTAI_KNOWN_HOSTS_FILE', default=undef()) }}"
+
+traefik_acme_path: pki/ica_servers/roles/src_infra_mlflow_pki_server/acme
+traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
+
+firewall_allow_port_from:
+  - {src: "any", port: 22, proto: tcp, comment: Administrative SSH}
+  - {src: "192.168.1.0/24", port: 80, proto: tcp, comment: Site LAN HTTP and ACME}
+  - {src: "192.168.1.0/24", port: 443, proto: tcp, comment: Site LAN MLflow HTTPS}
+  - {src: "192.168.10.0/24", port: 80, proto: tcp, comment: Guest LAN HTTP and ACME}
+  - {src: "192.168.10.0/24", port: 443, proto: tcp, comment: Guest LAN MLflow HTTPS}
+  - {src: "10.10.0.1/32", port: 443, proto: tcp, comment: Shared ingress HTTPS}
+  - src: "{{ victoria_metrics_collector_address }}/32"
+    port: "{{ traefik_metrics_port }}"
+    proto: tcp
+    comment: VictoriaMetrics scrape
+
+mlflow_data_disks: "{{ lookup('ansible.builtin.file', inventory_dir ~ '/files/storage.json') | from_json }}"
+mlflow_traefik_storage: "{{ mlflow_data_disks | selectattr('unit', 'equalto', 'traefik') | first }}"
+traefik_disk: "{{ mlflow_traefik_storage.device }}"
+traefik_dir: "{{ mlflow_traefik_storage.mount }}"

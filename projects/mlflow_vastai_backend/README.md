@@ -47,7 +47,8 @@ bazel run //projects/mlflow_vastai_backend/cmd/mlflow-vastai -- server serve \
 ```
 
 Inject `VAST_API_KEY` for read-only rental discovery. Set `MLFLOW_TRACKING_TOKEN`
-when the configured tracking endpoint needs bearer authentication. Use a
+for bearer authentication, or use `MLFLOW_TRACKING_TOKEN_FILE` to read a
+rotating bearer token on every tracking request. Use a
 tracking endpoint reachable from both the server and the rentals. The server
 accepts workloads using that configured HTTP or HTTPS tracking endpoint.
 

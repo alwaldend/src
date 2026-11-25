@@ -8,10 +8,15 @@ wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', def
 wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys', default=undefined()) | from_json }}"
 grafana_dns_records: >-
   {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/grafana-dns.json') | from_json).records }}
+mlflow_dns_records: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/mlflow-dns.json') | from_json).records }}
 traefik_services:
   grafana:
     hostname: "{{ grafana_dns_records.local.A.name }}"
     target: "{{ grafana_dns_records.upstream.A.name }}"
+  mlflow:
+    hostname: "{{ mlflow_dns_records.local.A.name }}"
+    target: "{{ mlflow_dns_records.upstream.A.name }}"
   git:
     hostname: git.alwaldend.com
     target: "int.forgejo.alwaldend.com"

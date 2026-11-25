@@ -112,8 +112,13 @@ func (rentals rentals) call(ctx context.Context, instance *vastai.Instance, oper
 		"mlflow-vastai worker "+operation)
 	command.Stdin = bytes.NewReader(payload)
 	command.WaitDelay = time.Second
-	for _, variable := range command.Environ() {
-		if !strings.HasPrefix(variable, "VAST_API_KEY=") && !strings.HasPrefix(variable, "MLFLOW_TRACKING_TOKEN=") {
+	environment := command.Environ()
+	command.Env = make([]string, 0, len(environment))
+	for _, variable := range environment {
+		name, _, _ := strings.Cut(variable, "=")
+		switch name {
+		case "VAST_API_KEY", "MLFLOW_TRACKING_TOKEN", "MLFLOW_TRACKING_TOKEN_FILE":
+		default:
 			command.Env = append(command.Env, variable)
 		}
 	}

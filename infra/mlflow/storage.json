@@ -1,0 +1,30 @@
+[
+    {
+        "name": "tracking",
+        "device": "/dev/xvdb",
+        "size_gib": 10,
+        "mount": "/var/lib/mlflow-tracking",
+        "unit": "mlflow-tracking"
+    },
+    {
+        "name": "artifacts",
+        "device": "/dev/xvdc",
+        "size_gib": 40,
+        "mount": "/var/lib/mlflow-tracking/artifacts",
+        "unit": "mlflow-tracking"
+    },
+    {
+        "name": "coordinator",
+        "device": "/dev/xvdd",
+        "size_gib": 5,
+        "mount": "/var/lib/mlflow-vastai",
+        "unit": "mlflow-vastai"
+    },
+    {
+        "name": "traefik",
+        "device": "/dev/xvde",
+        "size_gib": 2,
+        "mount": "/opt/traefik",
+        "unit": "traefik"
+    }
+]

@@ -1,0 +1,37 @@
+[global]
+checkNewVersion = false
+sendAnonymousUsage = false
+
+[providers.file]
+filename = "{{ traefik_dynamic_config_path }}"
+
+[entryPoints.web]
+address = ":80"
+
+[entryPoints.web.http.redirections.entryPoint]
+to = "websecure"
+scheme = "https"
+
+[entryPoints.websecure]
+address = ":443"
+asDefault = true
+
+[certificatesResolvers.vault.acme]
+email = "src_infra_mlflow@alwaldend.com"
+storage = "{{ traefik_data_dir }}/acme_vault.json"
+caServer = "{{ traefik_acme_url }}"
+# The Vault PKI role issues seven-day certificates.
+certificatesDuration = 168
+
+[certificatesResolvers.vault.acme.httpChallenge]
+entryPoint = "web"
+
+[certificatesResolvers.vault.acme.eab]
+kid = "{{ traefik_acme_kid }}"
+hmacEncoded = "{{ traefik_acme_hmac }}"
+
+[entryPoints.metrics]
+address = "{{ mlflow_guest_address }}:{{ traefik_metrics_port }}"
+
+[metrics.prometheus]
+entryPoint = "metrics"

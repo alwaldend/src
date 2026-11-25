@@ -48,3 +48,13 @@ module "ssh" {
   allowed_domains  = join(",", [split(".", local.hostname)[0], local.hostname])
   allow_subdomains = false
 }
+
+module "oidc" {
+  source                         = "../../../projects/tf_modules/vault_oidc_provider"
+  name                           = "${local.name}_provider"
+  issuer_host                    = "vault.alwaldend.com:8200"
+  scopes_supported               = ["email", "groups"]
+  group_ids                      = [data.vault_identity_group.operators.group_id]
+  allowed_read_clients_group_ids = [module.approle.group_id]
+  redirect_urls                  = ["https://${local.hostname}/callback"]
+}
