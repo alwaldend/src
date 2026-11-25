@@ -1,0 +1,24 @@
+# Controller-side archive containing the MLflow CLI, its runfiles, and mlflow-vastai.
+mlflow_runtime_archive: "{{ undef() }}"
+# Tracking URL reachable by the coordinator, project submitters, and workers.
+mlflow_tracking_uri: "{{ undef() }}"
+mlflow_hostname: "{{ mlflow_tracking_uri | urlsplit('hostname') }}"
+mlflow_tracking_port: 5000
+mlflow_coordinator_port: 50051
+# Require separate mounts at the tracking, artifacts, and coordinator state paths.
+mlflow_require_data_mounts: false
+# Override the package name for distributions that package OpenSSH differently.
+mlflow_ssh_client_package: openssh-clients
+mlflow_worker_user: root
+# The allowed rental selectors are supplied as one comma-separated string.
+mlflow_vastai_workers: "{{ undef() }}"
+mlflow_vast_api_key: "{{ undef() }}"
+mlflow_tracking_token_src: "{{ undef() }}"
+mlflow_oidc_providers: "{{ undef() }}"
+mlflow_oidc_client_secret_src: "{{ undef() }}"
+mlflow_oidc_session_key_src: "{{ undef() }}"
+mlflow_oidc_groups: "{{ undef() }}"
+mlflow_oidc_admin_groups: []
+# Controller-side paths to the coordinator's SSH identity and trusted host keys.
+mlflow_worker_ssh_key: "{{ undef() }}"
+mlflow_worker_known_hosts: "{{ undef() }}"

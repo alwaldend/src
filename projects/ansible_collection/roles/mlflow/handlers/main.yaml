@@ -1,0 +1,10 @@
+- name: Restart MLflow tracking
+  ansible.builtin.systemd_service:
+    name: mlflow-tracking.service
+    daemon_reload: true
+    state: restarted
+- name: Restart Vast.ai coordinator
+  ansible.builtin.systemd_service:
+    name: mlflow-vastai.service
+    daemon_reload: true
+    state: restarted
