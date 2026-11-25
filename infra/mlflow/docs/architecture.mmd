@@ -1,0 +1,41 @@
+flowchart LR
+    public("Public browser")
+    subgraph ingress_vm["Ingress VM · ingress.alwaldend.com"]
+        ingress["Traefik ingress"]
+    end
+
+    subgraph dc1["Local infrastructure · DC1"]
+        lan("DC1 browser")
+        subgraph vault_vm["Vault VM · vault.alwaldend.com"]
+            vault["Vault OIDC provider"]
+        end
+
+        subgraph guest["MLflow VM · mlflow.alwaldend.com"]
+            proxy["Traefik"]
+            tracking["MLflow tracking server<br/>UI and API"]
+            submitter("MLflow Projects<br/>Vast.ai backend plugin")
+            coordinator["Vast.ai job coordinator"]
+            proxy_state[("Traefik state")]
+            tracking_state[("Tracking and auth SQLite")]
+            artifacts[("Run artifacts")]
+            jobs[("Coordinator SQLite")]
+        end
+    end
+
+    vast_api["Vast.ai API"]
+    worker["Vast.ai rental worker<br/>Label: mlflow-worker"]
+
+    public -->|HTTPS + client cert| ingress
+    ingress -->|HTTPS over WireGuard| proxy
+    lan -->|HTTPS| proxy
+    proxy -->|Loopback HTTP| tracking
+    tracking --->|OIDC discovery and token exchange| vault
+    proxy_state --- proxy
+    tracking --- tracking_state
+    tracking --- artifacts
+
+    submitter -.->|Submit over loopback gRPC| coordinator
+    coordinator -.->|Discover rentals| vast_api
+    coordinator -..->|Run jobs over SSH| worker
+    worker -.->|HTTPS to tracking| ingress
+    jobs -.- coordinator

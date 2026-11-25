@@ -8,6 +8,21 @@ MLflow stores experiment metadata in SQLite and serves run artifacts over HTTPS
 at `https://mlflow.alwaldend.com`. MLflow authenticates browser users through Vault OIDC.
 The tracking API accepts bearer tokens for workload accounts.
 External clients also need a client certificate trusted by shared ingress.
+
+[![MLflow deployment showing HTTPS ingress, Vault OIDC, service storage, and optional Vast.ai execution](docs/assets/architecture.svg)](docs/assets/architecture.svg)
+
+Shared ingress reaches the guest at `dc1.mlflow.alwaldend.com`. For sign-in,
+MLflow redirects the browser to Vault and exchanges the authorization code
+with Vault after the browser returns to MLflow.
+
+Dotted connections show optional Vast.ai execution. A guest shell runs
+`mlflow run --backend vastai`. The plugin creates the run and uploads the
+project snapshot through guest Traefik before submitting the job to the
+coordinator. The coordinator publishes terminal run status through the same
+proxy. The rental fetches the project through shared ingress with a client
+certificate and bearer token. The workload can use that connection to log
+metrics and artifacts. The browser UI shows the run and its results.
+
 The Xen Orchestra guest keeps service data on four dedicated persistent disks.
 
 | Service data             | Xen device  |   Size | Mount point                          |
@@ -23,10 +38,9 @@ formatting and refuses to mount a new volume over existing data. The services
 require their data mounts at startup.
 
 Bazel packages the pinned MLflow CLI, Python runtime, Vast.ai Projects plugin,
-OIDC plugin, and coordinator. Ansible installs the package at `/opt/mlflow/current`. The
-tracking process and the coordinator listen on loopback. Use the deployed CLI
-from a trusted shell on the guest to submit projects. The coordinator assigns
-jobs to existing Vast.ai rentals and contacts their workers over SSH.
+OIDC plugin, and coordinator. Ansible installs the package at `/opt/mlflow/current`.
+The tracking process and the coordinator listen on loopback. The coordinator
+assigns jobs to existing Vast.ai rentals and contacts their workers over SSH.
 
 ## Credentials
 
