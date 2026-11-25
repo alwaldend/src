@@ -19,3 +19,7 @@
 ## 4. Euler Base variant
 
 - [x] 4.1 Generate the separate 50-step Euler Base workflow from the existing Base graph.
+
+## 5. Two-reference edit
+
+- [x] 5.1 Add the separate two-reference variant to this component.

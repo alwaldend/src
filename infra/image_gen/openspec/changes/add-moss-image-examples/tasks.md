@@ -19,3 +19,7 @@
 ## 4. Euler Base variant
 
 - [x] 4.1 Include the Euler Base variant in the selected MOSS workflow catalog.
+
+## 5. Two-reference edit
+
+- [x] 5.1 Add the separate two-reference variant to this component.

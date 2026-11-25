@@ -51,6 +51,7 @@
                 "moss-image-layout-guided",
                 "moss-image-base-layout-guided",
                 "moss-image-image-edit",
+                "moss-image-image-edit-two-references",
                 "moss-image-color-depth-control",
                 "moss-image-prompt-sequence",
                 "moss-image-base-prompt-sequence",
