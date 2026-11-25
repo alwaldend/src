@@ -1,0 +1,93 @@
+- name: Verify the Xen disks before creating filesystems
+  vars:
+    mlflow_device: "{{ item.device | basename }}"
+  ansible.builtin.assert:
+    that:
+      - mlflow_device in ansible_facts.devices
+      - ansible_facts.devices[mlflow_device].partitions | length == 0
+      - (ansible_facts.devices[mlflow_device].sectors | int) * (ansible_facts.devices[mlflow_device].sectorsize | int) == item.size_gib * 1024 * 1024 * 1024
+      - ansible_facts.mounts | selectattr('mount', 'equalto', item.mount) | rejectattr('device', 'equalto', item.device) | length == 0
+      - ansible_facts.mounts | selectattr('device', 'equalto', item.device) | rejectattr('mount', 'equalto', item.mount) | length == 0
+    fail_msg: "Unexpected disk or mount for {{ item.name }} at {{ item.device }}."
+  loop: "{{ mlflow_data_disks }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Inspect new mount points
+  ansible.builtin.stat:
+    path: "{{ item.mount }}"
+    get_checksum: false
+    get_mime: false
+  loop: "{{ mlflow_data_disks | rejectattr('mount', 'in', ansible_facts.mounts | map(attribute='mount') | list) }}"
+  register: mlflow_mount_points
+
+- name: Check for existing data under each new mount point
+  when: item.stat.exists
+  ansible.builtin.find:
+    paths: "{{ item.item.mount }}"
+    file_type: any
+    hidden: true
+    recurse: false
+  loop: "{{ mlflow_mount_points.results }}"
+  loop_control:
+    label: "{{ item.item.mount }}"
+  register: mlflow_existing_data
+
+- name: Require empty directories before mounting new disks
+  when: item is not skipped
+  ansible.builtin.assert:
+    that:
+      - item.skipped_paths | length == 0
+      - item.matched == 0
+    fail_msg: "Move or back up the existing data at {{ item.item.item.mount }} before mounting its disk."
+  loop: "{{ mlflow_existing_data.results }}"
+  loop_control:
+    label: "{{ item.item.item.mount }}"
+
+- name: Install ext4 filesystem utilities
+  ansible.builtin.package:
+    name: e2fsprogs
+    state: present
+
+- name: Create MLflow filesystems
+  community.general.filesystem:
+    dev: "{{ item.device }}"
+    fstype: ext4
+  loop: "{{ mlflow_data_disks | rejectattr('unit', 'equalto', 'traefik') }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Mount MLflow disks in parent-first order
+  ansible.posix.mount:
+    path: "{{ item.mount }}"
+    src: "{{ item.device }}"
+    fstype: ext4
+    state: mounted
+  loop: "{{ mlflow_data_disks | rejectattr('unit', 'equalto', 'traefik') }}"
+  loop_control:
+    label: "{{ item.mount }}"
+
+- name: Create the Traefik systemd drop-in directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/traefik.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Require the Traefik data mount when starting the service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/traefik.service.d/storage.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      [Unit]
+      RequiresMountsFor={{ mlflow_traefik_storage.mount }}
+      AssertPathIsMountPoint={{ mlflow_traefik_storage.mount }}
+  register: mlflow_traefik_storage_unit
+
+- name: Reload systemd after changing the required Traefik mount
+  when: mlflow_traefik_storage_unit.changed
+  ansible.builtin.systemd_service:
+    daemon_reload: true

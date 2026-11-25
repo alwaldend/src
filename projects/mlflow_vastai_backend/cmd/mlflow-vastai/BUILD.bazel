@@ -28,7 +28,10 @@ go_binary(
     name = "mlflow-vastai",
     embed = [":mlflow-vastai_lib"],
     target_compatible_with = ["@platforms//os:linux"],
-    visibility = ["//projects/mlflow_vastai_backend/test/e2e:__pkg__"],
+    visibility = [
+        "//infra/mlflow/runtime:__pkg__",
+        "//projects/mlflow_vastai_backend/test/e2e:__pkg__",
+    ],
 )
 
 dot_export(

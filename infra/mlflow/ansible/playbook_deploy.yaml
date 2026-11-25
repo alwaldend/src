@@ -1,0 +1,19 @@
+- name: Deploy MLflow and the Vast.ai coordinator
+  hosts: mlflow
+  become: true
+  pre_tasks:
+    - name: Configure persistent service disks
+      ansible.builtin.import_tasks: tasks/storage.yaml
+  roles:
+    - alwaldend.main.host
+    - alwaldend.main.traefik
+    - alwaldend.main.mlflow
+  post_tasks:
+    - name: Verify tracking through guest HTTPS
+      ansible.builtin.uri:
+        url: "{{ mlflow_tracking_uri }}/health"
+      register: mlflow_https_health
+      until: mlflow_https_health.status == 200
+      retries: 30
+      delay: 2
+      no_log: true

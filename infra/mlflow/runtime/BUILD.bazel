@@ -1,0 +1,15 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+pkg_tar(
+    name = "runtime",
+    srcs = [
+        "//projects/mlflow_vastai_backend:mlflow",
+        "//projects/mlflow_vastai_backend/cmd/mlflow-vastai",
+    ],
+    extension = "tar.gz",
+    include_runfiles = True,
+    mode = "0755",
+    visibility = ["//infra/mlflow/ansible:__pkg__"],
+)

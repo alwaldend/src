@@ -1,0 +1,42 @@
+load("//projects/al:defs.bzl", "al_binary_run")
+load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_ansible_package(
+    name = "ansible",
+    srcs = [
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+        "//infra/mlflow/dns:dnsconfig",
+        "//infra/mlflow:storage",
+        "//infra/mlflow/runtime",
+    ] + glob([
+        "files/**",
+        "group_vars/*.yaml",
+        "tasks/*.yaml",
+    ]),
+    configs = ["//infra/mlflow:al"],
+    extra_vars_files = ["//infra/victoria_metrics/dns:metrics_vars"],
+    plugin_labels = {
+        "ansible": "1",
+        "vault_env": "default_default",
+    },
+    renames = {
+        "//infra/mlflow/dns:dnsconfig": "files/mlflow-dns.json",
+        "//infra/mlflow/runtime": "files/runtime.tar.gz",
+        "//infra/mlflow:storage": "files/storage.json",
+    },
+)
+
+al_binary_run(
+    name = "ansible.syntax",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "--syntax-check",
+        "playbook_deploy.yaml",
+    ],
+    data = [":ansible_bin"],
+)

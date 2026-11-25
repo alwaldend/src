@@ -1,0 +1,8 @@
+[http.routers.mlflow]
+rule = "Host(`{{ mlflow_hostname }}`)"
+entryPoints = ["websecure"]
+service = "mlflow"
+tls = { certResolver = "vault" }
+
+[[http.services.mlflow.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ mlflow_tracking_port }}"

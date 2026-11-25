@@ -28,6 +28,8 @@ class Endpoint(http.server.BaseHTTPRequestHandler):
     states: typing.ClassVar[dict[str, str]] = {}
     update_attempts: typing.ClassVar[dict[str, int]] = {}
     rental_status: typing.ClassVar[str | None] = "running"
+    _tracking_auth: typing.ClassVar[str] = "Bearer fixture-token"
+    """Authorization required by the tracking routes."""
 
     def log_message(self, format: str, *args: object) -> None:
         """Keep the fixture's request logs quiet."""
@@ -58,6 +60,9 @@ class Endpoint(http.server.BaseHTTPRequestHandler):
         elif self.path.startswith("/api/v1/instances/?"):
             self._send({"instances": [{"id": 12, "label": "gpu"}]})
         elif self.path.startswith("/api/2.0/mlflow/runs/get?run_id="):
+            if self.headers.get("Authorization") != self._tracking_auth:
+                self.send_error(401)
+                return
             run_id: str = self.path.split("=", 1)[1]
             self._send(
                 {
@@ -72,6 +77,9 @@ class Endpoint(http.server.BaseHTTPRequestHandler):
     def do_POST(self) -> None:
         """Record a terminal tracking update and leave other routes closed."""
         assert self.path == "/api/2.0/mlflow/runs/update"
+        if self.headers.get("Authorization") != self._tracking_auth:
+            self.send_error(401)
+            return
         record: dict[str, str] = json.loads(
             self.rfile.read(int(self.headers["Content-Length"]))
         )
@@ -86,6 +94,11 @@ class Endpoint(http.server.BaseHTTPRequestHandler):
 
 def _ssh(root: pathlib.Path) -> None:
     """Simulate a worker with durable outcomes and one lost submit reply."""
+    assert not {
+        "VAST_API_KEY",
+        "MLFLOW_TRACKING_TOKEN",
+        "MLFLOW_TRACKING_TOKEN_FILE",
+    }.intersection(os.environ)
     operation: str = sys.argv[-1].split()[-1]
     assert sys.argv[-2] == "worker.example"
     message: bytes = sys.stdin.buffer.read()
@@ -150,6 +163,10 @@ def _exercise(cli: pathlib.Path, root: pathlib.Path, endpoint: str) -> None:
     env: dict[str, str] = os.environ.copy()
     env["PATH"] = f"{root}{os.pathsep}{env['PATH']}"
     env["VAST_API_KEY"] = "fixture"
+    env.pop("MLFLOW_TRACKING_TOKEN", None)
+    token_file: pathlib.Path = root / "tracking-token"
+    token_file.write_text("fixture-token\n", encoding="utf-8")
+    env["MLFLOW_TRACKING_TOKEN_FILE"] = str(token_file)
     args: list[str] = [
         str(cli),
         "server",
@@ -207,6 +224,8 @@ def _exercise(cli: pathlib.Path, root: pathlib.Path, endpoint: str) -> None:
             pb.JobReference(job_id="lost"), timeout=10
         )
         assert job.state == pb.JOB_STATE_FINISHED and job.exit_code == 0
+        token_file.write_text("rotated-token\n", encoding="utf-8")
+        Endpoint._tracking_auth = "Bearer rotated-token"
         request.job_id = "cancel"
         service.SubmitJob(request, timeout=10)
         assert (
@@ -215,6 +234,10 @@ def _exercise(cli: pathlib.Path, root: pathlib.Path, endpoint: str) -> None:
             ).state
             == pb.JOB_STATE_KILLED
         )
+        deadline = time.monotonic() + 12
+        while Endpoint.states.get("cancel") != "KILLED":
+            assert time.monotonic() < deadline
+            time.sleep(0.1)
         request.job_id = "parallel"
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
             left: concurrent.futures.Future[pb.Job] = pool.submit(

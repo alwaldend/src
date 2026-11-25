@@ -40,6 +40,7 @@ template_run_binary(
         "//infra/forgejo/ansible:__pkg__",
         "//infra/grafana/ansible:__pkg__",
         "//infra/ingress/ansible:__pkg__",
+        "//infra/mlflow/ansible:__pkg__",
         "//infra/openhands/ansible:__pkg__",
         "//infra/threexui/ansible:__pkg__",
         "//infra/victoria_metrics/ansible:__pkg__",

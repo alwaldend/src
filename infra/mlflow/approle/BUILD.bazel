@@ -27,6 +27,7 @@ _CONFIG = glob(
     "//infra/mlflow/dns:dnsconfig",
     "//infra/vault/tf:dns_access",
     "//projects/tf_modules/vault_approle",
+    "//projects/tf_modules/vault_oidc_provider",
     "//projects/tf_modules/vault_pki_server",
     "//projects/tf_modules/vault_ssh_server_role",
 ]

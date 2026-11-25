@@ -1,9 +1,13 @@
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_xo_login")
 load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
-load("//projects/al:defs.bzl", "al_config", "al_vault_auth")
+load("//projects/al:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
+
+_SECRET_PATH = "alwaldend.com/vault1/approles/src_infra_mlflow"
 
 al_vault_auth(
     name = "auth",
@@ -11,18 +15,134 @@ al_vault_auth(
     extends = "//tools/al:auth",
 )
 
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = {
+        "backend": "ssh/clients/sign/admins",
+        "ttl": 7200,
+    },
+)
+
+vault_tf_backend(
+    name = "tf_backend",
+    labels = {"tf": "setup"},
+    path = _SECRET_PATH + "/tf_backend/setup",
+)
+
 infra_terraform_dns_config(
     name = "dns_al",
     auth = ":auth",
-    backend_path = "alwaldend.com/vault1/approles/src_infra_mlflow/tf_backend/dns",
+    backend_path = _SECRET_PATH + "/tf_backend/dns",
     dc1 = True,
     visibility = ["//infra/mlflow/dns:__pkg__"],
+)
+
+al_inject(
+    name = "credentials",
+    labels = {"ansible": "1"},
+    res_env = {
+        "MLFLOW_OIDC_CLIENT_ID": {
+            "value": "{{ .Last.Data.client_id }}",
+            "deps": ["oidc_client"],
+        },
+        "MLFLOW_OIDC_CLIENT_SECRET_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["oidc_client_secret"],
+        },
+        "MLFLOW_OIDC_SESSION_KEY_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["oidc_session_key"],
+        },
+        "MLFLOW_WORKLOAD_ISSUER": {
+            "value": "{{ .Last.Data.issuer }}",
+            "deps": ["workload"],
+        },
+        "MLFLOW_WORKLOAD_DISCOVERY_URL": {
+            "value": "{{ .Last.Data.discovery_url }}",
+            "deps": ["workload"],
+        },
+        "MLFLOW_WORKLOAD_AUDIENCE": {
+            "value": "{{ .Last.Data.audience }}",
+            "deps": ["workload"],
+        },
+        "MLFLOW_TRACKING_TOKEN_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["tracking_token"],
+        },
+        "MLFLOW_VASTAI_KNOWN_HOSTS_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["ssh_known_hosts"],
+        },
+        "MLFLOW_VASTAI_SSH_KEY_FILE": {
+            "value": "{{ index .Last.Files 0 }}",
+            "deps": ["ssh_private_key"],
+        },
+        "MLFLOW_VASTAI_WORKERS": {
+            "value": "{{ .Last.Data.workers }}",
+            "deps": ["coordinator"],
+        },
+        "VAST_API_KEY": {
+            "value": "{{ .Last.Data.api_key }}",
+            "deps": ["coordinator"],
+        },
+    },
+    res_file = {
+        "ssh_known_hosts": {
+            "value": "{{ .Last.Data.ssh_known_hosts }}",
+            "deps": ["coordinator"],
+        },
+        "ssh_private_key": {
+            "value": "{{ .Last.Data.ssh_private_key }}",
+            "deps": ["coordinator"],
+        },
+        "oidc_client_secret": {
+            "value": "{{ .Last.Data.client_secret }}",
+            "deps": ["oidc_client"],
+        },
+        "oidc_session_key": {
+            "value": "{{ .Last.Data.session_key }}",
+            "deps": ["oidc"],
+        },
+        "tracking_token": {
+            "value": "{{ .Last.Data.token }}",
+            "deps": ["workload"],
+        },
+    },
+    res_kv = {
+        "coordinator": {
+            "mount": "secrets",
+            "path": _SECRET_PATH + "/coordinator",
+        },
+        "oidc": {
+            "mount": "secrets",
+            "path": _SECRET_PATH + "/oidc",
+        },
+        "workload": {
+            "mount": "secrets",
+            "path": _SECRET_PATH + "/workload",
+        },
+    },
+    res_op = {"oidc_client": {
+        "method": "read",
+        "path": "identity/oidc/client/src_infra_mlflow_provider",
+    }},
 )
 
 al_config(
     name = "al",
     configs = [
+        ":ansible_keys",
         ":auth",
+        ":credentials",
+        ":tf_backend",
+        ":xo_login",
         "//infra:al",
     ],
     visibility = ["//infra/mlflow:__subpackages__"],
@@ -41,4 +161,10 @@ docs_filegroup(
         "//infra/mlflow/approle:docs",
         "//infra/mlflow/openspec:docs",
     ],
+)
+
+filegroup(
+    name = "storage",
+    srcs = ["storage.json"],
+    visibility = ["//infra/mlflow:__subpackages__"],
 )

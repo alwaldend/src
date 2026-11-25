@@ -123,7 +123,7 @@ func (listener *listenerMachine) serve(ctx context.Context, _ ...any) (err error
 		return fmt.Errorf("open coordinator repository: %w", err)
 	}
 	jobs := newCoordinator(repository, rentals{api: api, allowed: config.Workers, user: config.SSHUser},
-		newTracking(endpoint, os.Getenv("MLFLOW_TRACKING_TOKEN")))
+		newTracking(endpoint, os.Getenv("MLFLOW_TRACKING_TOKEN"), os.Getenv("MLFLOW_TRACKING_TOKEN_FILE")))
 	socket, err := net.Listen("tcp", config.Listen)
 	if err != nil {
 		return fmt.Errorf("bind coordinator listener: %w", err)
