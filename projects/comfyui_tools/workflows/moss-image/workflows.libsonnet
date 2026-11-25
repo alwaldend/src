@@ -111,6 +111,24 @@ function(models) {
     ],
     metadata: { last_node_id: 14, last_link_id: 20 },
   }),
+  'image-edit-two-references': g.variant(self['image-edit'], {
+    nodes: [
+      n.node(15, 'LoadImage', ['donor.png', 'image'], [0, 1220], [340, 320], title='Image 2: Donor reference'),
+      n.node(16, 'ImageScaleToTotalPixels', ['lanczos', 1, 16], [420, 1220], [320, 120], title='Scale donor reference'),
+    ],
+    updates: {
+      '4': {
+        widgets_values: ['Edit Image 1. Replace its main object with the corresponding object from Image 2. Match Image 1’s lighting, scale, and perspective. Keep the surrounding scene unchanged.', 'Moss-Image-Edit', 1],
+      },
+      '11': { title: 'Image 1: Base image' },
+    },
+    links: [
+      [21, 15, 0, 16, 0],
+      [22, 16, 0, 4, 2],
+      [23, 16, 0, 5, 2],
+    ],
+    metadata: { last_node_id: 16, last_link_id: 23 },
+  }),
   'color-depth-control': g.variant(self['text-to-image'], {
     nodes: [
       n.node(11, 'LoadImage', ['color-map.png', 'image'], [0, 850], [340, 320], title='Prepared flat region colors, 1024 square'),

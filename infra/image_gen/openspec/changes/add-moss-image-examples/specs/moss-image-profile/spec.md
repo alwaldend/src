@@ -47,3 +47,13 @@ The MOSS profile SHALL include the Euler Base variant in its Ansible catalog.
 
 - **WHEN** Ansible installs workflows for the MOSS profile
 - **THEN** the Euler Base variant is installed alongside the existing examples
+
+### Requirement: Install the two-reference edit workflow
+
+The MOSS profile SHALL include the two-reference edit workflow in its Ansible
+catalog.
+
+#### Scenario: Deploy the MOSS workflows
+
+- **WHEN** Ansible installs the MOSS workflow catalog
+- **THEN** the two-reference and single-image edit workflows are both available

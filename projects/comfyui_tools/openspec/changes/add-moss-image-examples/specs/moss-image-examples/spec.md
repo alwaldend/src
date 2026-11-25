@@ -47,3 +47,14 @@ The workflow catalog SHALL include a separate Base text-to-image workflow with
 
 - **WHEN** a user opens `moss-image-base-text-to-image-euler-50.json`
 - **THEN** the graph loads the Base checkpoint with the Euler variant's defaults
+
+### Requirement: Two-reference image editing
+
+The catalog SHALL include a separate edit workflow that uses Image 1 as the
+base and Image 2 as the donor.
+
+#### Scenario: Load a base and donor image
+
+- **WHEN** the user selects both images in the two-reference workflow
+- **THEN** both images enter the positive and negative edit encoders in that
+  order and the scaled base determines the output dimensions

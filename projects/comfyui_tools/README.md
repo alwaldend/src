@@ -173,6 +173,9 @@ encoding and the small FLUX.2 VAE.
   its instruction; the example uses the SFT edit LoRA, `Moss-Image-Edit` reference
   conditioning on both branches, 30 Euler/normal steps and CFG 4. The reference
   is scaled to about one megapixel and determines the output dimensions.
+- `moss-image-image-edit-two-references` takes Image 1 as the base and Image 2
+  as the donor. Select both files and identify the replacement in the prompt.
+  The base image determines the output dimensions.
 - `moss-image-color-depth-control` requires prepared `color-map.png` and
   `depth-map.png` selected in their Load Image nodes. Start with both maps at
   1024 square. Region colors are identifiers; depth is white near the viewer.

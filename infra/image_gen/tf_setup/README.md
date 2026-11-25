@@ -254,7 +254,7 @@ image editing and prepared color/depth maps. The Base model is selected only by
 the `moss-image-base-*` examples; the other examples use SFT. The six original
 examples have prompt-sequence counterparts with shared negative text, progress
 and grouped ordered filenames. Ansible installs those workflows and the
-50-step Euler Base variant. See
+50-step Euler Base and two-reference image-edit variants. See
 [workflow instructions](../../../projects/comfyui_tools/README.md#moss-image-examples)
 for inputs and sampling defaults. The existing ComfyUI v0.44.0 runtime provides
 their native nodes. The examples omit optional prompt enhancement and automatic
