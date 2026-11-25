@@ -167,6 +167,7 @@ docs_filegroup(
     visibility = ["//infra:__pkg__"],
     deps = [
         "//infra/mlflow/approle:docs",
+        "//infra/mlflow/docs",
         "//infra/mlflow/openspec:docs",
     ],
 )
