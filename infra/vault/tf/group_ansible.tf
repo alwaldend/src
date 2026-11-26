@@ -10,7 +10,7 @@ resource "vault_identity_group" "ansible" {
     module.src_infra_dc1_forgejo1_approle.group_id,
     module.src_infra_local_inference_approle.group_id,
     module.src_infra_harbor_approle.group_id,
-    module.src_infra_flux_approle.group_id,
+    data.vault_identity_group.standalone_approles["src_infra_flux"].group_id,
     module.src_infra_threexui_approle.group_id,
     module.src_infra_ingress_approle.group_id,
     module.src_infra_openhands.group_id,

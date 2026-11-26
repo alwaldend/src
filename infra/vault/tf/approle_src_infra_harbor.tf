@@ -28,7 +28,7 @@ module "src_infra_harbor_pki_server" {
   eab_new_member_group_ids = [module.src_infra_harbor_approle.group_id]
   client_flag              = true
   signer_member_group_ids = [
-    module.src_infra_flux_cluster_approle.group_id,
+    data.vault_identity_group.standalone_approles["src_infra_flux_cluster"].group_id,
   ]
 }
 

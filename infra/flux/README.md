@@ -1,80 +1,13 @@
 ---
 title: flux
 date: 2026-06-29
-description: Fluxcd deployment
+description: Flux DNS and Vault AppRole
 tags:
   - flux
-  - ansible
-  - pve
-  - k3s
+  - dns
+  - vault
 ---
 
-## Architecture
-
-This diagram describes the maintained architecture source, not live inventory or service health.
-The [Mermaid source](docs/architecture.mmd) is authoritative; Bazel renders its light and dark SVGs.
-
-[![Flux architecture](docs/assets/architecture.svg)](docs/assets/architecture.svg)
-
-## Links
-
-- Site: https://fluxcd.io/
-
-## Set up port forwarding
-
-```sh
-ssh -L 6443:127.0.0.1:6443 -N flux.alwaldend.com
-```
-
-## Run flux CLI
-
-```sh
-bazel run //infra/flux/cl:flux
-```
-
-## Show flux status
-
-```sh
-bazel run infra/flux/cl:flux -- get all -A
-```
-
-## Run bootstrap
-
-```sh
-bazel run //infra/flux/cl:flux.bootstrap
-```
-
-## Run flux operator
-
-```sh
-bazel run //infra/flux/cl:op
-```
-
-## Show oidc info
-
-```sh
-bazel run //infra/flux/cl:oidc
-```
-
-## Renew certificate
-
-```sh
-bazel run //infra/flux/cl:cmctl -- renew traefik-gateway-websecure-tls -n traefik
-```
-
-## Update secrets
-
-- Generate secret id and the token:
-  ```sh
-  SECRET_ID=$(bazel run //infra/flux/cl:vault.secret_id | jq -r .data.secret_id)
-  TOKEN=$(echo "${SECRET_ID}" | bazel run //infra/flux/cl:vault.ops_token | jq -r .auth.client_token)
-  echo "Secret id: ${SECRET_ID}, Token: ${TOKEN}"
-  ```
-- Patch secret-id in [./cl/cert-manager/issuer-approle.yaml](https://github.com/alwaldend/src/blob/master/infra/flux/cl/cert-manager/issuer-approle.yaml)
-- Patch token in [projects/kustomization/flux-repo/flux-sops-secret.yaml](https://github.com/alwaldend/src/blob/master/projects/kustomization/flux-repo/flux-sops-secret.yaml)
-- Encrypt:
-  ```sh
-  bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/cert-manager/issuer-approle.yaml
-  bazel run //infra/flux/cl:sops.encrypt projects/kustomization/flux-repo/flux-sops-secret.yaml
-  bazel run //infra/flux/cl:sops.encrypt projects/kustomization/flux-repo/flux-git-src-secret.yaml
-  ```
+- [DNS](dns/README.md) manages the existing site-local Flux records.
+- [AppRole](approle/README.md) manages the Vault identity and policies used by
+  the DNS root.

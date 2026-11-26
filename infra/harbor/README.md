@@ -38,5 +38,5 @@ The [Mermaid source](docs/archive-harbor.mmd) is authoritative; Bazel renders it
 - Patch secret-id in [./cl/cert-manager/issuer-approle.yaml](https://github.com/alwaldend/src/blob/master/infra/harbor/cl/cert-manager/issuer-approle.yaml)
 - Encrypt:
   ```sh
-  bazel run //infra/flux/cl:sops.encrypt infra/harbor/cl/cert-manager/issuer-approle.yaml
+  bazel run //infra/harbor/cl:sops.encrypt infra/harbor/cl/cert-manager/issuer-approle.yaml
   ```
