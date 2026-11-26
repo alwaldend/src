@@ -1,0 +1,52 @@
+{
+  "charts": [
+    {
+      "name": "flux2",
+      "version": "2.18.3",
+      "source": "https://github.com/fluxcd-community/helm-charts/releases/download/flux2-2.18.3/flux2-2.18.3.tgz",
+      "digest": "sha256:3fb83376c55eb7df91062330efbe58238c1ed9702db298a4774f85ea0de2650d"
+    }
+  ],
+  "images": [
+    {
+      "repository": "ghcr.io/fluxcd/flux-cli",
+      "tag": "v2.8.5",
+      "digest": "sha256:f1947272d998247ce959adf8ffe13626f153e8b373ccd0322a18b4f7aad132f1"
+    },
+    {
+      "repository": "ghcr.io/fluxcd/helm-controller",
+      "tag": "v1.5.3",
+      "digest": "sha256:b150af0cd7a501dafe2374b1d22c39abf0572465df4fa1fb99b37927b0d95d75"
+    },
+    {
+      "repository": "ghcr.io/fluxcd/image-automation-controller",
+      "tag": "v1.1.1",
+      "digest": "sha256:43617c9fbb4cf32aed7458647f62589575237ccb810f45bd7cb31f24126d4f22"
+    },
+    {
+      "repository": "ghcr.io/fluxcd/image-reflector-controller",
+      "tag": "v1.1.1",
+      "digest": "sha256:4c12c4046dee6e32e11b7c6afeaf7910406b67ff0182d46eeedb128d367908cd"
+    },
+    {
+      "repository": "ghcr.io/fluxcd/kustomize-controller",
+      "tag": "v1.8.3",
+      "digest": "sha256:c59e81059330a55203bf60806229a052617134d8b557c1bd83cdc69a8ece7ea2"
+    },
+    {
+      "repository": "ghcr.io/fluxcd/notification-controller",
+      "tag": "v1.8.3",
+      "digest": "sha256:a9e22d4aeec507abb3abc0e6ad3aeb3b672fd03d5776c785399aedec263a603f"
+    },
+    {
+      "repository": "ghcr.io/fluxcd/source-controller",
+      "tag": "v1.8.2",
+      "digest": "sha256:f2f6fd483b9a8b8c69f8ebe9f2277be23093a2b552b3578a6db15710d736bb0e"
+    },
+    {
+      "repository": "ghcr.io/fluxcd/source-watcher",
+      "tag": "v2.1.1",
+      "digest": "sha256:b3ffcbde086ca630ac27430d4eca860e5434aa9b827c6c1d6419c4e8f59749d1"
+    }
+  ]
+}

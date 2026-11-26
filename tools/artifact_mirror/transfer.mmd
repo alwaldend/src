@@ -1,0 +1,14 @@
+flowchart LR
+    actor("Actor")
+    forgejo["Forgejo<br/>forgejo.alwaldend.com"]
+    vault["Vault<br/>vault.alwaldend.com"]
+
+    subgraph upstream["External registry"]
+        github["GitHub Releases<br/>github.com"]
+        ghcr["GitHub Container Registry<br/>ghcr.io"]
+    end
+
+    actor -->|Push charts| forgejo
+    actor -->|Push images| forgejo
+    actor -->|Pull| upstream
+    actor -->|Authenticate| vault
