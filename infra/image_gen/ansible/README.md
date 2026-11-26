@@ -32,7 +32,7 @@ operator-owned storage before strict SSH checking.
 export IMAGEGEN_SSH_HOST=PROVIDER_REPORTED_HOST
 export IMAGEGEN_SSH_PORT=PROVIDER_REPORTED_PORT
 export IMAGEGEN_KNOWN_HOSTS="$PWD/out/TASK/known_hosts"
-bazel run //infra/image_gen/ansible:ansible.syntax
+bazel test //infra/image_gen/ansible:ansible.syntax
 bazel run //infra/image_gen/ansible:ansible
 ```
 

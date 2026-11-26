@@ -37,7 +37,7 @@ canonical repository server CA and pins dev1's public host key. The dev1 key
 was verified from its local host filesystem and strict SSH handshake during
 the deployment; host-key checking remains enabled through hostname cutover.
 
-Build `:ansible_bin` and run `:syntax` for offline validation.
+Run `bazel test //infra/dev/ansible:ansible.syntax` for offline validation.
 
 Terraform publishes the cache device and capacity to the development AppRole's
 `runner_cache` Vault record. The normal wrapper reads it into

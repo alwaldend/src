@@ -24,19 +24,6 @@ al_ansible_package(
     ],
 )
 
-al_binary_run(
-    name = "ansible.syntax",
-    args = [
-        "$(rootpath :ansible_bin)",
-        "--inventory",
-        "inventory.yaml",
-        "--syntax-check",
-        "playbook.yaml",
-    ],
-    configs = [],
-    data = [":ansible_bin"],
-)
-
 # Only gated model installation selects the optional model-token injector.
 al_binary_run(
     name = "ansible.huggingface",

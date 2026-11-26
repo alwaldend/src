@@ -58,9 +58,9 @@ scanner failures. An interruption can prevent these final observations; it
 does not establish an unchanged boot or a completed audit. Raw status and boot
 checks remain available without the audit's Python runtime.
 
-The local-only `:syntax` target checks the playbooks without AL
-authentication or a host connection. Building `:ansible_bin` checks packaging;
-neither is a substitute for inspecting a successful live audit's evidence.
+Run the `:ansible.syntax`, `:ansible.status.syntax`,
+`:ansible.update_xcpng.syntax`, and `:ansible.update_xoa.syntax` tests to check
+the playbooks locally without authentication or a host connection.
 
 ## Package updates
 
@@ -125,5 +125,5 @@ Follow the [ClamAV invocation instructions](../README.md#clamav-scans), selectin
 `//infra/security/appliances:clamav` and including localhost in any limit, such
 as `--limit 'localhost,xoa'`. The shared native role streams endpoint data to
 the private controller; its signature cache and bounded transient unit are
-owned by the [controller package](../clamav/README.md). `:clamav_syntax` checks
+owned by the [controller package](../clamav/README.md). `:clamav.syntax` checks
 this playbook locally without authentication or live scanning.

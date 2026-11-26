@@ -1,4 +1,3 @@
-load("//projects/al:defs.bzl", "al_binary_run")
 load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
 
 package(transitive_visibility = "//infra:transitive_consumers")
@@ -21,17 +20,4 @@ al_ansible_package(
         "vault_env": "default_default",
     },
     renames = {"//infra/grafana/dns:dnsconfig": "files/grafana-dns.json"},
-)
-
-al_binary_run(
-    name = "ansible.syntax",
-    args = [
-        "$(rootpath :ansible_bin)",
-        "--inventory",
-        "inventory.yaml",
-        "--syntax-check",
-        "playbook_deploy.yaml",
-    ],
-    configs = [],
-    data = [":ansible_bin"],
 )
