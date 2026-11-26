@@ -140,7 +140,7 @@ Build the workflow catalog with `bazel build //projects/comfyui_tools/workflows:
 Under `bazel-bin/projects/comfyui_tools/workflows/`, open the model directory
 and import its `*-text-to-image.app.json` file into ComfyUI. The catalog includes
 Apps for Juggernaut XL, NoobAI XL, Illustrious XL, HiDream-I1 Full, Chroma HD,
-Chroma Flash, FLUX.2 dev, and MOSS-Image SFT and Base.
+Chroma Flash, FLUX.2 dev, and MOSS-Image SFT, Base and Heal.
 
 Enter a prompt, adjust the canvas size and sampling controls, and run the App
 to see saved images. Models that use negative conditioning expose a negative
@@ -215,6 +215,23 @@ workflows without replacing the running rental or changing its startup command.
 These are editable examples, not guarantees of exact edits, layout or reference
 fidelity. Actual GPU execution and its limitations belong to the
 [deployment record](../../infra/image_gen/openspec/changes/add-moss-image-examples/design.md).
+
+## MOSS-Image-heal
+
+The `moss-image-heal` family uses the [Heal INT8 ConvRot checkpoint](https://huggingface.co/KBlueLeaf/MOSS-Image-heal/tree/a639943df44a4f326e95b9c43058ae7e1a0a8f34),
+the existing MOSS text encoder and the small FLUX.2 VAE. Start with 1024-square
+images, 25 ER-SDE/simple steps and CFG 2.5.
+
+- `moss-image-heal-text-to-image` generates one image from a prompt.
+- `moss-image-heal-layout-guided` uses the editable bounding-box canvas in Graph Mode.
+- `moss-image-heal-prompt-sequence` generates independent panels from one prompt
+  per nonempty line with optional shared context and negative text.
+
+The text-to-image and prompt-sequence graphs also have `.app.json` variants
+with prompt, size and sampling controls and a gallery for saved images.
+The sequence requires the first-party [Prompt Sequence node](nodes/prompt_sequence/README.md).
+The [image-generation Ansible profile](../../infra/image_gen/ansible/README.md)
+installs the models, node and all five files.
 
 ## MiniMax H3 Video
 

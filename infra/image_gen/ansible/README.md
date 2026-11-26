@@ -36,7 +36,7 @@ bazel run //infra/image_gen/ansible:ansible.syntax
 bazel run //infra/image_gen/ansible:ansible
 ```
 
-Pass `-- --extra-vars imagegen_model_profile=minimax-h3-video` to select a
+Pass `-- --extra-vars imagegen_model_profile=moss-image-heal` to select a
 registered model for one installation. Without this argument the playbook uses
 the model selection in `config.json`.
 

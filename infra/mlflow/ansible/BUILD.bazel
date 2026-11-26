@@ -16,8 +16,8 @@ al_ansible_package(
     srcs = [
         "inventory.yaml",
         "playbook_deploy.yaml",
-        "//infra/mlflow/dns:dnsconfig",
         "//infra/mlflow:storage",
+        "//infra/mlflow/dns:dnsconfig",
         "//infra/mlflow/runtime",
         "//infra/victoria_metrics/dns:metrics_vars",
     ] + glob([
@@ -25,8 +25,8 @@ al_ansible_package(
         "group_vars/*.yaml",
         "tasks/*.yaml",
     ]),
-    configs = ["//infra/mlflow:al"],
     args = {"": _PLAYBOOK_ARGS},
+    configs = ["//infra/mlflow:al"],
     plugin_labels = {
         "ansible": "1",
         "vault_env": "default_default",

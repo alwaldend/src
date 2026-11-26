@@ -70,6 +70,21 @@
             ],
             "first_party_nodes": ["prompt_sequence"]
         },
+        "moss-image-heal": {
+            "workflows": [
+                "moss-image-heal-text-to-image",
+                "moss-image-heal-text-to-image.app",
+                "moss-image-heal-layout-guided",
+                "moss-image-heal-prompt-sequence",
+                "moss-image-heal-prompt-sequence.app"
+            ],
+            "downloads": [
+                "moss_image_heal_int8_convrot.safetensors",
+                "qwen3.5_9b_int8_convrot.safetensors",
+                "flux2-vae_small.safetensors"
+            ],
+            "first_party_nodes": ["prompt_sequence"]
+        },
         "chroma-hd": {
             "workflows": [
                 "chroma-hd-text-to-image",
@@ -305,6 +320,11 @@
         "moss_image_base_int8_convrot.safetensors": {
             "url": "https://huggingface.co/Comfy-Org/MOSS-Image/resolve/2929efe3cdd506c0a430bcfca70a9a8d805cc095/diffusion_models/moss_image_base_int8_convrot.safetensors",
             "kind": "checkpoint"
+        },
+        "moss_image_heal_int8_convrot.safetensors": {
+            "url": "https://huggingface.co/KBlueLeaf/MOSS-Image-heal/resolve/a639943df44a4f326e95b9c43058ae7e1a0a8f34/comfyui/moss_image_heal_int8_convrot.safetensors",
+            "kind": "checkpoint",
+            "sha256": "a844ae30c48792c42e19ac0d130691f373ee8d901d7c3868d9a82d881fd4b2c8"
         },
         "qwen3.5_9b_int8_convrot.safetensors": {
             "url": "https://huggingface.co/Comfy-Org/MOSS-Image/resolve/2929efe3cdd506c0a430bcfca70a9a8d805cc095/text_encoders/qwen3.5_9b_int8_convrot.safetensors",
