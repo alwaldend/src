@@ -47,3 +47,26 @@ authority and must invoke the target through `bazel`.
 ```sh
 bazel run //third_party:publish_helm.io_goharbor_helm_harbor
 ```
+
+## Mirror release artifacts
+
+```sh
+bazel run //third_party/io_fluxcd_flux:pull
+bazel run //third_party/io_fluxcd_flux:push
+bazel run //third_party/io_controlplane_flux_operator:pull
+bazel run //third_party/io_controlplane_flux_operator:push
+```
+
+Each pair uses `out/artifact-mirror` by default. Pass
+`-- --directory /absolute/path` to use another staging directory.
+The [artifact mirror tool](../tools/artifact_mirror/README.md) handles transfers.
+Each package pulls and pushes only its own chart and images. Push uses the
+third-party Forgejo publication configuration and the `src_third_party` AppRole.
+It uploads the archives to the [Forgejo Helm repository](https://forgejo.alwaldend.com/api/packages/alwaldend/helm)
+and the images to `forgejo.alwaldend.com/alwaldend/<image>:<tag>`.
+
+The [Flux](io_fluxcd_flux/artifacts.json) and
+[Flux Operator](io_controlplane_flux_operator/artifacts.json)
+inventories own the upstream pins.
+When installing a mirrored chart, set its image repositories to the
+corresponding Forgejo OCI paths.

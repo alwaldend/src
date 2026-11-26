@@ -1,0 +1,17 @@
+{
+  "charts": [
+    {
+      "name": "flux-operator",
+      "version": "0.53.0",
+      "source": "oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator",
+      "digest": "sha256:8dc25de0b44590a794eadb5644cbc9c0bd50d3e846ca0da020e721936f5706c2"
+    }
+  ],
+  "images": [
+    {
+      "repository": "ghcr.io/controlplaneio-fluxcd/flux-operator",
+      "tag": "v0.53.0",
+      "digest": "sha256:2f41fb0bfd57f4a9d592cc49fe6cc57dfad0013961455e050effc8a0987e2372"
+    }
+  ]
+}
