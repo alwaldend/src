@@ -10,6 +10,7 @@ package(transitive_visibility = "//infra:transitive_consumers")
 package_group(
     name = "approle_state_projects",
     packages = [
+        "//infra/airflow/approle",
         "//infra/grafana/approle",
         "//infra/mlflow/approle",
         "//infra/vault/approles/...",
