@@ -1,0 +1,30 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+alias(
+    name = "handstand_kicks",
+    actual = "@com_github_shriinivas_cmubvh_handstand_kicks//:85_05.bvh",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "helicopter",
+    actual = "@com_github_shriinivas_cmubvh_helicopter//:85_08.bvh",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "long_sequence",
+    actual = "@com_github_shriinivas_cmubvh_long_sequence//:85_12.bvh",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

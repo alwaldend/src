@@ -1,0 +1,16 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+alias(
+    name = "furniture_kit",
+    actual = "@nl_kenney_furniture_kit//file",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

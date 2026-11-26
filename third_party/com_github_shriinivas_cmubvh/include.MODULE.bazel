@@ -1,0 +1,22 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_shriinivas_cmubvh_handstand_kicks",
+    build_file_content = 'exports_files(["85_05.bvh"])',
+    integrity = "sha256-G1w7L/Y+sx8yDu/mbicZl4qDmCcPdnVymuJ48x0gWSM=",
+    urls = ["https://raw.githubusercontent.com/Shriinivas/cmubvh/3bc9c75c481ac6e622f3c378369b293d8de9be45/Sequence-081-085/85/Data/85_05.zip"],
+)
+
+http_archive(
+    name = "com_github_shriinivas_cmubvh_helicopter",
+    build_file_content = 'exports_files(["85_08.bvh"])',
+    integrity = "sha256-G9QeXMvmlfD8f4UFXj7Y5BmiD8SFaI3ADwBdlfUNNBg=",
+    urls = ["https://raw.githubusercontent.com/Shriinivas/cmubvh/3bc9c75c481ac6e622f3c378369b293d8de9be45/Sequence-081-085/85/Data/85_08.zip"],
+)
+
+http_archive(
+    name = "com_github_shriinivas_cmubvh_long_sequence",
+    build_file_content = 'exports_files(["85_12.bvh"])',
+    integrity = "sha256-zDQx3BAaK5+DcnbSVedqW1iff5Eh/MPNwqNTZfpjuVw=",
+    urls = ["https://raw.githubusercontent.com/Shriinivas/cmubvh/3bc9c75c481ac6e622f3c378369b293d8de9be45/Sequence-081-085/85/Data/85_12.zip"],
+)

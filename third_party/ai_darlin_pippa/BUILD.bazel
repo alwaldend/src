@@ -1,0 +1,33 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+filegroup(
+    name = "assets",
+    srcs = [
+        ":diffuse_texture",
+        ":mesh",
+    ],
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "diffuse_texture",
+    actual = "@ai_darlin_pippa_diffuse_texture//file",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "mesh",
+    actual = "@ai_darlin_pippa_mesh//file",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

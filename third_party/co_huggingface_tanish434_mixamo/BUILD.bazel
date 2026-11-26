@@ -1,0 +1,58 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+filegroup(
+    name = "dances",
+    srcs = [
+        "@co_huggingface_tanish434_mixamo_arms_hip_hop_dance//file",
+        "@co_huggingface_tanish434_mixamo_booty_hip_hop_dance//file",
+        "@co_huggingface_tanish434_mixamo_breakdance_uprock_var_2//file",
+        "@co_huggingface_tanish434_mixamo_dancing_2//file",
+        "@co_huggingface_tanish434_mixamo_dancing_4//file",
+        "@co_huggingface_tanish434_mixamo_dancing_5//file",
+        "@co_huggingface_tanish434_mixamo_dancing_6//file",
+        "@co_huggingface_tanish434_mixamo_dancing_running_man//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_11//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_13//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_14//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_16//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_3//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_4//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_6//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_7//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_8//file",
+        "@co_huggingface_tanish434_mixamo_hip_hop_dancing_9//file",
+        "@co_huggingface_tanish434_mixamo_house_dancing//file",
+        "@co_huggingface_tanish434_mixamo_house_dancing_2//file",
+        "@co_huggingface_tanish434_mixamo_house_dancing_3//file",
+        "@co_huggingface_tanish434_mixamo_jazz_dancing//file",
+        "@co_huggingface_tanish434_mixamo_northern_soul_dance//file",
+        "@co_huggingface_tanish434_mixamo_northern_soul_floor_combo//file",
+        "@co_huggingface_tanish434_mixamo_northern_soul_spin_combo//file",
+        "@co_huggingface_tanish434_mixamo_robot_hip_hop_dance//file",
+        "@co_huggingface_tanish434_mixamo_rumba_dancing//file",
+        "@co_huggingface_tanish434_mixamo_salsa_dancing//file",
+        "@co_huggingface_tanish434_mixamo_salsa_dancing_2//file",
+        "@co_huggingface_tanish434_mixamo_salsa_dancing_4//file",
+        "@co_huggingface_tanish434_mixamo_salsa_dancing_6//file",
+        "@co_huggingface_tanish434_mixamo_salsa_dancing_9//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing_2//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing_3//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing_4//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing_5//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing_6//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing_7//file",
+        "@co_huggingface_tanish434_mixamo_samba_dancing_8//file",
+        "@co_huggingface_tanish434_mixamo_snake_hip_hop_dance//file",
+    ],
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
