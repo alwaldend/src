@@ -11,6 +11,13 @@ local defaults = {
     edit_lora: 'moss_image_edit_lora_rank_64_bf16.safetensors',
     control_lora: 'moss_image_color_depth_control.safetensors',
   },
+  'moss-image-heal':
+    local moss = self['moss-image'];
+    {
+      checkpoint: 'moss_image_heal_int8_convrot.safetensors',
+      text_encoder: moss.text_encoder,
+      vae: moss.vae,
+    },
   uso: {
     checkpoint: 'flux1-dev-fp8.safetensors',
     lora: 'uso-flux1-dit-lora-v1.safetensors',
@@ -89,6 +96,7 @@ local families = {
   danbooru: import 'danbooru/workflows.libsonnet',
   'minimax-h3-video': (import 'minimax-h3-video/workflows.libsonnet')(filenames('minimax-h3-video', ['checkpoint', 'text_encoder', 'vae', 'audio_vae'])),
   'moss-image': (import 'moss-image/workflows.libsonnet')(filenames('moss-image')),
+  'moss-image-heal': (import 'moss-image-heal/workflows.libsonnet')(filenames('moss-image-heal')),
   uso: (import 'uso/workflows.libsonnet')(filenames('uso')),
   'umo-uno': (import 'umo-uno/workflows.libsonnet')(filenames('umo-uno')),
   noobai: (import 'noobai/workflows.libsonnet')(filenames('noobai')),

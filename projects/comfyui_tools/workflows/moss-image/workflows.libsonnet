@@ -11,7 +11,7 @@ local panels = 'A small blue robot reads a book on a snowy park bench at dawn.\n
 local sequenceNode(id, prefix, prompts=panels, context='Watercolor illustration, clear silhouettes, soft light.') =
   n.node(id, 'ImagegenPromptSequence', [prompts, context, 'line', prefix], [0, 1640], [680, 380], title='Panel prompts and shared negative text');
 
-function(models) {
+function(models, generation={ title: 'MOSS-Image SFT INT8', image_prefix: 'MOSS-Image', sequence_prefix: 'moss-image' }) {
   'text-to-image': {
     config: {},
     extra: { ds: { offset: [60, 60], scale: 0.6 } },
@@ -20,7 +20,7 @@ function(models) {
     last_node_id: 10,
     version: 0.4,
     nodes: [
-      n.node(1, 'UNETLoader', [models.checkpoint, 'default'], [0, 0], [340, 120], title='MOSS-Image SFT INT8'),
+      n.node(1, 'UNETLoader', [models.checkpoint, 'default'], [0, 0], [340, 120], title=generation.title),
       n.node(2, 'CLIPLoader', [models.text_encoder, 'moss_image', 'default'], [0, 200], [340, 140]),
       n.node(3, 'VAELoader', [models.vae], [0, 420], [340, 100]),
       n.node(4, 'CLIPTextEncode', [caption], [420, 0], [420, 260], title='Example scene'),
@@ -29,7 +29,7 @@ function(models) {
       n.node(7, 'SkipLayerGuidanceDiTSimple', ['', '22', 0, 0.5], [900, 0], [340, 160]),
       n.node(8, 'KSampler', [42, 'fixed', 25, 2.5, 'er_sde', 'simple', 1], [1300, 0], [340, 300]),
       n.node(9, 'VAEDecode', [], [1700, 0], [320, 100]),
-      n.node(10, 'SaveImage', ['MOSS-Image-example'], [2080, 0], [360, 360]),
+      n.node(10, 'SaveImage', [generation.image_prefix + '-example'], [2080, 0], [360, 360]),
     ],
     links: [
       [1, 1, 0, 7, 0],
@@ -63,7 +63,7 @@ function(models) {
     ],
     updates: {
       '4': { inputs: [{ name: 'clip', type: 'CLIP' }, { name: 'text', type: 'STRING', widget: { name: 'text' } }] },
-      '10': { widgets_values: ['MOSS-Image-layout-example'] },
+      '10': { widgets_values: [generation.image_prefix + '-layout-example'] },
     },
     links: [
       [11, 11, 2, 12, 0],
@@ -166,7 +166,7 @@ function(models) {
     ],
     metadata: { last_node_id: 18, last_link_id: 26 },
   }),
-  'prompt-sequence': g.sequence(self['text-to-image'], sequenceNode(11, 'moss-image'), 4, 5, 10, [11, 12, 13]),
+  'prompt-sequence': g.sequence(self['text-to-image'], sequenceNode(11, generation.sequence_prefix), 4, 5, 10, [11, 12, 13]),
   'base-prompt-sequence': g.sequence(self['base-text-to-image'], sequenceNode(11, 'moss-image-base'), 4, 5, 10, [11, 12, 13]),
   'layout-prompt-sequence': g.sequence(self['layout-guided'], sequenceNode(14, 'moss-image-layout'), 12, 5, 10, [18, 19, 20], textInput='prompt', negativeTextInput='text'),
   'base-layout-prompt-sequence': g.sequence(self['base-layout-guided'], sequenceNode(14, 'moss-image-base-layout'), 12, 5, 10, [18, 19, 20], textInput='prompt', negativeTextInput='text'),
