@@ -1,0 +1,25 @@
+{
+    "records": {
+        "upstream": {
+            "A": {
+                "name": "dc1.airflow.alwaldend.com",
+                "address": "192.168.10.97"
+            },
+            "dsp": ["global"]
+        },
+        "ingress": {
+            "CNAME": {
+                "name": "airflow.alwaldend.com",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
+        "local": {
+            "A": {
+                "name": "airflow.alwaldend.com",
+                "address": "192.168.10.97"
+            },
+            "dsp": ["dc1"]
+        }
+    }
+}

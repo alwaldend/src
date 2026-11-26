@@ -1,0 +1,40 @@
+load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
+load("//projects/al:defs.bzl", "al_config", "al_vault_auth")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_SECRET_PATH = "alwaldend.com/vault1/approles/src_infra_airflow"
+
+al_vault_auth(
+    name = "auth",
+    approle = "src_infra_airflow",
+    extends = "//tools/al:auth",
+)
+
+infra_terraform_dns_config(
+    name = "dns_al",
+    auth = ":auth",
+    backend_path = _SECRET_PATH + "/tf_backend/dns",
+    dc1 = True,
+    visibility = ["//infra/airflow/dns:__pkg__"],
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":auth",
+        "//infra:al",
+    ],
+    visibility = ["//infra/airflow:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra:__pkg__"],
+    deps = [
+        "//infra/airflow/approle:docs",
+        "//infra/airflow/openspec:docs",
+    ],
+)

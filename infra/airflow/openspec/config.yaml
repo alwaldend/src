@@ -1,0 +1,5 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the Airflow infrastructure in DC1.
+  Specifications describe checked-in infrastructure and service configuration.
