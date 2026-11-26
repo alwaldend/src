@@ -1,0 +1,22 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "org_blender_demo_assets_human_base_meshes",
+    downloaded_file_path = "human-base-meshes-bundle-v1.4.1.zip",
+    integrity = "sha256-gR9DrMuzGogmbZMvj1VjstE1hvyguiaTqtH1/lgrNRU=",
+    urls = ["https://download.blender.org/demo/asset-bundles/human-base-meshes/human-base-meshes-bundle-v1.4.1.zip"],
+)
+
+http_file(
+    name = "org_blender_demo_assets_classroom",
+    downloaded_file_path = "classroom.zip",
+    integrity = "sha256-Dw7MWNRfErL0JypT4tjmkTVRjhbpVrEY8Qwg2Nz99eY=",
+    urls = ["https://download.blender.org/demo/test/classroom.zip"],
+)
+
+http_file(
+    name = "org_blender_demo_assets_cozy_kitchen",
+    downloaded_file_path = "blender-3.5-splash.blend",
+    integrity = "sha256-XyfEHPgoyhX/0G/DrT2XE0P2r0opgoyDQlIimibc45U=",
+    urls = ["https://download.blender.org/demo/splash/blender-3.5-splash.blend"],
+)

@@ -1,0 +1,30 @@
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+alias(
+    name = "human_base_meshes",
+    actual = "@org_blender_demo_assets_human_base_meshes//file",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "classroom",
+    actual = "@org_blender_demo_assets_classroom//file",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "cozy_kitchen",
+    actual = "@org_blender_demo_assets_cozy_kitchen//file",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

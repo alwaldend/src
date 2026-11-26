@@ -1,0 +1,15 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "ai_darlin_pippa_mesh",
+    downloaded_file_path = "Pippa.fbx",
+    integrity = "sha256-HFszifCusEfwRuDsWef7p02j4ldAHSPJkVhe5mfjFRY=",
+    urls = ["https://cdn.darlin.ai/partner/9e822db91cffa8ccbd71cc8aeebb0c48/Pippa/Pippa.fbx"],
+)
+
+http_file(
+    name = "ai_darlin_pippa_diffuse_texture",
+    downloaded_file_path = "Pippa_DiffuseColor.jpg",
+    integrity = "sha256-E5+ZN5J4qK2O1Mowdg3gnaB6XClfJmdFqXxf8KDuNJc=",
+    urls = ["https://cdn.darlin.ai/partner/9e822db91cffa8ccbd71cc8aeebb0c48/Pippa/Pippa_DiffuseColor.jpg"],
+)

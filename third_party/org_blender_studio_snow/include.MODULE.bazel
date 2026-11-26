@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "org_blender_studio_snow",
+    downloaded_file_path = "snow_v42.zip",
+    integrity = "sha256-mNWO86Bwg+3hQUC8RizMtV0xcGKEaqDrZS0uSnrEIqY=",
+    urls = ["https://studio.blender.org/download-source/files/ba/0f/ba0fe6d810333b1d73c1c359e4dc03cb-6.zip"],
+)

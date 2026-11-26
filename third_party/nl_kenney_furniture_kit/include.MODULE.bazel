@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "nl_kenney_furniture_kit",
+    downloaded_file_path = "kenney_furniturePack.zip",
+    integrity = "sha256-aK+k5tyKU5QjeftH8ehOxzXUa3e7HBzrlo4kVpPd4Gc=",
+    urls = ["https://opengameart.org/sites/default/files/kenney_furniturePack.zip"],
+)

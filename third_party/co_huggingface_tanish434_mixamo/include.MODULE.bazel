@@ -1,0 +1,288 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_arms_hip_hop_dance",
+    downloaded_file_path = "Arms_Hip_Hop_Dance.fbx",
+    integrity = "sha256-9/Mi/hrYqs7JYCM2a9bW8bBWhO7aI1r2UTLYHPGbzfA=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Arms_Hip_Hop_Dance.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_booty_hip_hop_dance",
+    downloaded_file_path = "Booty_Hip_Hop_Dance.fbx",
+    integrity = "sha256-XR+K/7ORCzkTkbD0yaxprLNe3IzUMxh5EoXAi2OCtl0=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Booty_Hip_Hop_Dance.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_breakdance_uprock_var_2",
+    downloaded_file_path = "Breakdance_Uprock_Var_2.fbx",
+    integrity = "sha256-53kmdFTML1w1MTzeUmCCXBikMTkW4Ti+QnPcl3CRFDU=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Breakdance_Uprock_Var_2.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_dancing_2",
+    downloaded_file_path = "Dancing_2.fbx",
+    integrity = "sha256-DjjQHIgUuzoVR2EnE5gdkzVlzpJAOTusJMhzwC+ug4g=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Dancing_2.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_dancing_4",
+    downloaded_file_path = "Dancing_4.fbx",
+    integrity = "sha256-F75jgdo5LZU6YcWSD0CRHETN6UUYSGCHb+J99XguiyI=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Dancing_4.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_dancing_5",
+    downloaded_file_path = "Dancing_5.fbx",
+    integrity = "sha256-c2Y6LJLDBLm8tEKb5ppIqZwnL0i3r7RTvlvgNWOrh2E=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Dancing_5.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_dancing_6",
+    downloaded_file_path = "Dancing_6.fbx",
+    integrity = "sha256-e/CuMzXmQ1pfoSSYm5dIbTqKAzivrH38IhgK0rirkwM=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Dancing_6.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_dancing_running_man",
+    downloaded_file_path = "Dancing_Running_Man.fbx",
+    integrity = "sha256-cxBg9eWwYm5A/V6XlnOAOIofGFp/WTP/DSL720dE/YY=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Dancing_Running_Man.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_11",
+    downloaded_file_path = "Hip_Hop_Dancing_11.fbx",
+    integrity = "sha256-jO0yHLLs85JKcZsKVsAPfXW4oY0Id4dK2GIyq1X49pM=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_11.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_13",
+    downloaded_file_path = "Hip_Hop_Dancing_13.fbx",
+    integrity = "sha256-v29iRvgt9LTVLfI7qzZdHKNYw0z7EXTMzaCV46kBGXE=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_13.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_14",
+    downloaded_file_path = "Hip_Hop_Dancing_14.fbx",
+    integrity = "sha256-kEuauwhnI4LOU4iTKmKtRlqRn46si87BxKOtlLV4Qnk=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_14.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_16",
+    downloaded_file_path = "Hip_Hop_Dancing_16.fbx",
+    integrity = "sha256-4LZ2sUqopt7Wb1iGscpkmEKostzPtT9eh7d6UPkGWk0=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_16.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_3",
+    downloaded_file_path = "Hip_Hop_Dancing_3.fbx",
+    integrity = "sha256-M5v+FJ356f0gOSq7wSdD6DdHLx/lvdqdtQBWuYncaIw=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_3.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_4",
+    downloaded_file_path = "Hip_Hop_Dancing_4.fbx",
+    integrity = "sha256-cd4NLWhMwPEF/kQ/hENbwPjPJZIY1bjKT5kOdgFU7WM=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_4.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_6",
+    downloaded_file_path = "Hip_Hop_Dancing_6.fbx",
+    integrity = "sha256-A/V4DVCXDxI44FPQVWPwHQCQRzWt4zUqHoEDfJe3N10=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_6.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_7",
+    downloaded_file_path = "Hip_Hop_Dancing_7.fbx",
+    integrity = "sha256-5tY8NaizpiuH1i77hnpOboHOF+b0viMFrB17JNl5L3Q=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_7.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_8",
+    downloaded_file_path = "Hip_Hop_Dancing_8.fbx",
+    integrity = "sha256-551HeST+TwFR3Kc1HPiuMgG8uQ2GK4oHSd9kiuY8CZk=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_8.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_hip_hop_dancing_9",
+    downloaded_file_path = "Hip_Hop_Dancing_9.fbx",
+    integrity = "sha256-LOvzEsPjqzzDirLCdIlwXO03rAw+o+nctpweTyH2fT4=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Hip_Hop_Dancing_9.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_house_dancing",
+    downloaded_file_path = "House_Dancing.fbx",
+    integrity = "sha256-uCB4B54dJHacbrGsjN5hZy9vOOmWURJ/aUqpxK4dKkY=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/House_Dancing.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_house_dancing_2",
+    downloaded_file_path = "House_Dancing_2.fbx",
+    integrity = "sha256-VDa2qzzxzJy6jvq4xR/JUQTkSVZBHaiycGaosGrfgDE=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/House_Dancing_2.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_house_dancing_3",
+    downloaded_file_path = "House_Dancing_3.fbx",
+    integrity = "sha256-1HES+qdvSpkm4II+GLhxH8CGwtl5vkEPlEvt7wc4tEI=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/House_Dancing_3.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_jazz_dancing",
+    downloaded_file_path = "Jazz_Dancing.fbx",
+    integrity = "sha256-2RJc6m7LhOCdYnC/KhuFa96pTI/5Onv8vs/M5dPfNgY=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Jazz_Dancing.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_northern_soul_dance",
+    downloaded_file_path = "Northern_Soul_Dance.fbx",
+    integrity = "sha256-959b0doSLwjAQKeEpIwwyEqow1alLQvE93Lz/7n1bQk=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Northern_Soul_Dance.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_northern_soul_floor_combo",
+    downloaded_file_path = "Northern_Soul_Floor_Combo.fbx",
+    integrity = "sha256-S/JXHRmlDo70Ak/Ci2b19nHiXa0tWj0BlNIZoRhZeec=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Northern_Soul_Floor_Combo.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_northern_soul_spin_combo",
+    downloaded_file_path = "Northern_Soul_Spin_Combo.fbx",
+    integrity = "sha256-YMors+knnaQpK0cbyVKMpDo75Nr38zU3ln39g0sKxGM=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Northern_Soul_Spin_Combo.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_robot_hip_hop_dance",
+    downloaded_file_path = "Robot_Hip_Hop_Dance.fbx",
+    integrity = "sha256-9rvJw+1K63lekwuVa0aa0J+RFHTfSA3HdlYti4hoGk0=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Robot_Hip_Hop_Dance.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_rumba_dancing",
+    downloaded_file_path = "Rumba_Dancing.fbx",
+    integrity = "sha256-sAlryX90FLmOAJ7hZX5RLZRmabDqgWatRdP5Y32MOKA=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Rumba_Dancing.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_salsa_dancing",
+    downloaded_file_path = "Salsa_Dancing.fbx",
+    integrity = "sha256-+guhLORyntOdskzgOq4NXAiPlndol21QXn2dtQ4bCcQ=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Salsa_Dancing.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_salsa_dancing_2",
+    downloaded_file_path = "Salsa_Dancing_2.fbx",
+    integrity = "sha256-1LhsU6wDqs5YYkiA5DzCxCSAxNZXM0G/7fIXd41JvhA=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Salsa_Dancing_2.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_salsa_dancing_4",
+    downloaded_file_path = "Salsa_Dancing_4.fbx",
+    integrity = "sha256-5oA6ybpKIaj3Vsrh0krqsDu89kA4sS9YWemqj9xVPds=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Salsa_Dancing_4.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_salsa_dancing_6",
+    downloaded_file_path = "Salsa_Dancing_6.fbx",
+    integrity = "sha256-/PYM3VyVVmgoTMDTTCxGh4hmOJprq3SOk1r/iagivPQ=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Salsa_Dancing_6.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_salsa_dancing_9",
+    downloaded_file_path = "Salsa_Dancing_9.fbx",
+    integrity = "sha256-xDrW2VU/QlUBgUaERELrgGtbW9Q4Do3ZpjGpAKOlH98=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Salsa_Dancing_9.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing",
+    downloaded_file_path = "Samba_Dancing.fbx",
+    integrity = "sha256-KR5uQBjIxbugF3iwemSpozToi/I9pwuzPzF2XvPSBvE=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing_2",
+    downloaded_file_path = "Samba_Dancing_2.fbx",
+    integrity = "sha256-gfCf54iIwqMtLe3ucMDYjqEWt2NE3T1dfej5mcLtas8=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing_2.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing_3",
+    downloaded_file_path = "Samba_Dancing_3.fbx",
+    integrity = "sha256-F0zwRB5iXPjN11Hpm60VlotIPcuLXLWhzo1tH04Nu9U=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing_3.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing_4",
+    downloaded_file_path = "Samba_Dancing_4.fbx",
+    integrity = "sha256-qJmXBQuDVx6oNJfwJCEDl2zXUymUD0rVo8UHNYCFxHg=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing_4.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing_5",
+    downloaded_file_path = "Samba_Dancing_5.fbx",
+    integrity = "sha256-xzlogpSEVgQ6TPtWWQ0iiTjyHfSy6RVO0ScRy98ECVY=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing_5.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing_6",
+    downloaded_file_path = "Samba_Dancing_6.fbx",
+    integrity = "sha256-qlDsEVCg+isD6HyKpKAi/oWoz6B6nJADtbF38rdfq3k=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing_6.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing_7",
+    downloaded_file_path = "Samba_Dancing_7.fbx",
+    integrity = "sha256-tdPO5E3e2L61ljmwrv3a+CfAvtvKdyrw8mRmylbRhNg=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing_7.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_samba_dancing_8",
+    downloaded_file_path = "Samba_Dancing_8.fbx",
+    integrity = "sha256-jc+IU1Hx0tSa3oJe5eLEpLTR2I4kPS7M8nX0QrD0z7A=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Samba_Dancing_8.fbx"],
+)
+
+http_file(
+    name = "co_huggingface_tanish434_mixamo_snake_hip_hop_dance",
+    downloaded_file_path = "Snake_Hip_Hop_Dance.fbx",
+    integrity = "sha256-nex1zqOVEc9tTpRygK7a34Mp+mrQOMqb3PxXbPzjEoM=",
+    urls = ["https://huggingface.co/datasets/tanish434/Mixamo-Animations-Characters/resolve/a150dcfc95c447ded9dc6f7012489aa817118d48/animation/Snake_Hip_Hop_Dance.fbx"],
+)
