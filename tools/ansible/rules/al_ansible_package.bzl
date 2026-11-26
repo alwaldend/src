@@ -1,5 +1,6 @@
 """Repository Ansible packages with mapped runtime files and AL commands."""
 
+load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//projects/al:defs.bzl", "al_binary_run_map")
 load(":al_ansible_binary.bzl", "al_ansible_binary")
@@ -17,7 +18,7 @@ def al_ansible_package(
         binary_visibility = None,
         extra_vars_files = [],
         **kwargs):
-    """Package sources and expose one or more Ansible playbook commands.
+    """Package sources and expose Ansible playbook commands and syntax tests.
 
     Args:
         name: Command prefix; the packaged executable is `<name>_bin`.
@@ -80,3 +81,12 @@ def al_ansible_package(
         plugin_labels = plugin_labels,
         **kwargs
     )
+    for suffix, arguments in args.items():
+        command_name = "{}.{}".format(name, suffix) if suffix else name
+        native_test(
+            name = command_name + ".syntax",
+            size = "small",
+            src = ":" + binary_name,
+            args = ["--syntax-check"] + extra_vars_args + arguments,
+            **kwargs
+        )

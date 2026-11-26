@@ -40,18 +40,6 @@ al_ansible_package(
 )
 
 al_binary_run(
-    name = "ansible.syntax",
-    args = [
-        "$(rootpath :ansible_bin)",
-        "--inventory",
-        "inventory.yaml",
-        "--syntax-check",
-        "playbook_deploy.yaml",
-    ],
-    data = [":ansible_bin"],
-)
-
-al_binary_run(
     name = "ansible.coordinator",
     args = ["$(rootpath :ansible_bin)"] + _PLAYBOOK_ARGS + [
         "--extra-vars",

@@ -28,8 +28,10 @@ complete ordered list of mapped source groups (including `:srcs_files`).
 `srcs_name` and `files_name` override those source target names, and
 `binary_visibility` grants access to the packaged executable independently.
 The binary includes the shared infrastructure Ansible configuration and
-repository collection. Keep specialized syntax/inventory binaries, inventory
-exports and documentation targets explicit beside the package declaration.
+repository collection. Run `bazel test //path/to/package:<name>.syntax` to
+check the default playbook or append `.syntax` to a named command to check its
+playbook. Each test uses the command's arguments and packaged extra-vars files
+without loading deployment plugins.
 
 `ansible_lint` runs `ansible-lint` from Bazel-managed Python
 dependencies. A Go test runner exposes the CLI binaries under their

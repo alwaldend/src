@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("//tools/ansible/rules:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
@@ -65,41 +64,6 @@ al_ansible_package(
     ],
     plugin_labels = {"xcp_ng_ansible": "1"},
     srcs_name = "clamav_srcs",
-)
-
-al_ansible_binary(
-    name = "clamav_syntax",
-    arguments = [
-        "--syntax-check",
-        "--inventory",
-        "inventory.yaml",
-        "playbook_clamav.yaml",
-    ],
-    data = [
-        ":clamav_srcs",
-        "//infra:ansible_cfg",
-        "//projects/ansible_collection:collections",
-    ],
-    process_name = "ansible_playbook",
-)
-
-al_ansible_binary(
-    name = "syntax",
-    arguments = [
-        "--syntax-check",
-        "--inventory",
-        "inventory.yaml",
-        "playbook_audit.yaml",
-        "playbook_status.yaml",
-        "playbook_update_xcpng.yaml",
-        "playbook_update_xoa.yaml",
-    ],
-    data = [
-        ":srcs",
-        "//infra:ansible_cfg",
-        "//projects/ansible_collection:collections",
-    ],
-    process_name = "ansible_playbook",
 )
 
 pkg_files(

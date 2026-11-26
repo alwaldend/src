@@ -99,7 +99,7 @@ whole task scratch tree, including the database cache and controller extraction.
 
 Build `//infra/security/ansible:clamav_bin` and
 `//infra/security/appliances:clamav_bin` to check packaging. Their separate
-`:clamav_syntax` targets parse playbooks locally without AL authentication or
+`:clamav.syntax` tests parse playbooks locally without AL authentication or
 engine/host execution. The parent owns real-engine, clean/EICAR, and fleet
 validation. The appliance scan defaults to XOA; XCP-ng is unscanned because of
 the native payload's glibc requirement.

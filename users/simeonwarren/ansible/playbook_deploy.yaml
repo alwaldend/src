@@ -8,4 +8,4 @@
     - ansible.builtin.import_role:
         name: alwaldend.main.traefik
     - ansible.builtin.import_role:
-        name: hermes
+        name: alwaldend.main.hermes

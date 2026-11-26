@@ -94,22 +94,6 @@ pkg_files(
 )
 
 al_ansible_binary(
-    name = "syntax",
-    arguments = [
-        "--syntax-check",
-        "--inventory",
-        "inventory.yaml",
-        "playbook_deploy.yaml",
-    ],
-    data = [
-        ":srcs",
-        "//infra:ansible_cfg",
-        "//projects/ansible_collection:collections",
-    ],
-    process_name = "ansible_playbook",
-)
-
-al_ansible_binary(
     name = "inventory_check",
     arguments = [
         "--inventory",
