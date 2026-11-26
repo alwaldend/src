@@ -97,7 +97,7 @@ resource "vault_identity_group" "src_infra_dc1_forgejo1_package_writers" {
 resource "vault_identity_group" "src_infra_dc1_forgejo1_src_writers" {
   name              = "src_infra_dc1_forgejo1_src_writers"
   type              = "internal"
-  member_entity_ids = [module.src_infra_flux_git_approle.entity_id]
+  member_entity_ids = [data.vault_identity_entity.standalone_approles["src_infra_flux_git"].entity_id]
   metadata = {
     comment = "Forgejo src repository automation writer"
   }

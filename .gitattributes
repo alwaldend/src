@@ -181,8 +181,6 @@ users/**/ansible/** rules-lint-ignored=true
 # SOPS-encrypted manifests are owned by the SOPS workflow. Formatter diffs can
 # expose their encrypted payloads in logs and may invalidate authenticated
 # metadata, so general-purpose formatters must not rewrite them.
-infra/flux/cl/cert-manager/issuer-approle.yaml rules-lint-ignored=true
-infra/flux/cl/flux-system/flux-operator-oidc.yaml rules-lint-ignored=true
 infra/harbor/cl/cert-manager/issuer-approle.yaml rules-lint-ignored=true
 projects/kustomization/flux-repo/flux-git-src-secret.yaml rules-lint-ignored=true
 projects/kustomization/flux-repo/flux-sops-secret.yaml rules-lint-ignored=true

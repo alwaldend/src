@@ -29,7 +29,6 @@ _DATA = glob([
     "//projects/tf_modules/vault_pki_server",
     "//projects/tf_modules/vault_oidc_provider",
     "//projects/tf_modules/vault_ssh_server_role",
-    "//projects/tf_modules/vault_transit_key",
 ]
 
 al_terraform_package(

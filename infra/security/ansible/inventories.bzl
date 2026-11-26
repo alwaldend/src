@@ -2,7 +2,6 @@
 
 INVENTORIES = {
     "download": "//infra/download/ansible:inventory",
-    "flux": "//infra/flux/ansible:inventory",
     "forgejo": "//infra/forgejo/ansible:inventory",
     "dev": "//infra/dev/ansible:inventory",
     "harbor": "//infra/harbor/ansible:inventory",

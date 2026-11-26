@@ -58,6 +58,10 @@ Follow the [DNS migration](../../dns/README.md) for the coordinated cutover and
 the [AppRole bootstrap procedure](../../../tools/agents/skills/repo-infra/references/vault.md)
 when distinguishing missing deployment from insufficient operator access.
 
+The [Flux project](../../flux/approle/README.md) owns its AppRoles and
+related policies. Shared Vault resolves the Flux identities by name for
+cross-component grants.
+
 ## Vast team token delivery
 
 [The Vast infrastructure role](approle_src_infra_vastai.tf) declares access to

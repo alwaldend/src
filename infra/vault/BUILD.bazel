@@ -11,6 +11,7 @@ package_group(
     name = "approle_state_projects",
     packages = [
         "//infra/airflow/approle",
+        "//infra/flux/approle",
         "//infra/grafana/approle",
         "//infra/mlflow/approle",
         "//infra/vault/approles/...",

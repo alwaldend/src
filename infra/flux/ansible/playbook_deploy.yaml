@@ -1,7 +1,0 @@
-- name: Deploy
-  hosts: flux
-  force_handlers: true
-  become: true
-  roles:
-    - role: alwaldend.main.host
-    - role: alwaldend.main.k3s
