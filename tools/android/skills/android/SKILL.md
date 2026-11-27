@@ -77,7 +77,7 @@ source-set layout aligned with the Bazel source layout (`cmd/<command>/`,
 
 ### Local F-Droid build check
 
-Use `tools/fdroid/fdroid-wrapper` for a local `fdroidserver` environment. Keep
+Use the [F-Droid wrapper](../../../../tools/fdroid/README.md) for a local `fdroidserver` environment. Keep
 the fdroiddata checkout and generated APK under ignored `out/<task>/`; never
 place scratch fdroidserver state in the app source tree.
 
@@ -93,8 +93,8 @@ place scratch fdroidserver state in the app source tree.
 4. Run the build from `out/<task>/fdroiddata`:
 
 ```sh
-../../../tools/fdroid/fdroid-wrapper readmeta
-../../../tools/fdroid/fdroid-wrapper build <package>:<versionCode> --on-server --no-tarball
+bazel run //tools/fdroid:fdroid_wrapper -- readmeta
+bazel run //tools/fdroid:fdroid_wrapper -- build <package>:<versionCode> --on-server --no-tarball
 ```
 
 Do not debug local fdroidserver failures by repeatedly inspecting vendored

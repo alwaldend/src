@@ -17,7 +17,10 @@ go_binary(
 
 go_library(
     name = "fdroid_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/fdroid",
     visibility = ["//visibility:private"],
 )

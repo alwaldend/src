@@ -39,8 +39,7 @@ in another file.
   and `al_hugo_binary` exposes a runnable Hugo command for a site.
 - There is one site target: `//projects/alwaldend.com:site`. It builds under
   `--config=release`, which sets the public `--baseURL`, and
-  `//projects/alwaldend.com:deploy` publishes the rendered site to the apex
-  Pages repository.
+  `//projects/alwaldend.com:release` packages the rendered site for deployment.
 - Build flags that matter: `--panicOnWarning` fails the build on any Hugo
   warning, and `--printPathWarnings` reports unresolved paths. The site always
   builds expired and future content. Ordinary `:site` builds and local preview
@@ -71,10 +70,10 @@ in another file.
   when every path its stylesheets and scripts reference is mounted.
 - Project styles are picked up by Hugo's theme extension points, not by
   overriding theme files: `assets/scss/_variables_project.scss` for theme
-  variables and `assets/scss/_styles_project.scss` for added rules. The site
-  keeps the shared canvas and accent in
-  `projects/alwaldend.com/assets/scss/_shared_theme.scss` and
-  `_shared_accent.scss`, and its own rules in `_styles_project.scss`.
+  variables and `assets/scss/_styles_project.scss` for added rules. The [site asset package](../../../../projects/alwaldend.com/assets/README.md)
+  mounts the shared styles from `internal/assets/web` and explains how
+  `internal/assets/theme.json` supplies their colors. Edit site-specific rules
+  in `projects/alwaldend.com/assets/scss/_styles_project.scss`.
 - Changing a theme version means updating the lock entry and the mount or
   configuration that depends on it together, then rebuilding the site. Never
   edit a downloaded theme tree; it is generated from the lock.
@@ -162,21 +161,13 @@ build alone does not establish a usable or deployed page.
 
 ### Deploy when authorized
 
-Adding a landing page authorizes implementation and offline checks. Live
-publication requires the user's requested operation and scope; retain
-authorization already given instead of requesting it again. Publication is the
-apex site deployment: `//projects/alwaldend.com:deploy` publishes the rendered
-site to the apex Pages repository, following the
-[Alwaldend.com README](../../../../projects/alwaldend.com/README.md) rollout entry points.
-There is no separate landing deployment, and no per-project repository,
-`bootstrap_projects` entry, Pages configuration, or DNS record to manage.
+Publish the apex site only when the user authorizes the destination and operation.
+Follow the [site deployment procedure](../../../../projects/alwaldend.com/README.md#deployment)
+to publish, extract, and activate the website release and synchronize it to the
+public host. Verify the intended version and representative HTTPS content at the
+requested destination. The legacy GitHub Pages target updates a separate
+destination and requires an explicit Pages request.
 
-Plan DNS changes through the owning Terraform root, following `repo-infra` and
-the [DNS workflow](../../../../infra/dns/README.md). Review the complete plan
-and apply its saved artifact only within the authorized scope. Resolve any
-unrelated infrastructure or apex changes before executing it.
-
-Verify the pushed revision, Pages build state, and HTTPS page content. Report
-observed successes separately from pending propagation or failed operations.
-A Terraform apply or Git push alone is not evidence that the public site is
-serving.
+For an authorized DNS change, follow `repo-infra` and the
+[DNS workflow](../../../../infra/dns/README.md). Review the plan displayed by
+the interactive apply before confirming it.
