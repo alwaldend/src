@@ -126,7 +126,7 @@ do not guess from unrelated refs.
 ## Stamp Bazel release artifacts
 
 Install or update AL from the intended source before release builds, following
-the [setup guide](../../../alwaldend.com/content/docs/misc/repo.md). Then build
+the setup guide at `projects/alwaldend.com/content/docs/misc/repo.md`. Then build
 normally from the repository root:
 
 ```sh

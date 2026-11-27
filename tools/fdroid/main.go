@@ -7,8 +7,10 @@ import (
 	"path/filepath"
 )
 
+// fdroidserverVersion pins the tool installed in the workspace virtual environment.
 const fdroidserverVersion = "2.4.5"
 
+// main reports wrapper or F-Droid failures to the caller.
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "fdroid-wrapper: %v\n", err)
@@ -16,12 +18,16 @@ func main() {
 	}
 }
 
+// run locates the workspace cache and launches F-Droid in the caller’s data directory.
 func run() error {
-	scriptDir, err := filepath.Abs(os.Args[0])
-	if err != nil {
-		return fmt.Errorf("resolve binary path: %w", err)
+	workspaceRoot := os.Getenv("BUILD_WORKSPACE_DIRECTORY")
+	if workspaceRoot == "" {
+		binaryPath, err := filepath.Abs(os.Args[0])
+		if err != nil {
+			return fmt.Errorf("resolve binary path: %w", err)
+		}
+		workspaceRoot = filepath.Dir(filepath.Dir(filepath.Dir(binaryPath)))
 	}
-	workspaceRoot := filepath.Dir(filepath.Dir(filepath.Dir(scriptDir)))
 	cacheDir := filepath.Join(workspaceRoot, "out", "fdroid-wrapper")
 	venvDir := filepath.Join(cacheDir, "venv")
 	fdroidBin := filepath.Join(venvDir, "bin", "fdroid")
@@ -55,12 +61,17 @@ func run() error {
 	}
 
 	cmd := exec.Command(fdroidBin, os.Args[1:]...)
+	cmd.Dir = os.Getenv("BUILD_WORKING_DIRECTORY")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
-	return cmd.Run()
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("execute %q: %w", cmd.Path, err)
+	}
+	return nil
 }
 
+// provision installs the pinned F-Droid server into a Python virtual environment.
 func provision(venvDir string) error {
 	if err := runCommand("python3", "-m", "venv", venvDir); err != nil {
 		return fmt.Errorf("create virtualenv: %w", err)
@@ -72,9 +83,13 @@ func provision(venvDir string) error {
 	return nil
 }
 
+// runCommand runs a provisioning step with its diagnostics attached.
 func runCommand(name string, args ...string) error {
 	cmd := exec.Command(name, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	return cmd.Run()
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("execute %q: %w", cmd.Path, err)
+	}
+	return nil
 }

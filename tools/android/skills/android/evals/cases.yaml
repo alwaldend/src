@@ -31,3 +31,12 @@
         Places the application under cmd/<command>, schemas under api, and
         points the Gradle source set at those canonical Bazel locations.
         Does not introduce main/java, main/proto, or compatibility symlinks.
+
+- description: Run the repository F-Droid wrapper on local metadata
+  vars:
+    request: >-
+      Use $android. I am in the worktree's out/task/fdroiddata directory
+      with config.yml and metadata. How do I run readmeta here?
+  assert:
+    - type: contains
+      value: "bazel run //tools/fdroid:fdroid_wrapper -- readmeta"

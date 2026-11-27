@@ -3,7 +3,10 @@ load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 
 package(transitive_visibility = "//third_party:transitive_consumers")
 
-exports_files(["artifacts.json"], visibility = ["//infra/flux/tf:__pkg__"])
+exports_files(
+    ["artifacts.json"],
+    visibility = ["//infra/flux/tf:__pkg__"],
+)
 
 third_party_artifact_mirror(inventory = "artifacts.json")
 

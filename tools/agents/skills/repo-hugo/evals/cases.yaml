@@ -52,3 +52,17 @@
         alwaldend.com as the existing apex site excluded from the landing
         registry and does not infer deployment permission from implementation
         and investigation.
+
+- description: Select deployment and theme owners for the apex site
+  vars:
+    request: >-
+      Use $repo-hugo. Where should I change the shared accent used by the site
+      and other web apps? Describe how to publish the apex release and review
+      a related DNS apply. Do not execute either operation.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Identifies the common theme and color source, follows the site owner's
+        release bundle publication, activation and synchronization procedure,
+        distinguishes GitHub Pages as a separate destination, and reviews
+        the interactive Terraform apply without saving a plan.
