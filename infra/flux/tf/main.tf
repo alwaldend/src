@@ -81,6 +81,7 @@ resource "helm_release" "operator" {
         enabled   = true
         className = "traefik"
         annotations = {
+          "cert-manager.io/common-name"                      = local.operator_hostname
           "cert-manager.io/issuer"                           = local.operator_issuer.name
           "cert-manager.io/duration"                         = "168h"
           "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"

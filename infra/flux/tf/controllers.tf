@@ -60,6 +60,10 @@ resource "helm_release" "traefik" {
     deployment = {
       dnsPolicy = "ClusterFirstWithHostNet"
     }
+    podSecurityContext = {
+      runAsNonRoot = false
+      runAsUser    = 0
+    }
     securityContext = {
       capabilities = {
         add = ["NET_BIND_SERVICE"]
