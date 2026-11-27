@@ -8,7 +8,9 @@ This is the repository-wide default; a nearer `AGENTS.md` takes precedence
 within its subtree. Establish the requested outcome and authority before
 mutating. Read the applicable policy chain and the owning `README.md`; inspect
 `BUILD.bazel` and `MODULE.bazel` only when implementation or validation depends
-on them, and load only the skills the phase needs.
+on them, and load only the skills the phase needs. Reuse sections already read during
+the task. Reopen a reference when its contents changed or the current step
+needs information outside the earlier read.
 
 ## Cognitive Objectivity and Anti-Sycophancy Principles
 

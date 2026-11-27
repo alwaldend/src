@@ -84,6 +84,10 @@ Check the produced file, not just the exit code or requested encoder settings:
   plausible container duration alone does not prove preservation. For lossy
   encoding or resampling, hashes normally differ: compare decoded sample
   coverage, timing, and representative audio instead of demanding equality.
+- For a motion correction, play a short candidate segment covering the disputed
+  movement before the full export. Compare direction, position, and timing
+  against the reference. For loops, play the last frames into the first frames
+  twice at output speed and check the transition again in the final export.
 - For a static video, compare decoded frames against the intended still with
   allowance for deliberate scaling and lossy encoding. Do not claim pixel
   identity after a lossy conversion.

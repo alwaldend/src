@@ -35,6 +35,13 @@ environment variable, for example
 `"{{ lookup('ansible.builtin.env', 'OPENHANDS_SESSION_API_KEY',
 default=undefined()) }}"`.
 
+For example, trace the VictoriaMetrics deployment from its playbook through
+`alwaldend.main.host` to the imported firewall role. The deployment supplies
+the permitted sources and ports through `firewall_allow_port_from` in its
+group variables. A new service with the same requirement supplies its own
+values through that interface. Follow the same chain for database setup:
+inspect the PostgreSQL role and its inputs before adding tasks to a consumer.
+
 ## Write reliable automation
 
 - Use fully qualified collection names where surrounding code does.

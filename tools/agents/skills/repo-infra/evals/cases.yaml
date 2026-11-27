@@ -669,3 +669,17 @@
         AppRole reads a separate bcrypt verifier. The proxy must receive the
         verifier through a restricted file and preserve ingress mTLS.
         Otherwise fail.
+
+- description: Routes a service database and firewall rule to their owners
+  vars:
+    request: >-
+      A new service on a Fedora VM needs PostgreSQL and a restricted inbound
+      port. A sibling playbook runs host, proxy and service roles. Where do
+      the new settings and tasks belong?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Traces the sibling playbook into host and its firewall role,
+        configures ingress through group variables, checks the PostgreSQL
+        role and its inputs, and keeps database provisioning out of the
+        application and proxy roles.

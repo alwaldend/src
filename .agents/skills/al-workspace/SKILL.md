@@ -41,6 +41,11 @@ authority.
    shared, human-owned, unrelated, or ambiguous history while preparing a
    workspace.
 
+When you need `git status`, run it inside the sandbox first. If Git LFS
+reports that the shared `.git/lfs/tmp` directory is read-only, request approval to run
+`git --no-optional-locks status --short --branch` outside the sandbox in the
+same worktree. Keep that approval scoped to the status check.
+
 ## Select the required OpenSpec change
 
 After verifying isolation and before editing repository source or configuration,
