@@ -1,0 +1,27 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_library(
+    name = "ssh_forward_lib",
+    srcs = [
+        "doc.go",
+        "forward.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/ssh/cmd/ssh_forward",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/lifecycle",
+        "@org_golang_x_crypto//ssh",
+    ],
+)
+
+go_binary(
+    name = "ssh_forward",
+    embed = [":ssh_forward_lib"],
+    visibility = ["//tools/ssh:__pkg__"],
+)

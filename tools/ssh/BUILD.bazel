@@ -1,3 +1,4 @@
+load("//projects/al:defs.bzl", "al_plugin_config")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load(":defs.bzl", "ssh_binary")
 
@@ -10,6 +11,13 @@ exports_files(
 
 ssh_binary(
     name = "ssh",
+    visibility = ["//:__subpackages__"],
+)
+
+al_plugin_config(
+    name = "forward",
+    executable = "//tools/ssh/cmd/ssh_forward",
+    resource_provider = True,
     visibility = ["//:__subpackages__"],
 )
 
