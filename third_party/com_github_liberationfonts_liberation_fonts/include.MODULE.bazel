@@ -1,8 +1,8 @@
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
-    name = "com_alwaldend_src_tools_drawio_fonts",
-    build_file = "//tools/drawio:fonts.BUILD.bazel",
+    name = "com_github_liberationfonts_liberation_fonts",
+    build_file = "//third_party/com_github_liberationfonts_liberation_fonts:fonts.BUILD.bazel",
     integrity = "sha256-cZHGab84iZ9zoglO0A97gAVTNk+Q4mNwEKacDiaPJdA=",
     strip_prefix = "liberation-fonts-ttf-2.1.5",
     urls = ["https://github.com/liberationfonts/liberation-fonts/files/7261482/liberation-fonts-ttf-2.1.5.tar.gz"],

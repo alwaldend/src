@@ -11,7 +11,8 @@ requirement and optional pinned Video2X/RIFE engine. The existing image supplies
 ComfyUI and its Python environment. Both fresh installation and updates use
 this same role; Terraform only provisions the rental and secured access.
 
-[config.json](../config.json) owns the profile registry and `workspace_directory`.
+The [model catalog](../../../projects/comfyui_tools/workflows/models.json) defines the profiles.
+[Deployment settings](../deployment.json) select the default profile and `workspace_directory`.
 The playbook combines that directory with the application name from the
 shared runtime declaration. The same workspace setting is passed to Terraform's
 native bootstrap. Changing it is not an in-place migration of existing data.
@@ -38,7 +39,7 @@ bazel run //infra/image_gen/ansible:ansible
 
 Pass `-- --extra-vars imagegen_model_profile=moss-image-heal` to select a
 registered model for one installation. Without this argument the playbook uses
-the model selection in `config.json`.
+the model selection in `deployment.json`.
 
 Pass `-- --skip-tags workflows` to preserve later App/workflow edits. The syntax
 entry point does not authenticate or connect to hosts. Public profiles need no Vault model-token entry. For a gated profile, use

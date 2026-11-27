@@ -7,7 +7,7 @@ description: Reusable ComfyUI custom nodes and image-generation workflows
 
 This project owns reusable ComfyUI nodes, workflows and evaluation tooling. Each node has its
 own directory under nodes/, with its implementation, test and
-README. Workflow definitions are grouped by model under workflows/. Evaluation code and reusable cases live here; run configuration and deployment,
+README. Workflow definitions are grouped by model under workflows/. Their [model catalog](workflows/models.json) defines model profiles and download metadata shared with deployment. Evaluation code and reusable cases live here; run configuration and deployment,
 model downloads, credentials and rental state belong to
 [image-generation infrastructure](../../infra/image_gen/README.md). The
 [repository CLI and local launchers](../../tools/comfyui/README.md) remain in

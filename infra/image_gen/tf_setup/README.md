@@ -21,12 +21,12 @@ are deployed; the previous Flux rental and its Base replacement were destroyed a
 [acceptance record](../openspec/changes/add-imagegen-rental/design.md#requested-flux2-dev-32b-replacement)
 owns the observed rental and workflow results.
 The [module](../../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md) uses
-the direct Vast ComfyUI/CUDA 12.9 image tag declared in [config.json](../config.json),
+the direct Vast ComfyUI/CUDA 12.9 image tag declared in [deployment settings](../deployment.json),
 without inheriting stock template options. The root selects an explicit published release tag. Update that one image reference to select a newer build;
 there is no registry lookup or helper executable during Terraform planning.
 Changing the tag produces a reviewed replacement plan for an existing rental.
-The component's [config.json](../config.json) owns the image, HTTPS username,
-default model and hardware profiles and their definitions. Set
+The component's [deployment settings](../deployment.json) define the image, HTTPS username,
+default model profile and hardware profile definitions. Set
 `TF_VAR_hardware_profile` to a profile name from that registry to select rental
 hardware at invocation time. Use the same selection for operations on that rental.
 Ansible selects the model independently.
@@ -37,7 +37,7 @@ as `chroma-hd`, `flux2-dev`, `juggernaut`, `hidream-i1-full`, `illustrious`, `fl
 Application installation is a separate [Ansible stage](../ansible/README.md).
 Every profile's complete workflow catalog, models, LoRAs and approved nodes are
 installed by the shared role after the existing image initializes ComfyUI.
-`workspace_directory` in config.json is passed to this module and the role.
+`workspace_directory` in deployment.json is passed to this module and the role.
 Terraform does not carry those asset payloads in startup or state. Account-wide
 SSH access is managed by [infra/vastai](../../vastai/tf/README.md), using the
 host user's Vault metadata. Deploy that policy and registration before relying
@@ -104,14 +104,14 @@ a separately scoped live acceptance run.
 
 ## Download models
 
-`model_profile` in config.json selects matching model downloads and saved workflows.
+`model_profile` in deployment.json selects matching model downloads and saved workflows.
 Every saved name uses `<profile>-<purpose>`, matching its generated JSON filename:
 
 Juggernaut also stages `juggernaut-multi-reference` and
 `juggernaut-multi-reference-prompt-sequence`, with three shared character/style
 references through IP-Adapter Plus. The two additional public safetensors files
 add about 3.4 GB: the SDXL Plus adapter in `models/ipadapter` and its CLIP-ViT-H
-encoder in `models/clip_vision`. Their publisher revisions are fixed in config.json.
+encoder in `models/clip_vision`. Their publisher revisions are fixed in the [model catalog](../../../projects/comfyui_tools/workflows/models.json).
 
 NoobAI provides `noobai-image-sequence` and its first-party `image_sequence` module.
 The [Ansible deployment](../ansible/README.md) installs the module, every
@@ -142,7 +142,7 @@ individual PNGs, and neither publishes per-scene GIFs.
 | `uso`             | FLUX.1 dev FP8 all-in-one checkpoint, USO LoRA/projector and SigLIP vision encoder | Subject reference, style reference and combined subject/two-style references, each with a sequence; prefixed `uso-`                                                                |
 | `umo-uno`         | Same FLUX.1 dev FP8 checkpoint and UMO-UNO LoRA                                    | Single and three-identity references, each with a sequence; prefixed `umo-uno-`                                                                                                    |
 
-All files are fixed to publisher revisions in [config.json](../config.json).
+All files are fixed to publisher revisions in the [model catalog](../../../projects/comfyui_tools/workflows/models.json).
 The full Chroma bundle totals about 28 GB. The optional 32B and HiDream
 bundles each total about 55 GB of model files. Model and hardware selections
 are independent: choose sufficient disk/VRAM for the bundle; `48gb` provides
@@ -246,7 +246,7 @@ is available through its [hosted API](https://www.minimax.io/news/minimax-h3-ope
 The selected `moss-image` profile downloads about 21.4 GB from
 [Comfy-Org/MOSS-Image](https://huggingface.co/Comfy-Org/MOSS-Image/tree/2929efe3cdd506c0a430bcfca70a9a8d805cc095):
 SFT and Base INT8 denoisers, Qwen3.5 9B INT8, the small FLUX.2 VAE, and the
-edit and color/depth LoRAs. Files use immutable publisher URLs in `config.json`. All downloads are
+edit and color/depth LoRAs. Files use immutable publisher URLs in the model catalog. All downloads are
 public; no model token, extra node pack or Python requirement is configured.
 
 The six single-image examples cover SFT/Base text-to-image, SFT/Base layout guidance,

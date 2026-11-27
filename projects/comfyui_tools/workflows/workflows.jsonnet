@@ -1,6 +1,5 @@
-// Model filenames come from their existing public configuration owner.
-local configuration = import '../../../infra/image_gen/config.json';
 local g = import 'internal/graph.libsonnet';
+local configuration = import 'models.json';
 // Recorded workflow defaults remain usable when native downloading is disabled.
 local defaults = {
   'moss-image': {

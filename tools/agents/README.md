@@ -49,14 +49,13 @@ Dated audits remain in
 Every canonical skill is packaged as a `skill_library` in its owning
 directory.
 
-The repository discovery directory `.agents/skills/` contains one relative
-symlink per skill. Each link points directly to its canonical project-owned
-directory. `.agents/BUILD.bazel` declares the complete discovery set and
-generates those links with `//.agents:write_skills`; its generated
-exact-state test verifies them. Bazel ignores the discovery directory and
-builds only canonical targets, preventing duplicate packages while allowing
-skills from more than one owning project. Each skill grants
-`//.agents:skill_discovery` read access so the owning declaration can reach it.
+The discovery declaration in `.agents/BUILD.bazel` lists the inputs to
+`//.agents:write_skills`. Entries under `symlinks` point directly to the
+owning directories. Entries under `archives` are unpacked into
+`.agents/skills/`. To change a packaged skill, edit the source of its declared
+target or update its upstream pin, then regenerate discovery. The generated
+exact-state test checks both forms. Bazel ignores the discovery directory
+and builds the canonical targets.
 
 Skill evaluation data is not part of the runtime `skill_library` unless a
 skill explicitly declares otherwise. Every new or updated skill includes an
