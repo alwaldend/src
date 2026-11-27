@@ -11,11 +11,19 @@ al_ansible_package(
         "group_vars/all.yaml",
         "inventory.yaml",
         "playbook_deploy.yaml",
+        "//infra/flux:ingress_access",
+        "//infra/ingress/ansible:inventory",
+        "//infra/vault/dns:dnsconfig",
     ],
     configs = ["//infra/flux:al"],
     plugin_labels = {
         "ansible": "",
         "vault_env": "default_default",
+    },
+    renames = {
+        "//infra/flux:ingress_access": "files/ingress-access.json",
+        "//infra/ingress/ansible:inventory": "files/ingress-inventory.yaml",
+        "//infra/vault/dns:dnsconfig": "files/vault-dns.json",
     },
 )
 

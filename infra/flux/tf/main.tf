@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "3.3.0"
     }
+    vault = {
+      source  = "hashicorp/vault"
+      version = "5.8.0"
+    }
   }
 }
 
@@ -14,7 +18,7 @@ provider "helm" {
 }
 
 locals {
-  namespace       = "flux-system"
+  namespace       = local.operator_issuer.namespace
   mirror_host     = "forgejo.alwaldend.com"
   mirror_owner    = "alwaldend"
   registry        = "${local.mirror_host}/${local.mirror_owner}"
@@ -41,10 +45,66 @@ resource "helm_release" "operator" {
       repository = "${local.registry}/flux-operator"
       tag        = "${one(local.operator.images).tag}@${one(local.operator.images).digest}"
     }
+    extraEnvs = [{
+      name  = "SSL_CERT_FILE"
+      value = "/etc/flux-operator/vault/ca.crt"
+    }]
+    extraVolumeMounts = [{
+      name      = "vault-ca"
+      mountPath = "/etc/flux-operator/vault"
+      readOnly  = true
+    }]
+    extraVolumes = [{
+      name      = "vault-ca"
+      configMap = { name = "flux-operator-vault-ca" }
+    }]
     web = {
-      enabled = false
+      enabled = true
+      rbac    = { createRoles = false }
+      config = {
+        baseURL = "https://${local.operator_hostname}"
+        authentication = {
+          type = "OAuth2"
+          oauth2 = {
+            provider  = "OIDC"
+            issuerURL = "${local.vault_url}/v1/identity/oidc/provider/src_infra_flux_provider"
+            clientID  = var.operator_oidc_client_id
+            scopes    = ["openid", "user", "groups", "email"]
+            impersonation = {
+              username = "'flux-ui:' + claims.sub"
+              groups   = "claims.groups.map(group, 'flux-ui:' + group)"
+            }
+          }
+        }
+      }
+      ingress = {
+        enabled   = true
+        className = "traefik"
+        annotations = {
+          "cert-manager.io/issuer"                           = local.operator_issuer.name
+          "cert-manager.io/duration"                         = "168h"
+          "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
+          "traefik.ingress.kubernetes.io/router.middlewares" = "${local.namespace}-flux-operator-ingress@kubernetescrd"
+        }
+        hosts = [{
+          host  = local.operator_hostname
+          paths = [{ path = "/", pathType = "Prefix" }]
+        }]
+        tls = [{
+          hosts      = [local.operator_hostname]
+          secretName = "flux-operator-tls"
+        }]
+      }
     }
   })]
+
+  set_sensitive = [{
+    name  = "web.config.authentication.oauth2.clientSecret"
+    type  = "string"
+    value = var.operator_oidc_client_secret
+  }]
+
+  depends_on = [helm_release.operator_ingress]
 }
 
 resource "helm_release" "instance" {

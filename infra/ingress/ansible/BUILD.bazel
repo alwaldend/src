@@ -17,6 +17,7 @@ filegroup(
     name = "inventory",
     srcs = ["inventory.yaml"],
     visibility = [
+        "//infra/flux:__subpackages__",
         "//infra/ingress:__subpackages__",
         "//infra/security:fleet_inventory_consumers",
         "//infra/victoria_metrics/ansible:__pkg__",
@@ -27,6 +28,7 @@ al_ansible_package(
     name = "ansible",
     srcs = [
         "inventory.yaml",
+        "//infra/flux/dns:dnsconfig",
         "//infra/grafana/dns:dnsconfig",
         "//infra/mlflow/dns:dnsconfig",
     ] + glob([
@@ -41,6 +43,7 @@ al_ansible_package(
         "ansible": "",
     },
     renames = {
+        "//infra/flux/dns:dnsconfig": "files/flux-dns.json",
         "//infra/grafana/dns:dnsconfig": "files/grafana-dns.json",
         "//infra/mlflow/dns:dnsconfig": "files/mlflow-dns.json",
     },

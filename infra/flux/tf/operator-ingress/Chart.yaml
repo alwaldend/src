@@ -1,0 +1,4 @@
+apiVersion: v2
+name: flux-operator-ingress
+description: Flux Operator UI ingress and Vault issuer configuration
+version: 0.1.0

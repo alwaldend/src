@@ -18,6 +18,8 @@ with cluster-scoped resources.
 After K3s starts, the shared role publishes the public API server CA at the
 Vault path configured by Flux. It updates that entry if the CA has changed.
 
-The host firewall accepts SSH and lets cluster pods reach the API.
+The host firewall accepts SSH and lets cluster pods reach the API. Vault can
+reach TCP 6443 from its private address for TokenReview. The DC1 management and workload LANs and shared ingress peers can connect
+to TCP 443 on the VM.
 The [Terraform workload root](../tf/README.md) opens its SSH forward
 automatically and authenticates with a Vault OIDC token.
