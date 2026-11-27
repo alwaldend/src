@@ -14,18 +14,26 @@ go_test(
     name = "update_test",
     size = "small",
     srcs = [
+        "doc.go",
+        "flags_test.go",
         "main.go",
         "main_test.go",
     ],
     args = ["-git=$(rlocationpath //projects/al:git)"],
     data = ["//projects/al:git"],
-    deps = ["@rules_go//go/runfiles"],
+    deps = [
+        "//tools/go/pkg/flagcompat",
+        "@com_github_spf13_cobra//:cobra",
+        "@rules_go//go/runfiles",
+    ],
 )
 
 go_test(
     name = "freshness_test",
     size = "small",
     srcs = [
+        "doc.go",
+        "flags_test.go",
         "freshness_test.go",
         "main.go",
     ],
@@ -43,13 +51,24 @@ go_test(
         "no-sandbox",
     ],
     visibility = ["//tools/repo_quality:__pkg__"],
-    deps = ["@rules_go//go/runfiles"],
+    deps = [
+        "//tools/go/pkg/flagcompat",
+        "@com_github_spf13_cobra//:cobra",
+        "@rules_go//go/runfiles",
+    ],
 )
 
 go_library(
     name = "update_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/bazel_module/cmd/update",
     visibility = ["//visibility:private"],
-    deps = ["@rules_go//go/runfiles"],
+    deps = [
+        "//tools/go/pkg/flagcompat",
+        "@com_github_spf13_cobra//:cobra",
+        "@rules_go//go/runfiles",
+    ],
 )

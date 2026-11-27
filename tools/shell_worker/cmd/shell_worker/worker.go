@@ -2,175 +2,152 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
 	"text/template"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/third_party/com_github_bazelbuild_bazel_protobuf/worker_protocol"
 )
 
-// worker
-type Worker struct {
-	protocol *WorkerProtocol
+// maxShellText bounds each flagfile and rendered shell command.
+const maxShellText = 4 << 20
+
+// maxOutput bounds the bytes retained for a command failure diagnostic.
+const maxOutput = 1 << 20
+
+// workerArguments exposes the action paths and configuration to command templates.
+type workerArguments struct {
+	// FlagfilePath is the path Bazel supplied for the action configuration.
+	FlagfilePath string
+	// Flagfile contains the decoded JSON rule attributes.
+	Flagfile *workerFlagfile
+	// WorkDir is the worker's current execution directory.
+	WorkDir string
 }
 
-type WorkerRequestArguments struct {
-	FlagfilePath string `json:"flagfile_path"`
-	// flagfile contents
-	Flagfile *WorkerFlagfile `json:"flagfile"`
-	// current working directory
-	WorkDir string `json:"work_dir"`
-}
-
-// flagfile contents passed from the rule
-type WorkerFlagfile struct {
-	// Cmd passed from the rule
+// workerFlagfile describes the shell template and its rule-defined inputs.
+type workerFlagfile struct {
+	// Cmd is the Go template expanded into the shell script.
 	Cmd string `json:"cmd"`
-	// args for set comand
+	// SetArgs contains arguments to the shell's set builtin.
 	SetArgs []string `json:"set_args"`
-	// shell executable to use
+	// Shell identifies the interpreter to execute.
 	Shell string `json:"shell"`
-	// Make vars
+	// Var exposes Bazel make variables to the template.
 	Var map[string]string `json:"var"`
 }
 
-type WorkerRequestCmd struct {
-	// full command to execute
-	Cmd []string `json:"cmd"`
-	// comand output (both stdout and stderr)
-	Output string `json:"stdout"`
+// workerTemplateContext provides the documented field names used by rule templates.
+type workerTemplateContext struct {
+	// Ctx holds the rule attributes.
+	Ctx *workerFlagfile
+	// Request holds the original Bazel request.
+	Request *worker_protocol.WorkRequest
+	// Arguments holds the resolved action context.
+	Arguments *workerArguments
 }
 
-// data request to handle the request
-type WorkerRequestData struct {
-	Request   *worker_protocol.WorkRequest `json:"request"`
-	Arguments *WorkerRequestArguments      `json:"arguments"`
-	Cmd       *WorkerRequestCmd            `json:"cmd"`
+// boundedBuffer retains a prefix of a stream or rejects writes exceeding its limit.
+type boundedBuffer struct {
+	// buffer contains the retained bytes.
+	buffer bytes.Buffer
+	// limit is the maximum number of bytes retained.
+	limit int
+	// truncate allows excess child output to be drained without retaining it.
+	truncate bool
+	// truncated records whether diagnostic output was discarded.
+	truncated bool
 }
 
-// context for the cmd template
-type WorkerTemplateContext struct {
-	Ctx       *WorkerFlagfile
-	Request   *worker_protocol.WorkRequest
-	Arguments *WorkerRequestArguments
-}
-
-// data to create an error response
-type WorkerErrorResponse struct {
-	Error string             `json:"error"`
-	Data  *WorkerRequestData `json:"data"`
-}
-
-func NewWorker(protocol *WorkerProtocol) *Worker {
-	return &Worker{protocol: protocol}
-}
-
-func (self *Worker) Run(persist bool) {
-	if !persist {
-		self.RunOnce()
+// Write accepts a complete write only when it fits or truncation was requested.
+func (b *boundedBuffer) Write(p []byte) (int, error) {
+	room := b.limit - b.buffer.Len()
+	if len(p) <= room {
+		b.buffer.Write(p)
+		return len(p), nil
 	}
-	for {
-		self.RunOnce()
+	if !b.truncate {
+		return 0, fmt.Errorf("rendered command exceeds %d bytes", b.limit)
 	}
+	b.buffer.Write(p[:room])
+	b.truncated = true
+	return len(p), nil
 }
 
-func (self *Worker) RunOnce() {
-	request, err := self.protocol.ReadRequest()
+// perform converts an action failure into a response without stopping subsequent requests.
+func perform(ctx context.Context, request *worker_protocol.WorkRequest) *worker_protocol.WorkResponse {
+	response := &worker_protocol.WorkResponse{RequestId: request.RequestId}
+	if err := runAction(ctx, request); err != nil {
+		response.ExitCode = 1
+		// Protobuf strings require UTF-8. Child output may contain arbitrary
+		// bytes, including a partial rune at the diagnostic size limit.
+		response.Output = strings.ToValidUTF8(err.Error(), "\uFFFD")
+	}
+	return response
+}
+
+// runAction expands the rule's template and executes its shell with bounded diagnostic output.
+func runAction(ctx context.Context, request *worker_protocol.WorkRequest) error {
+	flags := flag.NewFlagSet("shell action", flag.ContinueOnError)
+	flags.SetOutput(io.Discard)
+	path := flags.String("flagfile", "", "action configuration")
+	if err := flags.Parse(request.Arguments); err != nil {
+		return fmt.Errorf("parse shell request flags: %w", err)
+	}
+	if *path == "" {
+		return fmt.Errorf("shell request requires --flagfile")
+	}
+	file, err := os.Open(*path)
 	if err != nil {
-		panic(fmt.Sprintf("could not read request: %s", err))
+		return fmt.Errorf("open shell flagfile %q: %w", *path, err)
 	}
-	args, err := self.parseArguments(request)
+	data, readErr := io.ReadAll(io.LimitReader(file, maxShellText+1))
+	if err := errors.Join(readErr, file.Close()); err != nil {
+		return fmt.Errorf("read shell flagfile %q: %w", *path, err)
+	}
+	if len(data) > maxShellText {
+		return fmt.Errorf("shell flagfile exceeds %d bytes", maxShellText)
+	}
+	var config workerFlagfile
+	if err := json.Unmarshal(data, &config); err != nil {
+		return fmt.Errorf("decode shell flagfile %q: %w", *path, err)
+	}
+	dir, err := os.Getwd()
 	if err != nil {
-		self.protocol.WriteResponse(self.errorResponse(request, nil, fmt.Errorf("could not parse arguments: %w", err)))
+		return fmt.Errorf("resolve action working directory: %w", err)
 	}
-	data := &WorkerRequestData{Request: request, Arguments: args, Cmd: &WorkerRequestCmd{}}
-	response, err := self.handleRequest(data)
+	tmpl, err := template.New("cmd").Option("missingkey=error").Parse(config.Cmd)
 	if err != nil {
-		self.protocol.WriteResponse(self.errorResponse(request, data, err))
-		return
+		return fmt.Errorf("parse command template: %w", err)
 	}
-	self.protocol.WriteResponse(response)
-}
-
-func (self *Worker) parseArguments(request *worker_protocol.WorkRequest) (*WorkerRequestArguments, error) {
-	flags := flag.FlagSet{}
-	flagfileFlag := flags.String("flagfile", "", "argfile path")
-	err := flags.Parse(request.Arguments)
-	if err != nil {
-		return nil, fmt.Errorf("could not parse arguments: %w", err)
+	script := boundedBuffer{limit: maxShellText}
+	if _, err := fmt.Fprintf(&script, "set %s\n", strings.Join(config.SetArgs, " ")); err != nil {
+		return fmt.Errorf("write shell options: %w", err)
 	}
-	flagfileByts, err := os.ReadFile(*flagfileFlag)
-	if err != nil {
-		return nil, fmt.Errorf("could not read flag file: %w", err)
+	args := workerArguments{FlagfilePath: *path, Flagfile: &config, WorkDir: dir}
+	if err := tmpl.Execute(&script, workerTemplateContext{Ctx: &config, Request: request, Arguments: &args}); err != nil {
+		return fmt.Errorf("render command template %q: %w", *path, err)
 	}
-	flagfile := &WorkerFlagfile{}
-	err = json.Unmarshal(flagfileByts, flagfile)
-	if err != nil {
-		return nil, fmt.Errorf("could not unmarshal flagfile contents: %s", err)
-	}
-	workDir, err := os.Getwd()
-	if err != nil {
-		return nil, err
-	}
-	return &WorkerRequestArguments{
-		FlagfilePath: *flagfileFlag,
-		Flagfile:     flagfile,
-		WorkDir:      workDir,
-	}, nil
-}
-
-func (self *Worker) errorResponse(request *worker_protocol.WorkRequest, data *WorkerRequestData, err error) *worker_protocol.WorkResponse {
-	response := WorkerErrorResponse{Data: data, Error: err.Error()}
-	responseBytes, marshalErr := json.MarshalIndent(response, "", "    ")
-	if marshalErr != nil {
-		panic(fmt.Sprintf("could not marshal response: %s: %s", marshalErr, err))
-	}
-	return &worker_protocol.WorkResponse{
-		ExitCode:  1,
-		Output:    fmt.Sprintf("Data:%s\nOutput:\n%s\nError:\n%s", string(responseBytes), data.Cmd.Output, err.Error()),
-		RequestId: request.RequestId,
-	}
-}
-
-func (self *Worker) constructCmd(data *WorkerRequestData) ([]string, error) {
-	var buffer bytes.Buffer
-	temp, err := template.New("cmd").Option("missingkey=error").Parse(data.Arguments.Flagfile.Cmd)
-	if err != nil {
-		return nil, fmt.Errorf("could not parse template: %w", err)
-	}
-
-	if err := temp.Execute(&buffer, WorkerTemplateContext{
-		Ctx:       data.Arguments.Flagfile,
-		Request:   data.Request,
-		Arguments: data.Arguments,
-	}); err != nil {
-		return nil, fmt.Errorf("could not execute template: %w", err)
-	}
-	cmdText := fmt.Sprintf("set %s\n%s", strings.Join(data.Arguments.Flagfile.SetArgs, " "), buffer.String())
-	cmdArgs := []string{
-		data.Arguments.Flagfile.Shell, "-c", cmdText,
-	}
-	return cmdArgs, nil
-}
-
-func (self *Worker) handleRequest(data *WorkerRequestData) (*worker_protocol.WorkResponse, error) {
-	var output bytes.Buffer
-	cmdArgs, err := self.constructCmd(data)
-	if err != nil {
-		return nil, err
-	}
-	data.Cmd.Cmd = cmdArgs
-	cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...)
+	output := boundedBuffer{limit: maxOutput, truncate: true}
+	cmd := exec.CommandContext(ctx, config.Shell, "-c", script.buffer.String())
+	// Bound the wait for descendants that keep the shell's output pipe open.
+	cmd.WaitDelay = 5 * time.Second
 	cmd.Stdout = &output
 	cmd.Stderr = &output
-	err = cmd.Run()
-	data.Cmd.Output = output.String()
-	if err != nil {
-		return nil, fmt.Errorf("could not run command: %w", err)
+	if err := cmd.Run(); err != nil {
+		text := output.buffer.String()
+		if output.truncated {
+			text += "\n[output truncated]"
+		}
+		return fmt.Errorf("execute shell action: %w\n%s", err, text)
 	}
-	return &worker_protocol.WorkResponse{RequestId: data.Request.RequestId}, nil
+	return nil
 }

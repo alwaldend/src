@@ -1,104 +1,92 @@
 package main
 
 import (
-	"flag"
+	"context"
 	"fmt"
 	"io"
 	"os"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
-type stringListFlag []string
-
-func (values *stringListFlag) String() string {
-	return strings.Join(*values, ",")
-}
-
-func (values *stringListFlag) Set(value string) error {
-	*values = append(*values, value)
-	return nil
-}
-
-func run(arguments []string, stdout io.Writer, stderr io.Writer) int {
-	flags := flag.NewFlagSet("skill_validator", flag.ContinueOnError)
-	flags.SetOutput(stderr)
-	var skillPath string
-	var openAIPath string
-	var expectedName string
-	var outputPath string
-	var declaredFiles stringListFlag
-	flags.StringVar(&skillPath, "skill", "", "path to SKILL.md")
-	flags.StringVar(
-		&openAIPath,
-		"openai-yaml",
-		"",
-		"optional path to agents/openai.yaml",
-	)
-	flags.StringVar(
-		&expectedName,
-		"expected-name",
-		"",
-		"skill name expected from the Bazel package",
-	)
-	flags.StringVar(&outputPath, "output", "", "validation report output")
-	flags.Var(
-		&declaredFiles,
-		"file",
-		"file declared by skill_library; may be repeated",
-	)
-	if err := flags.Parse(arguments); err != nil {
-		return 2
+// run validates one skill, returning 2 for usage errors and 1 for failed validation or output.
+func run(ctx context.Context, arguments []string, stdout, stderr io.Writer) int {
+	var skillPath, openAIPath, expectedName, outputPath string
+	var declaredFiles []string
+	exitCode := 2
+	command := &cobra.Command{
+		Use:           "skill_validator",
+		Args:          cobra.NoArgs,
+		SilenceUsage:  true,
+		SilenceErrors: true,
+		PreRunE: func(cmd *cobra.Command, _ []string) error {
+			for _, name := range []string{"skill", "expected-name", "output"} {
+				if cmd.Flags().Lookup(name).Value.String() == "" {
+					return fmt.Errorf("--%s is required", name)
+				}
+			}
+			if len(declaredFiles) == 0 {
+				return fmt.Errorf("at least one --file is required")
+			}
+			return nil
+		},
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			exitCode = 1
+			issues := validateSkill(skillPath, openAIPath, expectedName, declaredFiles)
+			if len(issues) != 0 {
+				return fmt.Errorf("skill %s: %s", expectedName, strings.Join(issues, "\nERROR: skill "+expectedName+": "))
+			}
+			report := fmt.Sprintf("Skill is valid: %s\n", expectedName)
+			if err := os.WriteFile(outputPath, []byte(report), 0o644); err != nil {
+				return fmt.Errorf("write validation report %q: %w", outputPath, err)
+			}
+			if _, err := fmt.Fprint(cmd.OutOrStdout(), report); err != nil {
+				return fmt.Errorf("print validation report: %w", err)
+			}
+			return nil
+		},
 	}
-	if flags.NArg() != 0 {
-		fmt.Fprintln(stderr, "ERROR: unexpected positional arguments")
-		return 2
-	}
-	requiredOptions := []struct {
-		name  string
-		value string
-	}{
-		{name: "--skill", value: skillPath},
-		{name: "--expected-name", value: expectedName},
-		{name: "--output", value: outputPath},
-	}
-	for _, option := range requiredOptions {
-		if option.value == "" {
-			fmt.Fprintf(stderr, "ERROR: %s is required\n", option.name)
+	command.SetOut(stdout)
+	command.SetErr(stderr)
+	flags := command.Flags()
+	flags.StringVar(&skillPath, "skill", "", "Path to SKILL.md")
+	flags.StringVar(&openAIPath, "openai-yaml", "", "Optional path to agents/openai.yaml")
+	flags.StringVar(&expectedName, "expected-name", "", "Skill name expected from the Bazel package")
+	flags.StringVar(&outputPath, "output", "", "Validation report output")
+	flags.StringArrayVar(&declaredFiles, "file", nil, "Declared file (repeatable)")
+	for _, name := range []string{"skill", "expected-name", "output", "file"} {
+		if err := command.MarkFlagRequired(name); err != nil {
+			fmt.Fprintf(stderr, "ERROR: configure flag %q: %v\n", name, err)
 			return 2
 		}
 	}
-	if len(declaredFiles) == 0 {
-		fmt.Fprintln(stderr, "ERROR: at least one --file is required")
-		return 2
-	}
-
-	errors := validateSkill(
-		skillPath,
-		openAIPath,
-		expectedName,
-		declaredFiles,
-	)
-	if len(errors) != 0 {
-		for _, validationError := range errors {
-			fmt.Fprintf(
-				stderr,
-				"ERROR: skill %s: %s\n",
-				expectedName,
-				validationError,
-			)
+	// The original command also accepts a single dash before long option names.
+	args := append([]string{}, arguments...)
+	for i := 0; i < len(args); i++ {
+		if args[i] == "--" {
+			break
 		}
-		return 1
+		option, _, inline := strings.Cut(args[i], "=")
+		if flags.Lookup(strings.TrimLeft(option, "-")) == nil || !strings.HasPrefix(option, "-") {
+			continue
+		}
+		if !strings.HasPrefix(option, "--") {
+			args[i] = "-" + args[i]
+		}
+		if !inline {
+			i++
+		}
 	}
-
-	report := fmt.Sprintf("Skill is valid: %s\n", expectedName)
-	if err := os.WriteFile(outputPath, []byte(report), 0o644); err != nil {
-		fmt.Fprintf(stderr, "ERROR: could not write validation report: %v\n", err)
-		return 1
+	command.SetArgs(args)
+	if err := command.ExecuteContext(ctx); err != nil {
+		fmt.Fprintf(stderr, "ERROR: %v\n", err)
+		return exitCode
 	}
-	fmt.Fprint(stdout, report)
 	return 0
 }
 
+// main validates the Bazel action inputs and exits with the corresponding status.
 func main() {
-	os.Exit(run(os.Args[1:], os.Stdout, os.Stderr))
+	os.Exit(run(context.Background(), os.Args[1:], os.Stdout, os.Stderr))
 }

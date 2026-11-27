@@ -1,9 +1,9 @@
-// Package gazelle generates Bazel skill library targets.
 package gazelle
 
 import (
 	"flag"
 	"fmt"
+	"slices"
 
 	"github.com/bazelbuild/bazel-gazelle/config"
 	"github.com/bazelbuild/bazel-gazelle/language"
@@ -11,11 +11,15 @@ import (
 )
 
 const (
+	// skillKind identifies a packaged skill rule.
 	skillKind = "skill_library"
+	// skillName is the conventional skill target name.
 	skillName = "skill"
 )
 
+// skillLanguage implements the Gazelle extension and its module-aware load hook.
 type skillLanguage struct {
+	// BaseLang supplies the default implementations of the remaining Gazelle hooks.
 	language.BaseLang
 	// loadLabel overrides the published rule label for an in-tree checkout.
 	loadLabel string
@@ -31,10 +35,12 @@ func NewLanguage() language.Language {
 	return &skillLanguage{}
 }
 
+// Name identifies this extension to Gazelle's language filter.
 func (*skillLanguage) Name() string {
 	return "skill"
 }
 
+// Kinds keeps user-specified attributes when merging skill rules.
 func (*skillLanguage) Kinds() map[string]rule.KindInfo {
 	return map[string]rule.KindInfo{
 		skillKind: {
@@ -45,6 +51,7 @@ func (*skillLanguage) Kinds() map[string]rule.KindInfo {
 	}
 }
 
+// Loads rejects legacy load resolution, which cannot account for Bzlmod repository mappings.
 func (*skillLanguage) Loads() []rule.LoadInfo {
 	panic("ApparentLoads should be called instead")
 }
@@ -54,6 +61,7 @@ func (lang *skillLanguage) RegisterFlags(flags *flag.FlagSet, _ string, _ *confi
 	flags.StringVar(&lang.loadLabel, "skill_load_label", "", "Bazel label for the skill rule definitions")
 }
 
+// ApparentLoads resolves the rule definitions in the consumer workspace.
 func (lang *skillLanguage) ApparentLoads(
 	moduleToApparentName func(string) string,
 ) []rule.LoadInfo {
@@ -71,10 +79,11 @@ func (lang *skillLanguage) ApparentLoads(
 	}}
 }
 
+// GenerateRules bundles skill sources in each named package containing SKILL.md.
 func (*skillLanguage) GenerateRules(
 	args language.GenerateArgs,
 ) language.GenerateResult {
-	if args.Rel == "" || !contains(args.RegularFiles, "SKILL.md") {
+	if args.Rel == "" || !slices.Contains(args.RegularFiles, "SKILL.md") {
 		return language.GenerateResult{}
 	}
 
@@ -90,6 +99,7 @@ func (*skillLanguage) GenerateRules(
 	}
 }
 
+// skillSourceExcludes omits BUILD files and separately packaged evaluations from the skill bundle.
 func skillSourceExcludes(args language.GenerateArgs) []string {
 	buildFileNames := []string{"BUILD.bazel", "BUILD"}
 	if args.Config != nil {
@@ -106,13 +116,4 @@ func skillSourceExcludes(args language.GenerateArgs) []string {
 		excludes = append(excludes, name)
 	}
 	return append(excludes, "evals/**")
-}
-
-func contains(files []string, name string) bool {
-	for _, file := range files {
-		if file == name {
-			return true
-		}
-	}
-	return false
 }

@@ -18,15 +18,18 @@ import (
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
+// mapResolver maps fixture runfiles keys to files in the test directory.
 type mapResolver map[string]string
 
+// Rlocation looks up a fixture file and reports missing keys.
 func (r mapResolver) Rlocation(name string) (string, error) {
 	if resolved, found := r[name]; found {
 		return resolved, nil
 	}
-	return "", os.ErrNotExist
+	return "", fmt.Errorf("fixture runfile %q: %w", name, os.ErrNotExist)
 }
 
+// writeFile creates a fixture and its containing directories.
 func writeFile(t *testing.T, name, contents string) {
 	t.Helper()
 	if err := os.MkdirAll(filepath.Dir(name), 0o700); err != nil {
@@ -37,6 +40,7 @@ func writeFile(t *testing.T, name, contents string) {
 	}
 }
 
+// fixtureProvider declares a provider for the host used by the test.
 func fixtureProvider() providerPackage {
 	platform := runtime.GOOS + "_" + runtime.GOARCH
 	return providerPackage{
@@ -46,6 +50,7 @@ func fixtureProvider() providerPackage {
 	}
 }
 
+// TestValidateArgsAcceptsSavedPlan covers absolute and relative regular plan files.
 func TestValidateArgsAcceptsSavedPlan(t *testing.T) {
 	chdir := t.TempDir()
 	planPath := filepath.Join(chdir, "reviewed.tfplan")
@@ -57,6 +62,7 @@ func TestValidateArgsAcceptsSavedPlan(t *testing.T) {
 	}
 }
 
+// TestValidateArgsRejectsUnsavedApply exercises invalid argument shapes and absent or nonregular files.
 func TestValidateArgsRejectsUnsavedApply(t *testing.T) {
 	chdir := t.TempDir()
 	plan := filepath.Join(chdir, "reviewed.tfplan")
@@ -80,6 +86,7 @@ func TestValidateArgsRejectsUnsavedApply(t *testing.T) {
 	}
 }
 
+// TestValidateArgsPreservesStandardCommands allows normal Terraform arguments outside the saved-plan mode.
 func TestValidateArgsPreservesStandardCommands(t *testing.T) {
 	for _, args := range [][]string{nil, {"apply"}, {"plan", "-target=module.dns"}, {"apply", "-auto-approve"}, {"apply", "missing.tfplan"}} {
 		if err := validateArgs(args, "missing-directory", false); err != nil {
@@ -88,6 +95,7 @@ func TestValidateArgsPreservesStandardCommands(t *testing.T) {
 	}
 }
 
+// TestValidateEnvironmentRejectsArgumentsAndProviderReattachment checks bypass rejection and private-value redaction.
 func TestValidateEnvironmentRejectsArgumentsAndProviderReattachment(t *testing.T) {
 	for _, name := range []string{"TF_CLI_ARGS", "TF_CLI_ARGS_apply", "TF_CLI_ARGS_init", "TF_CLI_ARGS_future_operation", "TF_REATTACH_PROVIDERS"} {
 		for _, guard := range []bool{false, true} {
@@ -105,6 +113,7 @@ func TestValidateEnvironmentRejectsArgumentsAndProviderReattachment(t *testing.T
 	}
 }
 
+// TestParseOptionsStopsAtTerraformCommand checks that the suffix is passed verbatim after the launcher flags.
 func TestParseOptionsStopsAtTerraformCommand(t *testing.T) {
 	opts, err := parseOptions([]string{"--direct", "--require-saved-plan", "--chdir", "root", "apply", "plan", "--direct"})
 	if err != nil || !opts.direct || !opts.requireSavedPlan || opts.chdir != "root" || !reflect.DeepEqual(opts.args, []string{"apply", "plan", "--direct"}) {
@@ -117,6 +126,7 @@ func TestParseOptionsStopsAtTerraformCommand(t *testing.T) {
 	}
 }
 
+// TestProviderArgumentsCannotDownloadOrReplaceProviders exercises provider mirror and plugin overrides.
 func TestProviderArgumentsCannotDownloadOrReplaceProviders(t *testing.T) {
 	for _, args := range [][]string{
 		{"init", "-plugin-dir", "other"},
@@ -134,6 +144,7 @@ func TestProviderArgumentsCannotDownloadOrReplaceProviders(t *testing.T) {
 	}
 }
 
+// TestRuntimeUsesOnlyPackagedProvidersAndPreservesBackendEnvironment checks CLI configuration, streams and cleanup during a full invocation.
 func TestRuntimeUsesOnlyPackagedProvidersAndPreservesBackendEnvironment(t *testing.T) {
 	root := t.TempDir()
 	workingDirectory := filepath.Join(root, "runfiles", "_main", "infra", "fixture")
@@ -214,6 +225,7 @@ func TestRuntimeUsesOnlyPackagedProvidersAndPreservesBackendEnvironment(t *testi
 	}
 }
 
+// TestDirectInitSkipsAutomaticInitAndKeepsLiteralBackendArgument checks argument separation during explicit initialization.
 func TestDirectInitSkipsAutomaticInitAndKeepsLiteralBackendArgument(t *testing.T) {
 	root := t.TempDir()
 	var calls [][]string
@@ -242,6 +254,7 @@ func TestDirectInitSkipsAutomaticInitAndKeepsLiteralBackendArgument(t *testing.T
 	}
 }
 
+// TestRunRejectsSavedPlanBeforeInitialization checks that invalid apply arguments stop the launcher before spawning a child.
 func TestRunRejectsSavedPlanBeforeInitialization(t *testing.T) {
 	root := t.TempDir()
 	called := false
@@ -256,6 +269,7 @@ func TestRunRejectsSavedPlanBeforeInitialization(t *testing.T) {
 	}
 }
 
+// TestProviderMirrorUsesDeclaredRunfilesLayout checks reuse of the generated packed mirror.
 func TestProviderMirrorUsesDeclaredRunfilesLayout(t *testing.T) {
 	root := t.TempDir()
 	provider := fixtureProvider()
@@ -275,6 +289,7 @@ func TestProviderMirrorUsesDeclaredRunfilesLayout(t *testing.T) {
 	}
 }
 
+// TestProviderMirrorRejectsMissingUnsupportedAndConflictingPackages exercises invalid provider declarations.
 func TestProviderMirrorRejectsMissingUnsupportedAndConflictingPackages(t *testing.T) {
 	provider := fixtureProvider()
 	call := invocation{runfiles: mapResolver{}}
@@ -301,6 +316,7 @@ func TestProviderMirrorRejectsMissingUnsupportedAndConflictingPackages(t *testin
 	}
 }
 
+// TestWorkingDirectoryUsesRunfilesInsteadOfSource checks that local state remains in the runfiles tree.
 func TestWorkingDirectoryUsesRunfilesInsteadOfSource(t *testing.T) {
 	root := t.TempDir()
 	source := filepath.Join(root, "source", "infra", "fixture", "main.tf")
@@ -320,6 +336,7 @@ func TestWorkingDirectoryUsesRunfilesInsteadOfSource(t *testing.T) {
 	}
 }
 
+// TestManifestOnlyTestsMaterializeDeclaredFilesWithoutSourceLocks checks that materialized workspaces isolate generated locks.
 func TestManifestOnlyTestsMaterializeDeclaredFilesWithoutSourceLocks(t *testing.T) {
 	root := t.TempDir()
 	source := filepath.Join(root, "source", "main.tf")
@@ -352,6 +369,7 @@ func TestManifestOnlyTestsMaterializeDeclaredFilesWithoutSourceLocks(t *testing.
 	}
 }
 
+// TestRuntimeTemporaryRootNeverFallsBackToSystemDirectory exercises the caller-owned scratch selection order.
 func TestRuntimeTemporaryRootNeverFallsBackToSystemDirectory(t *testing.T) {
 	if _, err := runtimeTemporaryRoot(nil); err == nil {
 		t.Fatal("missing Bazel and TMPDIR context used a system directory")
@@ -367,6 +385,7 @@ func TestRuntimeTemporaryRootNeverFallsBackToSystemDirectory(t *testing.T) {
 	}
 }
 
+// TestHCLStringEscapesTemplateOpeners checks that HCL interpolation syntax stays literal in a filesystem path.
 func TestHCLStringEscapesTemplateOpeners(t *testing.T) {
 	got := hclString(`some/${path}/%{directive}/"quoted"`)
 	if got != `"some/$${path}/%%{directive}/\"quoted\""` {
@@ -374,6 +393,7 @@ func TestHCLStringEscapesTemplateOpeners(t *testing.T) {
 	}
 }
 
+// TestReadConfigurationSidecarAndManifestFallback covers both executable and manifest lookups.
 func TestReadConfigurationSidecarAndManifestFallback(t *testing.T) {
 	root := t.TempDir()
 	config := configuration{Terraform: "terraform/terraform", Workspace: "_main"}
@@ -393,8 +413,9 @@ func TestReadConfigurationSidecarAndManifestFallback(t *testing.T) {
 	}
 }
 
+// TestExitCodePreservesTerraformDetailedExitCode checks the status returned by a real child process.
 func TestExitCodePreservesTerraformDetailedExitCode(t *testing.T) {
-	command := exec.Command(os.Args[0], "-test.run=TestExitHelper")
+	command := exec.CommandContext(t.Context(), os.Args[0], "-test.run=TestExitHelper")
 	command.Env = append(os.Environ(), "RULES_TERRAFORM_EXIT_HELPER=1")
 	err := command.Run()
 	if got := commandExitCode(err); got != 2 {
@@ -402,6 +423,7 @@ func TestExitCodePreservesTerraformDetailedExitCode(t *testing.T) {
 	}
 }
 
+// TestExitHelper supplies the requested exit status to the child-process fixture.
 func TestExitHelper(t *testing.T) {
 	if os.Getenv("RULES_TERRAFORM_EXIT_HELPER") == "1" {
 		os.Exit(2)

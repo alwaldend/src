@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-// Commands other than these initialization-free operations may load provider
+// commandUsesProviders identifies commands that may load provider
 // schemas or provider implementations. Defaulting to verification also covers
 // new Terraform commands without maintaining a growing command allowlist.
 func commandUsesProviders(args []string) bool {
@@ -29,17 +29,37 @@ func commandUsesProviders(args []string) bool {
 	return true
 }
 
-func (call invocation) verifyProviderSelections(config configuration, chdir string, environ []string, execute func([]string, io.Writer) error) error {
+// selectionOutput bounds the Terraform version JSON collected for one provenance check.
+type selectionOutput struct {
+	// content holds the status and provider selections reported by the child.
+	content bytes.Buffer
+}
+
+// Write rejects metadata larger than the target configuration budget.
+func (output *selectionOutput) Write(chunk []byte) (int, error) {
+	if len(chunk) > maxSidecarBytes-output.content.Len() {
+		return 0, fmt.Errorf("Terraform version JSON exceeds %d bytes", maxSidecarBytes)
+	}
+	n, err := output.content.Write(chunk)
+	if err != nil {
+		return n, fmt.Errorf("buffer version JSON: %w", err)
+	}
+	return n, nil
+}
+
+// verifyProviderSelections compares Terraform’s selected providers with the target’s declared archives.
+func verifyProviderSelections(runfiles resolver, config configuration, chdir string, environ []string, execute func([]string, io.Writer) error) error {
 	// version reads lock selections without loading provider plugins or the
 	// state backend. The invocation's CLI configuration disables checkpoints.
-	var output bytes.Buffer
+	var output selectionOutput
 	if err := execute([]string{"version", "-json"}, &output); err != nil {
 		return fmt.Errorf("inspect installed provider selections: %w", err)
 	}
 	var version struct {
+		// ProviderSelections maps each locked provider address to its selected version.
 		ProviderSelections map[string]string `json:"provider_selections"`
 	}
-	if err := json.Unmarshal(output.Bytes(), &version); err != nil {
+	if err := json.Unmarshal(output.content.Bytes(), &version); err != nil {
 		return fmt.Errorf("decode Terraform provider selections: %w", err)
 	}
 	if version.ProviderSelections == nil {
@@ -63,7 +83,7 @@ func (call invocation) verifyProviderSelections(config configuration, chdir stri
 		if selectedVersion != provider.Version {
 			return fmt.Errorf("installed provider %s selects %s, but this Bazel target declares %s; initialize with the declared provider version", source, selectedVersion, provider.Version)
 		}
-		archive, err := call.runfiles.Rlocation(provider.Archive)
+		archive, err := runfiles.Rlocation(provider.Archive)
 		if err != nil {
 			return fmt.Errorf("locate declared provider archive %s: %w", source, err)
 		}
@@ -75,6 +95,7 @@ func (call invocation) verifyProviderSelections(config configuration, chdir stri
 	return nil
 }
 
+// terraformDataDirectory resolves Terraform’s effective provider installation root.
 func terraformDataDirectory(chdir string, environ []string) string {
 	directory := environmentValue(environ, "TF_DATA_DIR")
 	if directory == "" {
@@ -88,12 +109,17 @@ func terraformDataDirectory(chdir string, environ []string) string {
 	return filepath.Join(chdir, directory)
 }
 
-func verifyInstalledPackage(archive, directory string) error {
+// verifyInstalledPackage compares regular files in the installed tree with the declared archive.
+func verifyInstalledPackage(archive, directory string) (result error) {
 	packaged, err := zip.OpenReader(archive)
 	if err != nil {
 		return fmt.Errorf("open provider ZIP: %w", err)
 	}
-	defer packaged.Close()
+	defer func() {
+		if err := packaged.Close(); err != nil {
+			result = errors.Join(result, fmt.Errorf("close provider archive %q: %w", archive, err))
+		}
+	}()
 	// Terraform permits its package directory to be a symlink to an unpacked
 	// mirror or shared cache. Verify the resolved tree rather than treating
 	// that root link as a package file or modifying it.
@@ -101,7 +127,7 @@ func verifyInstalledPackage(archive, directory string) error {
 	if err != nil {
 		return fmt.Errorf("locate installed package: %w", err)
 	}
-	files := make(map[string][sha256.Size]byte)
+	files := make(map[string][sha256.Size]byte, len(packaged.File))
 	for _, file := range packaged.File {
 		name := strings.TrimSuffix(file.Name, "/")
 		if !validRunfilePath(name) {
@@ -132,14 +158,14 @@ func verifyInstalledPackage(archive, directory string) error {
 	}
 	if err := filepath.WalkDir(directory, func(name string, entry fs.DirEntry, walkError error) error {
 		if walkError != nil {
-			return walkError
+			return fmt.Errorf("visit installed entry %q: %w", name, walkError)
 		}
 		if entry.IsDir() {
 			return nil
 		}
 		relative, err := filepath.Rel(directory, name)
 		if err != nil {
-			return err
+			return fmt.Errorf("resolve path of installed entry %q: %w", name, err)
 		}
 		relative = filepath.ToSlash(relative)
 		expected, found := files[relative]
@@ -148,19 +174,19 @@ func verifyInstalledPackage(archive, directory string) error {
 		}
 		info, err := entry.Info()
 		if err != nil {
-			return err
+			return fmt.Errorf("inspect installed entry %q: %w", name, err)
 		}
 		if !info.Mode().IsRegular() {
 			return fmt.Errorf("installed package entry %q is not a regular file", relative)
 		}
 		installed, err := os.Open(name)
 		if err != nil {
-			return err
+			return fmt.Errorf("open installed entry %q: %w", name, err)
 		}
 		actual, hashError := hashContents(installed)
 		closeError := installed.Close()
 		if err := errors.Join(hashError, closeError); err != nil {
-			return err
+			return fmt.Errorf("hash installed entry %q: %w", name, err)
 		}
 		if actual != expected {
 			return fmt.Errorf("installed package entry %q differs from the declared archive", relative)
@@ -168,7 +194,7 @@ func verifyInstalledPackage(archive, directory string) error {
 		delete(files, relative)
 		return nil
 	}); err != nil {
-		return err
+		return fmt.Errorf("verify installed tree %q: %w", directory, err)
 	}
 	if len(files) != 0 {
 		missing := make([]string, 0, len(files))
@@ -181,10 +207,11 @@ func verifyInstalledPackage(archive, directory string) error {
 	return nil
 }
 
+// hashContents streams a provider file through SHA-256.
 func hashContents(reader io.Reader) ([sha256.Size]byte, error) {
 	hash := sha256.New()
 	if _, err := io.Copy(hash, reader); err != nil {
-		return [sha256.Size]byte{}, err
+		return [sha256.Size]byte{}, fmt.Errorf("hash provider contents: %w", err)
 	}
 	var digest [sha256.Size]byte
 	copy(digest[:], hash.Sum(nil))

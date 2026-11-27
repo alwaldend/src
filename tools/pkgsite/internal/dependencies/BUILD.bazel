@@ -4,7 +4,10 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 go_library(
     name = "go_lib",
-    srcs = ["tools.go"],
+    srcs = [
+        "doc.go",
+        "tools.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/pkgsite/internal/dependencies",
     visibility = ["//:__subpackages__"],
     deps = [

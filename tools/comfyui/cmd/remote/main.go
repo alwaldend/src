@@ -2,10 +2,10 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"context"
 	"crypto/tls"
 	"crypto/x509"
-	"encoding/pem"
 	"errors"
 	"fmt"
 	"io"
@@ -31,7 +31,11 @@ import (
 func main() {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer cancel()
-	if err := command().ExecuteContext(ctx); err != nil {
+	cmd, err := command()
+	if err == nil {
+		err = cmd.ExecuteContext(ctx)
+	}
+	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		var exit *exec.ExitError
 		if errors.As(err, &exit) {
@@ -42,7 +46,7 @@ func main() {
 }
 
 // command adapts wrapper flags and passes arguments after -- to the CLI.
-func command() *cobra.Command {
+func command() (*cobra.Command, error) {
 	var binary, endpoint, endpointCommand, caFile string
 	var endpointArgs []string
 	cmd := &cobra.Command{
@@ -61,14 +65,10 @@ func command() *cobra.Command {
 				}
 				child := exec.CommandContext(cmd.Context(), path, endpointArgs...)
 				child.Env = childEnvironment("")
-				output, err := child.Output()
+				endpoint, err = readEndpoint(child)
 				if err != nil {
 					return fmt.Errorf("read rental endpoint: check Vault access and rent/refresh connection outputs: %w", err)
 				}
-				// The owning Terraform runner initializes its backend before output.
-				// With -no-color, the requested raw value is the final output line.
-				lines := strings.Split(strings.TrimSpace(string(output)), "\n")
-				endpoint = strings.TrimSpace(lines[len(lines)-1])
 			}
 			if err := run(cmd.Context(), binary, endpoint, caFile, args); err != nil {
 				return fmt.Errorf("execute authenticated CLI: %w", err)
@@ -81,7 +81,12 @@ func command() *cobra.Command {
 	cmd.Flags().StringVar(&endpointCommand, "endpoint-command", "", "Read-only endpoint command runfile")
 	cmd.Flags().StringArrayVar(&endpointArgs, "endpoint-arg", nil, "Endpoint command argument")
 	cmd.Flags().StringVar(&caFile, "ca-file", "", "Trusted PEM or DER certificate runfile")
-	return cmd
+	for _, name := range []string{"cli", "ca-file"} {
+		if err := cmd.MarkFlagRequired(name); err != nil {
+			return nil, fmt.Errorf("configure bridge flag %q: %w", name, err)
+		}
+	}
+	return cmd, nil
 }
 
 // executable resolves an absolute filesystem path or declared Bazel runfile.
@@ -166,7 +171,7 @@ func run(ctx context.Context, binary, endpoint, caFile string, args []string) (r
 		if err != nil {
 			return fmt.Errorf("parse trusted certificate: %w", err)
 		}
-		roots.AppendCertsFromPEM(pem.EncodeToMemory(&pem.Block{Type: "CERTIFICATE", Bytes: cert.Raw}))
+		roots.AddCert(cert)
 	}
 	transport := &http.Transport{TLSClientConfig: &tls.Config{RootCAs: roots, MinVersion: tls.VersionTLS12}, TLSHandshakeTimeout: 15 * time.Second, ResponseHeaderTimeout: 60 * time.Second}
 	defer transport.CloseIdleConnections()
@@ -205,8 +210,16 @@ func run(ctx context.Context, binary, endpoint, caFile string, args []string) (r
 		}
 		proxy.ServeHTTP(w, r)
 	})}
-	defer server.Close()
-	go func() { _ = server.Serve(listener) }()
+	served := make(chan error, 1)
+	go func() { served <- server.Serve(listener) }()
+	defer func() {
+		if err := server.Close(); err != nil {
+			resultErr = errors.Join(resultErr, fmt.Errorf("close CLI bridge: %w", err))
+		}
+		if err := <-served; err != nil && !errors.Is(err, http.ErrServerClosed) {
+			resultErr = errors.Join(resultErr, fmt.Errorf("serve CLI bridge: %w", err))
+		}
+	}()
 	cli, err := executable(binary)
 	if err != nil {
 		return fmt.Errorf("resolve packaged CLI: %w", err)
@@ -236,7 +249,10 @@ func run(ctx context.Context, binary, endpoint, caFile string, args []string) (r
 	}()
 	env := append(childEnvironment(address), "COMFY_REPOSITORY_PROFILE="+profile)
 	if len(args) > 0 && args[0] == "render" {
-		render := renderCommand(cli, profile, env)
+		render, err := renderCommand(cli, profile, env)
+		if err != nil {
+			return fmt.Errorf("configure render command: %w", err)
+		}
 		render.SetArgs(args[1:])
 		if err := render.ExecuteContext(ctx); err != nil {
 			return fmt.Errorf("render workflow: %w", err)
@@ -283,4 +299,45 @@ func sameUser(peer, local string) bool {
 		}
 	}
 	return false
+}
+
+// readEndpoint reads the final nonempty line of Terraform output. Initialization
+// logs may be arbitrarily long and are discarded as later lines arrive.
+func readEndpoint(child *exec.Cmd) (string, error) {
+	stdout, err := child.StdoutPipe()
+	if err != nil {
+		return "", fmt.Errorf("open endpoint output: %w", err)
+	}
+	if err := child.Start(); err != nil {
+		return "", fmt.Errorf("start endpoint command: %w", err)
+	}
+	const maxLine = 64 << 10
+	reader := bufio.NewReaderSize(stdout, maxLine+1)
+	var endpoint string
+	var continued, tooLong bool
+	for {
+		line, readErr := reader.ReadSlice('\n')
+		content := bytes.TrimSpace(line)
+		if len(content) != 0 {
+			tooLong = continued || errors.Is(readErr, bufio.ErrBufferFull)
+			if !tooLong {
+				endpoint = string(content)
+			}
+		}
+		continued = errors.Is(readErr, bufio.ErrBufferFull)
+		if continued || readErr == nil {
+			continue
+		}
+		if !errors.Is(readErr, io.EOF) {
+			return "", fmt.Errorf("read endpoint output: %w", errors.Join(readErr, stdout.Close(), child.Wait()))
+		}
+		break
+	}
+	if err := child.Wait(); err != nil {
+		return "", fmt.Errorf("finish endpoint command: %w", err)
+	}
+	if tooLong {
+		return "", fmt.Errorf("endpoint line exceeds %d bytes", maxLine)
+	}
+	return endpoint, nil
 }

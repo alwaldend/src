@@ -4,14 +4,20 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 go_test(
     name = "inventory_test",
-    srcs = ["inventory_test.go"],
+    srcs = [
+        "doc.go",
+        "inventory_test.go",
+    ],
     data = ["//tools/repo_quality/cmd/inventory"],
     deps = ["@rules_go//go/runfiles"],
 )
 
 go_test(
     name = "freshness_test",
-    srcs = ["inventory_test.go"],
+    srcs = [
+        "doc.go",
+        "inventory_test.go",
+    ],
     args = ["-repository-marker=$(rlocationpath //:MODULE.bazel)"],
     data = [
         "//:MODULE.bazel",

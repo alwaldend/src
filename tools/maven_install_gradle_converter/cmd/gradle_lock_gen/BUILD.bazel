@@ -4,9 +4,16 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 go_library(
     name = "gradle_lock_gen_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/maven_install_gradle_converter/cmd/gradle_lock_gen",
     visibility = ["//visibility:private"],
+    deps = [
+        "//tools/go/pkg/flagcompat",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_binary(

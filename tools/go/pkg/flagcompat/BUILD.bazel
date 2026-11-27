@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_library(
+    name = "flagcompat",
+    srcs = [
+        "args.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/go/pkg/flagcompat",
+    visibility = ["//:__subpackages__"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
+)
+
+go_test(
+    name = "flagcompat_test",
+    size = "small",
+    srcs = ["args_test.go"],
+    embed = [":flagcompat"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
+)

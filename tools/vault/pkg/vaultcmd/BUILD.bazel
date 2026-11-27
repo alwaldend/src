@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_library")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//tools:transitive_consumers")
+
+go_library(
+    name = "vaultcmd",
+    srcs = [
+        "command.go",
+        "doc.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/pkg/vaultcmd",
+    visibility = [
+        "//tools/consul/gen_gossip_key:__pkg__",
+        "//tools/vault:__subpackages__",
+    ],
+    deps = [
+        "//projects/al/pkg/al",
+        "//tools/go/pkg/flagcompat",
+        "@com_github_spf13_cobra//:cobra",
+        "@org_golang_x_term//:term",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools/vault:__pkg__"],
+)

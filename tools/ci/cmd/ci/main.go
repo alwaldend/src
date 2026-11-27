@@ -7,9 +7,13 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
+
+	"github.com/spf13/cobra"
 )
 
 // phaseResult records the outcome of one Bazel invocation.
@@ -42,7 +46,7 @@ type ciResult struct {
 }
 
 // check runs the root CI phases in order and combines failures.
-func check(root string, output io.Writer, grouped bool) (*ciResult, error) {
+func check(ctx context.Context, root string, output io.Writer, grouped bool) (*ciResult, error) {
 	info, err := os.Stat(filepath.Join(root, "MODULE.bazel"))
 	if err != nil {
 		return nil, fmt.Errorf("inspect repository MODULE.bazel: %w", err)
@@ -50,8 +54,8 @@ func check(root string, output io.Writer, grouped bool) (*ciResult, error) {
 	if !info.Mode().IsRegular() {
 		return nil, errors.New("repository MODULE.bazel is not a regular file")
 	}
-	run := func(arguments ...string) error {
-		cmd := exec.CommandContext(context.Background(), "bazel", arguments...)
+	run := func(ctx context.Context, arguments ...string) error {
+		cmd := exec.CommandContext(ctx, "bazel", arguments...)
 		cmd.Dir = root
 		cmd.Stdin = os.Stdin
 		if grouped && arguments[0] != "shutdown" {
@@ -76,7 +80,7 @@ func check(root string, output io.Writer, grouped bool) (*ciResult, error) {
 		arguments = append(arguments, "//...")
 		fmt.Fprintf(output, "CI %s\n", strings.Join(arguments, " "))
 		start := time.Now()
-		err := run(arguments...)
+		err := run(ctx, arguments...)
 		result := phaseResult{duration: time.Since(start)}
 		if err != nil {
 			result.err = fmt.Errorf("repository %s: %w", strings.ToLower(title), err)
@@ -89,7 +93,9 @@ func check(root string, output io.Writer, grouped bool) (*ciResult, error) {
 		lint:  runPhase("Lint", "build", "--config=lint"),
 	}
 	if grouped {
-		if err := run("shutdown"); err != nil {
+		shutdownCtx, cancel := context.WithTimeout(context.WithoutCancel(ctx), time.Minute)
+		defer cancel()
+		if err := run(shutdownCtx, "shutdown"); err != nil {
 			result.shutdownErr = fmt.Errorf("shut down repository Bazel server: %w", err)
 		}
 	}
@@ -121,13 +127,32 @@ func appendSummary(path string, result *ciResult) error {
 
 // main runs repository CI with Bazel directly and propagates failed phases.
 func main() {
-	root := os.Getenv("BUILD_WORKSPACE_DIRECTORY")
-	if root == "" || len(os.Args) != 1 {
-		fmt.Fprintln(os.Stderr, "usage: bazel run --config=ci //tools/ci")
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	command := &cobra.Command{
+		Use: "ci", Args: cobra.NoArgs, SilenceUsage: true, SilenceErrors: true,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			root := os.Getenv("BUILD_WORKSPACE_DIRECTORY")
+			if root == "" {
+				return errors.New("usage: bazel run --config=ci //tools/ci")
+			}
+			if err := runCI(cmd.Context(), root); err != nil {
+				return fmt.Errorf("CI failed: %w", err)
+			}
+			return nil
+		},
+	}
+	err := command.ExecuteContext(ctx)
+	stop()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+}
+
+// runCI executes the phases and publishes their summary in a Forgejo job.
+func runCI(ctx context.Context, root string) error {
 	grouped := os.Getenv("FORGEJO_ACTIONS") == "true"
-	result, err := check(root, os.Stdout, grouped)
+	result, err := check(ctx, root, os.Stdout, grouped)
 	if grouped {
 		summaryPath := os.Getenv("FORGEJO_STEP_SUMMARY")
 		if summaryPath == "" {
@@ -140,7 +165,7 @@ func main() {
 		}
 	}
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "CI failed:", err)
-		os.Exit(1)
+		return fmt.Errorf("run repository phases: %w", err)
 	}
+	return nil
 }

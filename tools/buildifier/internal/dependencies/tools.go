@@ -5,4 +5,5 @@ import (
 	_ "golang.org/x/tools/go/cfg"
 )
 
+// main supplies the entry point for the dependency-only executable.
 func main() {}

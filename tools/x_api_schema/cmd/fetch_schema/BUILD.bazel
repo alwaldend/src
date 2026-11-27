@@ -26,6 +26,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//internal/x_sdk/pkg/oauth1",
+        "//tools/go/pkg/sensitiveerr",
         "@com_github_spf13_cobra//:cobra",
     ],
 )

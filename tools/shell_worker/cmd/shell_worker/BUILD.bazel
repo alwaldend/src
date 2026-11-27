@@ -8,6 +8,7 @@ go_library(
     name = "go_lib",
     srcs = [
         "cmd.go",
+        "doc.go",
         "main.go",
         "worker.go",
         "worker_protocol.go",

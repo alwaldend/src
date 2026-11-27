@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -11,8 +10,7 @@ import (
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
-var testGit = flag.String("git", "", "Git executable runfile")
-
+// TestGenerate verifies module boundaries and deterministic include ordering.
 func TestGenerate(t *testing.T) {
 	files := []string{
 		"MODULE.bazel",
@@ -52,6 +50,7 @@ include("//projects/z:include.MODULE.bazel")
 	}
 }
 
+// TestIncludeAdditionAndRemoval verifies that the include set follows the supplied files.
 func TestIncludeAdditionAndRemoval(t *testing.T) {
 	before := string(generate(nil, ""))
 	after := string(generate([]string{"tools/new/include.MODULE.bazel"}, ""))
@@ -63,13 +62,14 @@ func TestIncludeAdditionAndRemoval(t *testing.T) {
 	}
 }
 
+// TestUpdateDiscoveryAndFreshness checks discovery, regeneration, and stale-file detection in a worktree.
 func TestUpdateDiscoveryAndFreshness(t *testing.T) {
 	root := t.TempDir()
 	git, err := runfiles.Rlocation(*testGit)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if output, err := exec.Command(git, "--git-dir", filepath.Join(root, ".git"), "init", root).CombinedOutput(); err != nil {
+	if output, err := exec.CommandContext(t.Context(), git, "--git-dir", filepath.Join(root, ".git"), "init", root).CombinedOutput(); err != nil {
 		t.Fatalf("git init: %v: %s", err, output)
 	}
 	write := func(name, content string) {
@@ -86,7 +86,7 @@ func TestUpdateDiscoveryAndFreshness(t *testing.T) {
 	write(".gitignore", "out/\n")
 	write("out/include.MODULE.bazel", "")
 	write("tools/new/include.MODULE.bazel", "")
-	if err := update(root, *testGit, false); err != nil {
+	if err := update(t.Context(), root, *testGit, false); err != nil {
 		t.Fatal(err)
 	}
 	got, err := os.ReadFile(filepath.Join(root, "MODULE.bazel"))
@@ -96,20 +96,20 @@ func TestUpdateDiscoveryAndFreshness(t *testing.T) {
 	if !strings.Contains(string(got), "//tools/new:") || strings.Contains(string(got), "//out:") {
 		t.Fatalf("incorrect discovery: %s", got)
 	}
-	if err := update(root, *testGit, true); err != nil {
+	if err := update(t.Context(), root, *testGit, true); err != nil {
 		t.Fatal(err)
 	}
 	write("tools/added/include.MODULE.bazel", "")
-	if err := update(root, *testGit, true); err == nil {
+	if err := update(t.Context(), root, *testGit, true); err == nil {
 		t.Fatal("freshness accepted a missing include")
 	}
-	if err := update(root, *testGit, false); err != nil {
+	if err := update(t.Context(), root, *testGit, false); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.Remove(filepath.Join(root, "tools/added/include.MODULE.bazel")); err != nil {
 		t.Fatal(err)
 	}
-	if err := update(root, *testGit, true); err == nil {
+	if err := update(t.Context(), root, *testGit, true); err == nil {
 		t.Fatal("freshness accepted a stale include")
 	}
 }

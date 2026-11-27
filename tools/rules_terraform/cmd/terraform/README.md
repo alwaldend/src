@@ -5,6 +5,8 @@ description: Execute Terraform with providers declared by Bazel
 
 This implementation launcher reads the generated target sidecar and resolves
 Terraform, configuration inputs, and provider archives through Bazel runfiles.
+Both the generated sidecar and the provider selection JSON collected from
+Terraform may be up to 64 MiB each.
 Consumer targets use the public Terraform rules instead of invoking this binary
 directly.
 

@@ -1,13 +1,15 @@
-// Package gazelle generates offline Promptfoo validation targets.
 package gazelle
 
 import (
 	"crypto/sha256"
+	"errors"
 	"flag"
 	"fmt"
-	"io/fs"
+	"io"
+	"log"
 	"os"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
 
@@ -17,27 +19,44 @@ import (
 )
 
 const (
+	// maxEvalEntries bounds directory entries examined across one package.
+	maxEvalEntries = 65536
+	// maxEvalDirectoryDepth bounds the number of nested directories below evals.
+	maxEvalDirectoryDepth = 64
+	// maxValidationInputs bounds the total config and data labels emitted per package.
+	maxValidationInputs = 1 << 20
+
+	// promptfooConfigPrefix starts every recognized evaluation configuration basename.
 	promptfooConfigPrefix = "promptfooconfig"
-	promptfooTestKind     = "promptfoo_test"
+	// promptfooTestKind identifies live tests whose attributes belong to the author.
+	promptfooTestKind = "promptfoo_test"
+	// promptfooValidateKind identifies the offline checks managed by this generator.
 	promptfooValidateKind = "promptfoo_validate_test"
 )
 
+// configExtensions lists configuration formats recognized by the validation rule.
 var configExtensions = map[string]bool{
 	".json": true,
 	".yaml": true,
 	".yml":  true,
 }
 
+// promptfooLanguage implements the Gazelle extension and its module-aware load hook.
 type promptfooLanguage struct {
+	// BaseLang supplies the default implementations of the remaining Gazelle hooks.
 	language.BaseLang
 	// loadLabel overrides the published rule label for an in-tree checkout.
 	loadLabel string
 }
 
+// promptfooConfig records the names used to generate a validation target for one file.
 type promptfooConfig struct {
-	path             string
+	// path is the package-relative config label.
+	path string
+	// sanitizedVariant is the normalized suffix for the target name.
 	sanitizedVariant string
-	variant          string
+	// variant retains the original spelling for exact control-variant matching.
+	variant string
 }
 
 var (
@@ -50,10 +69,12 @@ func NewLanguage() language.Language {
 	return &promptfooLanguage{}
 }
 
+// Name identifies this extension to Gazelle's language filter.
 func (*promptfooLanguage) Name() string {
 	return "promptfoo"
 }
 
+// Kinds allows Gazelle to reconcile only the validation inputs it owns.
 func (*promptfooLanguage) Kinds() map[string]rule.KindInfo {
 	return map[string]rule.KindInfo{
 		promptfooTestKind: {
@@ -72,6 +93,7 @@ func (*promptfooLanguage) Kinds() map[string]rule.KindInfo {
 	}
 }
 
+// Loads rejects legacy load resolution, which cannot account for Bzlmod repository mappings.
 func (*promptfooLanguage) Loads() []rule.LoadInfo {
 	panic("ApparentLoads should be called instead")
 }
@@ -81,6 +103,7 @@ func (lang *promptfooLanguage) RegisterFlags(flags *flag.FlagSet, _ string, _ *c
 	flags.StringVar(&lang.loadLabel, "promptfoo_load_label", "", "Bazel label for the promptfoo rule definitions")
 }
 
+// ApparentLoads resolves the rule definitions in the consumer workspace.
 func (lang *promptfooLanguage) ApparentLoads(
 	moduleToApparentName func(string) string,
 ) []rule.LoadInfo {
@@ -101,6 +124,7 @@ func (lang *promptfooLanguage) ApparentLoads(
 	}}
 }
 
+// GenerateRules emits offline validation rules only after discovering the complete eval file set.
 func (*promptfooLanguage) GenerateRules(
 	args language.GenerateArgs,
 ) language.GenerateResult {
@@ -110,13 +134,19 @@ func (*promptfooLanguage) GenerateRules(
 
 	configs, data, err := discoverEvalFiles(args)
 	if err != nil {
+		log.Printf("skip Promptfoo generation in %q: %v", args.Dir, err)
 		return language.GenerateResult{}
 	}
-	names := targetNames(configs)
 	if len(configs) == 0 {
 		return language.GenerateResult{}
 	}
 
+	if len(configs) > maxValidationInputs/(len(data)+1) {
+		log.Printf("skip Promptfoo generation in %q: more than %d validation inputs", args.Dir, maxValidationInputs)
+		return language.GenerateResult{}
+	}
+	names := targetNames(configs)
+	withSkill := args.Rel != "" && slices.Contains(args.RegularFiles, "SKILL.md")
 	generated := make([]*rule.Rule, 0, len(configs))
 	imports := make([]interface{}, 0, len(configs))
 	for index, config := range configs {
@@ -125,8 +155,7 @@ func (*promptfooLanguage) GenerateRules(
 		if len(data) > 0 {
 			validation.SetAttr("data", data)
 		}
-		if args.Rel != "" && contains(args.RegularFiles, "SKILL.md") &&
-			config.variant != "no_skill" {
+		if withSkill && config.variant != "no_skill" {
 			validation.SetAttr("skills", []string{":skill"})
 		}
 		generated = append(generated, validation)
@@ -139,15 +168,7 @@ func (*promptfooLanguage) GenerateRules(
 	}
 }
 
-func contains(files []string, name string) bool {
-	for _, file := range files {
-		if file == name {
-			return true
-		}
-	}
-	return false
-}
-
+// discoverEvalFiles collects package-local configuration and data paths in stable order.
 func discoverEvalFiles(
 	args language.GenerateArgs,
 ) ([]promptfooConfig, []string, error) {
@@ -156,11 +177,11 @@ func discoverEvalFiles(
 	}
 	repoRoot, err := resolvedPath(args.Config.RepoRoot)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("resolve repository root %q: %w", args.Config.RepoRoot, err)
 	}
 	packageDir, err := resolvedPath(args.Dir)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("resolve package %q: %w", args.Dir, err)
 	}
 	if !pathWithin(repoRoot, packageDir) {
 		return nil, nil, fmt.Errorf(
@@ -176,7 +197,7 @@ func discoverEvalFiles(
 		return nil, nil, nil
 	}
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("inspect evals directory %q: %w", evalsDir, err)
 	}
 	if info.Mode()&os.ModeSymlink != 0 {
 		return nil, nil, fmt.Errorf(
@@ -188,68 +209,51 @@ func discoverEvalFiles(
 		return nil, nil, nil
 	}
 
-	var configuredBuildFileNames []string
-	if args.Config != nil && len(args.Config.ValidBuildFileNames) > 0 {
-		configuredBuildFileNames = args.Config.ValidBuildFileNames
-	}
-	buildFileNames := safeBuildFileNames(configuredBuildFileNames)
-	evalsIsPackage, err := hasBuildFile(evalsDir, buildFileNames)
-	if err != nil {
-		return nil, nil, err
-	}
-	if evalsIsPackage {
-		return nil, nil, nil
-	}
-
+	buildFileNames := safeBuildFileNames(args.Config.ValidBuildFileNames)
 	var configs []promptfooConfig
 	var data []string
-	err = filepath.WalkDir(evalsDir, func(
-		path string,
-		entry fs.DirEntry,
-		err error,
-	) error {
+	remaining := maxEvalEntries
+	var scan func(string, int) error
+	scan = func(relative string, depth int) error {
+		dir := filepath.Join(packageDir, relative)
+		isPackage, err := hasBuildFile(dir, buildFileNames)
 		if err != nil {
-			return err
+			return fmt.Errorf("check package boundary %q: %w", dir, err)
 		}
-		info, err := entry.Info()
+		if isPackage {
+			return nil
+		}
+		if depth > maxEvalDirectoryDepth {
+			return fmt.Errorf("evaluation directory %q exceeds depth limit %d", dir, maxEvalDirectoryDepth)
+		}
+		entries, err := readEvalDirectory(dir, remaining)
 		if err != nil {
-			return err
+			return fmt.Errorf("discover evaluation inputs: %w", err)
 		}
-		if info.IsDir() {
-			if path != evalsDir {
-				isPackage, err := hasBuildFile(path, buildFileNames)
-				if err != nil {
-					return err
+		remaining -= len(entries)
+		for _, entry := range entries {
+			name := filepath.Join(relative, entry.Name())
+			if entry.IsDir() {
+				if err := scan(name, depth+1); err != nil {
+					return fmt.Errorf("scan subdirectory %q: %w", entry.Name(), err)
 				}
-				if isPackage {
-					return filepath.SkipDir
+			} else if entry.Type().IsRegular() {
+				variant, ok := configVariant(entry.Name())
+				if depth == 0 && ok {
+					configs = append(configs, promptfooConfig{
+						path:             filepath.ToSlash(name),
+						sanitizedVariant: sanitizeVariant(variant),
+						variant:          variant,
+					})
+				} else {
+					data = append(data, filepath.ToSlash(name))
 				}
 			}
-			return nil
 		}
-		if !info.Mode().IsRegular() {
-			return nil
-		}
-
-		rel, err := filepath.Rel(packageDir, path)
-		if err != nil {
-			return err
-		}
-		rel = filepath.ToSlash(rel)
-		variant, ok := configVariant(entry.Name())
-		if ok && filepath.Dir(rel) == "evals" {
-			configs = append(configs, promptfooConfig{
-				path:             rel,
-				sanitizedVariant: sanitizeVariant(variant),
-				variant:          variant,
-			})
-			return nil
-		}
-		data = append(data, rel)
 		return nil
-	})
-	if err != nil {
-		return nil, nil, err
+	}
+	if err := scan("evals", 0); err != nil {
+		return nil, nil, fmt.Errorf("scan evaluation tree %q: %w", evalsDir, err)
 	}
 
 	sort.Slice(configs, func(i, j int) bool {
@@ -259,14 +263,47 @@ func discoverEvalFiles(
 	return configs, data, nil
 }
 
+// readEvalDirectory reads at most one entry beyond the remaining package budget to detect overflow.
+func readEvalDirectory(dir string, remaining int) ([]os.DirEntry, error) {
+	file, err := os.Open(dir)
+	if err != nil {
+		return nil, fmt.Errorf("open evaluation directory %q: %w", dir, err)
+	}
+	var entries []os.DirEntry
+	var readErr error
+	for len(entries) <= remaining {
+		batch, err := file.ReadDir(min(256, remaining+1-len(entries)))
+		entries = append(entries, batch...)
+		if err != nil {
+			if !errors.Is(err, io.EOF) {
+				readErr = err
+			}
+			break
+		}
+	}
+	if err := errors.Join(readErr, file.Close()); err != nil {
+		return nil, fmt.Errorf("read evaluation directory %q: %w", dir, err)
+	}
+	if len(entries) > remaining {
+		return nil, fmt.Errorf("evaluation tree exceeds limit of %d entries at %q", maxEvalEntries, dir)
+	}
+	return entries, nil
+}
+
+// resolvedPath resolves a directory through symlinks to an absolute path.
 func resolvedPath(path string) (string, error) {
 	absolute, err := filepath.Abs(path)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("make %q absolute: %w", path, err)
 	}
-	return filepath.EvalSymlinks(absolute)
+	resolved, err := filepath.EvalSymlinks(absolute)
+	if err != nil {
+		return "", fmt.Errorf("resolve symlinks in %q: %w", absolute, err)
+	}
+	return resolved, nil
 }
 
+// pathWithin reports whether path names root or one of its descendants.
 func pathWithin(root, path string) bool {
 	relative, err := filepath.Rel(root, path)
 	if err != nil || filepath.IsAbs(relative) {
@@ -278,6 +315,7 @@ func pathWithin(root, path string) bool {
 	)
 }
 
+// configVariant extracts the optional variant of a conventional Promptfoo filename.
 func configVariant(name string) (string, bool) {
 	extension := filepath.Ext(name)
 	if !configExtensions[extension] {
@@ -298,6 +336,7 @@ func configVariant(name string) (string, bool) {
 	return variant, true
 }
 
+// sanitizeVariant maps a variant to lowercase label characters separated by single underscores.
 func sanitizeVariant(variant string) string {
 	var result strings.Builder
 	lastUnderscore := false
@@ -316,6 +355,7 @@ func sanitizeVariant(variant string) string {
 	return strings.Trim(result.String(), "_")
 }
 
+// targetNames uses a path-derived suffix when multiple configurations share a sanitized name.
 func targetNames(configs []promptfooConfig) []string {
 	bases := make([]string, len(configs))
 	counts := make(map[string]int, len(configs))
@@ -343,6 +383,7 @@ func targetNames(configs []promptfooConfig) []string {
 	return names
 }
 
+// safeBuildFileNames combines conventional and configured package markers without duplicates.
 func safeBuildFileNames(configured []string) []string {
 	names := make([]string, 0, len(configured)+2)
 	seen := make(map[string]bool, len(configured)+2)
@@ -359,6 +400,7 @@ func safeBuildFileNames(configured []string) []string {
 	return names
 }
 
+// hasBuildFile checks the candidate package markers and reports failed probes.
 func hasBuildFile(dir string, names []string) (bool, error) {
 	for _, name := range names {
 		info, err := os.Stat(filepath.Join(dir, name))
@@ -371,7 +413,7 @@ func hasBuildFile(dir string, names []string) (bool, error) {
 		if os.IsNotExist(err) {
 			continue
 		}
-		return false, err
+		return false, fmt.Errorf("inspect marker %q: %w", filepath.Join(dir, name), err)
 	}
 	return false, nil
 }

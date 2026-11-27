@@ -8,11 +8,10 @@ import (
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
-var (
-	workspaceMarker = flag.String("workspace-marker", "", "root module runfile")
-	gitRunfile      = flag.String("git", "", "Git executable runfile")
-)
+// workspaceMarker locates the source worktree through its root module runfile.
+var workspaceMarker = flag.String("workspace-marker", "", "root module runfile")
 
+// TestRootModuleIsFresh compares the current checkout against the generated include list.
 func TestRootModuleIsFresh(t *testing.T) {
 	marker, err := runfiles.Rlocation(*workspaceMarker)
 	if err != nil {
@@ -22,7 +21,7 @@ func TestRootModuleIsFresh(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := update(filepath.Dir(marker), *gitRunfile, true); err != nil {
+	if err := update(t.Context(), filepath.Dir(marker), *testGit, true); err != nil {
 		t.Fatal(err)
 	}
 }

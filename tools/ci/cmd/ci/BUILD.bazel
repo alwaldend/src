@@ -11,6 +11,7 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/ci/cmd/ci",
     visibility = ["//visibility:private"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
 )
 
 go_binary(

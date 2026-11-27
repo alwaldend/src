@@ -9,6 +9,7 @@ import (
 	"testing"
 )
 
+// archive encodes the fixture tree and its packed data with the ASAR header alignment.
 func archive(t *testing.T, webapp entry, payload string) []byte {
 	t.Helper()
 	root := webapp
@@ -29,13 +30,14 @@ func archive(t *testing.T, webapp entry, payload string) []byte {
 	return append(b, []byte(payload)...)
 }
 
+// TestExtract checks packed file offsets and nested output directories.
 func TestExtract(t *testing.T) {
 	b := archive(t, entry{Files: map[string]entry{
 		"index.html": {Size: 5, Offset: "0"},
 		"js":         {Files: map[string]entry{"app.js": {Size: 3, Offset: "5"}}},
 	}}, "helloapp")
 	out := t.TempDir()
-	if err := extract(bytes.NewReader(b), int64(len(b)), out); err != nil {
+	if err := extract(t.Context(), bytes.NewReader(b), int64(len(b)), out); err != nil {
 		t.Fatal(err)
 	}
 	for name, want := range map[string]string{"index.html": "hello", "js/app.js": "app"} {
@@ -46,6 +48,7 @@ func TestExtract(t *testing.T) {
 	}
 }
 
+// TestRejectUnsafeEntries exercises unsupported nodes, names and payload ranges.
 func TestRejectUnsafeEntries(t *testing.T) {
 	for name, e := range map[string]entry{
 		"../escape":   {Size: 1, Offset: "0"},
@@ -59,24 +62,25 @@ func TestRejectUnsafeEntries(t *testing.T) {
 	} {
 		t.Run(name, func(t *testing.T) {
 			b := archive(t, entry{Files: map[string]entry{name: e}}, "a")
-			if err := extract(bytes.NewReader(b), int64(len(b)), t.TempDir()); err == nil {
+			if err := extract(t.Context(), bytes.NewReader(b), int64(len(b)), t.TempDir()); err == nil {
 				t.Fatal("accepted invalid entry")
 			}
 		})
 	}
 }
 
+// TestRejectMalformedHeader checks truncated and oversized ASAR headers.
 func TestRejectMalformedHeader(t *testing.T) {
 	valid := archive(t, entry{Files: map[string]entry{}}, "")
 	for _, cut := range []int{0, 15, 16, len(valid) - 1} {
 		b := valid[:cut]
-		if err := extract(bytes.NewReader(b), int64(len(b)), t.TempDir()); err == nil {
+		if err := extract(t.Context(), bytes.NewReader(b), int64(len(b)), t.TempDir()); err == nil {
 			t.Fatalf("accepted %d-byte archive", cut)
 		}
 	}
 	b := append([]byte(nil), valid...)
 	binary.LittleEndian.PutUint32(b[12:], 1<<30)
-	if err := extract(bytes.NewReader(b), int64(len(b)), t.TempDir()); err == nil {
+	if err := extract(t.Context(), bytes.NewReader(b), int64(len(b)), t.TempDir()); err == nil {
 		t.Fatal("accepted oversized header")
 	}
 }

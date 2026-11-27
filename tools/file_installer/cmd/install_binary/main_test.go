@@ -29,7 +29,7 @@ func TestInstallBinary(t *testing.T) {
 	directory := filepath.Join(t.TempDir(), "with spaces", "bin")
 	arguments := []string{"--source", source, "--name", "fixture", "--directory", directory}
 	for range 2 {
-		if output, err := exec.Command(installer, arguments...).CombinedOutput(); err != nil {
+		if output, err := exec.CommandContext(t.Context(), installer, arguments...).CombinedOutput(); err != nil {
 			t.Fatalf("install: %v: %s", err, output)
 		}
 	}
@@ -46,10 +46,13 @@ func TestInstallBinary(t *testing.T) {
 		t.Fatal("installed bytes differ from source")
 	}
 	info, err := os.Stat(installed)
-	if err != nil || info.Mode().Perm() != 0o755 {
-		t.Fatalf("installed permissions: %v: %v", info, err)
+	if err != nil {
+		t.Fatal(err)
 	}
-	command := exec.Command(installed, "-test.run=^TestInstalledPayload$", "-test.v")
+	if info.Mode().Perm() != 0o755 {
+		t.Fatalf("installed permissions: %v", info.Mode().Perm())
+	}
+	command := exec.CommandContext(t.Context(), installed, "-test.run=^TestInstalledPayload$", "-test.v")
 	command.Env = append(os.Environ(), "INSTALL_BINARY_PAYLOAD=1")
 	if output, err := command.CombinedOutput(); err != nil || !strings.Contains(string(output), "installed executable started") {
 		t.Fatalf("run installed executable: %v: %s", err, output)
@@ -59,7 +62,7 @@ func TestInstallBinary(t *testing.T) {
 		{"--source", source, "--name", "../escape", "--directory", directory},
 		{"--source", directory, "--name", "fixture", "--directory", directory},
 	} {
-		if output, err := exec.Command(installer, invalid...).CombinedOutput(); err == nil {
+		if output, err := exec.CommandContext(t.Context(), installer, invalid...).CombinedOutput(); err == nil {
 			t.Fatalf("invalid install succeeded: %s", output)
 		}
 	}

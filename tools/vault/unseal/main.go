@@ -2,58 +2,44 @@ package main
 
 import (
 	"bytes"
-	"encoding/base64"
 	"errors"
-	"flag"
+	"fmt"
 	"os"
-	"strings"
-	"syscall"
-
-	"golang.org/x/term"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/vault/pkg/vaultcmd"
+	"github.com/spf13/cobra"
 )
 
-var vaultFlag = flag.String("vault", "", "Vault binary")
-
+// main submits one decrypted share to each requested Vault server and reports failures together.
 func main() {
-	flag.Parse()
-	unsealKey := os.Getenv("UNSEAL_KEY")
-	if unsealKey == "" {
-		os.Stderr.WriteString("Enter the encrypted unseal key:\n")
-		unsealKey = strings.TrimSpace(string(al.Must(term.ReadPassword(int(syscall.Stdin)))))
-	}
-	unsealDecoded := al.Must(base64.StdEncoding.DecodeString(unsealKey))
-	unsealDecodedBuf := bytes.NewBuffer(unsealDecoded)
-	var unsealDecryptedBuffer bytes.Buffer
-	al.Check(al.RunCommand(al.CommandArgs{
-		Name: "gpg",
-		Args: []string{
-			"--decrypt",
+	var vault string
+	command := &cobra.Command{
+		Use: "unseal [address...]", Args: cobra.MinimumNArgs(1),
+		RunE: func(cmd *cobra.Command, addresses []string) error {
+			key, err := vaultcmd.ReadKey(cmd.Context(), os.Getenv("UNSEAL_KEY"))
+			if err != nil {
+				return fmt.Errorf("read unseal key: %w", err)
+			}
+			var failures []error
+			for i, address := range addresses {
+				if err := cmd.Context().Err(); err != nil {
+					failures = append(failures, fmt.Errorf("unseal remaining servers: %w", err))
+					break
+				}
+				if err := al.RunCommand(al.CommandArgs{
+					Ctx: cmd.Context(), Name: vault,
+					Args: []string{"write", "-address", address, "sys/unseal", "key=-"}, Stdin: bytes.NewReader(key),
+				}); err != nil {
+					failures = append(failures, fmt.Errorf("unseal server %d: %w", i+1, err))
+				}
+			}
+			return errors.Join(failures...)
 		},
-		Stdin:  unsealDecodedBuf,
-		Stdout: &unsealDecryptedBuffer,
-	}))
-	unsealDecrypted := unsealDecryptedBuffer.Bytes()
-	var err error
-	for _, address := range flag.Args() {
-		os.Setenv("VAULT_ADDR", address)
-		err = errors.Join(
-			err,
-			al.RunCommand(
-				al.CommandArgs{
-					Name: *vaultFlag,
-					Args: []string{
-						"write",
-						"-address",
-						address,
-						"sys/unseal",
-						"key=-",
-					},
-					Stdin: bytes.NewBuffer(unsealDecrypted),
-				},
-			),
-		)
 	}
-	al.Check(err)
+	command.Flags().StringVar(&vault, "vault", "", "Vault executable")
+	if err := vaultcmd.Execute(command, "vault"); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
 }

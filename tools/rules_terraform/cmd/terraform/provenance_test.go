@@ -14,6 +14,7 @@ import (
 	"testing"
 )
 
+// writeProviderPackage writes a matching provider ZIP and installed file tree.
 func writeProviderPackage(t *testing.T, archive, directory string, contents map[string]string) {
 	t.Helper()
 	file, err := os.Create(archive)
@@ -46,6 +47,7 @@ func writeProviderPackage(t *testing.T, archive, directory string, contents map[
 	}
 }
 
+// TestInstalledProviderPackageMatchesDeclaredArchive checks direct and symlinked installation roots.
 func TestInstalledProviderPackageMatchesDeclaredArchive(t *testing.T) {
 	root := t.TempDir()
 	archive := filepath.Join(root, "provider.zip")
@@ -67,6 +69,7 @@ func TestInstalledProviderPackageMatchesDeclaredArchive(t *testing.T) {
 	}
 }
 
+// TestInstalledProviderPackageRejectsChangedMissingAndExtraFiles exercises drift in an installed provider tree.
 func TestInstalledProviderPackageRejectsChangedMissingAndExtraFiles(t *testing.T) {
 	for _, change := range []string{"modified", "missing", "extra", "symlink"} {
 		t.Run(change, func(t *testing.T) {
@@ -101,9 +104,12 @@ func TestInstalledProviderPackageRejectsChangedMissingAndExtraFiles(t *testing.T
 	}
 }
 
+// TestProviderArchiveRejectsSymlinkAndUnsafeEntries checks that installation expects regular relative ZIP entries.
 func TestProviderArchiveRejectsSymlinkAndUnsafeEntries(t *testing.T) {
 	for _, fixture := range []struct {
+		// name identifies the rejected ZIP member.
 		name string
+		// mode supplies the archive entry type and permissions.
 		mode os.FileMode
 	}{
 		{"terraform-provider-fixture", os.ModeSymlink | 0o777},
@@ -140,6 +146,7 @@ func TestProviderArchiveRejectsSymlinkAndUnsafeEntries(t *testing.T) {
 	}
 }
 
+// TestProviderSelectionUsesEffectiveTerraformDataDirectory checks absolute, relative, and default provider data directories.
 func TestProviderSelectionUsesEffectiveTerraformDataDirectory(t *testing.T) {
 	for _, kind := range []string{"default", "absolute", "relative"} {
 		t.Run(kind, func(t *testing.T) {
@@ -159,7 +166,7 @@ func TestProviderSelectionUsesEffectiveTerraformDataDirectory(t *testing.T) {
 			archive := filepath.Join(root, "provider.zip")
 			installed := filepath.Join(dataDirectory, "providers", filepath.FromSlash(provider.Source), provider.Version, provider.Platform)
 			writeProviderPackage(t, archive, installed, map[string]string{"terraform-provider-fixture": "declared executable"})
-			call := invocation{runfiles: mapResolver{provider.Archive: archive}}
+			files := mapResolver{provider.Archive: archive}
 			config := configuration{Providers: []providerPackage{provider}}
 			execute := func(args []string, output io.Writer) error {
 				if !reflect.DeepEqual(args, []string{"version", "-json"}) {
@@ -168,17 +175,18 @@ func TestProviderSelectionUsesEffectiveTerraformDataDirectory(t *testing.T) {
 				fmt.Fprintf(output, `{"provider_selections":{%q:%q}}`, provider.Source, provider.Version)
 				return nil
 			}
-			if err := call.verifyProviderSelections(config, workingDirectory, environ, execute); err != nil {
+			if err := verifyProviderSelections(files, config, workingDirectory, environ, execute); err != nil {
 				t.Fatal(err)
 			}
 			writeFile(t, filepath.Join(installed, "terraform-provider-fixture"), "modified executable")
-			if err := call.verifyProviderSelections(config, workingDirectory, environ, execute); err == nil {
+			if err := verifyProviderSelections(files, config, workingDirectory, environ, execute); err == nil {
 				t.Fatal("modified package in effective TF_DATA_DIR was accepted")
 			}
 		})
 	}
 }
 
+// TestProviderSelectionsRejectStaleAndUndeclaredProviders compares selected versions and addresses to the target declaration.
 func TestProviderSelectionsRejectStaleAndUndeclaredProviders(t *testing.T) {
 	provider := fixtureProvider()
 	for _, selection := range []map[string]string{
@@ -190,17 +198,21 @@ func TestProviderSelectionsRejectStaleAndUndeclaredProviders(t *testing.T) {
 		archive := filepath.Join(root, "provider.zip")
 		installed := filepath.Join(root, ".terraform", "providers", filepath.FromSlash(provider.Source), provider.Version, provider.Platform)
 		writeProviderPackage(t, archive, installed, map[string]string{"terraform-provider-fixture": "declared executable"})
-		call := invocation{runfiles: mapResolver{provider.Archive: archive}}
+		files := mapResolver{provider.Archive: archive}
 		config := configuration{Providers: []providerPackage{provider}}
 		execute := func(_ []string, output io.Writer) error {
-			return json.NewEncoder(output).Encode(map[string]any{"provider_selections": selection})
+			if err := json.NewEncoder(output).Encode(map[string]any{"provider_selections": selection}); err != nil {
+				return fmt.Errorf("encode fixture selections: %w", err)
+			}
+			return nil
 		}
-		if err := call.verifyProviderSelections(config, root, nil, execute); err == nil {
+		if err := verifyProviderSelections(files, config, root, nil, execute); err == nil {
 			t.Fatalf("foreign lock selections accepted: %v", selection)
 		}
 	}
 }
 
+// TestDirectAndInitializedCommandsVerifyBeforeLaunchingProviders checks that stale locks stop both launcher modes.
 func TestDirectAndInitializedCommandsVerifyBeforeLaunchingProviders(t *testing.T) {
 	for _, direct := range []bool{true, false} {
 		t.Run(fmt.Sprintf("direct_%t", direct), func(t *testing.T) {
@@ -240,6 +252,7 @@ func TestDirectAndInitializedCommandsVerifyBeforeLaunchingProviders(t *testing.T
 	}
 }
 
+// TestInitializationFreeCommandsDoNotReadProviderCache covers the explicit exemptions and default verification for unknown commands.
 func TestInitializationFreeCommandsDoNotReadProviderCache(t *testing.T) {
 	for _, command := range []string{"init", "fmt", "version", "--version", "help", "--help"} {
 		if commandUsesProviders([]string{command}) {

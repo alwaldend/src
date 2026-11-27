@@ -1,10 +1,3 @@
-// Package renderer_test asserts the observable contract of the Mermaid theme:
-// which colors and shapes the renderer applies, how it isolates fonts, and the
-// geometry it gives boxed labels and nested containers.
-//
-// The checks read the rendered SVG rather than the theme JSON wherever the
-// renderer projects the setting into the document, so a theme edit that stops
-// taking effect fails here even when the config file still looks correct.
 package renderer_test
 
 import (
@@ -18,12 +11,18 @@ import (
 )
 
 var (
-	smoke  = flag.String("smoke", "", "runfile path of the smoke diagram SVG")
-	edges  = flag.String("edges", "", "runfile path of the edge-label diagram SVG")
+	// smoke identifies the smoke diagram SVG in the test runfiles.
+	smoke = flag.String("smoke", "", "runfile path of the smoke diagram SVG")
+	// edges identifies the edge-label diagram SVG in the test runfiles.
+	edges = flag.String("edges", "", "runfile path of the edge-label diagram SVG")
+	// nested identifies the nested-cluster diagram SVG in the test runfiles.
 	nested = flag.String("nested", "", "runfile path of the nested-cluster diagram SVG")
-	plain  = flag.String("plain", "", "runfile path of the plain smoke diagram SVG")
+	// plain identifies the plain smoke diagram SVG in the test runfiles.
+	plain = flag.String("plain", "", "runfile path of the plain smoke diagram SVG")
+	// raster identifies the smoke diagram WebP render in the test runfiles.
 	raster = flag.String("raster", "", "runfile path of the smoke diagram WebP render")
-	theme  = flag.String("theme", "", "runfile path of the theme JSON")
+	// theme identifies the theme JSON in the test runfiles.
+	theme = flag.String("theme", "", "runfile path of the theme JSON")
 )
 
 // readRunfile resolves a declared runfile argument and returns its contents.
@@ -89,6 +88,7 @@ func hasRuleContaining(svg, selector string, fragments ...string) (bool, string)
 	return false, strings.Join(themeRule(svg, selector), " | ")
 }
 
+// TestThemeAppliesRepositoryPalette checks the colors and node styles in the built render.
 func TestThemeAppliesRepositoryPalette(t *testing.T) {
 	svg := readSVG(t, "smoke", *smoke)
 
@@ -141,6 +141,7 @@ func TestFontIsolationIsStable(t *testing.T) {
 	}
 }
 
+// TestEdgeLabelPlates checks the border, clearance and transparency of edge labels.
 func TestEdgeLabelPlates(t *testing.T) {
 	svg := readSVG(t, "edges", *edges)
 
@@ -172,6 +173,7 @@ func TestEdgeLabelPlates(t *testing.T) {
 	}
 }
 
+// TestNestedClusterTitles checks the title plate styles in a graph with nested clusters.
 func TestNestedClusterTitles(t *testing.T) {
 	svg := readSVG(t, "nested", *nested)
 
@@ -211,7 +213,12 @@ func TestNestedClusterTitlesAreLifted(t *testing.T) {
 // theme in the actual SVG. Mermaid names its Dagre wrapper flowchart-v2 and
 // its ELK renderer flowchart-elk.
 func TestFlowchartsUseDagreRenderer(t *testing.T) {
-	for _, fixture := range []struct{ label, path string }{
+	for _, fixture := range []struct {
+		// label identifies the diagram in failure messages.
+		label string
+		// path identifies the rendered SVG in the runfiles tree.
+		path string
+	}{
 		{"smoke", *smoke},
 		{"edges", *edges},
 		{"nested", *nested},

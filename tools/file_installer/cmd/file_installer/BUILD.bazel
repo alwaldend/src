@@ -4,7 +4,10 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 go_library(
     name = "go_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/file_installer/cmd/file_installer",
     visibility = ["//visibility:private"],
     deps = [

@@ -2,30 +2,32 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"os"
 
 	"github.com/spf13/cobra"
 )
 
-func Execute(
+// execute binds the caller’s arguments and streams to a fresh command.
+func execute(
 	ctx context.Context,
 	args []string,
-	getenv func(string) string,
 	stdin io.Reader,
 	stdout, stderr io.Writer,
 ) error {
 	root, err := newRootCommand(args, stdin, stdout, stderr)
 	if err != nil {
-		return err
+		return fmt.Errorf("configure templating command: %w", err)
 	}
-	err = root.Execute()
+	err = root.ExecuteContext(ctx)
 	if err != nil {
-		return err
+		return fmt.Errorf("run templating command: %w", err)
 	}
 	return nil
 }
 
+// newRootCommand defines the working directory shared by template operations.
 func newRootCommand(
 	args []string,
 	stdin io.Reader,
@@ -39,7 +41,9 @@ func newRootCommand(
 		SilenceErrors: true,
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			if changeDir != "" {
-				return os.Chdir(changeDir)
+				if err := os.Chdir(changeDir); err != nil {
+					return fmt.Errorf("change working directory to %q: %w", changeDir, err)
+				}
 			}
 			return nil
 		},
@@ -60,12 +64,13 @@ func newRootCommand(
 
 	cmdParse, err := newTemplateCommand()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("configure template subcommand: %w", err)
 	}
 	cmd.AddCommand(cmdParse)
 	return cmd, nil
 }
 
+// newTemplateCommand binds the rendering inputs and output path.
 func newTemplateCommand() (*cobra.Command, error) {
 	var dataPaths []string
 	var templatePath string
@@ -76,13 +81,21 @@ func newTemplateCommand() (*cobra.Command, error) {
 		Short: "Load data files (-d), template the template (-t) and write it to the output (-o)",
 		Long:  "Load data files (-d), template the template (-t) and write it to the output (-o)",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return NewTemplater().TemplateFiles(dataPaths, templatePath, outputPath, extension)
+			if err := templateFiles(cmd.Context(), dataPaths, templatePath, outputPath, extension); err != nil {
+				return fmt.Errorf("render %q: %w", templatePath, err)
+			}
+			return nil
 		},
 	}
-	flags := cmd.PersistentFlags()
+	flags := cmd.Flags()
 	flags.StringSliceVarP(&dataPaths, "data", "d", []string{}, "Paths to data files")
 	flags.StringVarP(&outputPath, "output", "o", "", "Output path")
 	flags.StringVarP(&templatePath, "template", "t", "", "Template path")
 	flags.StringVarP(&extension, "extension", "e", "", "Override data extension")
+	for _, name := range []string{"template", "output"} {
+		if err := cmd.MarkFlagRequired(name); err != nil {
+			return nil, fmt.Errorf("require flag %q: %w", name, err)
+		}
+	}
 	return cmd, nil
 }

@@ -5,9 +5,16 @@ package(transitive_visibility = "//tools:transitive_consumers")
 
 go_library(
     name = "extract_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/drawio/cmd/extract",
     visibility = ["//visibility:private"],
+    deps = [
+        "//tools/go/pkg/flagcompat",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_binary(

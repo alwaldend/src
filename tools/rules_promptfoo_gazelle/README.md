@@ -84,6 +84,11 @@ skill label. Every non-configuration regular file under `evals/`, including
 containing `BUILD`, `BUILD.bazel`, or an additional filename configured as
 valid in Gazelle are package boundaries and are not traversed.
 
+A scan accepts up to 65,536 directory entries and 64 levels below `evals/`.
+Generation accepts up to 1,048,576 config and data labels across a package's
+validation rules. If a limit is exceeded, Gazelle reports the package and
+leaves its existing rules in place without emitting partial results.
+
 The extension reconciles `config`, `data`, and `skills` when a discovered
 configuration matches a conventionally named validation target. Adding or
 editing eval files therefore updates those attributes on the next run.

@@ -95,7 +95,7 @@ func TestCLIHTTPS(t *testing.T) {
 	}
 	call := func(success bool, endpoint, password string, args ...string) string {
 		t.Helper()
-		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		ctx, cancel := context.WithTimeout(t.Context(), 30*time.Second)
 		defer cancel()
 		argv := append([]string{"--cli", cli, "--url", endpoint, "--ca-file", ca, "--"}, args...)
 		if endpoint == "" {
@@ -138,8 +138,10 @@ func TestCLIHTTPS(t *testing.T) {
 	rendered := filepath.Join(directory, "rendered")
 	response := call(true, server.URL, "fixture-password", "render", "--workflow", workflow, "--output-dir", rendered)
 	var result struct {
-		PromptID string   `json:"prompt_id"`
-		Files    []string `json:"files"`
+		// PromptID identifies the submitted workflow.
+		PromptID string `json:"prompt_id"`
+		// Files lists downloaded outputs.
+		Files []string `json:"files"`
 	}
 	if err := json.Unmarshal([]byte(response), &result); err != nil {
 		t.Fatalf("decode render result: %v\n%s", err, response)
@@ -186,6 +188,8 @@ func TestEndpointFixture(t *testing.T) {
 		fmt.Fprintln(os.Stderr, "endpoint subprocess inherited web credentials")
 		os.Exit(1)
 	}
+	// A long initialization log must not consume the final endpoint line.
+	fmt.Println(strings.Repeat("initializing ", 90_000))
 	fmt.Printf("Initializing the backend...\nTerraform has been successfully initialized!\n%s", endpoint)
 	os.Exit(0)
 }

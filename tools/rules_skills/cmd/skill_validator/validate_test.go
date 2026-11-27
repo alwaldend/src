@@ -8,6 +8,7 @@ import (
 	"testing"
 )
 
+// validSkill contains a complete Markdown skill used as the validation baseline.
 const validSkill = `---
 name: example-skill
 description: Validate an example skill.
@@ -18,12 +19,14 @@ description: Validate an example skill.
 Follow these instructions.
 `
 
+// validOpenAIYAML supplies valid optional metadata for the example skill.
 const validOpenAIYAML = `interface:
   display_name: "Example Skill"
   short_description: "Validate an example repository skill"
   default_prompt: "Use $example-skill to validate this skill."
 `
 
+// writeTestSkill writes the requested fixtures under a temporary skill directory.
 func writeTestSkill(t *testing.T, skill string, metadata string) (string, string) {
 	t.Helper()
 	skillDirectory := filepath.Join(t.TempDir(), "example-skill")
@@ -41,6 +44,7 @@ func writeTestSkill(t *testing.T, skill string, metadata string) (string, string
 	return skillPath, metadataPath
 }
 
+// TestValidSkillAndMetadata checks a complete skill with optional OpenAI metadata.
 func TestValidSkillAndMetadata(t *testing.T) {
 	skillPath, metadataPath := writeTestSkill(
 		t,
@@ -57,6 +61,7 @@ func TestValidSkillAndMetadata(t *testing.T) {
 	}
 }
 
+// TestCompatibilityFrontmatterIsAllowed covers the optional compatibility field.
 func TestCompatibilityFrontmatterIsAllowed(t *testing.T) {
 	skill := `---
 name: example-skill
@@ -79,6 +84,7 @@ Follow these instructions.
 	}
 }
 
+// TestNameMustMatchPackage checks that skill names match their owning directory.
 func TestNameMustMatchPackage(t *testing.T) {
 	skill := strings.Replace(
 		validSkill,
@@ -94,6 +100,7 @@ func TestNameMustMatchPackage(t *testing.T) {
 	}
 }
 
+// TestDefaultPromptMustNameSkill requires the prompt to mention its skill by name.
 func TestDefaultPromptMustNameSkill(t *testing.T) {
 	metadata := strings.Replace(
 		validOpenAIYAML,
@@ -114,6 +121,7 @@ func TestDefaultPromptMustNameSkill(t *testing.T) {
 	}
 }
 
+// TestDefaultPromptRequiresSkillNameBoundary rejects references to a longer skill name.
 func TestDefaultPromptRequiresSkillNameBoundary(t *testing.T) {
 	metadata := strings.Replace(
 		validOpenAIYAML,
@@ -134,6 +142,7 @@ func TestDefaultPromptRequiresSkillNameBoundary(t *testing.T) {
 	}
 }
 
+// TestReferencedIconMustBeDeclared checks that existing icons are included in the declared inputs.
 func TestReferencedIconMustBeDeclared(t *testing.T) {
 	metadata := validOpenAIYAML + `  icon_small: "./assets/icon.svg"
 `
@@ -157,6 +166,7 @@ func TestReferencedIconMustBeDeclared(t *testing.T) {
 	}
 }
 
+// TestUnfinishedTODOIsRejected covers an instruction placeholder outside a code fence.
 func TestUnfinishedTODOIsRejected(t *testing.T) {
 	skillPath, _ := writeTestSkill(
 		t,
@@ -170,6 +180,7 @@ func TestUnfinishedTODOIsRejected(t *testing.T) {
 	}
 }
 
+// TestTODOInsideFenceIsAllowed accepts an example placeholder in fenced text.
 func TestTODOInsideFenceIsAllowed(t *testing.T) {
 	skillPath, _ := writeTestSkill(
 		t,
@@ -186,9 +197,12 @@ func TestTODOInsideFenceIsAllowed(t *testing.T) {
 	}
 }
 
+// TestLineEndingsAreNormalized checks that frontmatter and instructions behave consistently across line endings.
 func TestLineEndingsAreNormalized(t *testing.T) {
 	for _, test := range []struct {
-		name    string
+		// name labels the line-ending convention.
+		name string
+		// newline separates the fixture lines.
 		newline string
 	}{
 		{name: "CRLF", newline: "\r\n"},
@@ -222,6 +236,7 @@ func TestLineEndingsAreNormalized(t *testing.T) {
 	}
 }
 
+// TestMalformedFrontmatterIsRejected exercises a YAML parser failure.
 func TestMalformedFrontmatterIsRejected(t *testing.T) {
 	skillPath, _ := writeTestSkill(t, "---\nname: [\n---\n", validOpenAIYAML)
 	errors := validateSkill(skillPath, "", "example-skill", []string{skillPath})
@@ -230,6 +245,7 @@ func TestMalformedFrontmatterIsRejected(t *testing.T) {
 	}
 }
 
+// TestDuplicateFrontmatterKeyIsRejected checks duplicate mapping key diagnostics.
 func TestDuplicateFrontmatterKeyIsRejected(t *testing.T) {
 	skill := strings.Replace(
 		validSkill,
@@ -244,6 +260,7 @@ func TestDuplicateFrontmatterKeyIsRejected(t *testing.T) {
 	}
 }
 
+// TestRunWritesReport checks the report file created on a successful invocation.
 func TestRunWritesReport(t *testing.T) {
 	skillPath, metadataPath := writeTestSkill(
 		t,
@@ -253,7 +270,7 @@ func TestRunWritesReport(t *testing.T) {
 	outputPath := filepath.Join(t.TempDir(), "validation.txt")
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	exitCode := run(
+	exitCode := run(t.Context(),
 		[]string{
 			"--skill",
 			skillPath,
@@ -279,12 +296,13 @@ func TestRunWritesReport(t *testing.T) {
 	}
 }
 
+// TestRunDoesNotWriteReportAfterValidationFailure checks exit status and output for an invalid skill.
 func TestRunDoesNotWriteReportAfterValidationFailure(t *testing.T) {
 	skillPath, _ := writeTestSkill(t, validSkill, validOpenAIYAML)
 	outputPath := filepath.Join(t.TempDir(), "validation.txt")
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	exitCode := run(
+	exitCode := run(t.Context(),
 		[]string{
 			"--skill",
 			skillPath,
@@ -306,10 +324,11 @@ func TestRunDoesNotWriteReportAfterValidationFailure(t *testing.T) {
 	}
 }
 
+// TestRunReportsFirstMissingOptionDeterministically checks the command’s required-option diagnostic and exit code.
 func TestRunReportsFirstMissingOptionDeterministically(t *testing.T) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	exitCode := run(nil, &stdout, &stderr)
+	exitCode := run(t.Context(), nil, &stdout, &stderr)
 	if exitCode != 2 {
 		t.Fatalf("run() = %d, want 2", exitCode)
 	}
@@ -319,6 +338,7 @@ func TestRunReportsFirstMissingOptionDeterministically(t *testing.T) {
 	}
 }
 
+// containsError looks up one exact message in a list of validation diagnostics.
 func containsError(errors []string, want string) bool {
 	for _, validationError := range errors {
 		if validationError == want {

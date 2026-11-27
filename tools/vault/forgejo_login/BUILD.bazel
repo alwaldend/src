@@ -22,7 +22,10 @@ docs_filegroup(
 
 go_library(
     name = "forgejo_login_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/forgejo_login",
     visibility = ["//:__subpackages__"],
     deps = [
@@ -31,6 +34,7 @@ go_library(
         "//projects/al/pkg/al",
         "//projects/al/pkg/al_plugin",
         "//projects/al/pkg/lifecycle",
+        "//tools/go/pkg/sensitiveerr",
         "@com_github_google_uuid//:uuid",
         "@org_golang_google_protobuf//proto",
         "@org_golang_x_net//html",

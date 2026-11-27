@@ -1,11 +1,3 @@
-// Package svgdoc inspects rendered Mermaid artifacts: the paint layers of an
-// SVG, the canvas an SVG draws, and the dimensions of the raster projection a
-// service-upload consumer renders.
-//
-// Mermaid writes one group per layer under the root group, and SVG paints in
-// document order, so an element's offset in the document is its paint order.
-// The checks that need these scans live in more than one workspace, so the
-// scans live here rather than in each.
 package svgdoc
 
 import (
@@ -20,17 +12,17 @@ import (
 // the closing quote and matches either spelling.
 const ClusterTitleMarker = `class="cluster-label`
 
-// NodesMarker identifies the node layer, which is the last layer Mermaid writes
+// nodesMarker identifies the node layer, which is the last layer Mermaid writes
 // before any lifted container title.
-const NodesMarker = `<g class="nodes">`
+const nodesMarker = `<g class="nodes">`
 
-// GroupEnd returns the offset just past the group that opens at the first
+// groupEnd returns the offset just past the group that opens at the first
 // occurrence of marker, and whether that group closes.
 //
 // Counting group tags is exact for a rendered document: the renderer writes no
 // markup as an attribute value, so no group tag can hide inside one. A
 // self-closed group, such as the empty edge-label layer, adds no depth.
-func GroupEnd(svg, marker string) (int, bool) {
+func groupEnd(svg, marker string) (int, bool) {
 	start := strings.Index(svg, marker)
 	if start < 0 {
 		return 0, false
@@ -68,7 +60,7 @@ func ClusterTitlesPaintLast(svg string) bool {
 	if !strings.Contains(svg, ClusterTitleMarker) {
 		return false
 	}
-	nodesEnd, ok := GroupEnd(svg, NodesMarker)
+	nodesEnd, ok := groupEnd(svg, nodesMarker)
 	if !ok {
 		return false
 	}
@@ -97,11 +89,11 @@ func CanvasSize(svg string) (float64, float64, error) {
 	}
 	width, err := strconv.ParseFloat(fields[2], 64)
 	if err != nil {
-		return 0, 0, fmt.Errorf("viewBox %q is not numeric", rest[:end])
+		return 0, 0, fmt.Errorf("parse viewBox width %q: %w", fields[2], err)
 	}
 	height, err := strconv.ParseFloat(fields[3], 64)
 	if err != nil {
-		return 0, 0, fmt.Errorf("viewBox %q is not numeric", rest[:end])
+		return 0, 0, fmt.Errorf("parse viewBox height %q: %w", fields[3], err)
 	}
 	return width, height, nil
 }

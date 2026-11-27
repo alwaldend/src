@@ -9,6 +9,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"os/signal"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -16,6 +17,9 @@ import (
 
 	"github.com/spf13/cobra"
 )
+
+// maxMetadataBytes bounds Git file lists and source files that require in-memory label rewriting.
+const maxMetadataBytes = 64 << 20
 
 // main packages all consolidated rulesets from the repository revision at HEAD.
 func main() {
@@ -38,7 +42,14 @@ func main() {
 		},
 	}
 	command.Flags().StringVar(&destination, "output-directory", "", "Directory for source archives")
-	if err := command.Execute(); err != nil {
+	if err := command.MarkFlagRequired("output-directory"); err != nil {
+		fmt.Fprintf(os.Stderr, "configure output-directory flag: %v\n", err)
+		os.Exit(1)
+	}
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	err := command.ExecuteContext(ctx)
+	stop()
+	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
@@ -135,6 +146,9 @@ func writeSources(ctx context.Context, root, commit, path string, output *tar.Wr
 			header.Name = "MODULE.bazel"
 			foundManifest = true
 		case header.Typeflag == tar.TypeReg && containsBazelLabels(header.Name):
+			if header.Size > maxMetadataBytes {
+				return fmt.Errorf("source %q exceeds the %d-byte label rewriting limit", header.Name, maxMetadataBytes)
+			}
 			source, err := io.ReadAll(input)
 			if err != nil {
 				return fmt.Errorf("read source %q: %w", header.Name, err)
@@ -180,9 +194,23 @@ func writeSources(ctx context.Context, root, commit, path string, output *tar.Wr
 }
 
 // gitOutput reads committed release inputs from the source worktree.
-func gitOutput(ctx context.Context, root string, args ...string) ([]byte, error) {
-	command := exec.CommandContext(ctx, "git", args...)
+func gitOutput(ctx context.Context, root, operation string, args ...string) ([]byte, error) {
+	command := exec.CommandContext(ctx, "git", append([]string{operation}, args...)...)
 	command.Dir = root
 	command.Stderr = os.Stderr
-	return command.Output()
+	stdout, err := command.StdoutPipe()
+	if err != nil {
+		return nil, fmt.Errorf("open Git %s output: %w", operation, err)
+	}
+	if err := command.Start(); err != nil {
+		return nil, fmt.Errorf("start Git %s: %w", operation, err)
+	}
+	data, readErr := io.ReadAll(io.LimitReader(stdout, maxMetadataBytes+1))
+	if len(data) > maxMetadataBytes {
+		readErr = errors.Join(readErr, fmt.Errorf("Git %s output exceeds %d bytes", operation, maxMetadataBytes))
+	}
+	if err := errors.Join(readErr, stdout.Close(), command.Wait()); err != nil {
+		return nil, fmt.Errorf("read Git %s output: %w", operation, err)
+	}
+	return data, nil
 }

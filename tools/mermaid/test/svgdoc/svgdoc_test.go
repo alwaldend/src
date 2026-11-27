@@ -2,27 +2,33 @@ package svgdoc
 
 import "testing"
 
+// TestGroupEndHandlesSelfClosedGroup checks that an empty child layer leaves the parent depth intact.
 func TestGroupEndHandlesSelfClosedGroup(t *testing.T) {
 	svg := `<g class="nodes"><g class="edgeLabels"/><g class="rough-node"><text>x</text></g></g>`
-	end, ok := GroupEnd(svg, NodesMarker)
+	end, ok := groupEnd(svg, nodesMarker)
 	if !ok {
-		t.Fatal("GroupEnd did not find a closed node layer")
+		t.Fatal("groupEnd did not find a closed node layer")
 	}
 	if end != len(svg) {
-		t.Errorf("GroupEnd returned %d, want %d (the whole document)", end, len(svg))
+		t.Errorf("groupEnd returned %d, want %d (the whole document)", end, len(svg))
 	}
 }
 
+// TestGroupEndReportsMissingGroup checks the missing-marker result.
 func TestGroupEndReportsMissingGroup(t *testing.T) {
-	if _, ok := GroupEnd(`<g class="clusters"></g>`, NodesMarker); ok {
-		t.Error("GroupEnd reported an absent node layer as closed")
+	if _, ok := groupEnd(`<g class="clusters"></g>`, nodesMarker); ok {
+		t.Error("groupEnd reported an absent node layer as closed")
 	}
 }
 
+// TestClusterTitlesPaintLast checks the ordering and presence of both SVG layers.
 func TestClusterTitlesPaintLast(t *testing.T) {
 	for _, testCase := range []struct {
+		// name identifies the layering scenario.
 		name string
-		svg  string
+		// svg contains the rendered layers in paint order.
+		svg string
+		// want reports whether the node layer precedes every title.
 		want bool
 	}{
 		{

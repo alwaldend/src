@@ -24,6 +24,7 @@ const (
 
 // openspecLanguage generates declarations using package-local Gazelle inputs.
 type openspecLanguage struct {
+	// BaseLang supplies the default implementations of the remaining Gazelle hooks.
 	language.BaseLang
 	// loadLabel overrides the rule module load for an in-tree build.
 	loadLabel string

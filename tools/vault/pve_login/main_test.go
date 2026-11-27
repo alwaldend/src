@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -12,6 +13,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/tools/vault/pve_login/pve_login_proto"
 )
 
+// TestTokenCleanupAfterMalformedCreationResponse checks that a lost creation result still schedules revocation.
 func TestTokenCleanupAfterMalformedCreationResponse(t *testing.T) {
 	var created, deleted bool
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -39,8 +41,10 @@ func TestTokenCleanupAfterMalformedCreationResponse(t *testing.T) {
 	ticket.Data.Username = "example@oidc"
 	ticket.Data.Ticket = "test-ticket"
 	ticket.Data.CSRFPreventionToken = "test-csrf"
-	plugin := &Plugin{}
-	plugin.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(func(ctx context.Context) error { return deleteProxmoxToken(ctx, config, ticket, "task") }))
+	plugin := &plugin{}
+	if err := plugin.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(func(ctx context.Context) error { return deleteProxmoxToken(ctx, config, ticket, "task") })); err != nil {
+		t.Fatal(err)
+	}
 	if _, err := createProxmoxToken(context.Background(), config, ticket, "task"); err == nil {
 		t.Fatal("malformed response accepted")
 	}
@@ -52,6 +56,7 @@ func TestTokenCleanupAfterMalformedCreationResponse(t *testing.T) {
 	}
 }
 
+// TestDeleteDoesNotFollowRedirectOrDiscloseResponse rejects redirected token deletion and redacts its body.
 func TestDeleteDoesNotFollowRedirectOrDiscloseResponse(t *testing.T) {
 	hits := 0
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -69,11 +74,12 @@ func TestDeleteDoesNotFollowRedirectOrDiscloseResponse(t *testing.T) {
 	}
 }
 
+// TestCancelledDelete checks that cancellation remains identifiable through token cleanup.
 func TestCancelledDelete(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 	ticket := &pveTicket{}
-	if err := deleteProxmoxToken(ctx, &pve_login_proto.Config{PveBaseUrl: "http://127.0.0.1:1"}, ticket, "task"); err == nil {
-		t.Fatal("cancelled cleanup succeeded")
+	if err := deleteProxmoxToken(ctx, &pve_login_proto.Config{PveBaseUrl: "http://127.0.0.1:1"}, ticket, "task"); !errors.Is(err, context.Canceled) {
+		t.Fatalf("deletion error = %v, want cancellation", err)
 	}
 }

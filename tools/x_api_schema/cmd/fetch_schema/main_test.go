@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync/atomic"
 	"testing"
 
 	"github.com/bazelbuild/rules_go/go/runfiles"
@@ -39,9 +40,9 @@ func TestFetchCommand(t *testing.T) {
 		{"oversized", 200, strings.Repeat("x", 1025), false},
 	} {
 		t.Run(scenario.name, func(t *testing.T) {
-			requests := 0
+			var requests atomic.Int32
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				requests++
+				requests.Add(1)
 				if !strings.HasPrefix(r.Header.Get("Authorization"), "OAuth ") {
 					t.Error("missing OAuth 1.0a signature")
 				}
@@ -54,7 +55,7 @@ func TestFetchCommand(t *testing.T) {
 			if err := os.WriteFile(out, []byte("previous schema"), 0o644); err != nil {
 				t.Fatal(err)
 			}
-			command := exec.Command(binary, "--url", server.URL, "--out", out, "--max-bytes", "1024")
+			command := exec.CommandContext(t.Context(), binary, "--url", server.URL, "--out", out, "--max-bytes", "1024")
 			command.Env = append(os.Environ(), "X_API_KEY=fixture-key", "X_API_SECRET=credential-value", "X_ACCESS_TOKEN=fixture-token", "X_ACCESS_TOKEN_SECRET=fixture-secret")
 			output, err := command.CombinedOutput()
 			if (err == nil) != scenario.success {
@@ -63,8 +64,8 @@ func TestFetchCommand(t *testing.T) {
 			if strings.Contains(string(output), "credential-value") {
 				t.Fatal("response body or credential leaked into diagnostics")
 			}
-			if requests != 1 {
-				t.Fatalf("issued %d requests; want one without retries or redirects", requests)
+			if count := requests.Load(); count != 1 {
+				t.Fatalf("issued %d requests; want one without retries or redirects", count)
 			}
 			got, err := os.ReadFile(out)
 			if err != nil {

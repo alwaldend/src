@@ -2,6 +2,8 @@ package main
 
 import (
 	"bufio"
+	"context"
+	"errors"
 	"fmt"
 	"io"
 
@@ -10,27 +12,25 @@ import (
 	"git.alwaldend.com/alwaldend/src/third_party/com_github_bazelbuild_bazel_protobuf/worker_protocol"
 )
 
-type WorkerProtocol struct {
-	stdout io.Writer
-	stdin  protodelim.Reader
-}
-
-func NewWorkerProtocol(stdout io.Writer, stdin io.Reader) *WorkerProtocol {
-	return &WorkerProtocol{stdout: stdout, stdin: bufio.NewReader(stdin)}
-}
-
-func (self *WorkerProtocol) ReadRequest() (*worker_protocol.WorkRequest, error) {
-	request := &worker_protocol.WorkRequest{}
-	err := protodelim.UnmarshalFrom(self.stdin, request)
-	if err != nil {
-		return nil, fmt.Errorf("could not unmarshal work request: %w", err)
-	}
-	return request, nil
-}
-
-func (self *WorkerProtocol) WriteResponse(response *worker_protocol.WorkResponse) {
-	_, err := protodelim.MarshalTo(self.stdout, response)
-	if err != nil {
-		panic(fmt.Sprintf("could not marshal response to stdout: %v", err))
+// serve pairs each complete request with one response and terminates at a frame boundary.
+func serve(ctx context.Context, input io.Reader, output io.Writer, persist bool) error {
+	reader := bufio.NewReader(input)
+	for {
+		request := &worker_protocol.WorkRequest{}
+		if err := protodelim.UnmarshalFrom(reader, request); err != nil {
+			if errors.Is(err, io.EOF) {
+				return nil
+			}
+			return fmt.Errorf("decode shell work request: %w", err)
+		}
+		if !request.Cancel {
+			response := perform(ctx, request)
+			if _, err := protodelim.MarshalTo(output, response); err != nil {
+				return fmt.Errorf("write shell response %d: %w", request.RequestId, err)
+			}
+		}
+		if !persist {
+			return nil
+		}
 	}
 }

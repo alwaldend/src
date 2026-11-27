@@ -50,7 +50,8 @@ a named subpackage before declaring it.
 
 Building the library materializes the `skill_validation` output group. The
 aspect checks `SKILL.md`, verifies that the frontmatter name matches its
-package directory, and validates `agents/openai.yaml` when it is present.
+package directory, and validates `agents/openai.yaml` when it is present. Each of these two documents may be up
+to 4 MiB. The validator rejects larger documents before parsing their contents.
 
 ## Consuming a skill
 

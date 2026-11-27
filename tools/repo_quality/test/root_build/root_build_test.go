@@ -9,8 +9,10 @@ import (
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
+// rootBuild locates the workspace root BUILD file through runfiles.
 var rootBuild = flag.String("root-build", "", "runfile path of the root BUILD.bazel")
 
+// loadStatements collects the parsed top-level load statements.
 func loadStatements(t *testing.T, source []byte) []*build.LoadStmt {
 	t.Helper()
 	file, err := build.ParseBuild("BUILD.bazel", source)
@@ -26,6 +28,7 @@ func loadStatements(t *testing.T, source []byte) []*build.LoadStmt {
 	return loads
 }
 
+// TestRootBuildHasNoLoads checks the repository root package for Starlark loads.
 func TestRootBuildHasNoLoads(t *testing.T) {
 	path, err := runfiles.Rlocation(*rootBuild)
 	if err != nil {
@@ -41,11 +44,15 @@ func TestRootBuildHasNoLoads(t *testing.T) {
 	}
 }
 
+// TestLoadDetection distinguishes load statements from comments and strings.
 func TestLoadDetection(t *testing.T) {
 	for _, test := range []struct {
-		name   string
+		// name appears in subtest reports.
+		name string
+		// source contains the BUILD fragment to parse.
 		source string
-		want   int
+		// want counts the expected top-level loads.
+		want int
 	}{
 		{"native alias", `alias(name = "tool", actual = "//tools/tool")`, 0},
 		{"comment", "# load(\"//tools:defs.bzl\", \"tool\")\n", 0},

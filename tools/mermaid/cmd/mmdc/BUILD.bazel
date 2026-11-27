@@ -53,7 +53,10 @@ js_binary(
 go_test(
     name = "mmdc_test",
     size = "medium",
-    srcs = ["mmdc_test.go"],
+    srcs = [
+        "doc.go",
+        "mmdc_test.go",
+    ],
     args = [
         "-mmdc=$(rlocationpath :mmdc)",
         "-input=$(rlocationpath :smoke.mmd)",

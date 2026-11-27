@@ -11,6 +11,7 @@ import (
 	"github.com/bazelbuild/bazel-gazelle/rule"
 )
 
+// TestGenerateRules checks rule names, source inputs, and merge metadata for the fixture package.
 func TestGenerateRules(t *testing.T) {
 	t.Parallel()
 
@@ -41,6 +42,7 @@ func TestGenerateRules(t *testing.T) {
 	}
 }
 
+// TestGenerateRulesUsesConfiguredBuildFileNames checks that custom package markers stay outside the skill bundle.
 func TestGenerateRulesUsesConfiguredBuildFileNames(t *testing.T) {
 	t.Parallel()
 
@@ -74,6 +76,7 @@ func TestGenerateRulesUsesConfiguredBuildFileNames(t *testing.T) {
 	}
 }
 
+// TestSkillSourceExcludesFallsBackForEmptyConfig checks the default glob exclusions without Gazelle configuration.
 func TestSkillSourceExcludesFallsBackForEmptyConfig(t *testing.T) {
 	t.Parallel()
 
@@ -84,6 +87,7 @@ func TestSkillSourceExcludesFallsBackForEmptyConfig(t *testing.T) {
 	}
 }
 
+// TestGenerateRulesRequiresSkillInstructions requires SKILL.md before proposing a skill target.
 func TestGenerateRulesRequiresSkillInstructions(t *testing.T) {
 	t.Parallel()
 
@@ -97,6 +101,7 @@ func TestGenerateRulesRequiresSkillInstructions(t *testing.T) {
 	}
 }
 
+// TestGenerateRulesSkipsRepositoryRoot checks that a root-level SKILL.md cannot produce an unnamed skill.
 func TestGenerateRulesSkipsRepositoryRoot(t *testing.T) {
 	t.Parallel()
 
@@ -110,6 +115,7 @@ func TestGenerateRulesSkipsRepositoryRoot(t *testing.T) {
 	}
 }
 
+// TestMergePreservesManualAttributes merges generated rules against a BUILD file with explicit attribute values.
 func TestMergePreservesManualAttributes(t *testing.T) {
 	t.Parallel()
 
@@ -153,6 +159,7 @@ skill_library(
 	}
 }
 
+// TestNoSkillInstructionsDoesNotDeleteManualRule preserves an existing skill target after its instructions disappear.
 func TestNoSkillInstructionsDoesNotDeleteManualRule(t *testing.T) {
 	t.Parallel()
 
@@ -180,14 +187,18 @@ func TestNoSkillInstructionsDoesNotDeleteManualRule(t *testing.T) {
 	}
 }
 
+// TestApparentLoads checks mapped repository names and the canonical fallback.
 func TestApparentLoads(t *testing.T) {
 	t.Parallel()
 
 	lang := NewLanguage().(language.ModuleAwareLanguage)
 	tests := []struct {
-		name     string
+		// name identifies the case in subtest output.
+		name string
+		// apparent is the consumer's mapped repository name.
 		apparent string
-		want     string
+		// want is the expected generated load label.
+		want string
 	}{
 		{
 			name:     "module mapping",

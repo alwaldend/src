@@ -28,6 +28,7 @@ docs_filegroup(
 go_library(
     name = "tf_backend_lib",
     srcs = [
+        "doc.go",
         "main.go",
         "plugin.go",
         "server.go",
