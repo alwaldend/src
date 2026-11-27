@@ -26,6 +26,6 @@ alias(
 
 alias(
     name = "install",
-    actual = "@io_k3s_k3s//:install",
+    actual = "@io_k3s_k3s_install//file",
     visibility = ["//:__subpackages__"],
 )
