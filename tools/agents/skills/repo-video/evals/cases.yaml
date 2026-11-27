@@ -60,3 +60,15 @@
         Consults the existing pinned Video2X package and its owning README,
         uses Bazel through bazel, checks GPU requirements, and preserves
         task-local output. Does not assume bundled FFmpeg libraries provide a CLI.
+
+- description: Checks motion through the loop boundary
+  vars:
+    request: >-
+      The final jump still moves right instead of into the scene and the loop
+      snaps. How will you verify the revision before and after export?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Checks a short moving sample against the requested direction and
+        timing, plays across the end-to-start seam at output speed, and
+        inspects the final export.

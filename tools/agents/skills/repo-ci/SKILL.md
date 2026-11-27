@@ -71,6 +71,11 @@ Start with offline package tests. Validate any affected workflow against the
 pinned runner when that workflow exists. Exercise failure behavior with dummy credentials when authentication
 changes. Distinguish source validation from a live CI result.
 
+For changes to log presentation, inspect the initial expanded and collapsed
+sections in a rendered job for the candidate. Check that the summary is
+visible and a failed step exposes its diagnostic. If only emitted log markers
+were exercised, identify rendering as unverified.
+
 For an authorized live check, record the tested commit, source tree, run URL,
 and outcome. This skill grants no deployment, protected-branch publication, or
 credential-mutation authority. Preserve existing authorization and use
