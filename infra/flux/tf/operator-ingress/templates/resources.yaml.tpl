@@ -92,12 +92,3 @@ spec:
           name: {{ .Values.serviceAccount }}
           audiences:
             - https://kubernetes.default.svc.cluster.local
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: flux-operator-ingress
-  namespace: {{ .Release.Namespace }}
-spec:
-  ipAllowList:
-    sourceRange: {{ required "ingressSources is required" .Values.ingressSources | toYaml | nindent 6 }}

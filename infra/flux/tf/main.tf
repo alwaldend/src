@@ -85,7 +85,6 @@ resource "helm_release" "operator" {
           "cert-manager.io/issuer"                           = local.operator_issuer.name
           "cert-manager.io/duration"                         = "168h"
           "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
-          "traefik.ingress.kubernetes.io/router.middlewares" = "${local.namespace}-flux-operator-ingress@kubernetescrd"
         }
         hosts = [{
           host  = local.operator_hostname

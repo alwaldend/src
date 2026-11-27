@@ -1,0 +1,18 @@
+- name: Install the socket and proxy units
+  ansible.builtin.template:
+    src: "proxy.{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ socket_proxy_name }}.{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - socket
+    - service
+  register: socket_proxy_units
+
+- name: Enable the socket
+  ansible.builtin.systemd_service:
+    name: "{{ socket_proxy_name }}.socket"
+    daemon_reload: "{{ socket_proxy_units.changed }}"
+    enabled: true
+    state: "{{ 'restarted' if socket_proxy_units.changed else 'started' }}"

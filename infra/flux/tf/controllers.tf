@@ -60,18 +60,9 @@ resource "helm_release" "traefik" {
     deployment = {
       dnsPolicy = "ClusterFirstWithHostNet"
     }
-    podSecurityContext = {
-      runAsNonRoot = false
-      runAsUser    = 0
-    }
-    securityContext = {
-      capabilities = {
-        add = ["NET_BIND_SERVICE"]
-      }
-    }
     ports = {
       web       = null
-      websecure = { port = local.ingress_access.port }
+      websecure = { port = local.ingress_access.backendPort, hostIP = "127.0.0.1" }
       traefik   = { hostIP = "127.0.0.1" }
       metrics   = { hostIP = "127.0.0.1" }
     }
@@ -80,9 +71,7 @@ resource "helm_release" "traefik" {
       rollingUpdate = null
     }
     service = {
-      spec = {
-        type = "ClusterIP"
-      }
+      enabled = false
     }
   })]
 }

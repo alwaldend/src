@@ -1,0 +1,8 @@
+[Unit]
+Description=TCP socket proxy listener
+
+[Socket]
+ListenStream={{ socket_proxy_listen }}
+
+[Install]
+WantedBy=sockets.target

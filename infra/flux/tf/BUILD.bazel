@@ -15,7 +15,6 @@ _CONFIG = [
     "//infra/flux:operator_issuer",
     "//infra/flux:ingress_access",
     "//infra/flux/dns:dnsconfig",
-    "//infra/ingress/ansible:inventory",
     "//third_party/io_cert_manager_cert_manager:artifacts.json",
     "//third_party/io_controlplane_flux_operator:artifacts.json",
     "//third_party/io_fluxcd_flux:artifacts.json",
