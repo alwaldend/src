@@ -56,6 +56,25 @@ resource "helm_release" "traefik" {
       repository = "${local.mirror_owner}/${basename(one(local.traefik.images).repository)}"
       tag        = "${one(local.traefik.images).tag}@${one(local.traefik.images).digest}"
     }
+    hostNetwork = true
+    deployment = {
+      dnsPolicy = "ClusterFirstWithHostNet"
+    }
+    securityContext = {
+      capabilities = {
+        add = ["NET_BIND_SERVICE"]
+      }
+    }
+    ports = {
+      web       = null
+      websecure = { port = local.ingress_access.port }
+      traefik   = { hostIP = "127.0.0.1" }
+      metrics   = { hostIP = "127.0.0.1" }
+    }
+    updateStrategy = {
+      type          = "Recreate"
+      rollingUpdate = null
+    }
     service = {
       spec = {
         type = "ClusterIP"

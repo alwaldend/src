@@ -23,7 +23,10 @@ al_config(
 _CONFIG = [
     "cluster.tf",
     "main.tf",
+    "operator_issuer.tf",
     "variables.tf",
+    "//infra/flux:operator_issuer",
+    "//infra/flux/dns:dnsconfig",
     "//infra/vault/tf:dns_access",
     "//projects/tf_modules/vault_approle",
     "//projects/tf_modules/vault_oidc_provider",

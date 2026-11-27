@@ -34,7 +34,7 @@ module "src_infra_flux_provider" {
     vault_identity_group.src_infra_flux_admins.id,
   ]
   redirect_urls = [
-    "${var.flux_url}/oauth2/callback",
+    "https://${local.operator_hostname}/oauth2/callback",
   ]
 }
 

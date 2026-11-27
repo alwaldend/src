@@ -17,6 +17,18 @@ _SSH_SIGNING = {
     "ttl": 7200,
 }
 
+filegroup(
+    name = "operator_issuer",
+    srcs = ["operator-issuer.json"],
+    visibility = ["//infra/flux:__subpackages__"],
+)
+
+filegroup(
+    name = "ingress_access",
+    srcs = ["ingress-access.json"],
+    visibility = ["//infra/flux:__subpackages__"],
+)
+
 al_vault_auth(
     name = "auth",
     approle = "src_infra_flux",
@@ -55,6 +67,18 @@ al_inject(
             "value": "{{ .Last.Data.id_token }}",
             "deps": ["kubernetes_oidc"],
         },
+        "TF_VAR_kubernetes_ca": {
+            "value": "{{ .Last.Data.certificate }}",
+            "deps": ["kubernetes_ca"],
+        },
+        "TF_VAR_operator_oidc_client_id": {
+            "value": "{{ .Last.Data.client_id }}",
+            "deps": ["operator_oidc_client"],
+        },
+        "TF_VAR_operator_oidc_client_secret": {
+            "value": "{{ .Last.Data.client_secret }}",
+            "deps": ["operator_oidc_client"],
+        },
     },
     res_kv = {"kubernetes_ca": {
         "mount": "secrets",
@@ -65,6 +89,10 @@ al_inject(
         "name": _KUBERNETES_OIDC_PROVIDER,
         "redirect_uri": "https://unused",
         "scope": "openid groups",
+    }},
+    res_op = {"operator_oidc_client": {
+        "method": "read",
+        "path": "identity/oidc/client/src_infra_flux_provider",
     }},
     res_ssh_forward = {"kubernetes_forward": {
         "host": "host1.flux.alwaldend.com:22",
@@ -116,7 +144,6 @@ infra_terraform_dns_config(
     auth = ":auth",
     backend_path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/dns",
     dc1 = True,
-    global_records = False,
     visibility = ["//infra/flux/dns:__pkg__"],
 )
 

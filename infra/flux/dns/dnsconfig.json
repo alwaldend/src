@@ -12,14 +12,28 @@
                 "name": "flux",
                 "address": "192.168.10.60"
             },
-            "dsp": ["dc1"]
+            "dsp": ["all"]
+        },
+        "operator_public": {
+            "CNAME": {
+                "name": "operator.flux.alwaldend.com",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
         },
         "operator": {
             "CNAME": {
-                "name": "operator.flux",
+                "name": "operator.flux.alwaldend.com",
                 "target": "flux.alwaldend.com."
             },
             "dsp": ["dc1"]
+        },
+        "operator_backend": {
+            "CNAME": {
+                "name": "dc1.operator.flux.alwaldend.com",
+                "target": "flux.alwaldend.com."
+            },
+            "dsp": ["all"]
         },
         "openid": {
             "CNAME": {

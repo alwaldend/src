@@ -10,7 +10,12 @@ grafana_dns_records: >-
   {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/grafana-dns.json') | from_json).records }}
 mlflow_dns_records: >-
   {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/mlflow-dns.json') | from_json).records }}
+flux_dns_records: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/flux-dns.json') | from_json).records }}
 traefik_services:
+  flux-operator:
+    hostname: "{{ flux_dns_records.operator.CNAME.name }}"
+    target: "{{ flux_dns_records.operator_backend.CNAME.name }}"
   grafana:
     hostname: "{{ grafana_dns_records.local.A.name }}"
     target: "{{ grafana_dns_records.upstream.A.name }}"

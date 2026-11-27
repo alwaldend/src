@@ -18,6 +18,7 @@ module "approle" {
   policies = [
     module.dns.policy_name,
     module.ssh.policy,
+    vault_policy.operator_issuer_config.name,
   ]
   backend          = data.vault_auth_backend.approle.path
   backend_accessor = data.vault_auth_backend.approle.accessor
@@ -27,7 +28,7 @@ module "dns" {
   source  = "../../vault/tf/dns_access"
   name    = local.name
   secrets = "secrets"
-  views   = ["dc1"]
+  views   = ["dc1", "global"]
 }
 
 module "ssh" {

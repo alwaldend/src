@@ -15,6 +15,12 @@ k3s_cluster_cidr: 10.42.0.0/16
 k3s_server_ca_vault_path: "{{ lookup('ansible.builtin.env', 'FLUX_KUBERNETES_CA_VAULT_PATH', default=undefined()) }}"
 k3s_data_disk: /dev/xvdb
 k3s_storage_disk: /dev/xvdc
+vault_dns_records: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/vault-dns.json') | from_json).records }}
+ingress_peer_address: >-
+  {{ (lookup('ansible.builtin.file', inventory_dir ~ '/files/ingress-inventory.yaml') | from_yaml).ingress.hosts['host1.ingress.alwaldend.com'].wg_ip.split('/')[0] }}
+ingress_access: >-
+  {{ lookup('ansible.builtin.file', inventory_dir ~ '/files/ingress-access.json') | from_json }}
 
 firewall_allow_port_from:
   - src: "any"
@@ -24,6 +30,22 @@ firewall_allow_port_from:
     port: 6443
     proto: tcp
     comment: K3s API from pods
+  - src: "{{ vault_dns_records.host1.A.address }}/32"
+    port: 6443
+    proto: tcp
+    comment: K3s TokenReview API from Vault
+  - src: "{{ ingress_access.managementNetwork }}"
+    port: "{{ ingress_access.port }}"
+    proto: tcp
+    comment: Flux Operator HTTPS
+  - src: "{{ ingress_access.workloadNetwork }}"
+    port: "{{ ingress_access.port }}"
+    proto: tcp
+    comment: Flux Operator HTTPS
+  - src: "{{ ingress_peer_address ~ '/32' }}"
+    port: "{{ ingress_access.port }}"
+    proto: tcp
+    comment: Flux Operator HTTPS
 
 firewall_allow_forward:
   - src: "{{ k3s_cluster_cidr }}"

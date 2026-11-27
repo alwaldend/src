@@ -8,11 +8,12 @@ tags:
   - vault
 ---
 
-- [DNS](dns/README.md) manages the existing site-local Flux records.
+- [DNS](dns/README.md) manages the Flux host and Operator ingress records.
 - [AppRole](approle/README.md) manages the Vault identity used for DNS, Xen
   Orchestra login, SSH certificates, and Terraform state.
 
 Provision the [XCP-ng VM](tf_setup/README.md), then run the
 [K3s bootstrap](ansible/README.md). Apply the separate
 [Terraform workload root](tf/README.md) to install the Flux Operator and
-FluxInstance.
+FluxInstance. Follow the [Operator ingress runbook](tf/README.md#operator-ingress)
+to make the UI available.
