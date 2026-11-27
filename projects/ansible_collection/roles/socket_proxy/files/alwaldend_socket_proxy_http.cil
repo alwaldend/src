@@ -1,0 +1,2 @@
+(allow init_t systemd_socket_proxyd_t (process2 (nnp_transition)))
+(allow systemd_socket_proxyd_t http_port_t (tcp_socket (name_bind name_connect)))

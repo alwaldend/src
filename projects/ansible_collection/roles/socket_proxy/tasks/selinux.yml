@@ -1,0 +1,22 @@
+- name: Read the installed SELinux module checksums
+  ansible.builtin.command: semodule --list-modules --checksum
+  register: socket_proxy_selinux_modules
+  changed_when: false
+  check_mode: false
+
+- name: Copy the HTTP port policy
+  ansible.builtin.copy:
+    src: alwaldend_socket_proxy_http.cil
+    dest: /etc/selinux/alwaldend_socket_proxy_http.cil
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install the HTTP port policy
+  ansible.builtin.command: semodule --install /etc/selinux/alwaldend_socket_proxy_http.cil
+  register: socket_proxy_selinux_policy
+  vars:
+    socket_proxy_selinux_checksum: >-
+      {{ lookup('ansible.builtin.file', 'alwaldend_socket_proxy_http.cil', rstrip=false) | hash('sha256') }}
+  changed_when: true
+  when: ('alwaldend_socket_proxy_http sha256:' ~ socket_proxy_selinux_checksum) not in socket_proxy_selinux_modules.stdout_lines

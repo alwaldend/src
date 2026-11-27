@@ -32,3 +32,6 @@ playbook so Traefik releases the port. Systemd listens on
 TCP 443 and starts its TCP proxy on demand. Traefik terminates TLS on
 loopback TCP 8443. The host firewall checks the original source address.
 Traefik sees the proxy's loopback address.
+
+The socket role installs the SELinux policy that lets the systemd proxy
+bind and connect to the HTTP port type used by TCP 443 and 8443.
