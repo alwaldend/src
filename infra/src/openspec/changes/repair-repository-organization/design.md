@@ -37,3 +37,22 @@ Drawio migration required source inspection after successful actions produced
 invalid SVG dimensions; acceptance checks therefore inspect representative
 output as well as command results. Raw failure and validation logs remain under
 ignored out/repository-organization.
+
+## Organization review follow-up
+
+The ComfyUI project owns model profiles and upstream download metadata used to
+generate workflows. The rental owns its deployment settings. Its build combines
+the two inputs at the existing configuration label and runfile path so Ansible,
+Terraform and evaluation commands receive the complete configuration.
+Compare all workflow files byte for byte and the assembled configuration as JSON
+against the pre-change revision.
+
+Word lists and Liberation Fonts retain their upstream revisions under third-party
+package ownership. Verify the word-list ZIP against its commit directory and
+record its SHA-256 integrity. Documentation follows the current apex landing
+registration and the archive and symlink inputs to the skill discovery target.
+
+At base `33cea7691`, all 111 generated workflow files matched the baseline
+byte for byte and the assembled rental configuration matched the previous JSON
+value. The offline Terraform mock and Ansible asset tests passed. The verified
+word-list ZIP contained 324 entries under the pinned commit directory.

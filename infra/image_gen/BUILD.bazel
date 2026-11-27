@@ -1,4 +1,5 @@
 load("//projects/al:defs.bzl", "al_binary_run", "al_config", "al_inject", "al_vault_auth")
+load("//tools/jsonnet:defs.bzl", "jsonnet_to_json")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 load("//tools/ssh:defs.bzl", "ssh_binary")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -17,11 +18,6 @@ ssh_binary(
     configs = [],
 )
 
-package_group(
-    name = "workflow_configuration_consumers",
-    packages = ["//projects/comfyui_tools/workflows"],
-)
-
 filegroup(
     name = "evaluation_certificate",
     srcs = ["//third_party/ai_vast_openapi:root_certificate"],
@@ -34,14 +30,24 @@ package_group(
 )
 
 exports_files(
-    [
-        "config.json",
-        "res4lyf-requirements.txt",
-    ],
+    ["res4lyf-requirements.txt"],
     visibility = [
         ":configuration_acceptance_consumers",
-        ":workflow_configuration_consumers",
         "//infra/image_gen:__subpackages__",
+    ],
+)
+
+jsonnet_to_json(
+    name = "rental_configuration",
+    src = "configuration.jsonnet",
+    outs = ["config.json"],
+    visibility = [
+        ":configuration_acceptance_consumers",
+        "//infra/image_gen:__subpackages__",
+    ],
+    deps = [
+        "deployment.json",
+        "//projects/comfyui_tools/workflows:models.json",
     ],
 )
 
@@ -173,6 +179,7 @@ docs_filegroup(
     srcs = [
         "README.md",
         "config.json",
+        "deployment.json",
         "res4lyf-requirements.txt",
     ],
     visibility = ["//infra:__pkg__"],

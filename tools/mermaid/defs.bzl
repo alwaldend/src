@@ -162,7 +162,7 @@ mermaid_svg = rule(
                   "output keeps its measured text metrics without a webfont.",
         ),
         "_body_fonts": attr.label(
-            default = "@com_alwaldend_src_tools_drawio_fonts//:fonts",
+            default = "@com_github_liberationfonts_liberation_fonts//:fonts",
             doc = "Pinned fonts the theme falls back to.",
         ),
         "_label_fonts": attr.label(
@@ -334,7 +334,7 @@ mermaid_webp = rule(
                   "output keeps its measured text metrics without a webfont.",
         ),
         "_body_fonts": attr.label(
-            default = "@com_alwaldend_src_tools_drawio_fonts//:fonts",
+            default = "@com_github_liberationfonts_liberation_fonts//:fonts",
             doc = "Pinned fonts the theme falls back to.",
         ),
         "_label_fonts": attr.label(

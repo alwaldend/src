@@ -72,8 +72,5 @@ Internet, Opera, and Edge do not use that view ID yet.
 
 ## Landing page
 
-The landing page is published at
-[activitywatch-ingester-android.alwaldend.com](https://activitywatch-ingester-android.alwaldend.com/),
-built from this README by the shared Hugo landing template. The DNS record
-lives in `dnsconfig.json`; the [project Terraform stage](tf/README.md) describes
-its configuration and ownership activation workflow.
+The [project page](https://alwaldend.com/projects/activitywatch_ingester_android/)
+is built from the project’s `site/content/_index.md`.

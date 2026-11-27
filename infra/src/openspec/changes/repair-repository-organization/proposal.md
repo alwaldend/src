@@ -9,6 +9,9 @@ Repository ownership is documented, but duplicated tool pins, regular workflow d
 - Generate specification-validation membership and the project index from owner declarations; share workspace discovery between CI and the full repository checker.
 - Add an explicit artifact-dependency check alongside native package visibility enforcement.
 
+The follow-up review covers the shared ComfyUI model catalog, the two upstream
+archive owners, and the ActivityWatch and skill-discovery guides.
+
 ## Capabilities
 
 ### New Capabilities

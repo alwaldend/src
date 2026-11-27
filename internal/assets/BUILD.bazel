@@ -15,13 +15,13 @@ alias(
 
 alias(
     name = "diagram_font",
-    actual = "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
+    actual = "@com_github_liberationfonts_liberation_fonts//:LiberationMono-Regular.ttf",
     visibility = ["//:__subpackages__"],
 )
 
 alias(
     name = "diagram_font_license",
-    actual = "@com_alwaldend_src_tools_drawio_fonts//:LICENSE",
+    actual = "@com_github_liberationfonts_liberation_fonts//:LICENSE",
     visibility = ["//:__subpackages__"],
 )
 

@@ -6,6 +6,11 @@ package(transitive_visibility = "//projects:transitive_consumers")
 
 _SOURCES = glob(["**/*.libsonnet"]) + ["workflows.jsonnet"]
 
+exports_files(
+    ["models.json"],
+    visibility = ["//infra/image_gen:__pkg__"],
+)
+
 jsonnet_to_json(
     name = "workflows",
     src = "workflows.jsonnet",
@@ -123,7 +128,7 @@ jsonnet_to_json(
         "uso/uso-style-reference.json",
     ],
     visibility = ["//projects/comfyui_tools:asset_consumers"],
-    deps = glob(["**/*.libsonnet"]) + ["//infra/image_gen:config.json"],
+    deps = glob(["**/*.libsonnet"]) + ["models.json"],
 )
 
 jsonnetfmt_test(
@@ -134,7 +139,10 @@ jsonnetfmt_test(
 
 docs_filegroup(
     name = "docs",
-    srcs = [":workflows"] + _SOURCES,
+    srcs = [
+        "models.json",
+        ":workflows",
+    ] + _SOURCES,
     prefix = "content/docs/projects/comfyui_tools/workflows",
     preserve_paths = True,
     visibility = ["//projects/comfyui_tools:__pkg__"],

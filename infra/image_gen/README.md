@@ -10,7 +10,7 @@ This project owns one image-generation rental in [tf_setup](tf_setup/README.md).
 It uses the reusable [ComfyUI module](../../projects/tf_modules/vastai_instance_imagegen_comfyui/README.md)
 in exposed mode: a single HTTPS proxy with a generated username/password login,
 plus account-key SSH access managed by [infra/vastai](../vastai/tf/README.md). The GPU must have at least 32 GiB VRAM.
-The [configuration](config.json) selects the model and hardware profiles.
+The [deployment configuration](deployment.json) selects the model and hardware profiles.
 The Qwen bundle includes ordinary edits, crop-composited keyframes, selected-frame
 GIF assembly, both chained GIF variants and the existing RIFE engine.
 The NoobAI profile includes a text-to-image App and the local Danbooru Tag

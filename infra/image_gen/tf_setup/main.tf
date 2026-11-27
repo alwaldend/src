@@ -28,7 +28,7 @@ variable "hardware_profile" {
 
   validation {
     condition     = var.hardware_profile == null ? true : contains(keys(local.configuration.hardware_profiles), var.hardware_profile)
-    error_message = "hardware_profile must be a hardware profile name defined in infra/image_gen/config.json."
+    error_message = "hardware_profile must be a hardware profile name defined in infra/image_gen/deployment.json."
   }
 }
 

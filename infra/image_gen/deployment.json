@@ -1,0 +1,59 @@
+{
+    "image": "vastai/comfy:v0.44.0-cuda-12.9-py312",
+    "web_username": "imagegen",
+    "model_profile": "noobai",
+    "hardware_profile": "48gb",
+    "hardware_profiles": {
+        "standard": {
+            "min_gpu_ram_gb": 32,
+            "disk_gb": 100,
+            "max_hourly_price": 1
+        },
+        "48gb": {
+            "gpu_name": "RTX PRO 5000",
+            "min_gpu_ram_gb": 47,
+            "disk_gb": 100,
+            "max_hourly_price": 1
+        },
+        "96gb": {
+            "min_gpu_ram_gb": 95,
+            "disk_gb": 150,
+            "max_hourly_price": 3
+        }
+    },
+    "custom_nodes": {
+        "RES4LYF": {
+            "url": "https://github.com/ClownsharkBatwing/RES4LYF",
+            "ref": "6780724de0ddb98e7454d54bb80387836a911ece"
+        },
+        "ComfyUI_IPAdapter_plus": {
+            "url": "https://github.com/cubiq/ComfyUI_IPAdapter_plus",
+            "ref": "a0f451a5113cf9becb0847b92884cb10cbdec0ef"
+        }
+    },
+    "workspace_directory": "/workspace",
+    "first_party_nodes": {
+        "prompt_sequence": {
+            "source": "prompt_sequence.py",
+            "node_classes": ["ImagegenPromptSequence"]
+        },
+        "chained_img2img_gif": {
+            "source": "chained_img2img_gif.py",
+            "node_classes": ["ImagegenChainedImageToImageGIF"]
+        },
+        "image_sequence": {
+            "source": "image_sequence.py",
+            "node_classes": [
+                "ImagegenReferenceImages",
+                "ImagegenImageSequence",
+                "ImagegenScenePrompts",
+                "ImagegenOptionalLora",
+                "ImagegenKeyframeGIF"
+            ]
+        },
+        "qwen_chained_img2img_gif": {
+            "source": "qwen_chained_img2img_gif.py",
+            "node_classes": ["ImagegenQwenChainedImageToImageGIF"]
+        }
+    }
+}

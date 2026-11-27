@@ -9,14 +9,14 @@ py_test(
     name = "native_font_test",
     srcs = ["native_font_test.py"],
     args = [
-        "$(rootpath @com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf)",
+        "$(rootpath @com_github_liberationfonts_liberation_fonts//:LiberationMono-Regular.ttf)",
         "$(rootpath :edge-labels-native.svg)",
         "$(rootpath :edge-labels-native.dark.svg)",
     ],
     data = [
         ":edge-labels-native.dark.svg",
         ":edge-labels-native.svg",
-        "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
+        "@com_github_liberationfonts_liberation_fonts//:LiberationMono-Regular.ttf",
     ],
     deps = ["@com_alwaldend_src_pip//fonttools"],
 )
