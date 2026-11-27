@@ -8,10 +8,12 @@ import (
 	"testing"
 )
 
+// legacyBazelAgentInvocation matches obsolete commands at the start of a guidance line.
 var legacyBazelAgentInvocation = regexp.MustCompile(
 	`(?m)^\s*bazel_agent (build|test|run|query)(\s|$)`,
 )
 
+// TestActiveSkillGuidanceUsesBazel checks active skills for obsolete command examples.
 func TestActiveSkillGuidanceUsesBazel(t *testing.T) {
 	root := filepath.Join(
 		os.Getenv("TEST_SRCDIR"),
@@ -37,10 +39,10 @@ func TestActiveSkillGuidanceUsesBazel(t *testing.T) {
 			}
 			t.Fatalf("os.ReadFile(%q) error = %v", path, err)
 		}
-		if matches := legacyBazelAgentInvocation.FindAll(contents, -1); matches != nil {
+		if legacyBazelAgentInvocation.Match(contents) {
 			relativePath, err := filepath.Rel(root, path)
 			if err != nil {
-				t.Fatalf("filepath.Rel(%q) error = %v", root, err)
+				t.Fatalf("filepath.Rel(%q, %q) error = %v", root, path, err)
 			}
 			t.Errorf(
 				"%s uses legacy bazel_agent invocation: use bazel <command>",

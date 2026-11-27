@@ -1,65 +1,62 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-type OutputType string
+// outputFormat selects how to serialize the parsed tree.
+type outputFormat string
 
 const (
-	OutputTypeJson     = "json"
-	OutputTypeMarkdown = "markdown"
-	OutputTypeTemplate = "template"
+	// jsonFormat emits the machine-readable document index.
+	jsonFormat outputFormat = "json"
+	// markdownFormat renders the embedded tree template.
+	markdownFormat outputFormat = "markdown"
 )
 
-// String is used both by fmt.Print and by Cobra in help text
-func (self *OutputType) String() string {
-	return string(*self)
-}
+// String supplies the current output format to the flag parser.
+func (format *outputFormat) String() string { return string(*format) }
 
-// Set must have pointer receiver so it doesn't change the value of a copy
-func (self *OutputType) Set(v string) error {
-	switch v {
-	case OutputTypeJson, OutputTypeMarkdown, OutputTypeTemplate:
-		*self = OutputType(v)
+// Set validates and records an output format.
+func (format *outputFormat) Set(value string) error {
+	switch outputFormat(value) {
+	case jsonFormat, markdownFormat:
+		*format = outputFormat(value)
 		return nil
 	default:
-		return fmt.Errorf(
-			"invalid value: %s: not one of (%s, %s, %s)",
-			v,
-			OutputTypeJson, OutputTypeMarkdown, OutputTypeTemplate,
-		)
+		return fmt.Errorf("unsupported output format %q (want json or markdown)", value)
 	}
 }
 
-// Type is only used in help text
-func (self *OutputType) Type() string {
-	return "ParseOutputType"
+// Type supplies the format flag's name in help output.
+func (format *outputFormat) Type() string { return "ParseOutputType" }
+
+// readme is the metadata record consumed by JSON clients and the Markdown template.
+type readme struct {
+	// Path is the absolute source path.
+	Path string `json:"path"`
+	// PathRelative locates the file relative to the requested root.
+	PathRelative string `json:"path_relative"`
+	// Dir is the absolute directory containing the source.
+	Dir string `json:"dir"`
+	// DirRelative locates the directory relative to the root.
+	DirRelative string `json:"dir_relative"`
+	// DirRelativeSplit contains path components used to indent the Markdown tree.
+	DirRelativeSplit []string `json:"dir_relative_split"`
+	// DirName names the containing directory.
+	DirName string `json:"dir_name"`
+	// Data contains the decoded YAML metadata.
+	Data map[string]any `json:"data"`
 }
 
-type ParsePathsResult struct {
-	Dir     string    `json:"dir"`
-	Readmes []*Readme `json:"readmes"`
-}
-
-type Readme struct {
-	Path             string         `json:"path"`
-	PathRelative     string         `json:"path_relative"`
-	Dir              string         `json:"dir"`
-	DirRelative      string         `json:"dir_relative"`
-	DirRelativeSplit []string       `json:"dir_relative_split"`
-	DirName          string         `json:"dir_name"`
-	Data             map[string]any `json:"data"`
-}
-
-type ParseConfig struct {
-	OutputType OutputType
-	UseGit     bool
-	ReadmeName string
-	RootPath   string
-	Exclude    []string
-}
-
-type Config struct {
-	ChangeDir string
+// parseConfig describes one traversal in normalized workspace coordinates.
+type parseConfig struct {
+	// format selects the output encoding.
+	format outputFormat
+	// useGit limits discovery to files tracked in the Git index.
+	useGit bool
+	// name selects the filename to match in directories.
+	name string
+	// root anchors relative output paths.
+	root string
+	// exclude lists directory subtrees omitted from discovery.
+	exclude []string
 }

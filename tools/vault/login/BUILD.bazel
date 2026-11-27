@@ -20,7 +20,11 @@ go_binary(
         "doc.go",
         "main.go",
     ],
-    deps = ["@com_github_spf13_cobra//:cobra"],
+    deps = [
+        "//tools/go/pkg/sensitiveerr",
+        "//tools/vault/internal/privatefile",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_test(
@@ -52,5 +56,9 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/login",
     visibility = ["//visibility:private"],
-    deps = ["@com_github_spf13_cobra//:cobra"],
+    deps = [
+        "//tools/go/pkg/sensitiveerr",
+        "//tools/vault/internal/privatefile",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )

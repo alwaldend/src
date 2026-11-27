@@ -46,7 +46,7 @@ func TestGazelleWorkspace(t *testing.T) {
 
 	run := func(args ...string) {
 		t.Helper()
-		command := exec.Command(binary, append([]string{"fix", "-repo_root", root}, args...)...)
+		command := exec.CommandContext(t.Context(), binary, append([]string{"fix", "-repo_root", root}, args...)...)
 		command.Dir = root
 		if output, err := command.CombinedOutput(); err != nil {
 			t.Fatalf("run Gazelle %v: %v\n%s", args, err, output)

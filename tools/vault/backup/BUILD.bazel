@@ -15,10 +15,17 @@ docs_filegroup(
 
 go_library(
     name = "backup_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/backup",
     visibility = ["//:__subpackages__"],
-    deps = ["//projects/al/pkg/al"],
+    deps = [
+        "//projects/al/pkg/al",
+        "//tools/vault/pkg/vaultcmd",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_binary(

@@ -3,7 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
+	"path"
+	"path/filepath"
+	"strings"
 )
 
 // inventory contains the pinned artifacts from one upstream package.
@@ -15,17 +19,38 @@ type inventory struct {
 }
 
 // loadInventory reads the pin file supplied by the package.
-func loadInventory(filename string) (inventory, error) {
-	data, err := os.ReadFile(filename)
+func loadInventory(filename string) (pins inventory, result error) {
+	file, err := os.Open(filename)
 	if err != nil {
 		return inventory{}, fmt.Errorf("read artifact pins %q: %w", filename, err)
 	}
-	var pins inventory
+	defer closeResource(file, filename, &result)
+	// A pin file contains release metadata, never the artifacts themselves.
+	const limit = 4 << 20
+	data, err := io.ReadAll(io.LimitReader(file, limit+1))
+	if err != nil {
+		return inventory{}, fmt.Errorf("read artifact pins %q: %w", filename, err)
+	}
+	if len(data) > limit {
+		return inventory{}, fmt.Errorf("artifact pins %q exceed %d bytes", filename, limit)
+	}
 	if err := json.Unmarshal(data, &pins); err != nil {
 		return inventory{}, fmt.Errorf("decode artifact pins %q: %w", filename, err)
 	}
 	if len(pins.Charts) == 0 || len(pins.Images) == 0 {
 		return inventory{}, fmt.Errorf("artifact pins must include charts and images")
+	}
+	for _, artifact := range pins.Charts {
+		name := artifact.filename()
+		if !filepath.IsLocal(name) || filepath.Base(name) != name || strings.ContainsAny(name, `\?#`) {
+			return inventory{}, fmt.Errorf("chart name and version must form a local archive filename")
+		}
+	}
+	for _, artifact := range pins.Images {
+		name := path.Base(artifact.Repository)
+		if name == "." || name == ".." || name == "/" || artifact.Tag == "" || strings.ContainsAny(artifact.Tag, `/\:`) {
+			return inventory{}, fmt.Errorf("image repository and tag must identify a local layout tag")
+		}
 	}
 	return pins, nil
 }

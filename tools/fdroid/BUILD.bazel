@@ -23,4 +23,5 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/fdroid",
     visibility = ["//visibility:private"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
 )

@@ -13,7 +13,10 @@ go_binary(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/artifact_mirror",
     visibility = ["//:__subpackages__"],
-    deps = ["@com_github_spf13_cobra//:cobra"],
+    deps = [
+        "//tools/go/pkg/sensitiveerr",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 docs_filegroup(

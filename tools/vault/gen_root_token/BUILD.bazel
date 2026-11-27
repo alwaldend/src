@@ -15,12 +15,17 @@ docs_filegroup(
 
 go_library(
     name = "gen_root_token_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_root_token",
     visibility = ["//:__subpackages__"],
     deps = [
-        "//projects/al/pkg/al",
-        "@org_golang_x_term//:term",
+        "//tools/go/pkg/sensitiveerr",
+        "//tools/vault/internal/privatefile",
+        "//tools/vault/pkg/vaultcmd",
+        "@com_github_spf13_cobra//:cobra",
     ],
 )
 

@@ -1,11 +1,3 @@
-// Package mmdc_test asserts the contract of the interactive Mermaid CLI: a
-// run applies the checked-in repository theme, and it measures label text
-// through the repository's pinned fonts rather than through whatever
-// Fontconfig the host provides.
-//
-// The font check is the load-bearing one. Mermaid asks Chrome for text
-// metrics, so a CLI run that followed the host would render the same diagram
-// with different geometry on every machine.
 package mmdc_test
 
 import (
@@ -24,10 +16,14 @@ import (
 )
 
 var (
-	mmdc        = flag.String("mmdc", "", "runfile path of the mmdc launcher")
-	input       = flag.String("input", "", "runfile path of the diagram source")
+	// mmdc identifies the mmdc launcher in the test runfiles.
+	mmdc = flag.String("mmdc", "", "runfile path of the mmdc launcher")
+	// input identifies the diagram source in the test runfiles.
+	input = flag.String("input", "", "runfile path of the diagram source")
+	// nestedInput identifies the nested-container diagram source in the test runfiles.
 	nestedInput = flag.String("nested-input", "", "runfile path of the nested-container diagram source")
-	monoFont    = flag.String("mono-anchor", "", "runfile path of the pinned monospace font")
+	// monoFont identifies the pinned monospace font in the test runfiles.
+	monoFont = flag.String("mono-anchor", "", "runfile path of the pinned monospace font")
 )
 
 // runfilesRoot returns the root the launcher expects to start in. The
@@ -49,11 +45,11 @@ func runfilesRoot(t *testing.T) string {
 	return root
 }
 
-// render runs the CLI for the named fixture diagram and returns the SVG it
+// renderFixture runs the CLI for the named fixture diagram and returns the SVG it
 // wrote.
 func renderFixture(t *testing.T, sourcePath, output string, environment []string) []byte {
 	t.Helper()
-	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
+	ctx, cancel := context.WithTimeout(t.Context(), 120*time.Second)
 	defer cancel()
 
 	launcher, err := runfiles.Rlocation(*mmdc)
@@ -93,6 +89,7 @@ func render(t *testing.T, output string, environment []string) []byte {
 	return renderFixture(t, *input, output, environment)
 }
 
+// TestCLIAppliesRepositoryTheme checks the colors and node styles produced by the launcher.
 func TestCLIAppliesRepositoryTheme(t *testing.T) {
 	svg := string(render(t, filepath.Join(t.TempDir(), "smoke.svg"), os.Environ()))
 

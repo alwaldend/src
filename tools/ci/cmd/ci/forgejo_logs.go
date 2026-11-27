@@ -72,7 +72,8 @@ func streamForgejoLogs(input io.Reader, output io.Writer, testPhase bool) error 
 	fold := true
 	failedTest := false
 	for {
-		line, readErr := reader.ReadString('\n')
+		fragment, readErr := reader.ReadSlice('\n')
+		line := string(fragment)
 		text := bazelConsoleFormatting.ReplaceAllString(strings.TrimRight(line, "\r\n"), "")
 		if line != "" && !failedTest {
 			title := ""
@@ -96,6 +97,14 @@ func streamForgejoLogs(input io.Reader, output io.Writer, testPhase bool) error 
 		}
 		if _, err := io.WriteString(output, line); err != nil {
 			return fmt.Errorf("write Bazel output: %w", err)
+		}
+		// Only the first fragment of a long line can begin a Bazel record.
+		// Stream its continuation without retaining a copy of the entire line.
+		for errors.Is(readErr, bufio.ErrBufferFull) {
+			fragment, readErr = reader.ReadSlice('\n')
+			if _, err := output.Write(fragment); err != nil {
+				return fmt.Errorf("write Bazel output continuation: %w", err)
+			}
 		}
 		if readErr != nil || (failedTest && text == testOutputFooter) {
 			if err := setGroup(""); err != nil {

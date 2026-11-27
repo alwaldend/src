@@ -6,12 +6,16 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 go_library(
     name = "go_lib",
     srcs = [
+        "doc.go",
         "main.go",
         "validate.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/rules_skills/cmd/skill_validator",
     visibility = ["//visibility:private"],
-    deps = ["@com_github_goccy_go_yaml//:go-yaml"],
+    deps = [
+        "@com_github_goccy_go_yaml//:go-yaml",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_binary(

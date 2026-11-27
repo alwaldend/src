@@ -8,10 +8,15 @@ _GO_VERSION = "1.26.5"
 
 go_library(
     name = "go_mod_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/go_mod/cmd/go_mod",
     visibility = ["//visibility:private"],
     deps = [
+        "//tools/go/pkg/flagcompat",
+        "@com_github_spf13_cobra//:cobra",
         "@rules_go//go/runfiles",
         "@tools_org_golang_x_mod//modfile:go_default_library",
     ],
@@ -45,7 +50,6 @@ go_test(
         "$(rlocationpath //projects/al:git)",
         "--workspace-marker",
         "$(rlocationpath //:MODULE.bazel)",
-        "--check",
     ],
     data = [
         "//:MODULE.bazel",

@@ -81,7 +81,7 @@ func TestExecuteInjectorCleanup(t *testing.T) {
 			}
 			scratch, secrets := t.TempDir(), t.TempDir()
 			receipt := filepath.Join(scratch, "consumer-receipt")
-			config, err := al.LoadConfigs(context.Background(), fixture)
+			config, err := al.LoadConfigs(t.Context(), fixture)
 			if err != nil {
 				t.Fatalf("load generated cleanup configuration: %v", err)
 			}
@@ -96,7 +96,7 @@ func TestExecuteInjectorCleanup(t *testing.T) {
 			if err := os.WriteFile(configPath, content, 0o600); err != nil {
 				t.Fatal(err)
 			}
-			ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+			ctx, cancel := context.WithTimeout(t.Context(), 20*time.Second)
 			defer cancel()
 			var logs bytes.Buffer
 			binary, err := runfiles.Rlocation(os.Getenv("AL_BINARY"))

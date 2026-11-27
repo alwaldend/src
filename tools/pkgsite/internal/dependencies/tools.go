@@ -10,5 +10,6 @@ import (
 	_ "rsc.io/markdown"
 )
 
+// main supplies the entry point for the dependency-only executable.
 func main() {
 }

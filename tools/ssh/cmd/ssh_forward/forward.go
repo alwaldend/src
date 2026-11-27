@@ -46,6 +46,28 @@ type forward struct {
 	cancel context.CancelFunc
 }
 
+// readCredential bounds the amount read from a caller-supplied SSH key or certificate.
+func readCredential(path string) (_ []byte, result error) {
+	const maxCredentialBytes = 1 << 20
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("open SSH credential %q: %w", path, err)
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			result = errors.Join(result, fmt.Errorf("close SSH credential %q: %w", path, err))
+		}
+	}()
+	data, err := io.ReadAll(io.LimitReader(file, maxCredentialBytes+1))
+	if err != nil {
+		return nil, fmt.Errorf("read SSH credential %q: %w", path, err)
+	}
+	if len(data) > maxCredentialBytes {
+		return nil, fmt.Errorf("SSH credential %q exceeds %d bytes", path, maxCredentialBytes)
+	}
+	return data, nil
+}
+
 // clientConfig loads the supplied keypair and pins the SSH host certificate CA.
 func (c forwardConfig) clientConfig() (*ssh.ClientConfig, error) {
 	if c.user == "" || c.keyPath == "" || c.certPath == "" || c.ca == "" {
@@ -58,7 +80,7 @@ func (c forwardConfig) clientConfig() (*ssh.ClientConfig, error) {
 	if len(bytes.TrimSpace(rest)) != 0 {
 		return nil, errors.New("expected exactly one SSH host CA")
 	}
-	key, err := os.ReadFile(c.keyPath)
+	key, err := readCredential(c.keyPath)
 	if err != nil {
 		return nil, fmt.Errorf("read SSH client key: %w", err)
 	}
@@ -66,7 +88,7 @@ func (c forwardConfig) clientConfig() (*ssh.ClientConfig, error) {
 	if err != nil {
 		return nil, fmt.Errorf("parse SSH client key: %w", err)
 	}
-	data, err := os.ReadFile(c.certPath)
+	data, err := readCredential(c.certPath)
 	if err != nil {
 		return nil, fmt.Errorf("read SSH client certificate: %w", err)
 	}

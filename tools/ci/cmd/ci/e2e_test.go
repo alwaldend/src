@@ -131,7 +131,7 @@ func TestCIExecutable(t *testing.T) {
 				}
 			}
 			log := filepath.Join(root, "calls.jsonl")
-			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
 			defer cancel()
 			cmd := exec.CommandContext(ctx, binary)
 			cmd.Env = []string{

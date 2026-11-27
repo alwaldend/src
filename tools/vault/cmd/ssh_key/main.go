@@ -17,22 +17,11 @@ import (
 	"syscall"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/tools/go/pkg/sensitiveerr"
 	vault "github.com/hashicorp/vault/api"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
 )
-
-// withheldError preserves an upstream cause while excluding secret-bearing text.
-type withheldError struct {
-	// cause is available to errors.Is/As but never rendered in command output.
-	cause error
-}
-
-// Error reports an operational failure without response bodies or credentials.
-func (e withheldError) Error() string { return "upstream details withheld" }
-
-// Unwrap preserves error identity for callers.
-func (e withheldError) Unwrap() error { return e.cause }
 
 // validRecord verifies the complete cached Ed25519 pair without exposing it.
 func validRecord(data map[string]any) error {
@@ -44,7 +33,7 @@ func validRecord(data map[string]any) error {
 	}
 	parsed, err := ssh.ParseRawPrivateKey([]byte(private))
 	if err != nil {
-		return fmt.Errorf("parse cached private key: %w", withheldError{err})
+		return sensitiveerr.WithContext("parse cached private key", err)
 	}
 	key, ok := parsed.(*ed25519.PrivateKey)
 	if !ok {
@@ -55,7 +44,7 @@ func validRecord(data map[string]any) error {
 	}
 	derived, err := ssh.NewPublicKey(key.Public())
 	if err != nil {
-		return fmt.Errorf("derive cached public key: %w", withheldError{err})
+		return sensitiveerr.WithContext("derive cached public key", err)
 	}
 	if public != string(ssh.MarshalAuthorizedKey(derived)) || fingerprint != ssh.FingerprintSHA256(derived) {
 		return errors.New("cached SSH pair or fingerprint does not match")
@@ -71,7 +60,10 @@ func ensure(ctx context.Context) (bool, error) {
 		return false, errors.New("set a valid VAULT_SSH_KEY_MOUNT and VAULT_SSH_KEY_PATH")
 	}
 	address, err := url.Parse(os.Getenv("VAULT_ADDR"))
-	if err != nil || address.Scheme != "https" || address.Host == "" || address.User != nil || address.RawQuery != "" || address.Fragment != "" {
+	if err != nil {
+		return false, sensitiveerr.WithContext("parse VAULT_ADDR", err)
+	}
+	if address.Scheme != "https" || address.Host == "" || address.User != nil || address.RawQuery != "" || address.Fragment != "" {
 		return false, errors.New("VAULT_ADDR must be an HTTPS URL")
 	}
 	if token := os.Getenv("VAULT_TOKEN"); token == "" || strings.ContainsAny(token, "\r\n") {
@@ -85,7 +77,7 @@ func ensure(ctx context.Context) (bool, error) {
 	configuration.HttpClient.CheckRedirect = func(*http.Request, []*http.Request) error { return errors.New("Vault redirect rejected") }
 	client, err := vault.NewClient(configuration)
 	if err != nil {
-		return false, fmt.Errorf("configure Vault: %w", withheldError{err})
+		return false, sensitiveerr.WithContext("configure Vault", err)
 	}
 	client.SetMaxRetries(0)
 	kv := client.KVv2(mount)
@@ -97,11 +89,11 @@ func ensure(ctx context.Context) (bool, error) {
 		return true, nil
 	}
 	if !errors.Is(err, vault.ErrSecretNotFound) {
-		return false, fmt.Errorf("read SSH key cache: %w", withheldError{err})
+		return false, sensitiveerr.WithContext("read SSH key cache", err)
 	}
 	metadata, err := client.Logical().ReadWithContext(ctx, mount+"/metadata/"+path)
 	if err != nil {
-		return false, fmt.Errorf("check SSH key history: %w", withheldError{err})
+		return false, sensitiveerr.WithContext("check SSH key history", err)
 	}
 	if stored != nil || metadata != nil {
 		return false, errors.New("SSH key history exists without usable data; restore the original identity")
@@ -112,15 +104,15 @@ func ensure(ctx context.Context) (bool, error) {
 	}
 	encoded, err := ssh.MarshalPrivateKey(private, "Vault-managed Ed25519 key")
 	if err != nil {
-		return false, fmt.Errorf("encode SSH private key: %w", withheldError{err})
+		return false, sensitiveerr.WithContext("encode SSH private key", err)
 	}
 	publicKey, err := ssh.NewPublicKey(public)
 	if err != nil {
-		return false, fmt.Errorf("encode SSH public key: %w", withheldError{err})
+		return false, sensitiveerr.WithContext("encode SSH public key", err)
 	}
 	data := map[string]any{"algorithm": "ssh-ed25519", "private_key": string(pem.EncodeToMemory(encoded)), "public_key": string(ssh.MarshalAuthorizedKey(publicKey)), "fingerprint": ssh.FingerprintSHA256(publicKey)}
 	if _, err := kv.Put(ctx, path, data, vault.WithCheckAndSet(0)); err != nil {
-		return false, fmt.Errorf("store SSH key pair with CAS=0: %w", withheldError{err})
+		return false, sensitiveerr.WithContext("store SSH key pair with CAS=0", err)
 	}
 	return false, nil
 }

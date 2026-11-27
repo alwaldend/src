@@ -22,7 +22,10 @@ docs_filegroup(
 
 go_library(
     name = "harbor_login_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/harbor_login",
     visibility = ["//:__subpackages__"],
     deps = [
@@ -31,6 +34,7 @@ go_library(
         "//projects/al/pkg/al",
         "//projects/al/pkg/al_plugin",
         "//projects/al/pkg/lifecycle",
+        "//tools/go/pkg/sensitiveerr",
     ],
 )
 

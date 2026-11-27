@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	_ "embed"
 	"encoding/json"
 	"fmt"
@@ -9,63 +8,33 @@ import (
 	"io"
 )
 
+// templateMarkdown formats directory and title fields from README metadata.
+//
 //go:embed template-markdown.txt
 var templateMarkdown string
 
-type Outputter struct {
-	templateMarkdown string
-	config           *Config
-	stdout           io.Writer
-}
-
-func NewOutputter(config *Config, stdout io.Writer) *Outputter {
-	return &Outputter{
-		config:           config,
-		templateMarkdown: templateMarkdown,
-		stdout:           stdout,
-	}
-}
-
-func (self *Outputter) Output(data any, output OutputType) error {
-	switch output {
-	case OutputTypeJson:
-		return self.OutputJson(data)
-	case OutputTypeMarkdown:
-		return self.OutputMarkdown(data)
+// render writes the collected tree in the selected format.
+func render(out io.Writer, result parseResult, format outputFormat) error {
+	switch format {
+	case jsonFormat:
+		encoder := json.NewEncoder(out)
+		encoder.SetIndent("", "    ")
+		if err := encoder.Encode(result); err != nil {
+			return fmt.Errorf("encode JSON: %w", err)
+		}
+	case markdownFormat:
+		tmpl, err := template.New("markdown").Parse(templateMarkdown)
+		if err != nil {
+			return fmt.Errorf("parse embedded Markdown template: %w", err)
+		}
+		if err := tmpl.Execute(out, result); err != nil {
+			return fmt.Errorf("write Markdown tree: %w", err)
+		}
+		if _, err := fmt.Fprintln(out); err != nil {
+			return fmt.Errorf("terminate Markdown output: %w", err)
+		}
 	default:
-		return fmt.Errorf("output type %s is not supported", output)
-	}
-}
-
-func (self *Outputter) OutputMarkdown(data any) error {
-	template, err := template.New("markdown").Parse(self.templateMarkdown)
-	if err != nil {
-		return err
-	}
-	return self.OutputTemplate(template, data)
-}
-
-func (self *Outputter) OutputTemplate(t *template.Template, data any) error {
-	var buffer bytes.Buffer
-	err := t.Execute(&buffer, data)
-	if err != nil {
-		return err
-	}
-	return self.OutputString(buffer.String())
-}
-
-func (self *Outputter) OutputJson(data any) error {
-	resultJson, err := json.MarshalIndent(data, "", "    ")
-	if err != nil {
-		return fmt.Errorf("could not serialise data: %w", err)
-	}
-	return self.OutputString(string(resultJson))
-}
-
-func (self *Outputter) OutputString(data string) error {
-	_, err := fmt.Fprintf(self.stdout, "%s\n", data)
-	if err != nil {
-		return fmt.Errorf("could not print: %w", err)
+		return fmt.Errorf("unsupported output format %q", format)
 	}
 	return nil
 }

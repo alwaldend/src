@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
 
@@ -20,7 +22,7 @@ func main() {
 		Args:         cobra.NoArgs,
 		SilenceUsage: true,
 		RunE: func(command *cobra.Command, arguments []string) error {
-			if err := install(source, name, directory); err != nil {
+			if err := install(command.Context(), source, name, directory); err != nil {
 				return fmt.Errorf("install executable: %w", err)
 			}
 			return nil
@@ -35,13 +37,16 @@ func main() {
 			os.Exit(1)
 		}
 	}
-	if err := command.Execute(); err != nil {
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	err := command.ExecuteContext(ctx)
+	stop()
+	if err != nil {
 		os.Exit(1)
 	}
 }
 
 // install copies a regular executable before atomically replacing its destination.
-func install(source, name, directory string) (result error) {
+func install(ctx context.Context, source, name, directory string) (result error) {
 	if name == "" || name == "." || name == ".." || strings.ContainsAny(name, "/\\") {
 		return fmt.Errorf("invalid command name %q", name)
 	}
@@ -51,6 +56,14 @@ func install(source, name, directory string) (result error) {
 			return fmt.Errorf("resolve home directory: %w", err)
 		}
 		directory = filepath.Join(home, ".local", "bin")
+	}
+	// Reject special files before opening them. A FIFO can block during Open.
+	metadata, err := os.Stat(source)
+	if err != nil {
+		return fmt.Errorf("inspect source %q: %w", source, err)
+	}
+	if !metadata.Mode().IsRegular() {
+		return fmt.Errorf("source %q is not a regular executable", source)
 	}
 	input, err := os.Open(source)
 	if err != nil {
@@ -77,11 +90,14 @@ func install(source, name, directory string) (result error) {
 	}
 	temporary := output.Name()
 	defer func() {
+		if result == nil {
+			return
+		}
 		if err := os.Remove(temporary); err != nil && !errors.Is(err, os.ErrNotExist) {
 			result = errors.Join(result, fmt.Errorf("remove temporary executable: %w", err))
 		}
 	}()
-	_, copyErr := io.Copy(output, input)
+	copyErr := copyExecutable(ctx, output, input, info.Size())
 	modeErr := output.Chmod(0o755)
 	closeErr := output.Close()
 	if err := errors.Join(copyErr, modeErr, closeErr); err != nil {
@@ -90,6 +106,22 @@ func install(source, name, directory string) (result error) {
 	destination := filepath.Join(directory, name)
 	if err := os.Rename(temporary, destination); err != nil {
 		return fmt.Errorf("replace executable %q: %w", destination, err)
+	}
+	return nil
+}
+
+// copyExecutable copies the size observed at open and checks for cancellation between chunks.
+func copyExecutable(ctx context.Context, output, input *os.File, size int64) error {
+	const chunkSize = 1 << 20
+	for size > 0 {
+		if err := ctx.Err(); err != nil {
+			return fmt.Errorf("copy executable: %w", err)
+		}
+		count, err := io.CopyN(output, input, min(size, chunkSize))
+		if err != nil {
+			return fmt.Errorf("copy source %q: %w", input.Name(), err)
+		}
+		size -= count
 	}
 	return nil
 }

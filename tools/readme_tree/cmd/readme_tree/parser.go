@@ -1,189 +1,214 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
+	"context"
+	"errors"
 	"fmt"
 	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"strings"
 
 	"github.com/goccy/go-yaml"
 )
 
-type Parser struct {
-	outputter *Outputter
-	config    *Config
+const (
+	// maxHeaderBytes bounds YAML input before decoding one document.
+	maxHeaderBytes = 1 << 20
+	// maxReadmes bounds the number of records retained for one output tree.
+	maxReadmes = 100_000
+	// maxTreeMetadataBytes caps cumulative YAML retained for rendering.
+	maxTreeMetadataBytes = 64 << 20
+	// maxWalkDepth bounds recursive directory descent from the requested path.
+	maxWalkDepth = 256
+)
+
+// parseResult holds the ordered tree used by the public JSON and template formats.
+type parseResult struct {
+	// Dir names the root used for relative paths.
+	Dir string `json:"dir"`
+	// Readmes lists accepted metadata records in traversal order.
+	Readmes []*readme `json:"readmes"`
+	// metadataBytes counts accepted YAML bytes across all requested paths.
+	metadataBytes int
 }
 
-func NewParser(config *Config, outputter *Outputter) *Parser {
-	return &Parser{config: config, outputter: outputter}
-}
-
-func (self *Parser) ParseAndOutput(paths []string, config *ParseConfig) error {
-	result, err := self.Parse(paths, config)
+// collect appends an explicit file or discovers matching files in a directory.
+func (result *parseResult) collect(ctx context.Context, path string, config parseConfig) error {
+	info, err := os.Stat(path)
 	if err != nil {
-		return err
+		return fmt.Errorf("inspect %q: %w", path, err)
 	}
-	return self.outputter.Output(result, config.OutputType)
-}
-
-func (self *Parser) Parse(paths []string, config *ParseConfig) (*ParsePathsResult, error) {
-	result := &ParsePathsResult{Dir: config.RootPath}
-	for _, path := range paths {
-		readmes, err := self.parsePath(path, config)
-		if err != nil {
-			return nil, fmt.Errorf("could not process path %s: %w", path, err)
+	if !info.IsDir() {
+		if err := result.addFile(ctx, path, config); err != nil {
+			return fmt.Errorf("parse explicit file: %w", err)
 		}
-		result.Readmes = append(result.Readmes, readmes...)
+		return nil
 	}
-	return result, nil
-}
-
-func (self *Parser) parsePath(path string, config *ParseConfig) ([]*Readme, error) {
-	absPath, err := filepath.Abs(path)
-	if err != nil {
-		return nil, fmt.Errorf("could not get absolute path of %s: %w", path, err)
+	if config.useGit {
+		if err := result.collectTracked(ctx, path, config); err != nil {
+			return fmt.Errorf("inspect Git index: %w", err)
+		}
+		return nil
 	}
-	stat, err := os.Stat(absPath)
-	if err != nil {
-		return nil, fmt.Errorf("could not stat file %s: %w", absPath, err)
-	}
-	var readmes []*Readme
-	if stat.IsDir() {
-		readmes, err = self.parseDirectory(absPath, config)
-		if err != nil {
-			return nil, err
+	baseDepth := strings.Count(filepath.Clean(path), string(os.PathSeparator))
+	err = filepath.WalkDir(path, func(path string, entry fs.DirEntry, walkErr error) error {
+		if walkErr != nil {
+			return fmt.Errorf("visit %q: %w", path, walkErr)
 		}
-	} else {
-		readme, ok, err := self.parseFile(absPath, config)
-		if err != nil {
-			return nil, err
+		if err := ctx.Err(); err != nil {
+			return fmt.Errorf("traverse %q: %w", path, err)
 		}
-		if ok {
-			readmes = []*Readme{readme}
-		}
-	}
-	return readmes, nil
-}
-
-func (self *Parser) parseDirectory(dirPath string, config *ParseConfig) ([]*Readme, error) {
-	if config.UseGit {
-		return self.parseDirectoryGit(dirPath, config)
-	}
-	return self.parseDirectoryWalk(dirPath, config)
-}
-
-func (self *Parser) parseDirectoryGit(dirPath string, config *ParseConfig) ([]*Readme, error) {
-	stdout, err := exec.Command("git", "ls-files", dirPath).Output()
-	if err != nil {
-		return nil, err
-	}
-	expr, err := regexp.Compile("\r?\n")
-	if err != nil {
-		return nil, err
-	}
-	lines := expr.Split(string(stdout), -1)
-	result := []*Readme{}
-	for _, filePath := range lines {
-		absPath, err := filepath.Abs(filePath)
-		if err != nil {
-			return nil, fmt.Errorf("could not get absolute path of %s: %w", filePath, err)
-		}
-		ignore, err := self.ignorePath(filePath, config)
-		if err != nil {
-			return nil, err
-		}
-		if ignore {
-			continue
-		}
-		readme, ok, err := self.parseFile(absPath, config)
-		if err != nil {
-			return nil, err
-		}
-		if ok {
-			result = append(result, readme)
-		}
-	}
-	return result, nil
-}
-
-func (self *Parser) ignorePath(file string, config *ParseConfig) (bool, error) {
-	name := filepath.Base(file)
-	if name != config.ReadmeName {
-		return true, nil
-	}
-	ignore := filepath.Join(config.RootPath, config.ReadmeName)
-	if ignore == file || file == config.ReadmeName {
-		return true, nil
-	}
-	for _, exclude := range config.Exclude {
-		if exclude == file {
-			return true, nil
-		}
-		rel, err := filepath.Rel(exclude, file)
-		if err != nil {
-			return true, fmt.Errorf("could not create relative path of %s and %s: %w", exclude, file, err)
-		}
-		if !strings.Contains(rel, "..") {
-			return true, nil
-		}
-	}
-	return false, nil
-}
-
-func (self *Parser) parseDirectoryWalk(dirPath string, config *ParseConfig) ([]*Readme, error) {
-	result := []*Readme{}
-	err := filepath.WalkDir(dirPath, func(path string, d fs.DirEntry, err error) error {
-		if d.IsDir() {
+		if excluded(path, config.exclude) {
+			if entry.IsDir() {
+				return filepath.SkipDir
+			}
 			return nil
 		}
-		ignore, err := self.ignorePath(path, config)
-		if err != nil || ignore {
-			return err
+		if entry.IsDir() {
+			if strings.Count(path, string(os.PathSeparator))-baseDepth > maxWalkDepth {
+				return fmt.Errorf("directory depth exceeds %d at %q", maxWalkDepth, path)
+			}
+			return nil
 		}
-		readme, ignore, err := self.parseFile(path, config)
-		if err != nil {
-			return err
+		if !matchesReadme(path, config) {
+			return nil
 		}
-		if ignore {
-			result = append(result, readme)
+		if err := result.addFile(ctx, path, config); err != nil {
+			return fmt.Errorf("read discovered file: %w", err)
 		}
 		return nil
 	})
 	if err != nil {
-		return nil, fmt.Errorf("could not parse directory %s: %w", dirPath, err)
+		return fmt.Errorf("walk %q: %w", path, err)
 	}
-	return result, nil
+	return nil
 }
 
-func (self *Parser) parseFile(filePath string, config *ParseConfig) (*Readme, bool, error) {
-	relativePath, err := filepath.Rel(config.RootPath, filePath)
+// collectTracked streams NUL-delimited paths so quoting and newlines are preserved.
+func (result *parseResult) collectTracked(ctx context.Context, dir string, config parseConfig) error {
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, "git", "ls-files", "-z", "--", ".")
+	cmd.Dir = dir
+	output, err := cmd.StdoutPipe()
 	if err != nil {
-		return nil, false, fmt.Errorf("could not create relative path of %s: %w", filePath, err)
+		return fmt.Errorf("open Git output: %w", err)
 	}
-	dirRelative := filepath.Dir(relativePath)
-	fileContent, err := os.ReadFile(filePath)
+	if err := cmd.Start(); err != nil {
+		return fmt.Errorf("start git ls-files in %q: %w", dir, err)
+	}
+	paths := bufio.NewScanner(output)
+	paths.Split(splitPath)
+	for paths.Scan() {
+		path := filepath.Join(dir, paths.Text())
+		if !matchesReadme(path, config) || excluded(path, config.exclude) {
+			continue
+		}
+		if err = result.addFile(ctx, path, config); err != nil {
+			break
+		}
+	}
+	if err == nil {
+		err = paths.Err()
+	}
 	if err != nil {
-		return nil, false, fmt.Errorf("could not read file %s: %w", filePath, err)
+		cancel()
+		// Reap Git even if parsing or reading its output failed.
+		_ = cmd.Wait()
+		return fmt.Errorf("read tracked files in %q: %w", dir, err)
 	}
-	segments := strings.Split(string(fileContent), "---")
-	if len(segments) < 3 {
-		return nil, false, nil
+	if err := cmd.Wait(); err != nil {
+		return fmt.Errorf("list tracked paths in %q: %w", dir, err)
 	}
-	var data map[string]any
-	err = yaml.Unmarshal([]byte(segments[1]), &data)
+	return nil
+}
+
+// splitPath extracts one terminated pathname from git ls-files -z.
+func splitPath(data []byte, atEOF bool) (int, []byte, error) {
+	if i := bytes.IndexByte(data, 0); i >= 0 {
+		return i + 1, data[:i], nil
+	}
+	if atEOF && len(data) != 0 {
+		return 0, nil, fmt.Errorf("unterminated Git pathname")
+	}
+	return 0, nil, nil
+}
+
+// matchesReadme ignores the root README that consumes the generated tree.
+func matchesReadme(path string, config parseConfig) bool {
+	return filepath.Base(path) == config.name && path != filepath.Join(config.root, config.name)
+}
+
+// excluded tests whole path components, including the named subtree root.
+func excluded(path string, excludes []string) bool {
+	for _, exclude := range excludes {
+		rel, err := filepath.Rel(exclude, path)
+		if err == nil && filepath.IsLocal(rel) {
+			return true
+		}
+	}
+	return false
+}
+
+// addFile decodes a README's front matter and appends its serialized path metadata.
+func (result *parseResult) addFile(ctx context.Context, path string, config parseConfig) (resultErr error) {
+	if err := ctx.Err(); err != nil {
+		return fmt.Errorf("read %q: %w", path, err)
+	}
+	file, err := os.Open(path)
 	if err != nil {
-		return nil, false, fmt.Errorf("could not unmarshal yaml in file %s: %w", filePath, err)
+		return fmt.Errorf("open README %q: %w", path, err)
 	}
-	return &Readme{
-		Path:             filePath,
-		PathRelative:     relativePath,
-		Data:             data,
-		Dir:              filepath.Dir(filePath),
-		DirRelative:      dirRelative,
-		DirRelativeSplit: strings.Split(dirRelative, string(os.PathSeparator)),
-		DirName:          filepath.Base(dirRelative),
-	}, true, nil
+	defer func() {
+		if err := file.Close(); err != nil {
+			resultErr = errors.Join(resultErr, fmt.Errorf("close README %q: %w", path, err))
+		}
+	}()
+	lines := bufio.NewScanner(file)
+	lines.Buffer(nil, maxHeaderBytes)
+	if !lines.Scan() || lines.Text() != "---" {
+		if err := lines.Err(); err != nil {
+			return fmt.Errorf("read opening delimiter in %q: %w", path, err)
+		}
+		return nil
+	}
+	var header bytes.Buffer
+	for lines.Scan() {
+		if lines.Text() == "---" {
+			if len(result.Readmes) >= maxReadmes {
+				return fmt.Errorf("README tree exceeds %d records", maxReadmes)
+			}
+			if header.Len() > maxTreeMetadataBytes-result.metadataBytes {
+				return fmt.Errorf("tree metadata exceeds %d bytes", maxTreeMetadataBytes)
+			}
+			var data map[string]any
+			if err := yaml.Unmarshal(header.Bytes(), &data); err != nil {
+				return fmt.Errorf("decode metadata in %q: %w", path, err)
+			}
+			rel, err := filepath.Rel(config.root, path)
+			if err != nil {
+				return fmt.Errorf("make %q relative to %q: %w", path, config.root, err)
+			}
+			dir := filepath.Dir(rel)
+			result.metadataBytes += header.Len()
+			result.Readmes = append(result.Readmes, &readme{
+				Path: path, PathRelative: rel, Dir: filepath.Dir(path), DirRelative: dir,
+				DirRelativeSplit: strings.Split(dir, string(os.PathSeparator)), DirName: filepath.Base(dir), Data: data,
+			})
+			return nil
+		}
+		if header.Len()+len(lines.Bytes())+1 > maxHeaderBytes {
+			return fmt.Errorf("metadata in %q exceeds %d bytes", path, maxHeaderBytes)
+		}
+		header.Write(lines.Bytes())
+		header.WriteByte('\n')
+	}
+	if err := lines.Err(); err != nil {
+		return fmt.Errorf("read metadata in %q: %w", path, err)
+	}
+	return nil
 }

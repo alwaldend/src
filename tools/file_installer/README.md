@@ -8,6 +8,18 @@ tags:
   - bzl_rules
 ---
 
+## Directory and archive installation
+
+`//tools/file_installer` accepts `install --target DIRECTORY SOURCE...`. A
+directory source creates symlinks to its files. Reinstalling an identical
+link succeeds, while a conflicting destination reports an error. Traversal
+skips a destination nested inside the source and accepts up to 128 directory
+levels. A tar source requires an existing destination directory. Each regular
+archive entry is staged beside its destination and replaced after the write
+completes. Replacing a regular file retains its permissions. New files use the
+archive mode subject to the process umask. An interrupted installation can be
+retried.
+
 ## Standalone executable installation
 
 `//tools/file_installer/cmd/install_binary` copies a regular executable to a

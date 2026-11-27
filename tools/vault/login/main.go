@@ -21,6 +21,8 @@ import (
 	"time"
 	"unicode"
 
+	"git.alwaldend.com/alwaldend/src/tools/go/pkg/sensitiveerr"
+	"git.alwaldend.com/alwaldend/src/tools/vault/internal/privatefile"
 	"github.com/spf13/cobra"
 )
 
@@ -35,18 +37,6 @@ type options struct {
 	// timeout bounds discovery and the login request together.
 	timeout time.Duration
 }
-
-// privateError preserves a cause without exposing secret-bearing diagnostic text.
-type privateError struct {
-	// cause is available through errors.Unwrap without appearing in Error.
-	cause error
-}
-
-// Error omits potentially sensitive parse or subprocess output.
-func (e privateError) Error() string { return "details withheld" }
-
-// Unwrap preserves the original failure for programmatic inspection.
-func (e privateError) Unwrap() error { return e.cause }
 
 // boundedOutput limits retained native-tool output, including private responses.
 type boundedOutput struct {
@@ -114,7 +104,7 @@ func (o options) login(parent context.Context, role string, diagnostics io.Write
 	}
 	address, err := url.Parse(os.Getenv("VAULT_ADDR"))
 	if err != nil {
-		return fmt.Errorf("parse VAULT_ADDR: %w", privateError{cause: err})
+		return sensitiveerr.WithContext("parse VAULT_ADDR", err)
 	}
 	if address.Scheme != "https" || address.Hostname() == "" || address.User != nil || address.RawQuery != "" || address.Fragment != "" {
 		return errors.New("VAULT_ADDR must be an HTTPS URL without credentials, query, or fragment")
@@ -135,7 +125,7 @@ func (o options) login(parent context.Context, role string, diagnostics io.Write
 		}
 		o.tokenFile = filepath.Join(home, ".vault-token")
 	}
-	if err := validateDestination(o.tokenFile); err != nil {
+	if err := privatefile.CheckDestination(o.tokenFile); err != nil {
 		return fmt.Errorf("validate token destination: %w", err)
 	}
 	ctx, cancel := context.WithTimeout(parent, o.timeout)
@@ -149,7 +139,7 @@ func (o options) login(parent context.Context, role string, diagnostics io.Write
 	}
 	decodedURI, err := url.PathUnescape(uri)
 	if err != nil {
-		return fmt.Errorf("parse certificate URI: %w", privateError{cause: err})
+		return sensitiveerr.WithContext("parse certificate URI", err)
 	}
 	if !strings.HasPrefix(uri, "pkcs11:") || len(uri) == len("pkcs11:") ||
 		strings.Contains(strings.ToLower(decodedURI), "pin-value") || strings.Contains(strings.ToLower(decodedURI), "pin-source") {
@@ -180,7 +170,7 @@ func (o options) login(parent context.Context, role string, diagnostics io.Write
 	}
 	decoder := json.NewDecoder(bytes.NewReader(response))
 	if err := decoder.Decode(&envelope); err != nil {
-		return fmt.Errorf("decode login response: %w", privateError{cause: err})
+		return sensitiveerr.WithContext("decode login response", err)
 	}
 	if err := decoder.Decode(new(any)); !errors.Is(err, io.EOF) {
 		return errors.New("login response must contain exactly one JSON document")
@@ -189,7 +179,7 @@ func (o options) login(parent context.Context, role string, diagnostics io.Write
 	if token == "" || strings.IndexFunc(token, func(r rune) bool { return unicode.IsSpace(r) || unicode.IsControl(r) }) >= 0 {
 		return errors.New("login response did not contain a valid client token")
 	}
-	if err := saveToken(o.tokenFile, token); err != nil {
+	if err := privatefile.Write(o.tokenFile, []byte(token+"\n")); err != nil {
 		return fmt.Errorf("save Vault token: %w", err)
 	}
 	return nil
@@ -265,7 +255,7 @@ func discoverCertificate(ctx context.Context, role string) (string, error) {
 			}
 			certificate, err := x509.ParseCertificate(encoded)
 			if err != nil {
-				return "", fmt.Errorf("parse hardware certificate: %w", privateError{cause: err})
+				return "", sensitiveerr.WithContext("parse hardware certificate", err)
 			}
 			if !usableClientCertificate(certificate, now) {
 				continue
@@ -348,62 +338,4 @@ func runNative(ctx context.Context, name string, args []string, input []byte, li
 		return nil, fmt.Errorf("execute %s: %w", name, err)
 	}
 	return output.buffer.Bytes(), nil
-}
-
-// validateDestination rejects nonregular existing files before authentication.
-func validateDestination(path string) error {
-	info, err := os.Lstat(path)
-	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
-			return nil
-		}
-		return fmt.Errorf("inspect token file: %w", err)
-	}
-	if !info.Mode().IsRegular() {
-		return errors.New("existing token destination must be a regular file, not a symbolic link")
-	}
-	return nil
-}
-
-// saveToken atomically replaces the destination using a same-directory 0600 file.
-func saveToken(path, token string) (result error) {
-	if err := validateDestination(path); err != nil {
-		return fmt.Errorf("recheck token destination: %w", err)
-	}
-	file, err := os.CreateTemp(filepath.Dir(path), ".vault-token-*")
-	if err != nil {
-		return fmt.Errorf("create private token file: %w", err)
-	}
-	closed, installed := false, false
-	defer func() {
-		if !closed {
-			if err := file.Close(); err != nil {
-				result = errors.Join(result, fmt.Errorf("close temporary token file: %w", err))
-			}
-		}
-		if !installed {
-			if err := os.Remove(file.Name()); err != nil {
-				result = errors.Join(result, fmt.Errorf("remove temporary token file: %w", err))
-			}
-		}
-	}()
-	if err := file.Chmod(0o600); err != nil {
-		return fmt.Errorf("set private token permissions: %w", err)
-	}
-	if _, err := io.WriteString(file, token+"\n"); err != nil {
-		return fmt.Errorf("write private token file: %w", err)
-	}
-	if err := file.Sync(); err != nil {
-		return fmt.Errorf("synchronize private token file: %w", err)
-	}
-	err = file.Close()
-	closed = true
-	if err != nil {
-		return fmt.Errorf("close private token file: %w", err)
-	}
-	if err := os.Rename(file.Name(), path); err != nil {
-		return fmt.Errorf("replace token file: %w", err)
-	}
-	installed = true
-	return nil
 }

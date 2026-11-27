@@ -15,10 +15,18 @@ docs_filegroup(
 
 go_library(
     name = "gen_client_cert_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_client_cert",
     visibility = ["//:__subpackages__"],
-    deps = ["//projects/al/pkg/al"],
+    deps = [
+        "//tools/go/pkg/sensitiveerr",
+        "//tools/vault/internal/privatefile",
+        "//tools/vault/pkg/vaultcmd",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_binary(

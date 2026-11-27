@@ -15,10 +15,16 @@ docs_filegroup(
 
 go_library(
     name = "lint_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/ansible/lint",
     visibility = ["//visibility:private"],
-    deps = ["@rules_go//go/tools/bazel"],
+    deps = [
+        "@com_github_spf13_cobra//:cobra",
+        "@rules_go//go/tools/bazel",
+    ],
 )
 
 alias(

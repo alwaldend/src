@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -11,6 +12,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/tools/vault/harbor_login/harbor_login_proto"
 )
 
+// TestLogoutVerifiesOriginalSessionAndDoesNotFollowProvider verifies local logout while preserving the identity-provider session.
 func TestLogoutVerifiesOriginalSessionAndDoesNotFollowProvider(t *testing.T) {
 	for _, invalidated := range []bool{true, false} {
 		t.Run(fmt.Sprint(invalidated), func(t *testing.T) {
@@ -37,13 +39,15 @@ func TestLogoutVerifiesOriginalSessionAndDoesNotFollowProvider(t *testing.T) {
 				}
 			}))
 			defer server.Close()
-			login, err := newLogin(nil, &harbor_login_proto.Config{HarborUrl: server.URL})
+			login, err := newLogin(&harbor_login_proto.Config{HarborUrl: server.URL})
 			if err != nil {
 				t.Fatal(err)
 			}
 			login.session = "test-session"
-			plugin := &Plugin{}
-			plugin.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(login.logout))
+			plugin := &plugin{}
+			if err := plugin.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(login.logout)); err != nil {
+				t.Fatal(err)
+			}
 			err = plugin.Stop(context.Background())
 			if (err == nil) != invalidated {
 				t.Fatalf("unexpected cleanup result: %v", err)
@@ -55,15 +59,16 @@ func TestLogoutVerifiesOriginalSessionAndDoesNotFollowProvider(t *testing.T) {
 	}
 }
 
+// TestCancelledLogout checks that cancellation remains identifiable through session cleanup.
 func TestCancelledLogout(t *testing.T) {
-	login, err := newLogin(nil, &harbor_login_proto.Config{HarborUrl: "http://127.0.0.1:1"})
+	login, err := newLogin(&harbor_login_proto.Config{HarborUrl: "http://127.0.0.1:1"})
 	if err != nil {
 		t.Fatal(err)
 	}
 	login.session = "test-session"
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
-	if err := login.logout(ctx); err == nil {
-		t.Fatal("cancelled logout succeeded")
+	if err := login.logout(ctx); !errors.Is(err, context.Canceled) {
+		t.Fatalf("logout error = %v, want cancellation", err)
 	}
 }

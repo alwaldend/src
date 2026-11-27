@@ -1,12 +1,13 @@
-// Package gazelle generates documentation targets for Bazel packages.
 package gazelle
 
 import (
+	"errors"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
-	"strings"
+	"slices"
 
 	"github.com/bazelbuild/bazel-gazelle/config"
 	"github.com/bazelbuild/bazel-gazelle/language"
@@ -14,11 +15,15 @@ import (
 )
 
 const (
+	// docsKind identifies the rule that packages Markdown files.
 	docsKind = "docs_filegroup"
+	// docsName is the conventional documentation target in each package.
 	docsName = "docs"
 )
 
+// docsLanguage implements the Gazelle extension and its module-aware load hook.
 type docsLanguage struct {
+	// BaseLang supplies the default implementations of the remaining Gazelle hooks.
 	language.BaseLang
 	// loadLabel overrides the published rule label for an in-tree checkout.
 	loadLabel string
@@ -34,10 +39,12 @@ func NewLanguage() language.Language {
 	return &docsLanguage{}
 }
 
+// Name identifies this extension to Gazelle's language filter.
 func (*docsLanguage) Name() string {
 	return "docs"
 }
 
+// Kinds preserves attributes on existing documentation rules.
 func (*docsLanguage) Kinds() map[string]rule.KindInfo {
 	return map[string]rule.KindInfo{
 		docsKind: {
@@ -48,6 +55,7 @@ func (*docsLanguage) Kinds() map[string]rule.KindInfo {
 	}
 }
 
+// Loads rejects legacy load resolution, which cannot account for Bzlmod repository mappings.
 func (*docsLanguage) Loads() []rule.LoadInfo {
 	panic("ApparentLoads should be called instead")
 }
@@ -57,6 +65,7 @@ func (lang *docsLanguage) RegisterFlags(flags *flag.FlagSet, _ string, _ *config
 	flags.StringVar(&lang.loadLabel, "docs_load_label", "", "Bazel label for the docs rule definitions")
 }
 
+// ApparentLoads resolves the rule definitions in the consumer workspace.
 func (lang *docsLanguage) ApparentLoads(
 	moduleToApparentName func(string) string,
 ) []rule.LoadInfo {
@@ -74,16 +83,22 @@ func (lang *docsLanguage) ApparentLoads(
 	}}
 }
 
+// GenerateRules adds a Markdown file group to an existing Bazel package with a README.
 func (*docsLanguage) GenerateRules(
 	args language.GenerateArgs,
 ) language.GenerateResult {
-	if args.File == nil || !contains(args.RegularFiles, "README.md") {
+	if args.File == nil || !slices.Contains(args.RegularFiles, "README.md") {
 		return language.GenerateResult{}
 	}
 
 	docs := rule.NewRule(docsKind, docsName)
 	docs.SetAttr("srcs", rule.GlobValue{Patterns: []string{"*.md"}})
-	if visibility := parentVisibility(args); visibility != nil {
+	visibility, err := parentVisibility(args)
+	if err != nil {
+		log.Printf("skip documentation generation in %q: %v", args.Dir, err)
+		return language.GenerateResult{}
+	}
+	if visibility != nil {
 		docs.SetAttr("visibility", visibility)
 	}
 
@@ -93,64 +108,54 @@ func (*docsLanguage) GenerateRules(
 	}
 }
 
-func contains(files []string, name string) bool {
-	for _, file := range files {
-		if file == name {
-			return true
-		}
-	}
-	return false
-}
-
-func parentVisibility(args language.GenerateArgs) []string {
+// parentVisibility locates the nearest enclosing package within the workspace for documentation visibility.
+func parentVisibility(args language.GenerateArgs) (visibility []string, resultErr error) {
 	if args.Config == nil || args.Config.RepoRoot == "" || args.Dir == "" {
-		return nil
+		return nil, nil
+	}
+	relative, err := filepath.Rel(args.Config.RepoRoot, args.Dir)
+	if err != nil {
+		return nil, fmt.Errorf("locate package %q in workspace %q: %w", args.Dir, args.Config.RepoRoot, err)
+	}
+	if !filepath.IsLocal(relative) {
+		return nil, fmt.Errorf("package %q is outside workspace %q", args.Dir, args.Config.RepoRoot)
+	}
+	if relative == "." {
+		return nil, nil
 	}
 
-	repoRoot := filepath.Clean(args.Config.RepoRoot)
-	dir := filepath.Clean(args.Dir)
-	if dir == repoRoot {
-		return nil
+	root, err := os.OpenRoot(args.Config.RepoRoot)
+	if err != nil {
+		return nil, fmt.Errorf("open documentation workspace %q: %w", args.Config.RepoRoot, err)
 	}
-	parent := filepath.Dir(dir)
-	buildFileNames := args.Config.ValidBuildFileNames
-	if len(buildFileNames) == 0 {
-		buildFileNames = []string{"BUILD.bazel", "BUILD"}
-	}
-
-	for {
-		rel, err := filepath.Rel(repoRoot, parent)
-		if err != nil || rel == ".." || strings.HasPrefix(
-			rel,
-			".."+string(filepath.Separator),
-		) {
-			return nil
+	defer func() {
+		if err := root.Close(); err != nil {
+			resultErr = errors.Join(resultErr, fmt.Errorf("close documentation workspace: %w", err))
 		}
-		if hasBuildFile(parent, buildFileNames) {
-			if rel == "." {
-				return []string{"//:__pkg__"}
+	}()
+	buildFileNames := append([]string{"BUILD.bazel", "BUILD"}, args.Config.ValidBuildFileNames...)
+	for parent := filepath.Dir(relative); ; parent = filepath.Dir(parent) {
+		for _, name := range buildFileNames {
+			if name == "" {
+				continue
 			}
-			return []string{
-				"//" + filepath.ToSlash(rel) + ":__pkg__",
+			boundary := filepath.Join(parent, name)
+			info, err := root.Stat(boundary)
+			if errors.Is(err, os.ErrNotExist) {
+				continue
+			}
+			if err != nil {
+				return nil, fmt.Errorf("inspect package marker %q: %w", boundary, err)
+			}
+			if info.Mode().IsRegular() {
+				if parent == "." {
+					return []string{"//:__pkg__"}, nil
+				}
+				return []string{"//" + filepath.ToSlash(parent) + ":__pkg__"}, nil
 			}
 		}
-		if parent == repoRoot {
-			return nil
-		}
-		next := filepath.Dir(parent)
-		if next == parent {
-			return nil
-		}
-		parent = next
-	}
-}
-
-func hasBuildFile(dir string, names []string) bool {
-	for _, name := range names {
-		info, err := os.Stat(filepath.Join(dir, name))
-		if err == nil && info.Mode().IsRegular() {
-			return true
+		if parent == "." {
+			return nil, nil
 		}
 	}
-	return false
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -17,6 +18,7 @@ import (
 	"syscall"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/tools/go/pkg/sensitiveerr"
 	"github.com/spf13/cobra"
 )
 
@@ -28,19 +30,7 @@ func main() {
 	directory := filepath.Join(workspace, "out", "artifact-mirror")
 	var helm, oras, owner string
 	var inventoryFile string
-	var artifacts inventory
-	root := &cobra.Command{
-		Use:          "artifact_mirror",
-		SilenceUsage: true,
-		PersistentPreRunE: func(_ *cobra.Command, _ []string) error {
-			var err error
-			artifacts, err = loadInventory(inventoryFile)
-			if err != nil {
-				return fmt.Errorf("load upstream pins: %w", err)
-			}
-			return nil
-		},
-	}
+	root := &cobra.Command{Use: "artifact_mirror", SilenceUsage: true}
 	root.PersistentFlags().StringVar(&inventoryFile, "inventory", "", "Artifact pin file")
 	root.PersistentFlags().StringVar(&directory, "directory", directory, "Local mirror directory")
 	root.PersistentFlags().StringVar(&helm, "helm", "helm", "Path to Helm")
@@ -49,16 +39,38 @@ func main() {
 		Use:  "push",
 		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			return push(cmd.Context(), directory, oras, owner, artifacts)
+			artifacts, err := loadInventory(inventoryFile)
+			if err != nil {
+				return fmt.Errorf("load upstream pins: %w", err)
+			}
+			if err := push(cmd.Context(), directory, oras, owner, artifacts); err != nil {
+				return fmt.Errorf("publish artifacts: %w", err)
+			}
+			return nil
 		},
 	}
 	publish.Flags().StringVar(&owner, "owner", "", "Forgejo package owner")
+	if err := root.MarkPersistentFlagRequired("inventory"); err != nil {
+		fmt.Fprintln(os.Stderr, "configure inventory flag:", err)
+		os.Exit(1)
+	}
+	if err := publish.MarkFlagRequired("owner"); err != nil {
+		fmt.Fprintln(os.Stderr, "configure owner flag:", err)
+		os.Exit(1)
+	}
 	root.AddCommand(
 		&cobra.Command{
 			Use:  "pull",
 			Args: cobra.NoArgs,
 			RunE: func(cmd *cobra.Command, _ []string) error {
-				return pull(cmd.Context(), directory, helm, oras, artifacts)
+				artifacts, err := loadInventory(inventoryFile)
+				if err != nil {
+					return fmt.Errorf("load upstream pins: %w", err)
+				}
+				if err := pull(cmd.Context(), directory, helm, oras, artifacts); err != nil {
+					return fmt.Errorf("stage artifacts: %w", err)
+				}
+				return nil
 			},
 		},
 		publish,
@@ -90,13 +102,20 @@ func verifyDigest(data io.Reader, expected, name string) error {
 	return nil
 }
 
+// closeResource preserves the operation error if releasing the resource also fails.
+func closeResource(resource io.Closer, description string, result *error) {
+	if err := resource.Close(); err != nil {
+		*result = errors.Join(*result, fmt.Errorf("close %s: %w", description, err))
+	}
+}
+
 // verifyChart checks an archive before it can be used for publication.
-func verifyChart(filename, digest string) error {
+func verifyChart(filename, digest string) (result error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return fmt.Errorf("open chart %q: %w", filename, err)
 	}
-	defer file.Close()
+	defer closeResource(file, filename, &result)
 	if err := verifyDigest(file, digest, filename); err != nil {
 		return fmt.Errorf("verify chart archive: %w", err)
 	}
@@ -108,12 +127,27 @@ func layoutReference(directory string, artifact image) string {
 	return filepath.Join(directory, "images", path.Base(artifact.Repository)) + ":" + artifact.Tag
 }
 
+// digestOutput retains one line of ORAS output and rejects excess data.
+type digestOutput []byte
+
+// Write collects at most one digest line, including its newline.
+func (output *digestOutput) Write(data []byte) (int, error) {
+	// ORAS resolve prints the algorithm, hex digest, and line terminator.
+	const limit = 256
+	if len(data) > limit-len(*output) {
+		return 0, fmt.Errorf("ORAS digest output exceeds %d bytes", limit)
+	}
+	*output = append(*output, data...)
+	return len(data), nil
+}
+
 // verifyImage compares the local or remote OCI digest with the pinned index.
 func verifyImage(ctx context.Context, oras, reference, digest string, args ...string) error {
 	cmd := exec.CommandContext(ctx, oras, append(append([]string{"resolve"}, args...), reference)...)
 	cmd.Stderr = os.Stderr
-	result, err := cmd.Output()
-	if err != nil {
+	var result digestOutput
+	cmd.Stdout = &result
+	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("resolve OCI reference %q: %w", reference, err)
 	}
 	if actual := strings.TrimSpace(string(result)); actual != digest {
@@ -123,7 +157,7 @@ func verifyImage(ctx context.Context, oras, reference, digest string, args ...st
 }
 
 // pull downloads charts and stages complete pinned image indexes.
-func pull(ctx context.Context, directory, helm, oras string, artifacts inventory) error {
+func pull(ctx context.Context, directory, helm, oras string, artifacts inventory) (result error) {
 	chartDirectory := filepath.Join(directory, "charts")
 	if err := os.MkdirAll(chartDirectory, 0o755); err != nil {
 		return fmt.Errorf("create chart directory %q: %w", chartDirectory, err)
@@ -132,7 +166,7 @@ func pull(ctx context.Context, directory, helm, oras string, artifacts inventory
 	if err != nil {
 		return fmt.Errorf("create chart download directory: %w", err)
 	}
-	defer os.RemoveAll(staging)
+	defer removeDirectory(staging, &result)
 	for _, artifact := range artifacts.Charts {
 		args := []string{"pull", artifact.Source, "--destination", staging}
 		if strings.HasPrefix(artifact.Source, "oci://") {
@@ -158,8 +192,15 @@ func pull(ctx context.Context, directory, helm, oras string, artifacts inventory
 	return nil
 }
 
+// removeDirectory reports cleanup failures alongside the original command failure.
+func removeDirectory(directory string, result *error) {
+	if err := os.RemoveAll(directory); err != nil {
+		*result = errors.Join(*result, fmt.Errorf("remove temporary directory %q: %w", directory, err))
+	}
+}
+
 // forgejoUsername resolves the identity associated with the AL login token.
-func forgejoUsername(ctx context.Context, client *http.Client, baseURL, token string) (string, error) {
+func forgejoUsername(ctx context.Context, client *http.Client, baseURL, token string) (username string, result error) {
 	request, err := http.NewRequestWithContext(ctx, http.MethodGet, baseURL+"/api/v1/user", nil)
 	if err != nil {
 		return "", fmt.Errorf("construct Forgejo identity request: %w", err)
@@ -169,14 +210,24 @@ func forgejoUsername(ctx context.Context, client *http.Client, baseURL, token st
 	if err != nil {
 		return "", fmt.Errorf("read Forgejo identity: %w", err)
 	}
-	defer response.Body.Close()
+	defer closeResource(response.Body, "Forgejo identity response", &result)
 	if response.StatusCode != http.StatusOK {
 		return "", fmt.Errorf("read Forgejo identity: HTTP %d", response.StatusCode)
 	}
+	// An identity response describes one account. Reject oversized or trailing data.
+	const limit = 1 << 20
+	data, err := io.ReadAll(io.LimitReader(response.Body, limit+1))
+	if err != nil {
+		return "", fmt.Errorf("read Forgejo identity response: %w", err)
+	}
+	if len(data) > limit {
+		return "", fmt.Errorf("Forgejo identity response exceeds %d bytes", limit)
+	}
 	var account struct {
+		// Login is the account name used for registry authentication.
 		Login string `json:"login"`
 	}
-	if err := json.NewDecoder(response.Body).Decode(&account); err != nil {
+	if err := json.Unmarshal(data, &account); err != nil {
 		return "", fmt.Errorf("decode Forgejo identity: %w", err)
 	}
 	if account.Login == "" {
@@ -186,17 +237,17 @@ func forgejoUsername(ctx context.Context, client *http.Client, baseURL, token st
 }
 
 // publishChart uploads a Helm archive and verifies the stored bytes on success or retry.
-func publishChart(ctx context.Context, client *http.Client, registryURL, username, token, filename string, artifact chart) error {
+func publishChart(ctx context.Context, client *http.Client, registryURL, username, token, filename string, artifact chart) (result error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return fmt.Errorf("open chart %q for upload: %w", filename, err)
 	}
-	defer file.Close()
+	defer closeResource(file, filename, &result)
 	info, err := file.Stat()
 	if err != nil {
 		return fmt.Errorf("stat chart %q: %w", filename, err)
 	}
-	request, err := http.NewRequestWithContext(ctx, http.MethodPost, registryURL+"/api/charts", file)
+	request, err := http.NewRequestWithContext(ctx, http.MethodPost, registryURL+"/api/charts", io.NewSectionReader(file, 0, info.Size()))
 	if err != nil {
 		return fmt.Errorf("construct chart upload: %w", err)
 	}
@@ -206,9 +257,13 @@ func publishChart(ctx context.Context, client *http.Client, registryURL, usernam
 	if err != nil {
 		return fmt.Errorf("upload chart %q: %w", filename, err)
 	}
-	response.Body.Close()
+	var uploadErr error
 	if response.StatusCode != http.StatusCreated && response.StatusCode != http.StatusConflict {
-		return fmt.Errorf("upload chart %q: HTTP %d", filename, response.StatusCode)
+		uploadErr = fmt.Errorf("upload chart %q: HTTP %d", filename, response.StatusCode)
+	}
+	closeResource(response.Body, "chart upload response", &uploadErr)
+	if uploadErr != nil {
+		return fmt.Errorf("publish %q: %w", filename, uploadErr)
 	}
 	request, err = http.NewRequestWithContext(ctx, http.MethodGet, registryURL+"/"+artifact.filename(), nil)
 	if err != nil {
@@ -219,7 +274,7 @@ func publishChart(ctx context.Context, client *http.Client, registryURL, usernam
 	if err != nil {
 		return fmt.Errorf("read published chart %q: %w", filename, err)
 	}
-	defer response.Body.Close()
+	defer closeResource(response.Body, "chart verification response", &result)
 	if response.StatusCode != http.StatusOK {
 		return fmt.Errorf("read published chart %q: HTTP %d", filename, response.StatusCode)
 	}
@@ -231,7 +286,7 @@ func publishChart(ctx context.Context, client *http.Client, registryURL, usernam
 }
 
 // push verifies local inputs before writing packages through the Forgejo registry.
-func push(ctx context.Context, directory, oras, owner string, artifacts inventory) error {
+func push(ctx context.Context, directory, oras, owner string, artifacts inventory) (result error) {
 	if owner == "" || owner == "." || owner == ".." || strings.ContainsAny(owner, "/\\?#") {
 		return fmt.Errorf("provide a valid Forgejo package owner with --owner")
 	}
@@ -242,7 +297,7 @@ func push(ctx context.Context, directory, oras, owner string, artifacts inventor
 	baseURL := strings.TrimRight(os.Getenv("FORGEJO_HOST"), "/")
 	registry, err := url.Parse(baseURL)
 	if err != nil {
-		return fmt.Errorf("parse Forgejo registry URL: %w", err)
+		return sensitiveerr.WithContext("invalid Forgejo registry URL", err)
 	}
 	if registry.Scheme != "https" || registry.Host == "" || registry.User != nil ||
 		registry.Path != "" || registry.RawQuery != "" || registry.Fragment != "" {
@@ -272,7 +327,7 @@ func push(ctx context.Context, directory, oras, owner string, artifacts inventor
 	if err != nil {
 		return fmt.Errorf("create private registry configuration: %w", err)
 	}
-	defer os.RemoveAll(credentials)
+	defer removeDirectory(credentials, &result)
 	registryConfig := filepath.Join(credentials, "config.json")
 	if err := command(ctx, oras, strings.NewReader(token+"\n"), "login", "--registry-config", registryConfig, "--username", username, "--password-stdin", registry.Host); err != nil {
 		return fmt.Errorf("authenticate OCI publication: %w", err)

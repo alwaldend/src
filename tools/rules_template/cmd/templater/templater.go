@@ -2,11 +2,13 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"text/template"
 
@@ -14,83 +16,142 @@ import (
 	"github.com/goccy/go-yaml"
 )
 
-type Templater struct{}
+// outputMode supplies the creation permissions for new rendered files before umask.
+const outputMode os.FileMode = 0o504
 
-// It has to be 7, otherwise the disk cache will start throwing
-// 'permission denied' errors
-var FILE_MODE = os.FileMode(0x744)
+// maxInputBytes limits the combined size of the template and all data files.
+const maxInputBytes = 64 << 20
 
-type TemplateDataFile struct {
-	// Data file path
+// maxOutputBytes limits the retained render before publishing it.
+const maxOutputBytes = 64 << 20
+
+// maxDataLines bounds the line and NDJSON indexes shared across the data files.
+const maxDataLines = 1 << 20
+
+// renderBuffer holds the uncommitted render until execution succeeds.
+type renderBuffer struct {
+	// content holds at most maxOutputBytes of rendered text.
+	content bytes.Buffer
+}
+
+// Write rejects a chunk before it could exceed the output limit.
+func (buffer *renderBuffer) Write(chunk []byte) (int, error) {
+	if len(chunk) > maxOutputBytes-buffer.content.Len() {
+		return 0, fmt.Errorf("rendered output exceeds %d bytes", maxOutputBytes)
+	}
+	n, err := buffer.content.Write(chunk)
+	if err != nil {
+		return n, fmt.Errorf("buffer rendered output: %w", err)
+	}
+	return n, nil
+}
+
+// readInput reads at most the remaining input budget and accounts for growing files.
+func readInput(path string, remaining int64) (content []byte, result error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("open %q: %w", path, err)
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			result = errors.Join(result, fmt.Errorf("close %q: %w", path, err))
+		}
+	}()
+	info, err := file.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("inspect %q: %w", path, err)
+	}
+	if info.Size() <= remaining {
+		content, err = io.ReadAll(io.LimitReader(file, remaining+1))
+		if err != nil {
+			return nil, fmt.Errorf("read %q: %w", path, err)
+		}
+		if int64(len(content)) <= remaining {
+			return content, nil
+		}
+	}
+	return nil, fmt.Errorf("combined input exceeds %d bytes while reading %q", maxInputBytes, path)
+}
+
+// templateDataFile exposes a data file and its metadata to text/template.
+type templateDataFile struct {
+	// Path is the name supplied by the caller.
 	Path string
-	// Data file basename
+	// Basename is the final component of Path.
 	Basename string
-	// Basename without the extension
+	// BasenameWithoutExt removes the final filename extension.
 	BasenameWithoutExt string
-	// File extension (can be overriden using CLI)
+	// Extension selects the parser, including any caller override.
 	Extension string
-	// Data file dirname
+	// Dirname is the parent directory of Path.
 	Dirname string
-	// Data file lines
+	// Lines holds the input split on LF or CRLF.
 	Lines []string
-	// Parsed data
+	// Data holds the decoded value for structured inputs.
 	Data any
 }
 
-type TemplateContext struct {
-	DataFiles []*TemplateDataFile
+// templateContext is the root value visible to template expressions.
+type templateContext struct {
+	// DataFiles follows the order of the caller's data arguments.
+	DataFiles []*templateDataFile
 }
 
-func NewTemplater() *Templater {
-	return &Templater{}
-}
-
-func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, outputPath string, extension string) error {
-	ctx := &TemplateContext{
-		DataFiles: []*TemplateDataFile{},
+// templateFiles loads the inputs and publishes output after successful rendering.
+func templateFiles(ctx context.Context, dataPaths []string, templatePath, outputPath, extension string) error {
+	templateBytes, err := readInput(templatePath, maxInputBytes)
+	if err != nil {
+		return fmt.Errorf("load template %q: %w", templatePath, err)
 	}
+	remainingBytes := int64(maxInputBytes - len(templateBytes))
+	remainingLines := maxDataLines
+	dataContext := templateContext{DataFiles: make([]*templateDataFile, 0, len(dataPaths))}
 	for _, path := range dataPaths {
-		data, err := self.loadData(path, extension)
+		if err := ctx.Err(); err != nil {
+			return fmt.Errorf("load template inputs: %w", err)
+		}
+		content, err := readInput(path, remainingBytes)
+		if err != nil {
+			return fmt.Errorf("load template data: %w", err)
+		}
+		remainingBytes -= int64(len(content))
+		data, err := loadData(path, extension, content, remainingLines)
 		if err != nil {
 			return fmt.Errorf("could not load data %s: %w", path, err)
 		}
-		ctx.DataFiles = append(ctx.DataFiles, data)
+		remainingLines -= len(data.Lines)
+		dataContext.DataFiles = append(dataContext.DataFiles, data)
 	}
-	templateBytes, err := os.ReadFile(templatePath)
-	if err != nil {
-		return fmt.Errorf("could not read template %s: %w", templatePath, err)
-	}
-	templateObj, err := template.New("template").Funcs(TemplaterFuncMap()).Parse(string(templateBytes))
+	templateObj, err := template.New("template").Funcs(templaterFuncMap()).Parse(string(templateBytes))
 	if err != nil {
 		return fmt.Errorf("could not parse template %s: %w", templatePath, err)
 	}
-	var templateBuffer bytes.Buffer
-	err = templateObj.Execute(&templateBuffer, ctx)
+	var templateBuffer renderBuffer
+	err = templateObj.Execute(&templateBuffer, dataContext)
 	if err != nil {
 		return fmt.Errorf("could not execute template %s: %w", templatePath, err)
 	}
-	err = os.WriteFile(outputPath, templateBuffer.Bytes(), FILE_MODE)
+	err = os.WriteFile(outputPath, templateBuffer.content.Bytes(), outputMode)
 	if err != nil {
 		return fmt.Errorf("could not write output %s: %w", outputPath, err)
 	}
 	return nil
 }
 
-func (self *Templater) loadData(path string, extension string) (*TemplateDataFile, error) {
-	fileBytes, err := os.ReadFile(path)
-	if err != nil {
-		return nil, fmt.Errorf("could not read %s: %w", path, err)
-	}
-	expr, err := regexp.Compile("\r?\n")
-	if err != nil {
-		return nil, fmt.Errorf("could not compile regex: %w", err)
-	}
+// loadData decodes one data file and preserves its normalized lines for templates.
+func loadData(path, extension string, fileBytes []byte, remainingLines int) (*templateDataFile, error) {
 	fileString := string(fileBytes)
-	fileLines := expr.Split(fileString, -1)
+	lines := bytes.Count(fileBytes, []byte{'\n'})
+	if len(fileBytes) != 0 && fileBytes[len(fileBytes)-1] != '\n' {
+		lines++
+	}
+	if lines > remainingLines {
+		return nil, fmt.Errorf("data files exceed %d lines", maxDataLines)
+	}
+	fileLines := strings.Split(strings.ReplaceAll(fileString, "\r\n", "\n"), "\n")
 	fileLinesCount := len(fileLines)
 	if fileLinesCount != 0 && fileLines[fileLinesCount-1] == "" {
 		fileLines = fileLines[:fileLinesCount-1]
-		fileLinesCount -= 1
 	}
 	if extension == "" {
 		extension = filepath.Ext(path)
@@ -100,20 +161,20 @@ func (self *Templater) loadData(path string, extension string) (*TemplateDataFil
 	case ".toml":
 		_, err := toml.Decode(fileString, &data)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("decode TOML: %w", err)
 		}
 	case ".json":
 		err := json.Unmarshal(fileBytes, &data)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("decode JSON: %w", err)
 		}
 	case ".ndjson":
-		dataSlice := []any{}
-		for _, line := range fileLines {
+		dataSlice := make([]any, 0, len(fileLines))
+		for index, line := range fileLines {
 			var lineJson any
 			err := json.Unmarshal([]byte(line), &lineJson)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("decode JSON line %d: %w", index+1, err)
 			}
 			dataSlice = append(dataSlice, lineJson)
 		}
@@ -121,18 +182,18 @@ func (self *Templater) loadData(path string, extension string) (*TemplateDataFil
 	case ".yaml":
 		err := yaml.Unmarshal(fileBytes, &data)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("decode YAML: %w", err)
 		}
 	case ".txt":
 	default:
 		return nil, fmt.Errorf("unsupported extension %s: %s", extension, path)
 	}
-	return &TemplateDataFile{
+	return &templateDataFile{
 		Path:               path,
 		Dirname:            filepath.Dir(path),
 		Basename:           filepath.Base(path),
 		Extension:          extension,
-		BasenameWithoutExt: strings.TrimRight(filepath.Base(path), filepath.Ext(path)),
+		BasenameWithoutExt: strings.TrimSuffix(filepath.Base(path), filepath.Ext(path)),
 		Data:               data,
 		Lines:              fileLines,
 	}, nil

@@ -2,81 +2,80 @@ package main
 
 import (
 	"bytes"
+	"context"
 	_ "embed"
+	"errors"
 	"fmt"
 	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
+// precommit contains the hook installed into the checkout's effective hooks directory.
+//
 //go:embed precommit.sh
 var precommit []byte
 
-type hook struct {
-	name     string
-	contents []byte
-}
-
-var repositoryHooks = []hook{
-	{
-		name:     "pre-commit",
-		contents: precommit,
-	},
-}
-
-func execute(
-	args []string,
-	getenv func(string) string,
-	stdout io.Writer,
-) error {
-	command := "install"
-	if len(args) > 1 {
-		return fmt.Errorf("usage: git_hooks [install|test]")
+// execute dispatches hook installation (also the default) or verification.
+func execute(ctx context.Context, args []string, workspace string, stdout, stderr io.Writer) error {
+	install := func(cmd *cobra.Command, _ []string) error {
+		if err := processHook(cmd.Context(), workspace, cmd.OutOrStdout(), true); err != nil {
+			return fmt.Errorf("install repository hook: %w", err)
+		}
+		return nil
 	}
-	if len(args) == 1 {
-		command = args[0]
+	root := &cobra.Command{
+		Use: "git_hooks", Short: "Install or verify repository hooks", Args: cobra.NoArgs,
+		RunE: install, SilenceErrors: true, SilenceUsage: true,
 	}
-
-	if command == "help" || command == "-h" || command == "--help" {
-		_, err := fmt.Fprintln(stdout, "usage: git_hooks [install|test]")
-		return err
-	}
-	if command != "install" && command != "test" {
-		return fmt.Errorf("unknown command %q; usage: git_hooks [install|test]", command)
-	}
-
-	hooksDirectory, err := resolveHooksDirectory(
-		getenv("BUILD_WORKSPACE_DIRECTORY"),
-	)
-	if err != nil {
-		return err
-	}
-
-	for _, repositoryHook := range repositoryHooks {
-		hookPath := filepath.Join(hooksDirectory, repositoryHook.name)
-		if command == "install" {
-			if err := installHook(hookPath, repositoryHook.contents); err != nil {
-				return err
+	root.AddCommand(&cobra.Command{Use: "install", Short: "Install the repository hook", Args: cobra.NoArgs, RunE: install})
+	root.AddCommand(&cobra.Command{
+		Use: "test", Short: "Verify the installed hook", Args: cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			if err := processHook(cmd.Context(), workspace, cmd.OutOrStdout(), false); err != nil {
+				return fmt.Errorf("verify repository hook: %w", err)
 			}
-			if _, err := fmt.Fprintf(stdout, "installed %s\n", hookPath); err != nil {
-				return err
-			}
-			continue
-		}
-		if err := checkHook(hookPath, repositoryHook.contents); err != nil {
-			return err
-		}
-		if _, err := fmt.Fprintf(stdout, "verified %s\n", hookPath); err != nil {
-			return err
-		}
+			return nil
+		},
+	})
+	root.SetArgs(args)
+	root.SetOut(stdout)
+	root.SetErr(stderr)
+	if err := root.ExecuteContext(ctx); err != nil {
+		return fmt.Errorf("run git_hooks: %w", err)
 	}
 	return nil
 }
 
-func resolveHooksDirectory(workspaceDirectory string) (string, error) {
-	command := exec.Command("git", "rev-parse", "--git-path", "hooks")
+// processHook applies the requested operation to the hook selected by Git.
+func processHook(ctx context.Context, workspace string, stdout io.Writer, install bool) error {
+	dir, err := resolveHooksDirectory(ctx, workspace)
+	if err != nil {
+		return fmt.Errorf("locate hook: %w", err)
+	}
+	path := filepath.Join(dir, "pre-commit")
+	action := "verified"
+	if install {
+		if err := installHook(path, precommit); err != nil {
+			return fmt.Errorf("replace %q: %w", path, err)
+		}
+		action = "installed"
+	} else if err := checkHook(path, precommit); err != nil {
+		return fmt.Errorf("check installed contents: %w", err)
+	}
+	if _, err := fmt.Fprintf(stdout, "%s %s\n", action, path); err != nil {
+		return fmt.Errorf("report hook %q: %w", path, err)
+	}
+	return nil
+}
+
+// resolveHooksDirectory honors worktree configuration and core.hooksPath.
+func resolveHooksDirectory(ctx context.Context, workspaceDirectory string) (string, error) {
+	command := exec.CommandContext(ctx, "git", "rev-parse", "--git-path", "hooks")
 	if workspaceDirectory != "" {
 		command.Dir = workspaceDirectory
 	}
@@ -107,7 +106,8 @@ func resolveHooksDirectory(workspaceDirectory string) (string, error) {
 	return filepath.Clean(filepath.Join(baseDirectory, hooksDirectory)), nil
 }
 
-func installHook(hookPath string, contents []byte) error {
+// installHook stages a complete executable in the destination directory before replacement.
+func installHook(hookPath string, contents []byte) (resultErr error) {
 	if err := os.MkdirAll(filepath.Dir(hookPath), 0o755); err != nil {
 		return fmt.Errorf("could not create hooks directory: %w", err)
 	}
@@ -117,22 +117,15 @@ func installHook(hookPath string, contents []byte) error {
 		return fmt.Errorf("could not create temporary hook: %w", err)
 	}
 	temporaryPath := temporary.Name()
-	defer os.Remove(temporaryPath)
-
-	if _, err := temporary.Write(contents); err != nil {
-		temporary.Close()
-		return fmt.Errorf("could not write temporary hook: %w", err)
-	}
-	if err := temporary.Chmod(0o755); err != nil {
-		temporary.Close()
-		return fmt.Errorf("could not make temporary hook executable: %w", err)
-	}
-	if err := temporary.Sync(); err != nil {
-		temporary.Close()
-		return fmt.Errorf("could not sync temporary hook: %w", err)
-	}
-	if err := temporary.Close(); err != nil {
-		return fmt.Errorf("could not close temporary hook: %w", err)
+	defer func() {
+		if err := os.Remove(temporaryPath); err != nil && !errors.Is(err, os.ErrNotExist) {
+			resultErr = errors.Join(resultErr, fmt.Errorf("remove temporary hook: %w", err))
+		}
+	}()
+	writeErr := writeHook(temporary, contents)
+	closeErr := temporary.Close()
+	if err := errors.Join(writeErr, closeErr); err != nil {
+		return fmt.Errorf("prepare temporary hook: %w", err)
 	}
 	if err := os.Rename(temporaryPath, hookPath); err != nil {
 		return fmt.Errorf("could not install hook %q: %w", hookPath, err)
@@ -140,16 +133,40 @@ func installHook(hookPath string, contents []byte) error {
 	return nil
 }
 
-func checkHook(hookPath string, contents []byte) error {
-	installed, err := os.ReadFile(hookPath)
+// writeHook finishes all writes and permissions before the caller closes the file.
+func writeHook(file *os.File, contents []byte) error {
+	if _, err := file.Write(contents); err != nil {
+		return fmt.Errorf("write contents: %w", err)
+	}
+	if err := file.Chmod(0o755); err != nil {
+		return fmt.Errorf("set executable permissions: %w", err)
+	}
+	if err := file.Sync(); err != nil {
+		return fmt.Errorf("sync contents: %w", err)
+	}
+	return nil
+}
+
+// checkHook checks file contents and executable permissions without changing them.
+func checkHook(hookPath string, contents []byte) (resultErr error) {
+	file, err := os.Open(hookPath)
 	if err != nil {
 		return fmt.Errorf("hook %q is not installed: %w", hookPath, err)
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			resultErr = errors.Join(resultErr, fmt.Errorf("close hook %q: %w", hookPath, err))
+		}
+	}()
+	installed, err := io.ReadAll(io.LimitReader(file, int64(len(contents))+1))
+	if err != nil {
+		return fmt.Errorf("read hook %q: %w", hookPath, err)
 	}
 	if !bytes.Equal(installed, contents) {
 		return fmt.Errorf("hook %q is out of date", hookPath)
 	}
 
-	info, err := os.Stat(hookPath)
+	info, err := file.Stat()
 	if err != nil {
 		return fmt.Errorf("could not inspect hook %q: %w", hookPath, err)
 	}

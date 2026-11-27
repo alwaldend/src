@@ -7,6 +7,7 @@ import (
 	"testing"
 )
 
+// TestInstallAndCheckHook verifies installed bytes and permissions.
 func TestInstallAndCheckHook(t *testing.T) {
 	hookPath := filepath.Join(t.TempDir(), "hooks", "pre-commit")
 	want := []byte("#!/usr/bin/env sh\nexit 0\n")
@@ -27,6 +28,7 @@ func TestInstallAndCheckHook(t *testing.T) {
 	}
 }
 
+// TestInstallHookReplacesStaleHook checks atomic replacement of an obsolete hook.
 func TestInstallHookReplacesStaleHook(t *testing.T) {
 	hookPath := filepath.Join(t.TempDir(), "pre-commit")
 	if err := os.WriteFile(hookPath, []byte("stale"), 0o644); err != nil {
@@ -42,10 +44,14 @@ func TestInstallHookReplacesStaleHook(t *testing.T) {
 	}
 }
 
+// TestCheckHookFailures checks diagnostics for missing, obsolete, and nonexecutable hooks.
 func TestCheckHookFailures(t *testing.T) {
 	tests := []struct {
-		name      string
-		prepare   func(t *testing.T, path string)
+		// name identifies the failure case.
+		name string
+		// prepare creates the input state for verification.
+		prepare func(t *testing.T, path string)
+		// wantError identifies the expected diagnostic.
 		wantError string
 	}{
 		{

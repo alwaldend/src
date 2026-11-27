@@ -15,6 +15,7 @@ import (
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
+// TestGenerateRules checks rule names, source inputs, and merge metadata for the fixture package.
 func TestGenerateRules(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "skills", "answer-question")
@@ -55,8 +56,11 @@ func TestGenerateRules(t *testing.T) {
 		"evals/unrelated.json",
 	}
 	want := []struct {
-		name   string
+		// name is the expected validation target name.
+		name string
+		// config is the expected package-relative configuration label.
 		config string
+		// skills lists the expected staged skill targets.
 		skills []string
 	}{
 		{
@@ -109,6 +113,7 @@ func TestGenerateRules(t *testing.T) {
 	}
 }
 
+// TestGenerateRulesUsesStableCollisionSuffixes checks path-based names for variants with the same normalized spelling.
 func TestGenerateRulesUsesStableCollisionSuffixes(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -134,6 +139,7 @@ func TestGenerateRulesUsesStableCollisionSuffixes(t *testing.T) {
 	}
 }
 
+// TestRemovedDuplicateConfigsPreserveExistingTargets checks that removing a colliding variant leaves existing rules available for manual cleanup.
 func TestRemovedDuplicateConfigsPreserveExistingTargets(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -199,6 +205,7 @@ func TestRemovedDuplicateConfigsPreserveExistingTargets(t *testing.T) {
 	}
 }
 
+// TestGenericPackageDoesNotInventSkillTarget checks that ordinary eval packages have no inferred skill dependency.
 func TestGenericPackageDoesNotInventSkillTarget(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -216,6 +223,7 @@ func TestGenericPackageDoesNotInventSkillTarget(t *testing.T) {
 	}
 }
 
+// TestRootPackageDoesNotInferUnsupportedSkillTarget keeps root-package validation independent of an unsupported skill target.
 func TestRootPackageDoesNotInferUnsupportedSkillTarget(t *testing.T) {
 	repoRoot := t.TempDir()
 	writeFiles(t, repoRoot, map[string]string{
@@ -236,6 +244,7 @@ func TestRootPackageDoesNotInferUnsupportedSkillTarget(t *testing.T) {
 	}
 }
 
+// TestOnlyExactNoSkillVariantOmitsSkill distinguishes the literal control variant from names that normalize to the same suffix.
 func TestOnlyExactNoSkillVariantOmitsSkill(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "skill")
@@ -259,14 +268,21 @@ func TestOnlyExactNoSkillVariantOmitsSkill(t *testing.T) {
 	}
 }
 
+// TestGenerateRulesRequiresDirectoryAndConfigs checks the directory, package boundary, and config prerequisites for emission.
 func TestGenerateRulesRequiresDirectoryAndConfigs(t *testing.T) {
 	tests := []struct {
-		name       string
-		build      bool
-		files      map[string]string
+		// name identifies the case in subtest output.
+		name string
+		// build requests an existing BUILD file in the package.
+		build bool
+		// files describes the relative fixture paths and their contents.
+		files map[string]string
+		// evalsBuild makes the evaluation directory a nested Bazel package.
 		evalsBuild bool
-		want       int
-		withDir    bool
+		// want is the expected number of generated rules.
+		want int
+		// withDir supplies the package directory to Gazelle.
+		withDir bool
 	}{
 		{
 			name:    "no BUILD file",
@@ -336,6 +352,21 @@ func TestGenerateRulesRequiresDirectoryAndConfigs(t *testing.T) {
 	}
 }
 
+// TestDeepEvalTreePreservesRules rejects a partial scan at the depth limit.
+func TestDeepEvalTreePreservesRules(t *testing.T) {
+	root := t.TempDir()
+	pkg := filepath.Join(root, "pkg")
+	writeFiles(t, pkg, map[string]string{
+		"evals/promptfooconfig.yaml": "",
+		"evals/" + strings.Repeat("sub/", maxEvalDirectoryDepth+1) + "fixture.txt": "",
+	})
+	result := NewLanguage().GenerateRules(generateArgs(root, pkg))
+	if len(result.Gen) != 0 || len(result.Empty) != 0 {
+		t.Fatalf("incomplete scan generated %d rules and %d deletions", len(result.Gen), len(result.Empty))
+	}
+}
+
+// TestEvalScanErrorDoesNotMarkValidationTargetsObsolete checks that a failed scan cannot produce deletion candidates.
 func TestEvalScanErrorDoesNotMarkValidationTargetsObsolete(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -375,6 +406,7 @@ func TestEvalScanErrorDoesNotMarkValidationTargetsObsolete(t *testing.T) {
 	findRule(t, build, promptfooValidateKind, "eval_config_test")
 }
 
+// TestEvalSymlinkDoesNotMarkValidationTargetsObsolete preserves existing validation rules when evals is a symlink.
 func TestEvalSymlinkDoesNotMarkValidationTargetsObsolete(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -418,6 +450,7 @@ func TestEvalSymlinkDoesNotMarkValidationTargetsObsolete(t *testing.T) {
 	findRule(t, build, promptfooValidateKind, "eval_config_test")
 }
 
+// TestFollowedPackageSymlinkCannotEscapeRepository checks that a linked package cannot import another workspace's inputs.
 func TestFollowedPackageSymlinkCannotEscapeRepository(t *testing.T) {
 	repoRoot := t.TempDir()
 	outsideRoot := t.TempDir()
@@ -456,6 +489,7 @@ func TestFollowedPackageSymlinkCannotEscapeRepository(t *testing.T) {
 	}
 }
 
+// TestBuildBoundaryScanErrorIsNonDestructive preserves existing rules when a nested package boundary cannot be inspected.
 func TestBuildBoundaryScanErrorIsNonDestructive(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -490,6 +524,7 @@ func TestBuildBoundaryScanErrorIsNonDestructive(t *testing.T) {
 	}
 }
 
+// TestMergeReconcilesGeneratedAttrsAndPreservesManualAttrs checks ownership of validation inputs during Gazelle merges.
 func TestMergeReconcilesGeneratedAttrsAndPreservesManualAttrs(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -679,6 +714,7 @@ promptfoo_test(
 	t.Error("merged BUILD has no eval promptfoo_test")
 }
 
+// TestNoConfigsPreserveConventionallyNamedManualRules keeps user rules whose names resemble generated validation labels.
 func TestNoConfigsPreserveConventionallyNamedManualRules(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -732,6 +768,7 @@ promptfoo_test(
 	findRule(t, build, promptfooTestKind, "eval")
 }
 
+// TestRenamedConfigPreservesExistingTargetsAndHonorsKeep checks merges with renamed inputs and explicit keep directives.
 func TestRenamedConfigPreservesExistingTargetsAndHonorsKeep(t *testing.T) {
 	repoRoot := t.TempDir()
 	packageDir := filepath.Join(repoRoot, "pkg")
@@ -797,6 +834,7 @@ promptfoo_validate_test(
 	}
 }
 
+// TestCombinedGazelleCreatesFreshSkillPackage runs both extensions and verifies stable output on a second invocation.
 func TestCombinedGazelleCreatesFreshSkillPackage(t *testing.T) {
 	gazellePath, err := runfiles.Rlocation(os.Getenv("COMBINED_GAZELLE"))
 	if err != nil {
@@ -879,12 +917,16 @@ func TestCombinedGazelleCreatesFreshSkillPackage(t *testing.T) {
 	}
 }
 
+// TestApparentLoads checks mapped repository names and the canonical fallback.
 func TestApparentLoads(t *testing.T) {
 	lang := NewLanguage().(language.ModuleAwareLanguage)
 	tests := []struct {
-		name     string
+		// name identifies the case in subtest output.
+		name string
+		// apparent is the consumer's mapped repository name.
 		apparent string
-		want     string
+		// want is the expected generated load label.
+		want string
 	}{
 		{
 			name:     "module mapping",
@@ -926,6 +968,7 @@ func TestApparentLoads(t *testing.T) {
 	}
 }
 
+// generateArgs constructs Gazelle inputs for the fixture package.
 func generateArgs(repoRoot, packageDir string) language.GenerateArgs {
 	return language.GenerateArgs{
 		Config: &config.Config{
@@ -938,6 +981,7 @@ func generateArgs(repoRoot, packageDir string) language.GenerateArgs {
 	}
 }
 
+// findRule returns a required fixture rule or fails the test with the merged BUILD contents.
 func findRule(
 	t *testing.T,
 	build *rule.File,
@@ -954,6 +998,7 @@ func findRule(
 	return nil
 }
 
+// hasRule reports whether a rule of the specified kind and name exists in the merged BUILD file.
 func hasRule(build *rule.File, kind, name string) bool {
 	for _, candidate := range build.Rules {
 		if candidate.Kind() == kind && candidate.Name() == name {
@@ -963,15 +1008,17 @@ func hasRule(build *rule.File, kind, name string) bool {
 	return false
 }
 
+// runGazelle executes both extensions from the fixture workspace.
 func runGazelle(t *testing.T, gazellePath, repoRoot string) {
 	t.Helper()
-	command := exec.Command(gazellePath)
+	command := exec.CommandContext(t.Context(), gazellePath)
 	command.Dir = repoRoot
 	if output, err := command.CombinedOutput(); err != nil {
 		t.Fatalf("run combined Gazelle: %v\n%s", err, output)
 	}
 }
 
+// writeFiles creates a workspace fixture from paths relative to its root.
 func writeFiles(t *testing.T, root string, files map[string]string) {
 	t.Helper()
 	if err := os.MkdirAll(root, 0o755); err != nil {

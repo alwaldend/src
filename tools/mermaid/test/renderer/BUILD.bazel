@@ -210,7 +210,10 @@ js_test(
 go_test(
     name = "renderer_test",
     size = "medium",
-    srcs = ["renderer_test.go"],
+    srcs = [
+        "doc.go",
+        "renderer_test.go",
+    ],
     args = [
         "-smoke=$(rlocationpath :smoke_svg)",
         "-edges=$(rlocationpath :edge_labels_svg)",

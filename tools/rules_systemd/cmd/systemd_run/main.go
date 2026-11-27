@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
@@ -23,6 +24,30 @@ type configuration struct {
 	Arguments []string `json:"arguments"`
 	// Properties are the consumer's systemd NAME=VALUE assignments.
 	Properties []string `json:"properties"`
+}
+
+// maxSidecarBytes limits the generated target configuration read by one invocation.
+const maxSidecarBytes = 16 << 20
+
+// readSidecar reads a single generated JSON configuration before decoding.
+func readSidecar(path string) (content []byte, result error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("open sidecar %q: %w", path, err)
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			result = errors.Join(result, fmt.Errorf("close sidecar %q: %w", path, err))
+		}
+	}()
+	content, err = io.ReadAll(io.LimitReader(file, maxSidecarBytes+1))
+	if err != nil {
+		return nil, fmt.Errorf("read sidecar %q: %w", path, err)
+	}
+	if len(content) > maxSidecarBytes {
+		return nil, fmt.Errorf("sidecar %q exceeds %d bytes", path, maxSidecarBytes)
+	}
+	return content, nil
 }
 
 // main parses wrapper options and reports failures before process replacement.
@@ -67,7 +92,7 @@ func launchConfigured() (bool, error) {
 	if err != nil {
 		return false, fmt.Errorf("resolve launcher executable: %w", err)
 	}
-	content, err := os.ReadFile(executable + ".json")
+	content, err := readSidecar(executable + ".json")
 	if errors.Is(err, os.ErrNotExist) {
 		return false, nil
 	}

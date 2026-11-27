@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -14,7 +15,7 @@ import (
 )
 
 // renderCommand runs the packaged CLI stages through the invocation's existing HTTPS bridge.
-func renderCommand(cli, profile string, env []string) *cobra.Command {
+func renderCommand(cli, profile string, env []string) (*cobra.Command, error) {
 	var workflow, outputDir string
 	var slots, images []string
 	cmd := &cobra.Command{
@@ -101,7 +102,12 @@ func renderCommand(cli, profile string, env []string) *cobra.Command {
 	cmd.Flags().StringVar(&outputDir, "output-dir", "", "Absolute directory for downloaded files")
 	cmd.Flags().StringArrayVar(&slots, "slot", nil, "Override a native workflow input (ADDRESS=VALUE, repeatable)")
 	cmd.Flags().StringArrayVar(&images, "image", nil, "Upload a local image and set its native workflow input (ADDRESS=/absolute/path, repeatable)")
-	return cmd
+	for _, name := range []string{"workflow", "output-dir"} {
+		if err := cmd.MarkFlagRequired(name); err != nil {
+			return nil, fmt.Errorf("configure render flag %q: %w", name, err)
+		}
+	}
+	return cmd, nil
 }
 
 // validAssignment checks the shape of a slot assignment before any upload or generation.
@@ -114,21 +120,24 @@ func validAssignment(assignment string) bool {
 type renderEnvelope struct {
 	// OK indicates the operation succeeded.
 	OK bool `json:"ok"`
-	// Error contains the upstream diagnostic for a failed operation.
-	Error struct {
-		Message string `json:"message"`
-		Hint    string `json:"hint"`
-	} `json:"error"`
 	// Data contains command-specific output.
 	Data struct {
-		PromptID string          `json:"prompt_id"`
-		Status   string          `json:"status"`
+		// PromptID identifies the queued prompt.
+		PromptID string `json:"prompt_id"`
+		// Status reports the execution state.
+		Status string `json:"status"`
+		// Workflow holds the edited workflow document.
 		Workflow json.RawMessage `json:"workflow_json"`
-		Uploads  []struct {
-			Name      string `json:"cloud_name"`
+		// Uploads lists the references staged by the upload command.
+		Uploads []struct {
+			// Name is the filename assigned by ComfyUI.
+			Name string `json:"cloud_name"`
+			// Subfolder locates the upload within ComfyUI storage.
 			Subfolder string `json:"subfolder"`
 		} `json:"uploads"`
+		// Files lists the files saved by the download command.
 		Files []struct {
+			// Path is the local destination reported by the CLI.
 			Path string `json:"path"`
 		} `json:"files"`
 	} `json:"data"`
@@ -138,21 +147,40 @@ type renderEnvelope struct {
 func renderCLI(ctx context.Context, cli string, env []string, args ...string) (renderEnvelope, error) {
 	child := exec.CommandContext(ctx, cli, append([]string{"--json"}, args...)...)
 	child.Env = env
-	child.Stderr = os.Stderr
-	output, runErr := child.Output()
+	// A render error can include the private workflow or a remote diagnostic.
+	// Report the operation at its caller and retain only the process error.
+	const maxRenderJSON = 64 << 20
+	output := commandOutput{limit: maxRenderJSON}
+	child.Stdout = &output
 	var response renderEnvelope
-	decodeErr := json.Unmarshal(output, &response)
-	if runErr != nil {
-		if decodeErr == nil && response.Error.Message != "" {
-			return response, fmt.Errorf("%s %s: %w", response.Error.Message, response.Error.Hint, runErr)
-		}
-		return response, fmt.Errorf("run packaged ComfyUI CLI: %w", runErr)
+	if err := child.Run(); err != nil {
+		return response, fmt.Errorf("run packaged ComfyUI CLI: %w", err)
 	}
-	if decodeErr != nil {
-		return response, fmt.Errorf("decode packaged CLI response: %w", decodeErr)
+	if err := json.Unmarshal(output.buffer.Bytes(), &response); err != nil {
+		return response, fmt.Errorf("decode packaged CLI response: %w", err)
 	}
 	if !response.OK {
-		return response, fmt.Errorf("packaged CLI reported failure: %s", response.Error.Message)
+		return response, errors.New("packaged CLI reported failure")
 	}
 	return response, nil
+}
+
+// commandOutput accepts a single bounded response from a managed child process.
+type commandOutput struct {
+	// buffer holds the bytes already received.
+	buffer bytes.Buffer
+	// limit bounds the retained response size in bytes.
+	limit int
+}
+
+// Write fails when another chunk would exceed the response limit.
+func (out *commandOutput) Write(data []byte) (int, error) {
+	if len(data) > out.limit-out.buffer.Len() {
+		return 0, fmt.Errorf("child output exceeds %d bytes", out.limit)
+	}
+	n, err := out.buffer.Write(data)
+	if err != nil {
+		return n, fmt.Errorf("retain child output: %w", err)
+	}
+	return n, nil
 }

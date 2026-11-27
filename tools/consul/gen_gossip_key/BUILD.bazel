@@ -15,10 +15,17 @@ docs_filegroup(
 
 go_library(
     name = "gen_gossip_key_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "doc.go",
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/consul/gen_gossip_key",
     visibility = ["//:__subpackages__"],
-    deps = ["//projects/al/pkg/al"],
+    deps = [
+        "//projects/al/pkg/al",
+        "//tools/vault/pkg/vaultcmd",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
 
 go_binary(

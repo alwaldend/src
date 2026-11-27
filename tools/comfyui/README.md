@@ -29,7 +29,10 @@ refuses upstream redirects and closes when the command exits. It removes the
 injected login and Vault/Vast credentials from the CLI child environment. It
 forces local routing and disables detached watchers. Each authenticated command
 uses a temporary profile and queries server history for later job commands;
-use prompt IDs for status/download instead of cached state-file paths. Same-user processes share the
+use prompt IDs for status/download instead of cached state-file paths.
+Endpoint discovery reads the final nonempty line, up to 64 KiB, after initialization logs.
+The render command accepts up to 64 MiB of JSON per CLI stage. Downloaded image
+files are written directly by the CLI and do not count toward that limit. Same-user processes share the
 operator account's credential boundary. The authenticated bridge requires Linux
 procfs; the raw packaged CLI retains upstream platform support.
 

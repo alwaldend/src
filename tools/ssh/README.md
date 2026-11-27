@@ -30,6 +30,7 @@ provider to the command's AL configuration. Declare a resource with the SSH
 server `host` and port, SSH `user`, remote TCP `target`, and trusted
 `host_ca` public key. Give it one dependency that returns the
 `private_key` and `public_key_signed` paths, such as `vault_ssh`.
+Each client key or certificate file may contain up to 1 MiB.
 Use the resource's `.Last.Data.address` in a dependent environment
 variable. The provider verifies the SSH host and remote service before
 returning an ephemeral loopback address. The forward closes when the

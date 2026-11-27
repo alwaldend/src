@@ -1,8 +1,8 @@
-// Package inventory_test exercises the inventory command against isolated owner trees.
 package inventory_test
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -32,7 +32,7 @@ func TestCheckoutFreshness(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	output, err := exec.Command(binary, "--root", filepath.Dir(marker), "--check").CombinedOutput()
+	output, err := exec.CommandContext(t.Context(), binary, "--root", filepath.Dir(marker), "--check").CombinedOutput()
 	if err != nil {
 		t.Fatalf("inventory freshness: %v\n%s", err, output)
 	}
@@ -65,10 +65,12 @@ func TestProjectInventory(t *testing.T) {
 		if check {
 			args = append(args, "--check")
 		}
-		command := exec.Command(binary, args...)
+		command := exec.CommandContext(t.Context(), binary, args...)
 		output, err := command.CombinedOutput()
-		t.Log(string(output))
-		return err
+		if err != nil {
+			return fmt.Errorf("run inventory: %w: %s", err, output)
+		}
+		return nil
 	}
 	if run(true) == nil {
 		t.Fatal("accepted missing generated inventory")

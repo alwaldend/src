@@ -41,7 +41,7 @@ to `binary` and `data`. The rule merges their runfiles and preserves the
 binary's `RunEnvironmentInfo`.
 
 The rule uses the existing hermetic copy action to package the Go launcher
-and an adjacent generated JSON configuration. The launcher resolves the
+and an adjacent generated JSON configuration of up to 16 MiB. The launcher resolves the
 application through Bazel runfiles. Both output files are required when
 packaging the executable. No shell launch script or per-target Go build is
 needed. All systemd execution occurs at runtime, outside build actions.

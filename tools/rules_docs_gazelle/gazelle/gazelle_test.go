@@ -13,6 +13,7 @@ import (
 	"github.com/bazelbuild/bazel-gazelle/rule"
 )
 
+// TestGenerateRules checks rule names, source inputs, and merge metadata for the fixture package.
 func TestGenerateRules(t *testing.T) {
 	t.Parallel()
 
@@ -44,6 +45,28 @@ func TestGenerateRules(t *testing.T) {
 	}
 }
 
+// TestUnreadablePackageBoundary preserves existing rules when the nearest boundary cannot be inspected.
+func TestUnreadablePackageBoundary(t *testing.T) {
+	root := t.TempDir()
+	child := filepath.Join(root, "parent", "child")
+	if err := os.MkdirAll(child, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Symlink("BUILD", filepath.Join(root, "parent", "BUILD")); err != nil {
+		t.Skipf("cannot create boundary symlink loop: %v", err)
+	}
+	result := NewLanguage().GenerateRules(language.GenerateArgs{
+		Config:       &config.Config{RepoRoot: root, ValidBuildFileNames: []string{"custom.BUILD"}},
+		File:         rule.EmptyFile("BUILD.bazel", "parent/child"),
+		Dir:          child,
+		RegularFiles: []string{"README.md"},
+	})
+	if len(result.Gen) != 0 || len(result.Empty) != 0 {
+		t.Fatalf("unreadable boundary generated %d rules and %d deletions", len(result.Gen), len(result.Empty))
+	}
+}
+
+// TestParentVisibilityUsesNearestPackage checks visibility when an intermediate directory has no BUILD file.
 func TestParentVisibilityUsesNearestPackage(t *testing.T) {
 	repoRoot := t.TempDir()
 	parent := filepath.Join(repoRoot, "parent")
@@ -59,19 +82,23 @@ func TestParentVisibilityUsesNearestPackage(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got := parentVisibility(language.GenerateArgs{
+	got, err := parentVisibility(language.GenerateArgs{
 		Config: &config.Config{
 			RepoRoot:            repoRoot,
 			ValidBuildFileNames: []string{"BUILD.bazel"},
 		},
 		Dir: child,
 	})
+	if err != nil {
+		t.Fatal(err)
+	}
 	want := []string{"//parent:__pkg__"}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("parentVisibility() = %q, want %q", got, want)
 	}
 }
 
+// TestParentVisibilityDoesNotEscapeNestedWorkspace keeps ancestor packages outside a nested workspace out of its labels.
 func TestParentVisibilityDoesNotEscapeNestedWorkspace(t *testing.T) {
 	outerRoot := t.TempDir()
 	if err := os.WriteFile(
@@ -86,23 +113,29 @@ func TestParentVisibilityDoesNotEscapeNestedWorkspace(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got := parentVisibility(language.GenerateArgs{
+	got, err := parentVisibility(language.GenerateArgs{
 		Config: &config.Config{
 			RepoRoot:            repoRoot,
 			ValidBuildFileNames: []string{"BUILD.bazel"},
 		},
 		Dir: repoRoot,
 	})
+	if err != nil {
+		t.Fatal(err)
+	}
 	if got != nil {
 		t.Fatalf("parentVisibility() = %q, want omitted at workspace root", got)
 	}
 }
 
+// TestGenerateRulesRequiresBuildAndReadme checks that incomplete package evidence leaves existing rules alone.
 func TestGenerateRulesRequiresBuildAndReadme(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
+		// name identifies the case in subtest output.
 		name string
+		// args supplies the available package evidence.
 		args language.GenerateArgs
 	}{
 		{
@@ -126,6 +159,7 @@ func TestGenerateRulesRequiresBuildAndReadme(t *testing.T) {
 	}
 }
 
+// TestMergePreservesManualAttributes merges generated rules against a BUILD file with explicit attribute values.
 func TestMergePreservesManualAttributes(t *testing.T) {
 	t.Parallel()
 
@@ -171,6 +205,7 @@ docs_filegroup(
 	}
 }
 
+// TestNoReadmeDoesNotDeleteManualRule keeps a manually maintained documentation rule after its README disappears.
 func TestNoReadmeDoesNotDeleteManualRule(t *testing.T) {
 	t.Parallel()
 
@@ -198,14 +233,18 @@ func TestNoReadmeDoesNotDeleteManualRule(t *testing.T) {
 	}
 }
 
+// TestApparentLoads checks mapped repository names and the canonical fallback.
 func TestApparentLoads(t *testing.T) {
 	t.Parallel()
 
 	lang := NewLanguage().(language.ModuleAwareLanguage)
 	tests := []struct {
-		name     string
+		// name identifies the case in subtest output.
+		name string
+		// apparent is the consumer's mapped repository name.
 		apparent string
-		want     string
+		// want is the expected generated load label.
+		want string
 	}{
 		{name: "module mapping", apparent: "company_docs", want: "@company_docs//docs:defs.bzl"},
 		{name: "legacy fallback", want: "@rules_docs//docs:defs.bzl"},

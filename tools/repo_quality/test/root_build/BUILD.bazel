@@ -7,7 +7,10 @@ package(transitive_visibility = "//tools:transitive_consumers")
 go_test(
     name = "root_build_test",
     size = "small",
-    srcs = ["root_build_test.go"],
+    srcs = [
+        "doc.go",
+        "root_build_test.go",
+    ],
     args = ["-root-build=$(rlocationpath //:BUILD.bazel)"],
     data = ["//:BUILD.bazel"],
     visibility = ["//tools/repo_quality:__pkg__"],

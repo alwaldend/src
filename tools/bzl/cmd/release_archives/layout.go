@@ -31,7 +31,7 @@ func readArchiveLayout(ctx context.Context, root, commit string) (archiveLayout,
 	}
 	layout := archiveLayout{modules: make(map[string]string)}
 	seen := make(map[string]string)
-	for _, file := range strings.Split(string(tree), "\x00") {
+	for file := range strings.SplitSeq(string(tree), "\x00") {
 		if !strings.HasSuffix(file, "/release.MODULE.bazel") {
 			continue
 		}
@@ -62,7 +62,7 @@ func readArchiveLayout(ctx context.Context, root, commit string) (archiveLayout,
 
 // archiveLabels maps repository-relative Bazel labels to the release layout.
 func archiveLabels(owner string, modules map[string]string) *strings.Replacer {
-	var pairs []string
+	pairs := make([]string, 0, 4*len(modules)+2)
 	for project, name := range modules {
 		prefix := "@" + name + "//"
 		if project == owner {

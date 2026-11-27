@@ -280,7 +280,7 @@ func TestLoginCommand(t *testing.T) {
 			if string(got) != want {
 				t.Fatal("token file differs from the expected successful replacement or preserved original")
 			}
-			files, err := filepath.Glob(filepath.Join(dir, ".vault-token-*"))
+			files, err := filepath.Glob(filepath.Join(dir, ".vault-credential-*"))
 			if err != nil || len(files) != 0 {
 				t.Fatal("temporary token file was not cleaned up")
 			}

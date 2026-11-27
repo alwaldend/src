@@ -1,7 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -13,9 +15,11 @@ import (
 	"github.com/goccy/go-yaml"
 )
 
+// maxSkillNameLength limits the number of Unicode code points in a skill name.
 const maxSkillNameLength = 64
 
 var (
+	// allowedSkillKeys lists valid SKILL.md frontmatter keys.
 	allowedSkillKeys = stringSet(
 		"allowed-tools",
 		"compatibility",
@@ -24,7 +28,9 @@ var (
 		"metadata",
 		"name",
 	)
-	allowedOpenAIKeys    = stringSet("dependencies", "interface", "policy")
+	// allowedOpenAIKeys lists sections recognized in agents/openai.yaml.
+	allowedOpenAIKeys = stringSet("dependencies", "interface", "policy")
+	// allowedInterfaceKeys limits metadata to supported display fields.
 	allowedInterfaceKeys = stringSet(
 		"brand_color",
 		"default_prompt",
@@ -33,6 +39,7 @@ var (
 		"icon_small",
 		"short_description",
 	)
+	// allowedToolKeys limits each dependency entry to supported tool fields.
 	allowedToolKeys = stringSet(
 		"description",
 		"transport",
@@ -40,19 +47,25 @@ var (
 		"url",
 		"value",
 	)
+	// frontmatterPattern extracts the first YAML block from normalized Markdown.
 	frontmatterPattern = regexp.MustCompile(
 		"(?s)^---\\n(.*?)\\n---(?:\\n|$)",
 	)
-	skillNamePattern  = regexp.MustCompile("^[a-z0-9-]+$")
+	// skillNamePattern requires lowercase ASCII letters, digits or hyphens.
+	skillNamePattern = regexp.MustCompile("^[a-z0-9-]+$")
+	// brandColorPattern recognizes a six-digit HTML color.
 	brandColorPattern = regexp.MustCompile("^#[0-9A-Fa-f]{6}$")
-	fencePattern      = regexp.MustCompile(
+	// fencePattern recognizes Markdown backtick and tilde fences including list items.
+	fencePattern = regexp.MustCompile(
 		"^[ \\t]*(?:(?:[-+*]|\\d+[.)])[ \\t]+)?(`{3,}|~{3,})(.*)$",
 	)
+	// todoPattern recognizes a standalone unfinished instruction marker.
 	todoPattern = regexp.MustCompile(
 		"^[ ]{0,3}\\[TODO:[^\\n]*\\][ \\t]*$",
 	)
 )
 
+// stringSet indexes the supplied keys for membership checks.
 func stringSet(values ...string) map[string]struct{} {
 	result := make(map[string]struct{}, len(values))
 	for _, value := range values {
@@ -61,6 +74,7 @@ func stringSet(values ...string) map[string]struct{} {
 	return result
 }
 
+// unknownKeyErrors lists unsupported keys in deterministic order.
 func unknownKeyErrors(
 	value map[string]any,
 	allowed map[string]struct{},
@@ -85,8 +99,33 @@ func unknownKeyErrors(
 	}
 }
 
+// maxDocumentBytes limits each Markdown or metadata document decoded by the validator.
+const maxDocumentBytes = 4 << 20
+
+// readDocument rejects oversized documents before parsing Markdown or YAML.
+func readDocument(path string) (content []byte, result error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("open %q: %w", path, err)
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			result = errors.Join(result, fmt.Errorf("close %q: %w", path, err))
+		}
+	}()
+	content, err = io.ReadAll(io.LimitReader(file, maxDocumentBytes+1))
+	if err != nil {
+		return nil, fmt.Errorf("read %q: %w", path, err)
+	}
+	if len(content) > maxDocumentBytes {
+		return nil, fmt.Errorf("document exceeds %d bytes", maxDocumentBytes)
+	}
+	return content, nil
+}
+
+// readYAMLMapping reads one YAML object and converts parser failures into validation diagnostics.
 func readYAMLMapping(path string, context string) (map[string]any, []string) {
-	content, err := os.ReadFile(path)
+	content, err := readDocument(path)
 	if err != nil {
 		return nil, []string{fmt.Sprintf("could not read %s: %v", context, err)}
 	}
@@ -102,6 +141,7 @@ func readYAMLMapping(path string, context string) (map[string]any, []string) {
 	return value, nil
 }
 
+// validateSkill checks the declared file set, frontmatter, instructions and optional OpenAI metadata.
 func validateSkill(
 	skillPath string,
 	openAIPath string,
@@ -153,11 +193,12 @@ func validateSkill(
 	)
 }
 
+// validateSkillMarkdown extracts normalized YAML frontmatter and checks the instruction body.
 func validateSkillMarkdown(
 	skillPath string,
 	expectedName string,
 ) (string, []string) {
-	content, err := os.ReadFile(skillPath)
+	content, err := readDocument(skillPath)
 	if err != nil {
 		return "", []string{fmt.Sprintf("could not read SKILL.md: %v", err)}
 	}
@@ -224,6 +265,7 @@ func validateSkillMarkdown(
 	return skillName, errors
 }
 
+// validateSkillName checks the name syntax and requires it to match the owning package.
 func validateSkillName(skillName string, expectedName string) []string {
 	var errors []string
 	if !skillNamePattern.MatchString(skillName) {
@@ -259,6 +301,7 @@ func validateSkillName(skillName string, expectedName string) []string {
 	return errors
 }
 
+// validateDescription checks the text length and rejects placeholder descriptions.
 func validateDescription(description string) []string {
 	var errors []string
 	if strings.HasPrefix(description, "[TODO:") {
@@ -273,6 +316,7 @@ func validateDescription(description string) []string {
 	return errors
 }
 
+// hasTODOPlaceholder detects unfinished instructions outside fenced examples.
 func hasTODOPlaceholder(body string) bool {
 	var fenceMarker byte
 	fenceLength := 0
@@ -298,6 +342,7 @@ func hasTODOPlaceholder(body string) bool {
 	return false
 }
 
+// validateOpenAIYAML validates the optional interface, dependency and policy sections.
 func validateOpenAIYAML(
 	openAIPath string,
 	skillName string,
@@ -332,6 +377,7 @@ func validateOpenAIYAML(
 	return errors
 }
 
+// validateInterface checks user-facing text, icon references and display settings.
 func validateInterface(
 	value any,
 	skillName string,
@@ -407,6 +453,7 @@ func validateInterface(
 	return errors
 }
 
+// mentionsSkill recognizes a complete skill reference within a prompt.
 func mentionsSkill(prompt string, skillName string) bool {
 	token := "$" + skillName
 	searchFrom := 0
@@ -431,6 +478,7 @@ func mentionsSkill(prompt string, skillName string) bool {
 	return false
 }
 
+// validateIcon requires a regular file under the skill’s declared assets.
 func validateIcon(
 	skillDirectory string,
 	field string,
@@ -472,6 +520,7 @@ func validateIcon(
 	return nil
 }
 
+// validateDependencies checks the shape and fields of each requested MCP tool.
 func validateDependencies(value any) []string {
 	dependencies, ok := value.(map[string]any)
 	if !ok {
@@ -514,6 +563,7 @@ func validateDependencies(value any) []string {
 	return errors
 }
 
+// validatePolicy checks the type of the implicit invocation setting.
 func validatePolicy(value any) []string {
 	policy, ok := value.(map[string]any)
 	if !ok {

@@ -17,4 +17,5 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/al/test/terraform/cmd/terraform_fixture",
     visibility = ["//visibility:private"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
 )

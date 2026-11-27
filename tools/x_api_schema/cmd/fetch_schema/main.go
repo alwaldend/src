@@ -4,23 +4,30 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/spf13/cobra"
 
 	"git.alwaldend.com/alwaldend/src/internal/x_sdk/pkg/oauth1"
+	"git.alwaldend.com/alwaldend/src/tools/go/pkg/sensitiveerr"
 )
 
 // main adapts command errors to a nonzero process exit without printing secrets.
 func main() {
-	if err := command().Execute(); err != nil {
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	err := command().ExecuteContext(ctx)
+	cancel()
+	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
@@ -54,10 +61,10 @@ func command() *cobra.Command {
 }
 
 // fetch downloads and validates one response before replacing the source file.
-func fetch(ctx context.Context, endpoint, output string, maxBytes int64) error {
+func fetch(ctx context.Context, endpoint, output string, maxBytes int64) (result error) {
 	parsed, err := url.Parse(endpoint)
 	if err != nil {
-		return fmt.Errorf("invalid schema URL")
+		return sensitiveerr.WithContext("invalid schema URL", err)
 	}
 	if parsed.User != nil || parsed.RawQuery != "" || parsed.Fragment != "" || parsed.Host == "" ||
 		(parsed.Scheme != "https" && !(parsed.Scheme == "http" && (parsed.Hostname() == "127.0.0.1" || parsed.Hostname() == "::1"))) {
@@ -90,16 +97,9 @@ func fetch(ctx context.Context, endpoint, output string, maxBytes int64) error {
 	if err != nil {
 		return fmt.Errorf("download schema: %w", err)
 	}
-	defer response.Body.Close()
-	if response.StatusCode != http.StatusOK {
-		return fmt.Errorf("schema endpoint returned HTTP %d; response body omitted", response.StatusCode)
-	}
-	body, err := io.ReadAll(io.LimitReader(response.Body, maxBytes+1))
+	body, err := readResponse(response, maxBytes)
 	if err != nil {
-		return fmt.Errorf("read schema response: %w", err)
-	}
-	if err := response.Body.Close(); err != nil {
-		return fmt.Errorf("close schema response: %w", err)
+		return fmt.Errorf("receive schema: %w", err)
 	}
 	if int64(len(body)) > maxBytes {
 		return fmt.Errorf("schema exceeds %d bytes", maxBytes)
@@ -114,7 +114,7 @@ func fetch(ctx context.Context, endpoint, output string, maxBytes int64) error {
 		Paths map[string]json.RawMessage `json:"paths"`
 	}
 	if err := json.Unmarshal(body, &schema); err != nil {
-		return fmt.Errorf("schema response is not an OpenAPI JSON document")
+		return sensitiveerr.WithContext("schema response is not an OpenAPI JSON document", err)
 	}
 	if !strings.HasPrefix(schema.OpenAPI, "3.") || len(schema.Info) == 0 || len(schema.Paths) == 0 {
 		return fmt.Errorf("schema response lacks OpenAPI 3 metadata or API paths")
@@ -126,19 +126,52 @@ func fetch(ctx context.Context, endpoint, output string, maxBytes int64) error {
 	if err != nil {
 		return fmt.Errorf("create temporary schema: %w", err)
 	}
-	defer os.Remove(temporary.Name())
-	defer temporary.Close()
+	defer func() {
+		if result == nil {
+			return
+		}
+		if err := os.Remove(temporary.Name()); err != nil && !errors.Is(err, os.ErrNotExist) {
+			result = errors.Join(result, fmt.Errorf("remove temporary schema: %w", err))
+		}
+	}()
+	if err := writeSchema(temporary, body); err != nil {
+		return fmt.Errorf("stage schema: %w", err)
+	}
+	if err := os.Rename(temporary.Name(), output); err != nil {
+		return fmt.Errorf("replace schema source: %w", err)
+	}
+	return nil
+}
+
+// readResponse consumes and closes the bounded response before file replacement.
+func readResponse(response *http.Response, maxBytes int64) (body []byte, result error) {
+	defer func() {
+		if err := response.Body.Close(); err != nil {
+			result = errors.Join(result, fmt.Errorf("close schema response: %w", err))
+		}
+	}()
+	if response.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("schema endpoint returned HTTP %d; response body omitted", response.StatusCode)
+	}
+	body, err := io.ReadAll(io.LimitReader(response.Body, maxBytes+1))
+	if err != nil {
+		return nil, fmt.Errorf("read schema response: %w", err)
+	}
+	return body, nil
+}
+
+// writeSchema writes, sets permissions, and closes the temporary file before rename.
+func writeSchema(temporary *os.File, body []byte) (result error) {
+	defer func() {
+		if err := temporary.Close(); err != nil {
+			result = errors.Join(result, fmt.Errorf("close temporary schema: %w", err))
+		}
+	}()
 	if _, err := temporary.Write(append(bytes.TrimSpace(body), '\n')); err != nil {
 		return fmt.Errorf("write temporary schema: %w", err)
 	}
 	if err := temporary.Chmod(0o644); err != nil {
 		return fmt.Errorf("set schema permissions: %w", err)
-	}
-	if err := temporary.Close(); err != nil {
-		return fmt.Errorf("close temporary schema: %w", err)
-	}
-	if err := os.Rename(temporary.Name(), output); err != nil {
-		return fmt.Errorf("replace schema source: %w", err)
 	}
 	return nil
 }

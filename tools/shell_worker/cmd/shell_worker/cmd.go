@@ -6,63 +6,43 @@ import (
 	"io"
 
 	"github.com/spf13/cobra"
+
+	"git.alwaldend.com/alwaldend/src/third_party/com_github_bazelbuild_bazel_protobuf/worker_protocol"
 )
 
-func Execute(
-	ctx context.Context,
-	args []string,
-	getenv func(string) string,
-	stdin io.Reader,
-	stdout, stderr io.Writer,
-) error {
-	root, err := newRootCommand(args, stdin, stdout, stderr)
-	if err != nil {
-		return fmt.Errorf("could not create commands: %w", err)
+// execute selects a one-shot action or a stream of Bazel worker requests.
+func execute(ctx context.Context, args []string, stdin io.Reader, stdout, stderr io.Writer) error {
+	root := &cobra.Command{
+		Use: "bazel-genrule-worker", Short: "Bazel worker that runs shell commands",
+		SilenceErrors: true, SilenceUsage: true,
 	}
-	err = root.Execute()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func newRootCommand(
-	args []string,
-	stdin io.Reader,
-	stdout, stderr io.Writer,
-) (*cobra.Command, error) {
-	cmd := &cobra.Command{
-		Use:           "bazel-genrule-worker",
-		Short:         "Bazel worker that runs shell commands",
-		Long:          "Bazel worker that runs shell commands",
-		SilenceErrors: true,
-	}
-	cmd.SetOut(stdout)
-	cmd.SetErr(stderr)
-	cmd.SetIn(stdin)
-	cmd.SetArgs(args)
-	cmdParse, err := newRunCommand(stdout, stdin)
-	if err != nil {
-		return nil, err
-	}
-	cmd.AddCommand(cmdParse)
-	return cmd, nil
-}
-
-func newRunCommand(stdout io.Writer, stdin io.Reader) (*cobra.Command, error) {
-	protocol := NewWorkerProtocol(stdout, stdin)
-	worker := NewWorker(protocol)
-	persist := false
-	cmd := &cobra.Command{
-		Use:   "run",
-		Short: "run",
-		Long:  "run",
+	root.SetArgs(args)
+	root.SetIn(stdin)
+	root.SetOut(stdout)
+	root.SetErr(stderr)
+	var persist bool
+	var flagfile string
+	run := &cobra.Command{
+		Use: "run", Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			worker.Run(persist)
+			if !persist && flagfile != "" {
+				response := perform(cmd.Context(), &worker_protocol.WorkRequest{Arguments: []string{"--flagfile=" + flagfile}})
+				if response.ExitCode != 0 {
+					return fmt.Errorf("shell action failed: %s", response.Output)
+				}
+				return nil
+			}
+			if err := serve(cmd.Context(), stdin, stdout, persist); err != nil {
+				return fmt.Errorf("serve shell requests: %w", err)
+			}
 			return nil
 		},
 	}
-	flags := cmd.PersistentFlags()
-	flags.BoolVarP(&persist, "persistent_worker", "p", false, "If set, the worker will persist")
-	return cmd, nil
+	run.Flags().BoolVarP(&persist, "persistent_worker", "p", false, "Serve requests until EOF")
+	run.Flags().StringVar(&flagfile, "flagfile", "", "Read this one-shot action from a file")
+	root.AddCommand(run)
+	if err := root.ExecuteContext(ctx); err != nil {
+		return fmt.Errorf("run shell worker: %w", err)
+	}
+	return nil
 }
