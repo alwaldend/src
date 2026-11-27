@@ -1,0 +1,16 @@
+node-name: "{{ inventory_hostname }}"
+data-dir: "{{ k3s_data_dir }}"
+cluster-cidr: "{{ k3s_cluster_cidr }}"
+secrets-encryption: true
+kube-apiserver-arg:
+  - "oidc-issuer-url={{ lookup('ansible.builtin.env', 'FLUX_KUBERNETES_OIDC_ISSUER', default=undefined()) }}"
+  - "oidc-client-id={{ lookup('ansible.builtin.env', 'FLUX_KUBERNETES_OIDC_CLIENT_ID', default=undefined()) }}"
+  - "oidc-signing-algs=RS512"
+  - "oidc-username-prefix=vault:"
+  - "oidc-groups-claim=groups"
+  - "oidc-groups-prefix=vault:"
+disable:
+  - local-storage
+  - metrics-server
+  - servicelb
+  - traefik

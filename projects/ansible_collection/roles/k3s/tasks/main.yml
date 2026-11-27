@@ -57,6 +57,7 @@
         owner: root
         group: root
         mode: "0600"
+      when: item.src | length > 0
     - name: Copy install script
       ansible.builtin.copy:
         src: "{{ k3s_install_script_local_path }}"
@@ -83,3 +84,8 @@
         name: "{{ k3s_service_name }}"
         enabled: true
         state: started
+    - name: Publish the public server CA when configured
+      ansible.builtin.import_tasks: publish_server_ca.yml
+      when:
+        - not ansible_check_mode
+        - k3s_server_ca_vault_path | length > 0

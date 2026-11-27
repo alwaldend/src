@@ -1,13 +1,114 @@
+load("//infra:al_config.bzl", "infra_ansible_keys", "infra_xo_login")
 load("//infra/dns/terraform:defs.bzl", "infra_terraform_dns_config")
-load("//projects/al:defs.bzl", "al_vault_auth")
+load("//projects/al:defs.bzl", "al_config", "al_inject", "al_vault_auth")
 load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+load("//tools/vault/tf_backend:defs.bzl", "vault_tf_backend")
 
 package(transitive_visibility = "//infra:transitive_consumers")
+
+_KUBERNETES_OIDC_PROVIDER = "src_infra_flux_cluster_provider"
+
+_KUBERNETES_OIDC_CLIENT_ID = "51Bw8vtyWuoZIm45O7ug83SghbLCxwPE"
+
+_KUBERNETES_CA_PATH = "alwaldend.com/vault1/approles/src_infra_flux/kubernetes_ca"
+
+_SSH_SIGNING = {
+    "backend": "ssh/clients/sign/admins",
+    "ttl": 7200,
+}
 
 al_vault_auth(
     name = "auth",
     approle = "src_infra_flux",
     extends = "//tools/al:auth",
+)
+
+infra_ansible_keys(
+    name = "ansible_keys",
+    labels = {"ansible": "1"},
+    vault_ssh = _SSH_SIGNING,
+)
+
+al_inject(
+    name = "kubernetes_bootstrap",
+    labels = {"ansible": "1"},
+    res_env = {
+        "FLUX_KUBERNETES_CA_VAULT_PATH": {"value": "secrets/data/" + _KUBERNETES_CA_PATH},
+        "FLUX_KUBERNETES_OIDC_CLIENT_ID": {"value": _KUBERNETES_OIDC_CLIENT_ID},
+        "FLUX_KUBERNETES_OIDC_ISSUER": {"value": "https://vault.alwaldend.com:8200/v1/identity/oidc/provider/" + _KUBERNETES_OIDC_PROVIDER},
+    },
+)
+
+al_inject(
+    name = "kubernetes_login",
+    labels = {"tf": "workloads"},
+    res_env = {
+        "KUBE_CLUSTER_CA_CERT_DATA": {
+            "value": "{{ .Last.Data.certificate }}",
+            "deps": ["kubernetes_ca"],
+        },
+        "KUBE_HOST": {
+            "value": "https://{{ .Last.Data.address }}",
+            "deps": ["kubernetes_forward"],
+        },
+        "KUBE_TOKEN": {
+            "value": "{{ .Last.Data.id_token }}",
+            "deps": ["kubernetes_oidc"],
+        },
+    },
+    res_kv = {"kubernetes_ca": {
+        "mount": "secrets",
+        "path": _KUBERNETES_CA_PATH,
+    }},
+    res_oidc = {"kubernetes_oidc": {
+        "client_id": _KUBERNETES_OIDC_CLIENT_ID,
+        "name": _KUBERNETES_OIDC_PROVIDER,
+        "redirect_uri": "https://unused",
+        "scope": "openid groups",
+    }},
+    res_ssh_forward = {"kubernetes_forward": {
+        "host": "host1.flux.alwaldend.com:22",
+        "user": "ansible",
+        "target": "127.0.0.1:6443",
+        "host_ca": "@AL_SSH_SERVER_CA@",
+        "deps": ["kubernetes_ssh"],
+    }},
+    res_vault_ssh = {"kubernetes_ssh": _SSH_SIGNING},
+    substitutions = {"//data/ssh:ca_servers": "@AL_SSH_SERVER_CA@"},
+)
+
+infra_xo_login(
+    name = "xo_login",
+    labels = {"xoa_login": "1"},
+    oidc_provider = "src_infra_xcp_ng_provider",
+)
+
+vault_tf_backend(
+    name = "setup_backend",
+    labels = {"tf": "setup"},
+    path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/xcp_ng_setup",
+)
+
+vault_tf_backend(
+    name = "workload_backend",
+    labels = {"tf": "workloads"},
+    path = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/workloads",
+)
+
+al_config(
+    name = "al",
+    configs = [
+        ":ansible_keys",
+        ":auth",
+        ":kubernetes_bootstrap",
+        ":kubernetes_login",
+        ":setup_backend",
+        ":workload_backend",
+        ":xo_login",
+        "//infra:al",
+        "//tools/ssh:forward",
+    ],
+    visibility = ["//infra/flux:__subpackages__"],
 )
 
 infra_terraform_dns_config(

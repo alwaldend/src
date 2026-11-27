@@ -1,0 +1,30 @@
+ansible_user: ansible
+ssh_vault_role: src_infra_flux_ssh
+ssh_hardening_match_user:
+  - user: ansible
+    rules:
+      - AllowTcpForwarding local
+      - PermitOpen 127.0.0.1:6443
+      - AllowStreamLocalForwarding no
+ssh_valid_principals:
+  - flux.alwaldend.com
+
+k3s_auth_config_local_path: ""
+k3s_admission_config_local_path: ""
+k3s_cluster_cidr: 10.42.0.0/16
+k3s_server_ca_vault_path: "{{ lookup('ansible.builtin.env', 'FLUX_KUBERNETES_CA_VAULT_PATH', default=undefined()) }}"
+k3s_data_disk: /dev/xvdb
+k3s_storage_disk: /dev/xvdc
+
+firewall_allow_port_from:
+  - src: "any"
+    port: 22
+    comment: ssh
+  - src: "{{ k3s_cluster_cidr }}"
+    port: 6443
+    proto: tcp
+    comment: K3s API from pods
+
+firewall_allow_forward:
+  - src: "{{ k3s_cluster_cidr }}"
+    comment: K3s pod traffic
