@@ -1,3 +1,9 @@
+- name: Configure SELinux policy for HTTP ports
+  ansible.builtin.import_tasks: selinux.yml
+  when:
+    - socket_proxy_selinux_allow_http_ports | bool
+    - ansible_facts.selinux.status == "enabled"
+
 - name: Install the socket and proxy units
   ansible.builtin.template:
     src: "proxy.{{ item }}.j2"
@@ -15,4 +21,6 @@
     name: "{{ socket_proxy_name }}.socket"
     daemon_reload: "{{ socket_proxy_units.changed }}"
     enabled: true
-    state: "{{ 'restarted' if socket_proxy_units.changed else 'started' }}"
+    state: >-
+      {{ 'restarted' if socket_proxy_units.changed
+      or (socket_proxy_selinux_policy | default({})) is changed else 'started' }}

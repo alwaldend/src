@@ -9,3 +9,4 @@
       socket_proxy_name: flux-https
       socket_proxy_listen: "0.0.0.0:{{ ingress_access.port }}"
       socket_proxy_target: "127.0.0.1:{{ ingress_access.backendPort }}"
+      socket_proxy_selinux_allow_http_ports: true

@@ -1,3 +1,4 @@
 socket_proxy_name: "{{ undefined() }}"
 socket_proxy_listen: "{{ undefined() }}"
 socket_proxy_target: "{{ undefined() }}"
+socket_proxy_selinux_allow_http_ports: false
