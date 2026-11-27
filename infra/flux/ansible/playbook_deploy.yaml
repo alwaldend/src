@@ -1,0 +1,7 @@
+- name: Bootstrap Flux K3s
+  hosts: flux
+  force_handlers: true
+  become: true
+  roles:
+    - role: alwaldend.main.host
+    - role: alwaldend.main.k3s

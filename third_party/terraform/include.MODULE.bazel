@@ -52,6 +52,14 @@ terraform_providers.archive(
     version = "2.3.5",
 )
 terraform_providers.archive(
+    name = "terraform_provider_hashicorp_helm",
+    integrity = "sha256-JKlCNSZnz0m+1GfFGpUfF6bBPgzfHFBbAbQfdaGmDQ8=",
+    platform = "linux_amd64",
+    source = "registry.terraform.io/hashicorp/helm",
+    urls = ["https://releases.hashicorp.com/terraform-provider-helm/3.3.0/terraform-provider-helm_3.3.0_linux_amd64.zip"],
+    version = "3.3.0",
+)
+terraform_providers.archive(
     name = "terraform_provider_hashicorp_local",
     integrity = "sha256-vhfcYR6V4mzfbK1538zxBk8OMgMqLv65Oam75/scv+k=",
     platform = "linux_amd64",
@@ -138,6 +146,7 @@ use_repo(
     "terraform_provider_goharbor_harbor",
     "terraform_provider_grafana_grafana",
     "terraform_provider_hashicorp_external",
+    "terraform_provider_hashicorp_helm",
     "terraform_provider_hashicorp_local",
     "terraform_provider_hashicorp_random",
     "terraform_provider_hashicorp_vault",

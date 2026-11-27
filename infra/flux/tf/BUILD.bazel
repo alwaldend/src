@@ -1,0 +1,30 @@
+load("//tools/al:al_terraform.bzl", "al_terraform_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_CONFIG = [
+    "flux-instance/Chart.yaml",
+    "flux-instance/templates/instance.yaml.tpl",
+    "main.tf",
+    "//third_party/io_controlplane_flux_operator:artifacts.json",
+    "//third_party/io_fluxcd_flux:artifacts.json",
+]
+
+al_terraform_package(
+    name = "tf",
+    configs = ["//infra/flux:al"],
+    data = _CONFIG + ["backend.tf"],
+    plugin_labels = {"tf": "workloads"},
+    providers = ["@terraform_provider_hashicorp_helm//:provider"],
+    test_kwargs = {
+        "data": _CONFIG,
+        "validate": True,
+    },
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/flux:__pkg__"],
+)

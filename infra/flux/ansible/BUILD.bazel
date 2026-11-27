@@ -1,0 +1,26 @@
+load("//tools/ansible/rules:al_ansible_package.bzl", "al_ansible_package")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+al_ansible_package(
+    name = "ansible",
+    srcs = [
+        "files/k3s.yaml",
+        "files/k3s_manifests.yaml",
+        "group_vars/all.yaml",
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+    ],
+    configs = ["//infra/flux:al"],
+    plugin_labels = {
+        "ansible": "",
+        "vault_env": "default_default",
+    },
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/flux:__pkg__"],
+)

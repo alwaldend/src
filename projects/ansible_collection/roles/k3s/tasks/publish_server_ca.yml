@@ -1,0 +1,41 @@
+- name: Publish the K3s public server CA to Vault
+  block:
+    - name: Read the K3s public server CA
+      ansible.builtin.slurp:
+        src: "{{ k3s_data_dir }}/server/tls/server-ca.crt"
+      register: k3s_server_ca
+
+    - name: Reconcile the public server CA in Vault
+      delegate_to: localhost
+      become: false
+      no_log: true
+      vars:
+        k3s_vault_ca: "{{ k3s_server_ca.content | b64decode }}"
+      module_defaults:
+        ansible.builtin.uri:
+          url: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR', default=undefined()) }}/v1/{{ k3s_server_ca_vault_path }}"
+          headers:
+            X-Vault-Token: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN', default=undefined()) }}"
+          ca_path: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') | default(omit, true) }}"
+          client_cert: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') | default(omit, true) }}"
+          client_key: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') | default(omit, true) }}"
+          follow_redirects: none
+      block:
+        - name: Read the published CA and its revision
+          ansible.builtin.uri:
+            method: GET
+            status_code: [200, 404]
+          register: k3s_published_ca
+
+        - name: Store the current CA if it changed
+          ansible.builtin.uri:
+            method: POST
+            body_format: json
+            body:
+              options:
+                cas: "{{ k3s_published_ca.json.data.metadata.version | default(0) | int }}"
+              data:
+                certificate: "{{ k3s_vault_ca }}"
+            status_code: [200, 204]
+          when: (k3s_published_ca.json.data.data.certificate | default('')) != k3s_vault_ca
+          changed_when: true

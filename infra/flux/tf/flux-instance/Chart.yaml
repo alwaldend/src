@@ -1,0 +1,4 @@
+apiVersion: v2
+name: flux-instance
+version: 0.1.0
+description: Flux installation for the management cluster
