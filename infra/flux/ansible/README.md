@@ -23,3 +23,12 @@ reach TCP 6443 from its private address for TokenReview. The DC1 management and 
 to TCP 443 on the VM.
 The [Terraform workload root](../tf/README.md) opens its SSH forward
 automatically and authenticates with a Vault OIDC token.
+
+## HTTPS socket
+
+The normal Flux playbook enables the HTTPS socket. On an existing VM with
+Traefik listening on TCP 443, apply the workload root before running the
+playbook so Traefik releases the port. Systemd listens on
+TCP 443 and starts its TCP proxy on demand. Traefik terminates TLS on
+loopback TCP 8443. The host firewall checks the original source address.
+Traefik sees the proxy's loopback address.

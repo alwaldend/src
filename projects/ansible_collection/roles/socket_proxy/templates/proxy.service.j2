@@ -1,0 +1,12 @@
+[Unit]
+Description=Forward TCP connections to {{ socket_proxy_target }}
+Requires={{ socket_proxy_name }}.socket
+After={{ socket_proxy_name }}.socket
+PartOf={{ socket_proxy_name }}.socket
+
+[Service]
+Type=notify
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd {{ socket_proxy_target }}
+DynamicUser=yes
+NoNewPrivileges=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX

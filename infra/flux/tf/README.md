@@ -8,7 +8,7 @@ uses the distribution embedded in the operator and pulls controller images
 from Forgejo. The chart and images support anonymous reads.
 
 The workload root also installs cert-manager with its CRDs and Traefik with
-a cluster-local Service and a TCP 443 listener on the VM. Both pull their pinned charts
+a non-root loopback HTTPS listener on the VM. Both pull their pinned charts
 and images from Forgejo. Publish the [cert-manager](../../../third_party/io_cert_manager_cert_manager/README.md)
 and [Traefik](../../../third_party/io_traefik_traefik/README.md) mirrors before
 applying the root.
@@ -42,7 +42,9 @@ before running the [K3s playbook](../ansible/README.md). Then apply the workload
 root. cert-manager uses a short-lived Flux service account token to renew the
 backend certificate through Vault, which validates the token over the private
 network. The workload plan needs the Vault OIDC client and the public API CA,
-both supplied by AL.
+both supplied by AL. After the workload apply, activate the
+[host HTTPS socket](../ansible/README.md#https-socket). When migrating the
+existing listener, TCP 443 is briefly unavailable between those stages.
 
 Before applying [shared ingress](../../ingress/README.md), apply the
 [Flux DNS root](../dns/README.md) and verify that the `flux-operator` issuer and
