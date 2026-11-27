@@ -10,6 +10,15 @@ http_file(
     ],
 )
 
+http_file(
+    name = "io_k3s_k3s_install",
+    downloaded_file_path = "install.sh",
+    integrity = "sha256-wqJkPdfCWRIah20WU4hExgko3j04rpjyL3uVp//Pq50=",
+    urls = [
+        "https://raw.githubusercontent.com/k3s-io/k3s/2b723db54007ab1509fc86ee2712ecc93cc49843/install.sh",
+    ],
+)
+
 http_archive(
     name = "io_k3s_k3s",
     build_file = "//third_party/io_k3s_k3s:k3s.BUILD.bazel",

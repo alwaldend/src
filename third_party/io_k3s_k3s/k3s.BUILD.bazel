@@ -3,9 +3,3 @@ filegroup(
     srcs = glob(["**"]),
     visibility = ["//visibility:public"],
 )
-
-filegroup(
-    name = "install",
-    srcs = ["install.sh"],
-    visibility = ["//visibility:public"],
-)
