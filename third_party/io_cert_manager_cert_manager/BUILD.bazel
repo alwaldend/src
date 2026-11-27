@@ -1,0 +1,14 @@
+load("//third_party:artifact_mirror.bzl", "third_party_artifact_mirror")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//third_party:transitive_consumers")
+
+exports_files(["artifacts.json"], visibility = ["//infra/flux/tf:__pkg__"])
+
+third_party_artifact_mirror(inventory = "artifacts.json")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

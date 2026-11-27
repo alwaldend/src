@@ -14,19 +14,22 @@ provider "helm" {
 }
 
 locals {
-  namespace    = "flux-system"
-  registry     = "forgejo.alwaldend.com/alwaldend"
-  operator     = jsondecode(file("${path.module}/../../../third_party/io_controlplane_flux_operator/artifacts.json"))
-  flux         = jsondecode(file("${path.module}/../../../third_party/io_fluxcd_flux/artifacts.json"))
-  flux_cli     = one([for image in local.flux.images : image if endswith(image.repository, "/flux-cli")])
-  flux_version = trimprefix(local.flux_cli.tag, "v")
+  namespace       = "flux-system"
+  mirror_host     = "forgejo.alwaldend.com"
+  mirror_owner    = "alwaldend"
+  registry        = "${local.mirror_host}/${local.mirror_owner}"
+  helm_repository = "https://${local.mirror_host}/api/packages/${local.mirror_owner}/helm"
+  operator        = jsondecode(file("${path.module}/../../../third_party/io_controlplane_flux_operator/artifacts.json"))
+  flux            = jsondecode(file("${path.module}/../../../third_party/io_fluxcd_flux/artifacts.json"))
+  flux_cli        = one([for image in local.flux.images : image if endswith(image.repository, "/flux-cli")])
+  flux_version    = trimprefix(local.flux_cli.tag, "v")
 }
 
 resource "helm_release" "operator" {
   name             = "flux-operator"
   namespace        = local.namespace
   create_namespace = true
-  repository       = "https://forgejo.alwaldend.com/api/packages/alwaldend/helm"
+  repository       = local.helm_repository
   chart            = one(local.operator.charts).name
   version          = one(local.operator.charts).version
   wait             = true
