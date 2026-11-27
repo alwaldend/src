@@ -1,0 +1,17 @@
+{
+    "charts": [
+        {
+            "name": "traefik",
+            "version": "41.0.1",
+            "source": "oci://ghcr.io/traefik/helm/traefik",
+            "digest": "sha256:47eabafee63b8c741754f9315452065ed32e24781f7524d01fe6770b037dd3a1"
+        }
+    ],
+    "images": [
+        {
+            "repository": "docker.io/library/traefik",
+            "tag": "v3.7.5",
+            "digest": "sha256:e4d98158c01ad752fc1071d4e9573788747230d902cdde00a772516e692d07c9"
+        }
+    ]
+}

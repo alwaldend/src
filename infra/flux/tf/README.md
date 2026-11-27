@@ -8,6 +8,12 @@ uses the distribution embedded in the operator and pulls controller images
 from Forgejo. The chart and images support anonymous reads. The operator UI
 is disabled.
 
+The workload root also installs cert-manager with its CRDs and Traefik with
+a cluster-local Service. Both pull their pinned charts and images from
+Forgejo. Publish the [cert-manager](../../../third_party/io_cert_manager_cert_manager/README.md)
+and [Traefik](../../../third_party/io_traefik_traefik/README.md) mirrors before
+applying the root. Issuers and ingress routes are configured by their consumers.
+
 After [bootstrapping K3s](../ansible/README.md), run Terraform from any
 host that can reach the VM's SSH port. AL obtains a Vault-signed SSH client
 certificate, verifies the VM's SSH host certificate, and opens the API

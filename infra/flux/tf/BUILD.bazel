@@ -4,11 +4,14 @@ load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
 package(transitive_visibility = "//infra:transitive_consumers")
 
 _CONFIG = [
+    "controllers.tf",
     "flux-instance/Chart.yaml",
     "flux-instance/templates/instance.yaml.tpl",
     "main.tf",
+    "//third_party/io_cert_manager_cert_manager:artifacts.json",
     "//third_party/io_controlplane_flux_operator:artifacts.json",
     "//third_party/io_fluxcd_flux:artifacts.json",
+    "//third_party/io_traefik_traefik:artifacts.json",
 ]
 
 al_terraform_package(
