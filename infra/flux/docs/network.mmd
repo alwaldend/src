@@ -1,0 +1,44 @@
+%%{init: {"flowchart": {"rankSpacing": 44}}}%%
+flowchart LR
+    public("Public browser")
+    ingress["Shared ingress<br/>ingress.alwaldend.com"]
+    terraform["Terraform"]
+
+    lan("DC1 browser")
+    vault_public["Vault · public sign-in<br/>vault.alwaldend.com:8200"]
+    vault_lan["Vault · LAN sign-in<br/>vault.alwaldend.com:8200"]
+
+    subgraph vm["DC1 Flux VM"]
+        socket["systemd HTTPS socket<br/>host1.flux.alwaldend.com:443"]
+
+        subgraph k3s["K3s"]
+            traefik["Traefik<br/>127.0.0.1:8443"]
+            operator["Flux Operator<br/>operator.flux.alwaldend.com"]
+            kube_api["Kubernetes API<br/>TCP 6443"]
+            cert_manager["cert-manager"]
+            runtime["Container runtime"]
+        end
+    end
+
+    vault_cluster["Vault · K3s<br/>vault.alwaldend.com:8200"]
+    forgejo["Forgejo<br/>forgejo.alwaldend.com"]
+
+    public -->|"HTTPS + mTLS<br/>Operator 443 · Vault login 8200"| ingress
+    ingress -->|HTTPS over WireGuard| socket
+    ingress -.->|Vault login over WireGuard| vault_public
+    lan -->|HTTPS| socket
+    lan -.->|OIDC sign-in| vault_lan
+    socket -->|TLS| traefik
+    traefik -->|HTTP 9080| operator
+    operator -.->|OIDC token exchange| vault_cluster
+    operator -.->|API requests as signed-in user| kube_api
+    terraform -->|Apply via SSH tunnel| kube_api
+    terraform -.->|Fetch OIDC ID token via AL| vault_cluster
+    kube_api -.->|OIDC discovery and signing keys| vault_cluster
+    cert_manager -.->|Kubernetes auth and PKI signing| vault_cluster
+    vault_cluster -.->|TokenReview · 6443| kube_api
+    terraform -.->|Fetch Helm charts| forgejo
+    runtime -.->|Pull OCI images| forgejo
+
+    %% Keep registry pulls clear of the cluster's Vault node.
+    forgejo ~~~ vault_cluster

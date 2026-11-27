@@ -1,0 +1,116 @@
+load("@bazel_skylib//rules:expand_template.bzl", "expand_template")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_diagram")
+load("//projects/mermaid_3d:defs.bzl", "mermaid_3d", "mermaid_3d_snapshot")
+load("//tools/rules_docs/docs:defs.bzl", "docs_filegroup")
+
+package(transitive_visibility = "//infra:transitive_consumers")
+
+_NETWORK_VARIANTS = [
+    ("network", "network", "network.mmd"),
+    ("network_single_vault", "network-single-vault", ":network_single_vault_source"),
+]
+
+_NETWORK_ORIENTATIONS = _NETWORK_VARIANTS + [
+    (
+        name + "_vertical",
+        stem + "-vertical",
+        ":" + name + "_vertical_source",
+    )
+    for name, stem, _ in _NETWORK_VARIANTS
+]
+
+# Route the browser aliases to the Vault node shared by the rest of the graph.
+expand_template(
+    name = "network_single_vault_source",
+    out = "network-single-vault.mmd",
+    substitutions = {
+        "\n    vault_lan[": "\n    %% vault_lan[",
+        "\n    vault_public[": "\n    %% vault_public[",
+        "Vault · K3s<br/>": "Vault<br/>",
+        "| vault_lan\n": "| vault_cluster\n",
+        "| vault_public\n": "| vault_cluster\n",
+    },
+    template = "network.mmd",
+)
+
+[
+    expand_template(
+        name = name + "_vertical_source",
+        out = stem + "-vertical.mmd",
+        substitutions = {"\nflowchart LR\n": "\nflowchart TB\n"},
+        template = src,
+    )
+    for name, stem, src in _NETWORK_VARIANTS
+]
+
+[
+    mermaid_diagram(
+        name = name,
+        src = src,
+        out = "rendered/" + stem,
+        webp_aspect_ratio = [],
+    )
+    for name, stem, src in _NETWORK_ORIENTATIONS
+]
+
+# In 3D the browser path runs down the center, Terraform sits on the right,
+# and the container runtime sits beside the Operator.
+[
+    expand_template(
+        name = name + "_3d_source",
+        out = stem + "-3d.mmd",
+        substitutions = {
+            "\n    forgejo ~~~ vault_cluster\n": "\n    traefik ~~~ runtime\n",
+            "\n    terraform[\"Terraform\"]\n\n    lan(\"DC1 browser\")\n": "\n    lan(\"DC1 browser\")\n    terraform[\"Terraform\"]\n",
+            "\nflowchart LR\n": "\nflowchart TB\n",
+        },
+        template = src,
+    )
+    for name, stem, src in _NETWORK_VARIANTS
+]
+
+[
+    mermaid_3d(
+        name = name + "_3d",
+        src = ":" + name + "_3d_source",
+        out = stem + ".3d.html",
+        model = stem + ".3d.json",
+        theme = "//internal/assets:mermaid_theme",
+        view = "front-left",
+    )
+    for name, stem, _ in _NETWORK_VARIANTS
+]
+
+[
+    mermaid_3d_snapshot(
+        name = name + "_3d_snapshot",
+        src = ":" + name + "_3d",
+        out = "rendered/" + stem + ".3d.dark.webp",
+        color_scheme = "dark",
+        height = 1700,
+        width = 1500,
+    )
+    for name, stem, _ in _NETWORK_VARIANTS
+]
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["network.mmd"],
+    visibility = ["//infra/flux:__pkg__"],
+    deps = [
+        ":docs_assets",
+        ":spatial_assets",
+    ],
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":" + name + "_svg" for name, _stem, _src in _NETWORK_ORIENTATIONS],
+    prefix = "content/docs/infra/flux/docs/assets",
+)
+
+docs_filegroup(
+    name = "spatial_assets",
+    srcs = [":" + name + "_3d" for name, _stem, _src in _NETWORK_VARIANTS],
+    prefix = "static/docs/infra/flux/docs/assets",
+)
