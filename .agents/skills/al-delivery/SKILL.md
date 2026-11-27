@@ -177,7 +177,11 @@ of the final candidate.
    tools or APIs can meet the same requirements with fewer steps, settings,
    or abstractions. Remove needless complexity within scope and record the
    outcome in the review evidence. Preserve required behavior and compatibility
-   with deployed state, existing data, and supported callers.
+   with deployed state, existing data, and supported callers. For interfaces
+   introduced only in the current PR, use the final contract directly and
+   update its callers and tests together. Add compatibility for an earlier
+   revision of that PR only when a consumer already relies on it or the user
+   explicitly requests it.
    Evaluate every finding against the request and touched contracts, fix
    in-scope defects, and review the corrected candidate before publication.
    A changed candidate diff invalidates the prior local review. For changed

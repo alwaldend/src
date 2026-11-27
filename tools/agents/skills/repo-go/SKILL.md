@@ -12,6 +12,12 @@ Read the owning README, affected packages' doc.go and BUILD.bazel before editing
 existing style and use project-layout for new source locations; a focused
 change does not authorize moving unrelated legacy packages.
 
+## Follow TigerStyle
+
+Follow TigerStyle when implementing, refactoring, and reviewing Go. Apply the
+[local TigerStyle reference](references/tigerstyle.md) within the repository's
+Go conventions and package contracts.
+
 ## Organize code and initialization
 
 Avoid `init()` functions. Initialize components explicitly from their owning
